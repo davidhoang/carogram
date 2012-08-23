@@ -1,0 +1,5 @@
+.DS_Store
+build/
+Carogram.xcodeproj/xcuserdata/
+Carogram.xcodeproj/project.xcworkspace/xcuserdata/
+

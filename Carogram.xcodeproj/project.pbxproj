@@ -7,6 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		231082B715E5FB18008D3F70 /* TitleBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 231082B615E5FB18008D3F70 /* TitleBarView.xib */; };
+		231082BC15E5FB9B008D3F70 /* title-bar-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 231082BA15E5FB9B008D3F70 /* title-bar-bg.png */; };
+		231082BD15E5FB9B008D3F70 /* title-bar-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 231082BB15E5FB9B008D3F70 /* title-bar-bg@2x.png */; };
+		231082C415E5FEC8008D3F70 /* CGViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 231082C315E5FEC8008D3F70 /* CGViewController.m */; };
+		2352E6BB15E55A51008AA551 /* NoAnimationModalSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352E6BA15E55A51008AA551 /* NoAnimationModalSegue.m */; };
+		23A49E3715E4312C00038FCA /* IGRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A49E2615E4312C00038FCA /* IGRequest.m */; };
+		23A49E3815E4312C00038FCA /* Instagram.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A49E2815E4312C00038FCA /* Instagram.m */; };
+		23A49E3915E4312C00038FCA /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A49E2C15E4312C00038FCA /* NSObject+SBJSON.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		23A49E3A15E4312C00038FCA /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A49E2E15E4312C00038FCA /* NSString+SBJSON.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		23A49E3B15E4312C00038FCA /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A49E3015E4312C00038FCA /* SBJSON.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		23A49E3C15E4312C00038FCA /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A49E3215E4312C00038FCA /* SBJsonBase.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		23A49E3D15E4312C00038FCA /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A49E3415E4312C00038FCA /* SBJsonParser.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		23A49E3E15E4312C00038FCA /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A49E3615E4312C00038FCA /* SBJsonWriter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		23A49E4815E444FE00038FCA /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A49E4615E444FE00038FCA /* HomeViewController.m */; };
 		666EFF8B15CB369500CA30B7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 666EFF8A15CB369500CA30B7 /* UIKit.framework */; };
 		666EFF8D15CB369500CA30B7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 666EFF8C15CB369500CA30B7 /* Foundation.framework */; };
 		666EFF8F15CB369500CA30B7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 666EFF8E15CB369500CA30B7 /* CoreGraphics.framework */; };
@@ -14,7 +28,7 @@
 		666EFF9715CB369500CA30B7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 666EFF9615CB369500CA30B7 /* main.m */; };
 		666EFF9B15CB369500CA30B7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 666EFF9A15CB369500CA30B7 /* AppDelegate.m */; };
 		666EFF9E15CB369500CA30B7 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 666EFF9C15CB369500CA30B7 /* MainStoryboard.storyboard */; };
-		666EFFA115CB369500CA30B7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 666EFFA015CB369500CA30B7 /* ViewController.m */; };
+		666EFFA115CB369500CA30B7 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 666EFFA015CB369500CA30B7 /* LoginViewController.m */; };
 		66DCDADE15DC5C0B00E4B966 /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 66DCDADD15DC5C0B00E4B966 /* Default-Landscape@2x~ipad.png */; };
 		66DCDAE015DC5C4D00E4B966 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 66DCDADF15DC5C4D00E4B966 /* Default-Landscape~ipad.png */; };
 		66DCDAE615DC5F9900E4B966 /* connect-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 66DCDAE215DC5F9900E4B966 /* connect-background.png */; };
@@ -26,6 +40,33 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		231082B615E5FB18008D3F70 /* TitleBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TitleBarView.xib; sourceTree = "<group>"; };
+		231082BA15E5FB9B008D3F70 /* title-bar-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "title-bar-bg.png"; sourceTree = "<group>"; };
+		231082BB15E5FB9B008D3F70 /* title-bar-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "title-bar-bg@2x.png"; sourceTree = "<group>"; };
+		231082C215E5FEC8008D3F70 /* CGViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGViewController.h; sourceTree = "<group>"; };
+		231082C315E5FEC8008D3F70 /* CGViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGViewController.m; sourceTree = "<group>"; };
+		2352E6B915E55A51008AA551 /* NoAnimationModalSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoAnimationModalSegue.h; sourceTree = "<group>"; };
+		2352E6BA15E55A51008AA551 /* NoAnimationModalSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoAnimationModalSegue.m; sourceTree = "<group>"; };
+		23A49E2415E4312C00038FCA /* IGConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGConnect.h; sourceTree = "<group>"; };
+		23A49E2515E4312C00038FCA /* IGRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGRequest.h; sourceTree = "<group>"; };
+		23A49E2615E4312C00038FCA /* IGRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGRequest.m; sourceTree = "<group>"; };
+		23A49E2715E4312C00038FCA /* Instagram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Instagram.h; sourceTree = "<group>"; };
+		23A49E2815E4312C00038FCA /* Instagram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Instagram.m; sourceTree = "<group>"; };
+		23A49E2A15E4312C00038FCA /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
+		23A49E2B15E4312C00038FCA /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
+		23A49E2C15E4312C00038FCA /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
+		23A49E2D15E4312C00038FCA /* NSString+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SBJSON.h"; sourceTree = "<group>"; };
+		23A49E2E15E4312C00038FCA /* NSString+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SBJSON.m"; sourceTree = "<group>"; };
+		23A49E2F15E4312C00038FCA /* SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJSON.h; sourceTree = "<group>"; };
+		23A49E3015E4312C00038FCA /* SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJSON.m; sourceTree = "<group>"; };
+		23A49E3115E4312C00038FCA /* SBJsonBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonBase.h; sourceTree = "<group>"; };
+		23A49E3215E4312C00038FCA /* SBJsonBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonBase.m; sourceTree = "<group>"; };
+		23A49E3315E4312C00038FCA /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
+		23A49E3415E4312C00038FCA /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
+		23A49E3515E4312C00038FCA /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
+		23A49E3615E4312C00038FCA /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		23A49E4515E444FE00038FCA /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		23A49E4615E444FE00038FCA /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		666EFF8615CB369500CA30B7 /* Carogram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Carogram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		666EFF8A15CB369500CA30B7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		666EFF8C15CB369500CA30B7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -37,11 +78,11 @@
 		666EFF9915CB369500CA30B7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		666EFF9A15CB369500CA30B7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		666EFF9D15CB369500CA30B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		666EFF9F15CB369500CA30B7 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		666EFFA015CB369500CA30B7 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		66DCDADB15DC5B2100E4B966 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape~ipad.png"; sourceTree = "<group>"; };
-		66DCDADD15DC5C0B00E4B966 /* Default-Landscape@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape@2x~ipad.png"; sourceTree = "<group>"; };
-		66DCDADF15DC5C4D00E4B966 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape~ipad.png"; sourceTree = "<group>"; };
+		666EFF9F15CB369500CA30B7 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		666EFFA015CB369500CA30B7 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		66DCDADB15DC5B2100E4B966 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape~ipad.png"; path = "../../Default-Landscape~ipad.png"; sourceTree = "<group>"; };
+		66DCDADD15DC5C0B00E4B966 /* Default-Landscape@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape@2x~ipad.png"; path = "../../Default-Landscape@2x~ipad.png"; sourceTree = "<group>"; };
+		66DCDADF15DC5C4D00E4B966 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape~ipad.png"; path = "../../Default-Landscape~ipad.png"; sourceTree = "<group>"; };
 		66DCDAE215DC5F9900E4B966 /* connect-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "connect-background.png"; sourceTree = "<group>"; };
 		66DCDAE315DC5F9900E4B966 /* connect-background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "connect-background@2x.png"; sourceTree = "<group>"; };
 		66DCDAE415DC5F9900E4B966 /* launch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch.png; sourceTree = "<group>"; };
@@ -64,12 +105,73 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		231082B915E5FB49008D3F70 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				231082B615E5FB18008D3F70 /* TitleBarView.xib */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		2352E6B715E559FE008AA551 /* Segues */ = {
+			isa = PBXGroup;
+			children = (
+				2352E6B915E55A51008AA551 /* NoAnimationModalSegue.h */,
+				2352E6BA15E55A51008AA551 /* NoAnimationModalSegue.m */,
+			);
+			name = Segues;
+			sourceTree = "<group>";
+		};
+		23A49E2315E4312C00038FCA /* instagram-ios-sdk */ = {
+			isa = PBXGroup;
+			children = (
+				23A49E2415E4312C00038FCA /* IGConnect.h */,
+				23A49E2515E4312C00038FCA /* IGRequest.h */,
+				23A49E2615E4312C00038FCA /* IGRequest.m */,
+				23A49E2715E4312C00038FCA /* Instagram.h */,
+				23A49E2815E4312C00038FCA /* Instagram.m */,
+				23A49E2915E4312C00038FCA /* JSON */,
+			);
+			path = "instagram-ios-sdk";
+			sourceTree = "<group>";
+		};
+		23A49E2915E4312C00038FCA /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				23A49E2A15E4312C00038FCA /* JSON.h */,
+				23A49E2B15E4312C00038FCA /* NSObject+SBJSON.h */,
+				23A49E2C15E4312C00038FCA /* NSObject+SBJSON.m */,
+				23A49E2D15E4312C00038FCA /* NSString+SBJSON.h */,
+				23A49E2E15E4312C00038FCA /* NSString+SBJSON.m */,
+				23A49E2F15E4312C00038FCA /* SBJSON.h */,
+				23A49E3015E4312C00038FCA /* SBJSON.m */,
+				23A49E3115E4312C00038FCA /* SBJsonBase.h */,
+				23A49E3215E4312C00038FCA /* SBJsonBase.m */,
+				23A49E3315E4312C00038FCA /* SBJsonParser.h */,
+				23A49E3415E4312C00038FCA /* SBJsonParser.m */,
+				23A49E3515E4312C00038FCA /* SBJsonWriter.h */,
+				23A49E3615E4312C00038FCA /* SBJsonWriter.m */,
+			);
+			path = JSON;
+			sourceTree = "<group>";
+		};
+		23A49E4415E4449C00038FCA /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				231082C215E5FEC8008D3F70 /* CGViewController.h */,
+				231082C315E5FEC8008D3F70 /* CGViewController.m */,
+				666EFF9F15CB369500CA30B7 /* LoginViewController.h */,
+				666EFFA015CB369500CA30B7 /* LoginViewController.m */,
+				23A49E4515E444FE00038FCA /* HomeViewController.h */,
+				23A49E4615E444FE00038FCA /* HomeViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
 		666EFF7B15CB369500CA30B7 = {
 			isa = PBXGroup;
 			children = (
-				66DCDADF15DC5C4D00E4B966 /* Default-Landscape~ipad.png */,
-				66DCDADD15DC5C0B00E4B966 /* Default-Landscape@2x~ipad.png */,
-				66DCDADB15DC5B2100E4B966 /* Default-Landscape~ipad.png */,
+				23A49E2315E4312C00038FCA /* instagram-ios-sdk */,
 				666EFF9015CB369500CA30B7 /* Carogram */,
 				666EFF8915CB369500CA30B7 /* Frameworks */,
 				666EFF8715CB369500CA30B7 /* Products */,
@@ -99,11 +201,12 @@
 			children = (
 				666EFF9915CB369500CA30B7 /* AppDelegate.h */,
 				666EFF9A15CB369500CA30B7 /* AppDelegate.m */,
-				666EFF9F15CB369500CA30B7 /* ViewController.h */,
-				666EFFA015CB369500CA30B7 /* ViewController.m */,
+				23A49E4415E4449C00038FCA /* Controllers */,
 				66DCDAE115DC5F9900E4B966 /* Images */,
 				666EFF9C15CB369500CA30B7 /* MainStoryboard.storyboard */,
+				2352E6B715E559FE008AA551 /* Segues */,
 				666EFF9115CB369500CA30B7 /* Supporting Files */,
+				231082B915E5FB49008D3F70 /* Views */,
 			);
 			path = Carogram;
 			sourceTree = "<group>";
@@ -126,8 +229,13 @@
 				66DCDAEB15DC608D00E4B966 /* btn-connect@2x.png */,
 				66DCDAE215DC5F9900E4B966 /* connect-background.png */,
 				66DCDAE315DC5F9900E4B966 /* connect-background@2x.png */,
+				66DCDADF15DC5C4D00E4B966 /* Default-Landscape~ipad.png */,
+				66DCDADD15DC5C0B00E4B966 /* Default-Landscape@2x~ipad.png */,
+				66DCDADB15DC5B2100E4B966 /* Default-Landscape~ipad.png */,
 				66DCDAE415DC5F9900E4B966 /* launch.png */,
 				66DCDAE515DC5F9900E4B966 /* launch@2x.png */,
+				231082BA15E5FB9B008D3F70 /* title-bar-bg.png */,
+				231082BB15E5FB9B008D3F70 /* title-bar-bg@2x.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -193,6 +301,9 @@
 				66DCDAE915DC5F9900E4B966 /* launch@2x.png in Resources */,
 				66DCDAEC15DC608D00E4B966 /* btn-connect.png in Resources */,
 				66DCDAED15DC608D00E4B966 /* btn-connect@2x.png in Resources */,
+				231082B715E5FB18008D3F70 /* TitleBarView.xib in Resources */,
+				231082BC15E5FB9B008D3F70 /* title-bar-bg.png in Resources */,
+				231082BD15E5FB9B008D3F70 /* title-bar-bg@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -205,7 +316,18 @@
 			files = (
 				666EFF9715CB369500CA30B7 /* main.m in Sources */,
 				666EFF9B15CB369500CA30B7 /* AppDelegate.m in Sources */,
-				666EFFA115CB369500CA30B7 /* ViewController.m in Sources */,
+				666EFFA115CB369500CA30B7 /* LoginViewController.m in Sources */,
+				23A49E3715E4312C00038FCA /* IGRequest.m in Sources */,
+				23A49E3815E4312C00038FCA /* Instagram.m in Sources */,
+				23A49E3915E4312C00038FCA /* NSObject+SBJSON.m in Sources */,
+				23A49E3A15E4312C00038FCA /* NSString+SBJSON.m in Sources */,
+				23A49E3B15E4312C00038FCA /* SBJSON.m in Sources */,
+				23A49E3C15E4312C00038FCA /* SBJsonBase.m in Sources */,
+				23A49E3D15E4312C00038FCA /* SBJsonParser.m in Sources */,
+				23A49E3E15E4312C00038FCA /* SBJsonWriter.m in Sources */,
+				23A49E4815E444FE00038FCA /* HomeViewController.m in Sources */,
+				2352E6BB15E55A51008AA551 /* NoAnimationModalSegue.m in Sources */,
+				231082C415E5FEC8008D3F70 /* CGViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

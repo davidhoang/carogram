@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Instagram.h"
 
-@interface ViewController : UIViewController
+@interface LoginViewController : UIViewController <IGSessionDelegate>
 
 - (IBAction)touchConnect:(id)sender;
 @end
