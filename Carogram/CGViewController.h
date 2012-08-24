@@ -11,5 +11,11 @@
 @interface CGViewController : UIViewController
 
 @property (strong, nonatomic) IBOutlet UIView *titleBarView;
+@property (strong, nonatomic) IBOutlet UIImageView *ivSearchBg;
+@property (strong, nonatomic) IBOutlet UIButton *btnPopular;
+@property (strong, nonatomic) IBOutlet UIButton *btnHome;
+
+- (IBAction)touchPopular:(id)sender;
+- (IBAction)touchHome:(id)sender;
 
 @end
