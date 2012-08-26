@@ -49,6 +49,18 @@
     <key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleURLName</key>
+			<string>WFInstagramAPIExampleURLScheme</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>egwfapi</string>
+			</array>
+		</dict>
+	</array>
+    <!--
+    <key>CFBundleURLTypes</key>
+	<array>
+		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
@@ -57,5 +69,6 @@
 			</array>
 		</dict>
 	</array>
+    -->
 </dict>
 </plist>

@@ -8,29 +8,67 @@
 
 #import "AppDelegate.h"
 #import "HomeViewController.h"
+#import "WFInstagramAPI.h"
+#import "NSURL+WillFleming.h"
+#import "CGAuthController.h"
+#import "LoginView.h"
 
 #define APP_ID @"f4d2dcb4d1b3422a99344b1b10fad732"
 
+NSString * const kDefaultsUserToken = @"user_token";
+NSString * const kOAuthCallbackURL = @"egwfapi://auth";
+
+@interface AppDelegate ()
+@property (strong, nonatomic) UIWindow *authWindow;
+@end
+
 @implementation AppDelegate
-@synthesize instagram = _instagram;
+@synthesize authWindow = _authWindow;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.instagram = [[Instagram alloc] initWithClientId:APP_ID
-                                                delegate:nil];
-
-//    self.window.hidden = NO;
-//    [self.window makeKeyWindow];
-    
-//    // Show Login VC if necessary
-//    self.instagram.accessToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"accessToken"];
-//    if (![self.instagram isSessionValid]) {
-//        NSLog(@"session NOT valid");
-//        HomeViewController *homeVC = (HomeViewController *)self.window.rootViewController;
-//        [homeVC performSegueWithIdentifier:@"ShowLogin" sender:self];
-//    } else {
-//        NSLog(@"session VALID");
-//    }
+    NSString *config = [[NSBundle mainBundle] pathForResource:@"APIClient" ofType:@"plist"];
+    if (nil == config) {
+        [[NSException exceptionWithName:NSInternalInconsistencyException
+                                 reason:@"No client configuration plist found! Did you read the README?"
+                               userInfo:nil] raise];
+    }
+    NSDictionary *plist = [NSDictionary dictionaryWithContentsOfFile:config];
+    [WFInstagramAPI setClientId:[plist objectForKey:@"id"]];
+    [WFInstagramAPI setClientSecret:[plist objectForKey:@"secret"]];
+    [WFInstagramAPI setClientScope:@"likes+relationships+comments"];
+    [WFInstagramAPI setOAuthRedirectURL:kOAuthCallbackURL];
+    /*
+    [WFIGConnection setGlobalErrorHandler:^(WFIGResponse* response) {
+        void (^logicBlock)(WFIGResponse*) = ^(WFIGResponse *response){
+            switch ([response error].code) {
+                case WFIGErrorOAuthException:
+                    [WFInstagramAPI enterAuthFlow];
+                    break;
+                default: {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                                    message:[[response error] localizedDescription]
+                                                                   delegate:nil
+                                                          cancelButtonTitle:@"OK"
+                                                          otherButtonTitles:nil];
+                    [alert show];
+                } break;
+            }
+        };
+        // needs to be run on main thread because of UI changes. So we decide where to run & then run it.
+        if ([NSThread isMainThread]) {
+            logicBlock(response);
+        } else {
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                logicBlock(response);
+            });
+        }
+    }];
+    */
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *token = [defaults objectForKey:kDefaultsUserToken];
+    NSLog(@"token: {%@}", token);
+    [WFInstagramAPI setAccessToken:[defaults objectForKey:kDefaultsUserToken]];
     
     return YES;
 }
@@ -55,6 +93,9 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    if (!([WFInstagramAPI accessToken] && [WFInstagramAPI currentUser])) {
+        [self enterAuthFlowAnimated:NO];
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -62,13 +103,68 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-// YOU NEED TO CAPTURE igAPPID:// schema
--(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
-    return [self.instagram handleOpenURL:url];
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    NSDictionary *params = [url queryDictionary];
+    
+    // make the request to get the user's token, then store it in defaults/synchronize & set it on API
+    WFIGResponse *response = [WFInstagramAPI accessTokenForCode:[params objectForKey:@"code"]];
+    NSDictionary *json = [response parsedBody];
+    NSString *token = [json objectForKey:@"access_token"];
+    [WFInstagramAPI setAccessToken:token];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:token forKey:kDefaultsUserToken];
+    [defaults synchronize];
+    
+    // dismiss our auth controller, get back to the regular application
+    UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
+    [keyWindow resignKeyWindow];
+    keyWindow.hidden = YES;
+    [WFInstagramAPI setAuthWindow:nil];
+    [self.window makeKeyAndVisible];
+    
+    return YES;
 }
 
--(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    return [self.instagram handleOpenURL:url];
+- (void)enterAuthFlowAnimated:(BOOL)animated
+{
+    // established that we're not valid yet - show the auth controller
+    CGAuthController *authController = [[CGAuthController alloc] init];
+    [WFIGAuthController setInitialViewClass:[LoginView class]];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:authController];
+    navController.navigationBarHidden = YES;
+    
+    // swap out current window for a window containing our auth view
+    UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
+    UIWindow *authWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    authWindow.rootViewController = navController;
+    [self setAuthWindow:authWindow];  // otherwise it gets released silently
+    
+    if (animated) {
+        [UIView animateWithDuration:1.0 delay:0 options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
+            [keyWindow resignKeyWindow];
+            keyWindow.hidden = YES;
+            [authWindow makeKeyAndVisible];
+        } completion:NULL];
+    } else {
+        [keyWindow resignKeyWindow];
+        keyWindow.hidden = YES;
+        [authWindow makeKeyAndVisible];
+    }
+    
+    //    [UIView animateWithDuration:1.0 delay:0 options:UIViewAnimationOptionTransitionCurlDown animations:^{
+    //        [keyWindow resignKeyWindow];
+    //        keyWindow.hidden = YES;
+    //        [authWindow makeKeyAndVisible];
+    //    } completion:NULL];
+}
+
+- (void)logout
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults removeObjectForKey:kDefaultsUserToken];
+    [defaults synchronize];
+    [WFInstagramAPI setAccessToken:nil];
+    [self enterAuthFlowAnimated:NO];
 }
 
 @end

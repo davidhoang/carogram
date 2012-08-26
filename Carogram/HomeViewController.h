@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "CGViewController.h"
+#import "WFIGMediaCollection.h"
 
 @interface HomeViewController : CGViewController
+
+@property (strong, atomic) WFIGMediaCollection *mediaCollection;
 
 - (IBAction)touchLogout:(id)sender;
 

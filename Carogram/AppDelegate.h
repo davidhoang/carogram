@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Instagram.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-@property (strong, nonatomic) Instagram *instagram;
+
+- (void)enterAuthFlowAnimated:(BOOL)animated;
+- (void)logout;
 
 @end

@@ -8,14 +8,13 @@
 
 #import "HomeViewController.h"
 #import "AppDelegate.h"
-#import "Instagram.h"
-#import "LoginViewController.h"
 
 @interface HomeViewController ()
-
+- (void)loadMediaCollection;
 @end
 
 @implementation HomeViewController
+@synthesize mediaCollection = _mediaCollection;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -28,7 +27,6 @@
 
 - (void)viewDidLoad
 {
-    NSLog(@"<Home> viewDidLoad");
     [super viewDidLoad];
 }
 
@@ -41,47 +39,30 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    NSLog(@"<Home> viewWillAppear");
-    AppDelegate *appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
-    Instagram *instagram = appDelegate.instagram;
-    // Show Login VC if necessary
-    instagram.accessToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"accessToken"];
-    if (![instagram isSessionValid]) {
-        NSLog(@"session NOT valid");
-        [self performSegueWithIdentifier:@"ShowLogin" sender:self];
-    } else {
-        NSLog(@"session VALID");
-    }
-}
-
-//- (void)viewDidAppear:(BOOL)animated
-//{
-//    AppDelegate *appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
-//    Instagram *instagram = appDelegate.instagram;
-//    // Show Login VC if necessary
-//    instagram.accessToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"accessToken"];
-//    if (![instagram isSessionValid]) {
-//        NSLog(@"session NOT valid");
-//        [self performSegueWithIdentifier:@"ShowLogin" sender:self];
-//    } else {
-//        NSLog(@"session VALID");
+    [super viewWillAppear:animated];
+    
+    // start loading your photos if we don't have any right now
+//    if (nil == self.mediaCollection) {
+//        [self loadMediaCollection];
 //    }
-//}
+}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
 	return UIInterfaceOrientationIsLandscape(interfaceOrientation);
 }
 
+- (void) loadMediaCollection {
+    NSLog(@"loadMediaCollection");
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//        self.mediaCollection = [WFIGMedia popularMediaWithError:NULL];
+////        [self.tableView reloadData];
+//    });
+}
+
 - (IBAction)touchLogout:(id)sender {
-    NSLog(@"touchLogout:");
-    AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"accessToken"];
-//    [[NSUserDefaults standardUserDefaults] setObject:appDelegate.instagram.accessToken forKey:@"accessToken"];
-	[[NSUserDefaults standardUserDefaults] synchronize];
-    [appDelegate.instagram logout];
-//    [self.navigationController popViewControllerAnimated:YES];
-//    [self performSegueWithIdentifier:@"ShowLoginAnimated" sender:self];
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDelegate logout];
 }
 
 @end

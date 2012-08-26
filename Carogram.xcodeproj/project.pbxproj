@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		230BF2D415E83314005DB8A0 /* NSURL+WillFleming.m in Sources */ = {isa = PBXBuildFile; fileRef = 230BF2D315E828B8005DB8A0 /* NSURL+WillFleming.m */; };
+		230BF2D715E83BB9005DB8A0 /* LoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 230BF2D615E83BB9005DB8A0 /* LoginView.m */; };
 		231082B715E5FB18008D3F70 /* TitleBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 231082B615E5FB18008D3F70 /* TitleBarView.xib */; };
 		231082BC15E5FB9B008D3F70 /* title-bar-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 231082BA15E5FB9B008D3F70 /* title-bar-bg.png */; };
 		231082BD15E5FB9B008D3F70 /* title-bar-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 231082BB15E5FB9B008D3F70 /* title-bar-bg@2x.png */; };
@@ -25,15 +27,9 @@
 		231F5AAC15E6CA5800D85115 /* btn-home-depressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 231F5AA815E6CA5800D85115 /* btn-home-depressed@2x.png */; };
 		231F5AAD15E6CA5800D85115 /* btn-home.png in Resources */ = {isa = PBXBuildFile; fileRef = 231F5AA915E6CA5800D85115 /* btn-home.png */; };
 		231F5AAE15E6CA5800D85115 /* btn-home@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 231F5AAA15E6CA5800D85115 /* btn-home@2x.png */; };
-		2352E6BB15E55A51008AA551 /* NoAnimationModalSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352E6BA15E55A51008AA551 /* NoAnimationModalSegue.m */; };
-		23A49E3715E4312C00038FCA /* IGRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A49E2615E4312C00038FCA /* IGRequest.m */; };
-		23A49E3815E4312C00038FCA /* Instagram.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A49E2815E4312C00038FCA /* Instagram.m */; };
-		23A49E3915E4312C00038FCA /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A49E2C15E4312C00038FCA /* NSObject+SBJSON.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		23A49E3A15E4312C00038FCA /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A49E2E15E4312C00038FCA /* NSString+SBJSON.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		23A49E3B15E4312C00038FCA /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A49E3015E4312C00038FCA /* SBJSON.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		23A49E3C15E4312C00038FCA /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A49E3215E4312C00038FCA /* SBJsonBase.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		23A49E3D15E4312C00038FCA /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A49E3415E4312C00038FCA /* SBJsonParser.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		23A49E3E15E4312C00038FCA /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A49E3615E4312C00038FCA /* SBJsonWriter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		236BDBA215E750CA00020CE8 /* libWFInstagramAPI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 236BDB9F15E750C500020CE8 /* libWFInstagramAPI.a */; };
+		236BDBA415E7517B00020CE8 /* APIClient.plist in Resources */ = {isa = PBXBuildFile; fileRef = 236BDBA315E7517B00020CE8 /* APIClient.plist */; };
+		238FF21815E8A533004D3356 /* CGAuthController.m in Sources */ = {isa = PBXBuildFile; fileRef = 238FF21715E8A533004D3356 /* CGAuthController.m */; };
 		23A49E4815E444FE00038FCA /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A49E4615E444FE00038FCA /* HomeViewController.m */; };
 		666EFF8B15CB369500CA30B7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 666EFF8A15CB369500CA30B7 /* UIKit.framework */; };
 		666EFF8D15CB369500CA30B7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 666EFF8C15CB369500CA30B7 /* Foundation.framework */; };
@@ -42,7 +38,6 @@
 		666EFF9715CB369500CA30B7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 666EFF9615CB369500CA30B7 /* main.m */; };
 		666EFF9B15CB369500CA30B7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 666EFF9A15CB369500CA30B7 /* AppDelegate.m */; };
 		666EFF9E15CB369500CA30B7 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 666EFF9C15CB369500CA30B7 /* MainStoryboard.storyboard */; };
-		666EFFA115CB369500CA30B7 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 666EFFA015CB369500CA30B7 /* LoginViewController.m */; };
 		66DCDADE15DC5C0B00E4B966 /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 66DCDADD15DC5C0B00E4B966 /* Default-Landscape@2x~ipad.png */; };
 		66DCDAE015DC5C4D00E4B966 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 66DCDADF15DC5C4D00E4B966 /* Default-Landscape~ipad.png */; };
 		66DCDAE615DC5F9900E4B966 /* connect-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 66DCDAE215DC5F9900E4B966 /* connect-background.png */; };
@@ -53,7 +48,28 @@
 		66DCDAED15DC608D00E4B966 /* btn-connect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 66DCDAEB15DC608D00E4B966 /* btn-connect@2x.png */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		236BDB9E15E750C500020CE8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 236BDB9615E750C400020CE8 /* WFInstagramAPI.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BE88E22E14C12548006910C5;
+			remoteInfo = WFInstagramAPI;
+		};
+		236BDBA015E750C500020CE8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 236BDB9615E750C400020CE8 /* WFInstagramAPI.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BE88E23E14C12549006910C5;
+			remoteInfo = WFInstagramAPITests;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		230BF2D215E828B8005DB8A0 /* NSURL+WillFleming.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSURL+WillFleming.h"; sourceTree = "<group>"; };
+		230BF2D315E828B8005DB8A0 /* NSURL+WillFleming.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSURL+WillFleming.m"; sourceTree = "<group>"; };
+		230BF2D515E83BB9005DB8A0 /* LoginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginView.h; sourceTree = "<group>"; };
+		230BF2D615E83BB9005DB8A0 /* LoginView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginView.m; sourceTree = "<group>"; };
 		231082B615E5FB18008D3F70 /* TitleBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TitleBarView.xib; sourceTree = "<group>"; };
 		231082BA15E5FB9B008D3F70 /* title-bar-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "title-bar-bg.png"; sourceTree = "<group>"; };
 		231082BB15E5FB9B008D3F70 /* title-bar-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "title-bar-bg@2x.png"; sourceTree = "<group>"; };
@@ -73,26 +89,10 @@
 		231F5AA815E6CA5800D85115 /* btn-home-depressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-home-depressed@2x.png"; sourceTree = "<group>"; };
 		231F5AA915E6CA5800D85115 /* btn-home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-home.png"; sourceTree = "<group>"; };
 		231F5AAA15E6CA5800D85115 /* btn-home@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-home@2x.png"; sourceTree = "<group>"; };
-		2352E6B915E55A51008AA551 /* NoAnimationModalSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoAnimationModalSegue.h; sourceTree = "<group>"; };
-		2352E6BA15E55A51008AA551 /* NoAnimationModalSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoAnimationModalSegue.m; sourceTree = "<group>"; };
-		23A49E2415E4312C00038FCA /* IGConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGConnect.h; sourceTree = "<group>"; };
-		23A49E2515E4312C00038FCA /* IGRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGRequest.h; sourceTree = "<group>"; };
-		23A49E2615E4312C00038FCA /* IGRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGRequest.m; sourceTree = "<group>"; };
-		23A49E2715E4312C00038FCA /* Instagram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Instagram.h; sourceTree = "<group>"; };
-		23A49E2815E4312C00038FCA /* Instagram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Instagram.m; sourceTree = "<group>"; };
-		23A49E2A15E4312C00038FCA /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
-		23A49E2B15E4312C00038FCA /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
-		23A49E2C15E4312C00038FCA /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
-		23A49E2D15E4312C00038FCA /* NSString+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SBJSON.h"; sourceTree = "<group>"; };
-		23A49E2E15E4312C00038FCA /* NSString+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SBJSON.m"; sourceTree = "<group>"; };
-		23A49E2F15E4312C00038FCA /* SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJSON.h; sourceTree = "<group>"; };
-		23A49E3015E4312C00038FCA /* SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJSON.m; sourceTree = "<group>"; };
-		23A49E3115E4312C00038FCA /* SBJsonBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonBase.h; sourceTree = "<group>"; };
-		23A49E3215E4312C00038FCA /* SBJsonBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonBase.m; sourceTree = "<group>"; };
-		23A49E3315E4312C00038FCA /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
-		23A49E3415E4312C00038FCA /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
-		23A49E3515E4312C00038FCA /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
-		23A49E3615E4312C00038FCA /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		236BDB9615E750C400020CE8 /* WFInstagramAPI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = WFInstagramAPI.xcodeproj; path = WFInstagramAPI/WFInstagramAPI.xcodeproj; sourceTree = "<group>"; };
+		236BDBA315E7517B00020CE8 /* APIClient.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = APIClient.plist; sourceTree = "<group>"; };
+		238FF21615E8A533004D3356 /* CGAuthController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGAuthController.h; sourceTree = "<group>"; };
+		238FF21715E8A533004D3356 /* CGAuthController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGAuthController.m; sourceTree = "<group>"; };
 		23A49E4515E444FE00038FCA /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		23A49E4615E444FE00038FCA /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		666EFF8615CB369500CA30B7 /* Carogram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Carogram.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,8 +106,6 @@
 		666EFF9915CB369500CA30B7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		666EFF9A15CB369500CA30B7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		666EFF9D15CB369500CA30B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		666EFF9F15CB369500CA30B7 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
-		666EFFA015CB369500CA30B7 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		66DCDADB15DC5B2100E4B966 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape~ipad.png"; path = "../../Default-Landscape~ipad.png"; sourceTree = "<group>"; };
 		66DCDADD15DC5C0B00E4B966 /* Default-Landscape@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape@2x~ipad.png"; path = "../../Default-Landscape@2x~ipad.png"; sourceTree = "<group>"; };
 		66DCDADF15DC5C4D00E4B966 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape~ipad.png"; path = "../../Default-Landscape~ipad.png"; sourceTree = "<group>"; };
@@ -124,6 +122,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				236BDBA215E750CA00020CE8 /* libWFInstagramAPI.a in Frameworks */,
 				666EFF8B15CB369500CA30B7 /* UIKit.framework in Frameworks */,
 				666EFF8D15CB369500CA30B7 /* Foundation.framework in Frameworks */,
 				666EFF8F15CB369500CA30B7 /* CoreGraphics.framework in Frameworks */,
@@ -133,54 +132,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		230BF2D115E8286E005DB8A0 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				230BF2D215E828B8005DB8A0 /* NSURL+WillFleming.h */,
+				230BF2D315E828B8005DB8A0 /* NSURL+WillFleming.m */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
 		231082B915E5FB49008D3F70 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				231082B615E5FB18008D3F70 /* TitleBarView.xib */,
+				230BF2D515E83BB9005DB8A0 /* LoginView.h */,
+				230BF2D615E83BB9005DB8A0 /* LoginView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
 		};
-		2352E6B715E559FE008AA551 /* Segues */ = {
+		236BDB9715E750C400020CE8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2352E6B915E55A51008AA551 /* NoAnimationModalSegue.h */,
-				2352E6BA15E55A51008AA551 /* NoAnimationModalSegue.m */,
+				236BDB9F15E750C500020CE8 /* libWFInstagramAPI.a */,
+				236BDBA115E750C500020CE8 /* WFInstagramAPITests.octest */,
 			);
-			name = Segues;
-			sourceTree = "<group>";
-		};
-		23A49E2315E4312C00038FCA /* instagram-ios-sdk */ = {
-			isa = PBXGroup;
-			children = (
-				23A49E2415E4312C00038FCA /* IGConnect.h */,
-				23A49E2515E4312C00038FCA /* IGRequest.h */,
-				23A49E2615E4312C00038FCA /* IGRequest.m */,
-				23A49E2715E4312C00038FCA /* Instagram.h */,
-				23A49E2815E4312C00038FCA /* Instagram.m */,
-				23A49E2915E4312C00038FCA /* JSON */,
-			);
-			path = "instagram-ios-sdk";
-			sourceTree = "<group>";
-		};
-		23A49E2915E4312C00038FCA /* JSON */ = {
-			isa = PBXGroup;
-			children = (
-				23A49E2A15E4312C00038FCA /* JSON.h */,
-				23A49E2B15E4312C00038FCA /* NSObject+SBJSON.h */,
-				23A49E2C15E4312C00038FCA /* NSObject+SBJSON.m */,
-				23A49E2D15E4312C00038FCA /* NSString+SBJSON.h */,
-				23A49E2E15E4312C00038FCA /* NSString+SBJSON.m */,
-				23A49E2F15E4312C00038FCA /* SBJSON.h */,
-				23A49E3015E4312C00038FCA /* SBJSON.m */,
-				23A49E3115E4312C00038FCA /* SBJsonBase.h */,
-				23A49E3215E4312C00038FCA /* SBJsonBase.m */,
-				23A49E3315E4312C00038FCA /* SBJsonParser.h */,
-				23A49E3415E4312C00038FCA /* SBJsonParser.m */,
-				23A49E3515E4312C00038FCA /* SBJsonWriter.h */,
-				23A49E3615E4312C00038FCA /* SBJsonWriter.m */,
-			);
-			path = JSON;
+			name = Products;
 			sourceTree = "<group>";
 		};
 		23A49E4415E4449C00038FCA /* Controllers */ = {
@@ -188,10 +165,10 @@
 			children = (
 				231082C215E5FEC8008D3F70 /* CGViewController.h */,
 				231082C315E5FEC8008D3F70 /* CGViewController.m */,
-				666EFF9F15CB369500CA30B7 /* LoginViewController.h */,
-				666EFFA015CB369500CA30B7 /* LoginViewController.m */,
 				23A49E4515E444FE00038FCA /* HomeViewController.h */,
 				23A49E4615E444FE00038FCA /* HomeViewController.m */,
+				238FF21615E8A533004D3356 /* CGAuthController.h */,
+				238FF21715E8A533004D3356 /* CGAuthController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -199,7 +176,6 @@
 		666EFF7B15CB369500CA30B7 = {
 			isa = PBXGroup;
 			children = (
-				23A49E2315E4312C00038FCA /* instagram-ios-sdk */,
 				666EFF9015CB369500CA30B7 /* Carogram */,
 				666EFF8915CB369500CA30B7 /* Frameworks */,
 				666EFF8715CB369500CA30B7 /* Products */,
@@ -217,6 +193,7 @@
 		666EFF8915CB369500CA30B7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				236BDB9615E750C400020CE8 /* WFInstagramAPI.xcodeproj */,
 				666EFF8A15CB369500CA30B7 /* UIKit.framework */,
 				666EFF8C15CB369500CA30B7 /* Foundation.framework */,
 				666EFF8E15CB369500CA30B7 /* CoreGraphics.framework */,
@@ -230,9 +207,9 @@
 				666EFF9915CB369500CA30B7 /* AppDelegate.h */,
 				666EFF9A15CB369500CA30B7 /* AppDelegate.m */,
 				23A49E4415E4449C00038FCA /* Controllers */,
+				230BF2D115E8286E005DB8A0 /* Extensions */,
 				66DCDAE115DC5F9900E4B966 /* Images */,
 				666EFF9C15CB369500CA30B7 /* MainStoryboard.storyboard */,
-				2352E6B715E559FE008AA551 /* Segues */,
 				666EFF9115CB369500CA30B7 /* Supporting Files */,
 				231082B915E5FB49008D3F70 /* Views */,
 			);
@@ -246,6 +223,7 @@
 				666EFF9315CB369500CA30B7 /* InfoPlist.strings */,
 				666EFF9615CB369500CA30B7 /* main.m */,
 				666EFF9815CB369500CA30B7 /* Carogram-Prefix.pch */,
+				236BDBA315E7517B00020CE8 /* APIClient.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -321,12 +299,35 @@
 			mainGroup = 666EFF7B15CB369500CA30B7;
 			productRefGroup = 666EFF8715CB369500CA30B7 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 236BDB9715E750C400020CE8 /* Products */;
+					ProjectRef = 236BDB9615E750C400020CE8 /* WFInstagramAPI.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				666EFF8515CB369500CA30B7 /* Carogram */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		236BDB9F15E750C500020CE8 /* libWFInstagramAPI.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libWFInstagramAPI.a;
+			remoteRef = 236BDB9E15E750C500020CE8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		236BDBA115E750C500020CE8 /* WFInstagramAPITests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = WFInstagramAPITests.octest;
+			remoteRef = 236BDBA015E750C500020CE8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		666EFF8415CB369500CA30B7 /* Resources */ = {
@@ -360,6 +361,7 @@
 				231F5AAC15E6CA5800D85115 /* btn-home-depressed@2x.png in Resources */,
 				231F5AAD15E6CA5800D85115 /* btn-home.png in Resources */,
 				231F5AAE15E6CA5800D85115 /* btn-home@2x.png in Resources */,
+				236BDBA415E7517B00020CE8 /* APIClient.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -370,20 +372,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				230BF2D415E83314005DB8A0 /* NSURL+WillFleming.m in Sources */,
 				666EFF9715CB369500CA30B7 /* main.m in Sources */,
 				666EFF9B15CB369500CA30B7 /* AppDelegate.m in Sources */,
-				666EFFA115CB369500CA30B7 /* LoginViewController.m in Sources */,
-				23A49E3715E4312C00038FCA /* IGRequest.m in Sources */,
-				23A49E3815E4312C00038FCA /* Instagram.m in Sources */,
-				23A49E3915E4312C00038FCA /* NSObject+SBJSON.m in Sources */,
-				23A49E3A15E4312C00038FCA /* NSString+SBJSON.m in Sources */,
-				23A49E3B15E4312C00038FCA /* SBJSON.m in Sources */,
-				23A49E3C15E4312C00038FCA /* SBJsonBase.m in Sources */,
-				23A49E3D15E4312C00038FCA /* SBJsonParser.m in Sources */,
-				23A49E3E15E4312C00038FCA /* SBJsonWriter.m in Sources */,
 				23A49E4815E444FE00038FCA /* HomeViewController.m in Sources */,
-				2352E6BB15E55A51008AA551 /* NoAnimationModalSegue.m in Sources */,
 				231082C415E5FEC8008D3F70 /* CGViewController.m in Sources */,
+				230BF2D715E83BB9005DB8A0 /* LoginView.m in Sources */,
+				238FF21815E8A533004D3356 /* CGAuthController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -465,6 +460,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Carogram/Carogram-Prefix.pch";
+				HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/../WFInstagramAPI";
 				INFOPLIST_FILE = "Carogram/Carogram-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -476,6 +472,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Carogram/Carogram-Prefix.pch";
+				HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/../WFInstagramAPI";
 				INFOPLIST_FILE = "Carogram/Carogram-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
