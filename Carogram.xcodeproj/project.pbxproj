@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2303559A15EA0EB000C80D31 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2303559915EA0EB000C80D31 /* QuartzCore.framework */; };
 		230BF2D415E83314005DB8A0 /* NSURL+WillFleming.m in Sources */ = {isa = PBXBuildFile; fileRef = 230BF2D315E828B8005DB8A0 /* NSURL+WillFleming.m */; };
 		230BF2D715E83BB9005DB8A0 /* LoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 230BF2D615E83BB9005DB8A0 /* LoginView.m */; };
 		231082B715E5FB18008D3F70 /* TitleBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 231082B615E5FB18008D3F70 /* TitleBarView.xib */; };
@@ -66,6 +67,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2303559915EA0EB000C80D31 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		230BF2D215E828B8005DB8A0 /* NSURL+WillFleming.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSURL+WillFleming.h"; sourceTree = "<group>"; };
 		230BF2D315E828B8005DB8A0 /* NSURL+WillFleming.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSURL+WillFleming.m"; sourceTree = "<group>"; };
 		230BF2D515E83BB9005DB8A0 /* LoginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginView.h; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2303559A15EA0EB000C80D31 /* QuartzCore.framework in Frameworks */,
 				236BDBA215E750CA00020CE8 /* libWFInstagramAPI.a in Frameworks */,
 				666EFF8B15CB369500CA30B7 /* UIKit.framework in Frameworks */,
 				666EFF8D15CB369500CA30B7 /* Foundation.framework in Frameworks */,
@@ -176,6 +179,7 @@
 		666EFF7B15CB369500CA30B7 = {
 			isa = PBXGroup;
 			children = (
+				2303559915EA0EB000C80D31 /* QuartzCore.framework */,
 				666EFF9015CB369500CA30B7 /* Carogram */,
 				666EFF8915CB369500CA30B7 /* Frameworks */,
 				666EFF8715CB369500CA30B7 /* Products */,

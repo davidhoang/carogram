@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "HomeViewController.h"
 #import "WFInstagramAPI.h"
 #import "NSURL+WillFleming.h"
 #import "CGAuthController.h"
@@ -24,6 +23,7 @@ NSString * const kOAuthCallbackURL = @"egwfapi://auth";
 
 @implementation AppDelegate
 @synthesize authWindow = _authWindow;
+@synthesize homeViewController = _homeViewController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -95,6 +95,8 @@ NSString * const kOAuthCallbackURL = @"egwfapi://auth";
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     if (!([WFInstagramAPI accessToken] && [WFInstagramAPI currentUser])) {
         [self enterAuthFlowAnimated:NO];
+    } else {
+        [self.homeViewController setCurrentUser:[WFInstagramAPI currentUser]];
     }
 }
 
@@ -121,6 +123,8 @@ NSString * const kOAuthCallbackURL = @"egwfapi://auth";
     keyWindow.hidden = YES;
     [WFInstagramAPI setAuthWindow:nil];
     [self.window makeKeyAndVisible];
+    
+    [self.homeViewController setCurrentUser:[WFInstagramAPI currentUser]];
     
     return YES;
 }

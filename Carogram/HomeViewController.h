@@ -10,10 +10,9 @@
 #import "CGViewController.h"
 #import "WFIGMediaCollection.h"
 
-@interface HomeViewController : CGViewController
+@interface HomeViewController : CGViewController <UIActionSheetDelegate>
 
+@property (strong, nonatomic) WFIGUser *currentUser;
 @property (strong, atomic) WFIGMediaCollection *mediaCollection;
-
-- (IBAction)touchLogout:(id)sender;
 
 @end
