@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HomeViewController.h"
+
+extern  NSString* const kCurrentUserKeyPath;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-@property (strong, nonatomic) HomeViewController *homeViewController;
+@property (strong, nonatomic) WFIGUser *currentUser;
 
 - (void)enterAuthFlowAnimated:(BOOL)animated;
 - (void)logout;

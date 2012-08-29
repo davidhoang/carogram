@@ -17,13 +17,15 @@
 NSString * const kDefaultsUserToken = @"user_token";
 NSString * const kOAuthCallbackURL = @"egwfapi://auth";
 
+NSString * const kCurrentUserKeyPath = @"currentUser";
+
 @interface AppDelegate ()
 @property (strong, nonatomic) UIWindow *authWindow;
 @end
 
 @implementation AppDelegate
 @synthesize authWindow = _authWindow;
-@synthesize homeViewController = _homeViewController;
+@synthesize currentUser = _currentUser;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -96,7 +98,7 @@ NSString * const kOAuthCallbackURL = @"egwfapi://auth";
     if (!([WFInstagramAPI accessToken] && [WFInstagramAPI currentUser])) {
         [self enterAuthFlowAnimated:NO];
     } else {
-        [self.homeViewController setCurrentUser:[WFInstagramAPI currentUser]];
+        self.currentUser = [WFInstagramAPI currentUser];
     }
 }
 
@@ -124,7 +126,7 @@ NSString * const kOAuthCallbackURL = @"egwfapi://auth";
     [WFInstagramAPI setAuthWindow:nil];
     [self.window makeKeyAndVisible];
     
-    [self.homeViewController setCurrentUser:[WFInstagramAPI currentUser]];
+    self.currentUser = [WFInstagramAPI currentUser];
     
     return YES;
 }
