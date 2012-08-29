@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2303559A15EA0EB000C80D31 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2303559915EA0EB000C80D31 /* QuartzCore.framework */; };
+		230355E315EC241000C80D31 /* GridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 230355E115EC241000C80D31 /* GridViewController.m */; };
+		230355EC15EC854B00C80D31 /* ImageGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 230355EB15EC854B00C80D31 /* ImageGridViewCell.m */; };
 		230BF2D415E83314005DB8A0 /* NSURL+WillFleming.m in Sources */ = {isa = PBXBuildFile; fileRef = 230BF2D315E828B8005DB8A0 /* NSURL+WillFleming.m */; };
 		230BF2D715E83BB9005DB8A0 /* LoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 230BF2D615E83BB9005DB8A0 /* LoginView.m */; };
 		231082B715E5FB18008D3F70 /* TitleBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 231082B615E5FB18008D3F70 /* TitleBarView.xib */; };
@@ -68,6 +70,10 @@
 
 /* Begin PBXFileReference section */
 		2303559915EA0EB000C80D31 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		230355E015EC241000C80D31 /* GridViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridViewController.h; sourceTree = "<group>"; };
+		230355E115EC241000C80D31 /* GridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridViewController.m; sourceTree = "<group>"; };
+		230355EA15EC854B00C80D31 /* ImageGridViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageGridViewCell.h; sourceTree = "<group>"; };
+		230355EB15EC854B00C80D31 /* ImageGridViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageGridViewCell.m; sourceTree = "<group>"; };
 		230BF2D215E828B8005DB8A0 /* NSURL+WillFleming.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSURL+WillFleming.h"; sourceTree = "<group>"; };
 		230BF2D315E828B8005DB8A0 /* NSURL+WillFleming.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSURL+WillFleming.m"; sourceTree = "<group>"; };
 		230BF2D515E83BB9005DB8A0 /* LoginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginView.h; sourceTree = "<group>"; };
@@ -135,6 +141,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		230355E915EC84AF00C80D31 /* TableCells */ = {
+			isa = PBXGroup;
+			children = (
+				230355EA15EC854B00C80D31 /* ImageGridViewCell.h */,
+				230355EB15EC854B00C80D31 /* ImageGridViewCell.m */,
+			);
+			name = TableCells;
+			sourceTree = "<group>";
+		};
 		230BF2D115E8286E005DB8A0 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -147,6 +162,7 @@
 		231082B915E5FB49008D3F70 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				230355E915EC84AF00C80D31 /* TableCells */,
 				231082B615E5FB18008D3F70 /* TitleBarView.xib */,
 				230BF2D515E83BB9005DB8A0 /* LoginView.h */,
 				230BF2D615E83BB9005DB8A0 /* LoginView.m */,
@@ -172,6 +188,8 @@
 				23A49E4615E444FE00038FCA /* HomeViewController.m */,
 				238FF21615E8A533004D3356 /* CGAuthController.h */,
 				238FF21715E8A533004D3356 /* CGAuthController.m */,
+				230355E015EC241000C80D31 /* GridViewController.h */,
+				230355E115EC241000C80D31 /* GridViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -179,7 +197,6 @@
 		666EFF7B15CB369500CA30B7 = {
 			isa = PBXGroup;
 			children = (
-				2303559915EA0EB000C80D31 /* QuartzCore.framework */,
 				666EFF9015CB369500CA30B7 /* Carogram */,
 				666EFF8915CB369500CA30B7 /* Frameworks */,
 				666EFF8715CB369500CA30B7 /* Products */,
@@ -197,10 +214,11 @@
 		666EFF8915CB369500CA30B7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				236BDB9615E750C400020CE8 /* WFInstagramAPI.xcodeproj */,
-				666EFF8A15CB369500CA30B7 /* UIKit.framework */,
-				666EFF8C15CB369500CA30B7 /* Foundation.framework */,
 				666EFF8E15CB369500CA30B7 /* CoreGraphics.framework */,
+				666EFF8C15CB369500CA30B7 /* Foundation.framework */,
+				2303559915EA0EB000C80D31 /* QuartzCore.framework */,
+				666EFF8A15CB369500CA30B7 /* UIKit.framework */,
+				236BDB9615E750C400020CE8 /* WFInstagramAPI.xcodeproj */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -383,6 +401,8 @@
 				231082C415E5FEC8008D3F70 /* CGViewController.m in Sources */,
 				230BF2D715E83BB9005DB8A0 /* LoginView.m in Sources */,
 				238FF21815E8A533004D3356 /* CGAuthController.m in Sources */,
+				230355E315EC241000C80D31 /* GridViewController.m in Sources */,
+				230355EC15EC854B00C80D31 /* ImageGridViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -464,6 +484,11 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Carogram/Carogram-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"WFIGDEBUG=1",
+				);
 				HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/../WFInstagramAPI";
 				INFOPLIST_FILE = "Carogram/Carogram-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";

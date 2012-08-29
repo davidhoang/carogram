@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "CGViewController.h"
-#import "WFIGMediaCollection.h"
+#import "WFInstagramAPI.h"
 
-@interface HomeViewController : CGViewController <UIActionSheetDelegate>
+@interface HomeViewController : CGViewController <UIActionSheetDelegate, UIScrollViewDelegate>
 
 @property (strong, nonatomic) WFIGUser *currentUser;
 @property (strong, atomic) WFIGMediaCollection *mediaCollection;
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @end
