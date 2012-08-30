@@ -39,6 +39,10 @@
 		238426C715EF31780077DDF8 /* ClipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 238426B815EF016C0077DDF8 /* ClipView.m */; };
 		238FF21815E8A533004D3356 /* CGAuthController.m in Sources */ = {isa = PBXBuildFile; fileRef = 238FF21715E8A533004D3356 /* CGAuthController.m */; };
 		23A49E4815E444FE00038FCA /* PopularViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A49E4615E444FE00038FCA /* PopularViewController.m */; };
+		23FC575115F01923002304D9 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 23FC574D15F01923002304D9 /* libTestFlight.a */; };
+		23FC575215F01923002304D9 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 23FC574E15F01923002304D9 /* README.txt */; };
+		23FC575315F01923002304D9 /* release_notes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 23FC574F15F01923002304D9 /* release_notes.txt */; };
+		23FC575515F0195E002304D9 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 23FC575415F0195E002304D9 /* libz.dylib */; };
 		666EFF8B15CB369500CA30B7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 666EFF8A15CB369500CA30B7 /* UIKit.framework */; };
 		666EFF8D15CB369500CA30B7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 666EFF8C15CB369500CA30B7 /* Foundation.framework */; };
 		666EFF8F15CB369500CA30B7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 666EFF8E15CB369500CA30B7 /* CoreGraphics.framework */; };
@@ -116,6 +120,11 @@
 		238FF21715E8A533004D3356 /* CGAuthController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGAuthController.m; sourceTree = "<group>"; };
 		23A49E4515E444FE00038FCA /* PopularViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularViewController.h; sourceTree = "<group>"; };
 		23A49E4615E444FE00038FCA /* PopularViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularViewController.m; sourceTree = "<group>"; };
+		23FC574D15F01923002304D9 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		23FC574E15F01923002304D9 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		23FC574F15F01923002304D9 /* release_notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.txt; sourceTree = "<group>"; };
+		23FC575015F01923002304D9 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
+		23FC575415F0195E002304D9 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		666EFF8615CB369500CA30B7 /* Carogram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Carogram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		666EFF8A15CB369500CA30B7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		666EFF8C15CB369500CA30B7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -143,11 +152,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23FC575515F0195E002304D9 /* libz.dylib in Frameworks */,
 				2303559A15EA0EB000C80D31 /* QuartzCore.framework in Frameworks */,
 				236BDBA215E750CA00020CE8 /* libWFInstagramAPI.a in Frameworks */,
 				666EFF8B15CB369500CA30B7 /* UIKit.framework in Frameworks */,
 				666EFF8D15CB369500CA30B7 /* Foundation.framework in Frameworks */,
 				666EFF8F15CB369500CA30B7 /* CoreGraphics.framework in Frameworks */,
+				23FC575115F01923002304D9 /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -213,11 +224,32 @@
 			name = Controllers;
 			sourceTree = "<group>";
 		};
+		23FC574B15F01903002304D9 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				23FC574C15F01923002304D9 /* TestFlightSDK1.0 */,
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
+		23FC574C15F01923002304D9 /* TestFlightSDK1.0 */ = {
+			isa = PBXGroup;
+			children = (
+				23FC574D15F01923002304D9 /* libTestFlight.a */,
+				23FC574E15F01923002304D9 /* README.txt */,
+				23FC574F15F01923002304D9 /* release_notes.txt */,
+				23FC575015F01923002304D9 /* TestFlight.h */,
+			);
+			path = TestFlightSDK1.0;
+			sourceTree = "<group>";
+		};
 		666EFF7B15CB369500CA30B7 = {
 			isa = PBXGroup;
 			children = (
+				23FC575415F0195E002304D9 /* libz.dylib */,
 				666EFF9015CB369500CA30B7 /* Carogram */,
 				666EFF8915CB369500CA30B7 /* Frameworks */,
+				23FC574B15F01903002304D9 /* Libraries */,
 				666EFF8715CB369500CA30B7 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -407,6 +439,8 @@
 				236BDBA415E7517B00020CE8 /* APIClient.plist in Resources */,
 				238426A615EEE1CB0077DDF8 /* progress-bg.png in Resources */,
 				238426A715EEE1CB0077DDF8 /* progress-bg@2x.png in Resources */,
+				23FC575215F01923002304D9 /* README.txt in Resources */,
+				23FC575315F01923002304D9 /* release_notes.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -454,6 +488,50 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		23A290F515F01E9000EBDC67 /* Ad Hoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Ad Hoc";
+		};
+		23A290F615F01E9000EBDC67 /* Ad Hoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Xhatch Interactive, LLC";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Xhatch Interactive, LLC";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Carogram/Carogram-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = "ADHOC=1";
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/build/WFInstagramAPI";
+				INFOPLIST_FILE = "Carogram/Carogram-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/TestFlightSDK1.0\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "85F771C6-E79B-4C66-9462-6FC4DEF1F644";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "85F771C6-E79B-4C66-9462-6FC4DEF1F644";
+				WRAPPER_EXTENSION = app;
+			};
+			name = "Ad Hoc";
+		};
 		666EFFA215CB369500CA30B7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -517,6 +595,10 @@
 				);
 				HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/../WFInstagramAPI";
 				INFOPLIST_FILE = "Carogram/Carogram-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/TestFlightSDK1.0\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -529,6 +611,10 @@
 				GCC_PREFIX_HEADER = "Carogram/Carogram-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/../WFInstagramAPI";
 				INFOPLIST_FILE = "Carogram/Carogram-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/TestFlightSDK1.0\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -542,6 +628,7 @@
 			buildConfigurations = (
 				666EFFA215CB369500CA30B7 /* Debug */,
 				666EFFA315CB369500CA30B7 /* Release */,
+				23A290F515F01E9000EBDC67 /* Ad Hoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -551,6 +638,7 @@
 			buildConfigurations = (
 				666EFFA515CB369500CA30B7 /* Debug */,
 				666EFFA615CB369500CA30B7 /* Release */,
+				23A290F615F01E9000EBDC67 /* Ad Hoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

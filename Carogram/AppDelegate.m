@@ -11,6 +11,7 @@
 #import "NSURL+WillFleming.h"
 #import "CGAuthController.h"
 #import "LoginView.h"
+#import "TestFlight.h"
 
 #define APP_ID @"f4d2dcb4d1b3422a99344b1b10fad732"
 
@@ -29,6 +30,10 @@ NSString * const kCurrentUserKeyPath = @"currentUser";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+#if defined (ADHOC)
+    [TestFlight takeOff:@"03546bd435156f2bdef6834b4fb111d9_MTI2NTQ1MjAxMi0wOC0yOSAxMzoyODo1OS4wNDUxMTI"];
+#endif
+    
     NSString *config = [[NSBundle mainBundle] pathForResource:@"APIClient" ofType:@"plist"];
     if (nil == config) {
         [[NSException exceptionWithName:NSInternalInconsistencyException
