@@ -77,7 +77,7 @@ static NSString * const CurrentUserKeyPath = @"currentUser";
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if ([ObservableKeys containsObject:keyPath]) {
+    if (object == self && [ObservableKeys containsObject:keyPath]) {
         if ([keyPath isEqualToString:CurrentUserKeyPath]) {
             [self loadMediaCollection];
         }
@@ -87,8 +87,6 @@ static NSString * const CurrentUserKeyPath = @"currentUser";
 }
 
 - (void) loadMediaCollection {
-    NSLog(@"loadMediaCollection");
-    
     if (self.currentUser == nil) return;
     
     self.scrollView.hidden = YES;

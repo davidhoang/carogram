@@ -35,6 +35,8 @@
 		236BDBA415E7517B00020CE8 /* APIClient.plist in Resources */ = {isa = PBXBuildFile; fileRef = 236BDBA315E7517B00020CE8 /* APIClient.plist */; };
 		238426A615EEE1CB0077DDF8 /* progress-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 238426A415EEE1CB0077DDF8 /* progress-bg.png */; };
 		238426A715EEE1CB0077DDF8 /* progress-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 238426A515EEE1CB0077DDF8 /* progress-bg@2x.png */; };
+		238426C615EF2D330077DDF8 /* UserFeedMediaController.m in Sources */ = {isa = PBXBuildFile; fileRef = 238426C515EF2D330077DDF8 /* UserFeedMediaController.m */; };
+		238426C715EF31780077DDF8 /* ClipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 238426B815EF016C0077DDF8 /* ClipView.m */; };
 		238FF21815E8A533004D3356 /* CGAuthController.m in Sources */ = {isa = PBXBuildFile; fileRef = 238FF21715E8A533004D3356 /* CGAuthController.m */; };
 		23A49E4815E444FE00038FCA /* PopularViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A49E4615E444FE00038FCA /* PopularViewController.m */; };
 		666EFF8B15CB369500CA30B7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 666EFF8A15CB369500CA30B7 /* UIKit.framework */; };
@@ -106,6 +108,10 @@
 		236BDBA315E7517B00020CE8 /* APIClient.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = APIClient.plist; sourceTree = "<group>"; };
 		238426A415EEE1CB0077DDF8 /* progress-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "progress-bg.png"; sourceTree = "<group>"; };
 		238426A515EEE1CB0077DDF8 /* progress-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "progress-bg@2x.png"; sourceTree = "<group>"; };
+		238426B715EF016C0077DDF8 /* ClipView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClipView.h; sourceTree = "<group>"; };
+		238426B815EF016C0077DDF8 /* ClipView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClipView.m; sourceTree = "<group>"; };
+		238426C415EF2D330077DDF8 /* UserFeedMediaController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserFeedMediaController.h; sourceTree = "<group>"; };
+		238426C515EF2D330077DDF8 /* UserFeedMediaController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserFeedMediaController.m; sourceTree = "<group>"; };
 		238FF21615E8A533004D3356 /* CGAuthController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGAuthController.h; sourceTree = "<group>"; };
 		238FF21715E8A533004D3356 /* CGAuthController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGAuthController.m; sourceTree = "<group>"; };
 		23A49E4515E444FE00038FCA /* PopularViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularViewController.h; sourceTree = "<group>"; };
@@ -169,6 +175,8 @@
 		231082B915E5FB49008D3F70 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				238426B715EF016C0077DDF8 /* ClipView.h */,
+				238426B815EF016C0077DDF8 /* ClipView.m */,
 				230355E915EC84AF00C80D31 /* TableCells */,
 				231082B615E5FB18008D3F70 /* TitleBarView.xib */,
 				230BF2D515E83BB9005DB8A0 /* LoginView.h */,
@@ -199,6 +207,8 @@
 				230355E115EC241000C80D31 /* GridViewController.m */,
 				230B1EFB15EE986F00A00058 /* HomeViewController.h */,
 				230B1EFC15EE986F00A00058 /* HomeViewController.m */,
+				238426C415EF2D330077DDF8 /* UserFeedMediaController.h */,
+				238426C515EF2D330077DDF8 /* UserFeedMediaController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -417,6 +427,8 @@
 				230355E315EC241000C80D31 /* GridViewController.m in Sources */,
 				230355EC15EC854B00C80D31 /* ImageGridViewCell.m in Sources */,
 				230B1EFD15EE986F00A00058 /* HomeViewController.m in Sources */,
+				238426C615EF2D330077DDF8 /* UserFeedMediaController.m in Sources */,
+				238426C715EF31780077DDF8 /* ClipView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
