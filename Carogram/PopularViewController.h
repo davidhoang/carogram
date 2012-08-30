@@ -14,5 +14,7 @@
 
 @property (strong, atomic) WFIGMediaCollection *mediaCollection;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (strong, nonatomic) IBOutlet UIImageView *ivProgressBackground;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorView;
 
 @end

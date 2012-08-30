@@ -33,6 +33,8 @@
 		231F5AAE15E6CA5800D85115 /* btn-home@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 231F5AAA15E6CA5800D85115 /* btn-home@2x.png */; };
 		236BDBA215E750CA00020CE8 /* libWFInstagramAPI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 236BDB9F15E750C500020CE8 /* libWFInstagramAPI.a */; };
 		236BDBA415E7517B00020CE8 /* APIClient.plist in Resources */ = {isa = PBXBuildFile; fileRef = 236BDBA315E7517B00020CE8 /* APIClient.plist */; };
+		238426A615EEE1CB0077DDF8 /* progress-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 238426A415EEE1CB0077DDF8 /* progress-bg.png */; };
+		238426A715EEE1CB0077DDF8 /* progress-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 238426A515EEE1CB0077DDF8 /* progress-bg@2x.png */; };
 		238FF21815E8A533004D3356 /* CGAuthController.m in Sources */ = {isa = PBXBuildFile; fileRef = 238FF21715E8A533004D3356 /* CGAuthController.m */; };
 		23A49E4815E444FE00038FCA /* PopularViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A49E4615E444FE00038FCA /* PopularViewController.m */; };
 		666EFF8B15CB369500CA30B7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 666EFF8A15CB369500CA30B7 /* UIKit.framework */; };
@@ -102,6 +104,8 @@
 		231F5AAA15E6CA5800D85115 /* btn-home@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-home@2x.png"; sourceTree = "<group>"; };
 		236BDB9615E750C400020CE8 /* WFInstagramAPI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = WFInstagramAPI.xcodeproj; path = WFInstagramAPI/WFInstagramAPI.xcodeproj; sourceTree = "<group>"; };
 		236BDBA315E7517B00020CE8 /* APIClient.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = APIClient.plist; sourceTree = "<group>"; };
+		238426A415EEE1CB0077DDF8 /* progress-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "progress-bg.png"; sourceTree = "<group>"; };
+		238426A515EEE1CB0077DDF8 /* progress-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "progress-bg@2x.png"; sourceTree = "<group>"; };
 		238FF21615E8A533004D3356 /* CGAuthController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGAuthController.h; sourceTree = "<group>"; };
 		238FF21715E8A533004D3356 /* CGAuthController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGAuthController.m; sourceTree = "<group>"; };
 		23A49E4515E444FE00038FCA /* PopularViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularViewController.h; sourceTree = "<group>"; };
@@ -277,6 +281,8 @@
 				66DCDADB15DC5B2100E4B966 /* Default-Landscape~ipad.png */,
 				66DCDAE415DC5F9900E4B966 /* launch.png */,
 				66DCDAE515DC5F9900E4B966 /* launch@2x.png */,
+				238426A415EEE1CB0077DDF8 /* progress-bg.png */,
+				238426A515EEE1CB0077DDF8 /* progress-bg@2x.png */,
 				231F5A9115E6175A00D85115 /* search-bg.png */,
 				231F5A9215E6175A00D85115 /* search-bg@2x.png */,
 				231F5A9915E61A5F00D85115 /* search-icon.png */,
@@ -389,6 +395,8 @@
 				231F5AAD15E6CA5800D85115 /* btn-home.png in Resources */,
 				231F5AAE15E6CA5800D85115 /* btn-home@2x.png in Resources */,
 				236BDBA415E7517B00020CE8 /* APIClient.plist in Resources */,
+				238426A615EEE1CB0077DDF8 /* progress-bg.png in Resources */,
+				238426A715EEE1CB0077DDF8 /* progress-bg@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -18,6 +18,15 @@
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="F8J-2C-mn1">
+                                <rect key="frame" x="448.5" y="321" width="127" height="107"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="whiteLarge" id="Rh4-Gb-0dT">
+                                <rect key="frame" x="493" y="356" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="color" white="0.69785013686131392" alpha="1" colorSpace="calibratedWhite"/>
+                            </activityIndicatorView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="LIV-kg-s67">
                                 <rect key="frame" x="0.0" y="50" width="1024" height="699"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -33,6 +42,8 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
+                        <outlet property="activityIndicatorView" destination="Rh4-Gb-0dT" id="nWB-ZR-aWH"/>
+                        <outlet property="ivProgressBackground" destination="F8J-2C-mn1" id="zae-iW-8Da"/>
                         <outlet property="scrollView" destination="LIV-kg-s67" id="4cI-4g-srw"/>
                     </connections>
                 </viewController>
@@ -153,7 +164,8 @@
         <class className="PopularViewController" superclassName="CGViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PopularViewController.h"/>
             <relationships>
-                <relationship kind="action" name="touchUser:"/>
+                <relationship kind="outlet" name="activityIndicatorView" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="ivProgressBackground" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
             </relationships>
         </class>

@@ -29,6 +29,8 @@ static NSString * const CurrentUserKeyPath = @"currentUser";
 }
 @synthesize mediaCollection = _mediaCollection;
 @synthesize scrollView = _scrollView;
+@synthesize ivProgressBackground = _ivProgressBackground;
+@synthesize activityIndicatorView = _activityIndicatorView;
 
 - (id)initWithCoder:(NSCoder *)decoder
 {
@@ -47,11 +49,10 @@ static NSString * const CurrentUserKeyPath = @"currentUser";
     [super viewDidLoad];
     
     for (NSString *keyPath in ObservableKeys) {
-        [self addObserver:self
-                      forKeyPath:keyPath
-                         options:NSKeyValueObservingOptionNew
-                         context:nil];
+        [self addObserver:self forKeyPath:keyPath options:NSKeyValueObservingOptionNew context:nil];
     }
+    
+    self.ivProgressBackground.image = [[UIImage imageNamed:@"progress-bg"] stretchableImageWithLeftCapWidth:29 topCapHeight:30];
     
     [self loadMediaCollection];
 }
@@ -64,6 +65,8 @@ static NSString * const CurrentUserKeyPath = @"currentUser";
     
     [self setScrollView:nil];
     
+    [self setIvProgressBackground:nil];
+    [self setActivityIndicatorView:nil];
     [super viewDidUnload];
 }
 
@@ -88,6 +91,10 @@ static NSString * const CurrentUserKeyPath = @"currentUser";
     
     if (self.currentUser == nil) return;
     
+    self.scrollView.hidden = YES;
+    self.ivProgressBackground.hidden = NO;
+    [self.activityIndicatorView startAnimating];
+    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         self.mediaCollection = [WFIGMedia popularMediaWithError:NULL];
         
@@ -105,6 +112,10 @@ static NSString * const CurrentUserKeyPath = @"currentUser";
                 
                 self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * pageCount, self.scrollView.frame.size.height);
                 self.scrollView.contentOffset = CGPointMake(0, 0);
+                
+                self.ivProgressBackground.hidden = YES;
+                [self.activityIndicatorView stopAnimating];
+                self.scrollView.hidden = NO;
                 
                 [self loadScrollViewWithPage:0];
                 [self loadScrollViewWithPage:1];
