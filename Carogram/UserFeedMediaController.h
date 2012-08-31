@@ -13,5 +13,9 @@
 
 @property (strong, nonatomic) WFIGMedia *media;
 @property (strong, nonatomic) IBOutlet UIImageView *ivPhoto;
+@property (strong, nonatomic) IBOutlet UIImageView *ivUser;
+@property (strong, nonatomic) IBOutlet UILabel *lblCaption;
+@property (strong, nonatomic) IBOutlet UILabel *lblComments;
+@property (strong, nonatomic) IBOutlet UILabel *lblLikes;
 
 @end
