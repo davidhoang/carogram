@@ -9,10 +9,18 @@
 #import "CGViewController.h"
 #import "AppDelegate.h"
 
+#define kRefreshDrag -67.
+
 static NSSet * ObservableKeys = nil;
 
 @interface CGViewController ()
+@property (strong, nonatomic) UIImageView *ivBackground;
+@property (strong, nonatomic) UIImageView *ivRefreshIcon;
 - (void)loadProfilePicture;
+- (void)setupRefreshViews;
+- (void)setupBackgroundView;
+- (void)setupProgressView;
+- (void)setupTitleBarView;
 @end
 
 @implementation CGViewController
@@ -22,6 +30,11 @@ static NSSet * ObservableKeys = nil;
 @synthesize btnPopular = _btnPopular;
 @synthesize btnHome = _btnHome;
 @synthesize ivPhoto = _ivPhoto;
+@synthesize ivBackground = _ivBackground;
+@synthesize scrollView = _scrollView;
+@synthesize ivRefreshIcon = _ivRefreshIcon;
+@synthesize ivProgressBackground = _ivProgressBackground;
+@synthesize activityIndicatorView = _activityIndicatorView;
 
 - (id)initWithCoder:(NSCoder *)decoder
 {
@@ -45,12 +58,98 @@ static NSSet * ObservableKeys = nil;
                          options:NSKeyValueObservingOptionNew
                          context:nil];
     }
-    self.currentUser = appDelegate.currentUser;
-    if (nil != self.currentUser) [self loadProfilePicture];
     
+    self.scrollView.delegate = self;
+    
+    [self setupRefreshViews];
+    [self setupBackgroundView];
+    [self setupProgressView];
+    [self setupTitleBarView];
+}
+
+- (void)viewDidUnload
+{
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    for (NSString *keyPath in ObservableKeys) {
+        [appDelegate removeObserver:self forKeyPath:keyPath context:nil];
+    }
+    
+    [self setTitleBarView:nil];
+    [self setIvSearchBg:nil];
+    [self setBtnPopular:nil];
+    [self setBtnHome:nil];
+    [self setIvPhoto:nil];
+    [self setScrollView:nil];
+    
+    [super viewDidUnload];
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+	return UIInterfaceOrientationIsLandscape(interfaceOrientation);
+}
+
+- (void)setupRefreshViews
+{
+    UIImageView *refreshBackground = [[UIImageView alloc] initWithFrame:self.view.frame];
+    refreshBackground.image = [UIImage imageNamed:@"refresh-bg.jpg"];
+    [refreshBackground setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
+    [self.view insertSubview:refreshBackground atIndex:0];
+    
+    self.ivRefreshIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon-refresh"]];
+    [self.ivRefreshIcon setAutoresizingMask:UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleBottomMargin];
+    self.ivRefreshIcon.layer.opacity = 0.5;
+    
+    CGRect refreshIconFrame = self.ivRefreshIcon.frame;
+    refreshIconFrame.origin.x = 20;
+    refreshIconFrame.origin.y = (self.view.frame.size.height / 2.) - (refreshIconFrame.size.height / 2.);
+    self.ivRefreshIcon.frame = refreshIconFrame;
+    [self.view insertSubview:self.ivRefreshIcon aboveSubview:refreshBackground];
+}
+
+- (void)setupBackgroundView
+{
+    self.ivBackground = [[UIImageView alloc] initWithFrame:self.view.frame];
+    self.ivBackground.image = [UIImage imageNamed:@"bg"];
+    [self.ivBackground setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
+    
+    // add shadow to background
+    self.ivBackground.layer.shadowColor = [[UIColor blackColor] CGColor];
+    self.ivBackground.layer.shadowOffset = CGSizeMake(0,0);
+    self.ivBackground.layer.shadowOpacity = 1.0;
+    self.ivBackground.layer.shouldRasterize = YES;
+    self.ivBackground.layer.shadowRadius = 8;
+    
+    [self.view insertSubview:self.ivBackground aboveSubview:self.ivRefreshIcon];
+}
+
+- (void)setupProgressView
+{
+    int x = (int)((self.view.frame.size.width/2.) - (127./2.));
+    int y = (int)((self.view.frame.size.height/2.) - (107./2.));
+    self.ivProgressBackground = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, 127, 107)];
+    self.ivProgressBackground.image = [[UIImage imageNamed:@"progress-bg"] stretchableImageWithLeftCapWidth:29 topCapHeight:30];
+    [self.ivProgressBackground setAutoresizingMask:UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleRightMargin];
+    [self.view insertSubview:self.ivProgressBackground aboveSubview:self.ivBackground];
+
+    self.activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    x = (int)((self.view.frame.size.width/2.) - (self.activityIndicatorView.frame.size.width/2.));
+    y = (int)((self.view.frame.size.height/2.) - (self.activityIndicatorView.frame.size.height/2.));
+    self.activityIndicatorView.frame = CGRectMake(x, y, self.activityIndicatorView.frame.size.width, self.activityIndicatorView.frame.size.height);
+    [self.activityIndicatorView setAutoresizingMask:UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleRightMargin];
+    self.activityIndicatorView.color = [UIColor colorWithRed:(225./255.) green:(225./255.) blue:(225./255.) alpha:1];
+    [self.view insertSubview:self.activityIndicatorView aboveSubview:self.ivProgressBackground];
+}
+
+- (void)setupTitleBarView
+{
     [[NSBundle mainBundle] loadNibNamed:@"TitleBarView" owner:self options:nil];
     [self.view addSubview:self.titleBarView];
     
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    self.currentUser = appDelegate.currentUser;
+    if (nil != self.currentUser) [self loadProfilePicture];
+
     self.ivSearchBg.image = [[UIImage imageNamed:@"search-bg"] stretchableImageWithLeftCapWidth:4 topCapHeight:4];
     
     // Round avatar image view
@@ -76,27 +175,6 @@ static NSSet * ObservableKeys = nil;
         [self.btnHome setImage:[UIImage imageNamed:@"btn-home"] forState:UIControlStateNormal];
         [self.btnPopular setImage:[UIImage imageNamed:@"btn-popular-depressed"] forState:UIControlStateNormal];
     }
-}
-
-- (void)viewDidUnload
-{
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    for (NSString *keyPath in ObservableKeys) {
-        [appDelegate removeObserver:self forKeyPath:keyPath context:nil];
-    }
-    
-    [self setTitleBarView:nil];
-    [self setIvSearchBg:nil];
-    [self setBtnPopular:nil];
-    [self setBtnHome:nil];
-    [self setIvPhoto:nil];
-    
-    [super viewDidUnload];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-	return UIInterfaceOrientationIsLandscape(interfaceOrientation);
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -138,6 +216,19 @@ static NSSet * ObservableKeys = nil;
     [actionSheet showFromRect:self.ivPhoto.frame inView:self.titleBarView animated:YES];
 }
 
+- (void)refresh { } // override for pull-to-refresh func.
+
+- (void)setProgressViewShown:(BOOL)shown
+{
+    if (shown) {
+        self.ivProgressBackground.hidden = NO;
+        [self.activityIndicatorView startAnimating];
+    } else {
+        self.ivProgressBackground.hidden = YES;
+        [self.activityIndicatorView stopAnimating];
+    }
+}
+
 #pragma mark - UIActionSheetDelegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
@@ -145,6 +236,38 @@ static NSSet * ObservableKeys = nil;
     if (0 == buttonIndex) {
         AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         [appDelegate logout];
+    }
+}
+
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)sender
+{
+    if (self.scrollView.contentOffset.x < 1) {
+        CGRect bgFrame = self.ivBackground.frame;
+        bgFrame.origin.x = -self.scrollView.contentOffset.x;
+        self.ivBackground.frame = bgFrame;
+        
+        CGRect progressBgFrame = self.ivProgressBackground.frame;
+        progressBgFrame.origin.x = (int)((self.view.frame.size.width/2.) - (progressBgFrame.size.width/2.)) - self.scrollView.contentOffset.x;
+        self.ivProgressBackground.frame = progressBgFrame;
+
+        CGRect activityFrame = self.activityIndicatorView.frame;
+        activityFrame.origin.x = (int)((self.view.frame.size.width/2.) - (activityFrame.size.width/2.)) - self.scrollView.contentOffset.x;
+        self.activityIndicatorView.frame = activityFrame;
+    }
+    
+    if (self.scrollView.contentOffset.x <= kRefreshDrag) {
+        self.ivRefreshIcon.layer.opacity = 1.0;
+    } else {
+        self.ivRefreshIcon.layer.opacity = 0.5;
+    }
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    if (self.scrollView.contentOffset.x <= kRefreshDrag) {
+        [self refresh];
     }
 }
 

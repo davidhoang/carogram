@@ -28,9 +28,6 @@ static NSString * const CurrentUserKeyPath = @"currentUser";
     BOOL isLoadingMoreMedia;
 }
 @synthesize mediaCollection = _mediaCollection;
-@synthesize scrollView = _scrollView;
-@synthesize ivProgressBackground = _ivProgressBackground;
-@synthesize activityIndicatorView = _activityIndicatorView;
 
 - (id)initWithCoder:(NSCoder *)decoder
 {
@@ -52,8 +49,6 @@ static NSString * const CurrentUserKeyPath = @"currentUser";
         [self addObserver:self forKeyPath:keyPath options:NSKeyValueObservingOptionNew context:nil];
     }
     
-    self.ivProgressBackground.image = [[UIImage imageNamed:@"progress-bg"] stretchableImageWithLeftCapWidth:29 topCapHeight:30];
-    
     [self loadMediaCollection];
 }
 
@@ -63,16 +58,7 @@ static NSString * const CurrentUserKeyPath = @"currentUser";
         [self removeObserver:self forKeyPath:keyPath context:nil];
     }
     
-    [self setScrollView:nil];
-    
-    [self setIvProgressBackground:nil];
-    [self setActivityIndicatorView:nil];
     [super viewDidUnload];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-	return UIInterfaceOrientationIsLandscape(interfaceOrientation);
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -86,12 +72,16 @@ static NSString * const CurrentUserKeyPath = @"currentUser";
     }
 }
 
+- (void)refresh
+{
+    [self loadMediaCollection];
+}
+
 - (void) loadMediaCollection {
     if (self.currentUser == nil) return;
     
+    [self setProgressViewShown:YES];
     self.scrollView.hidden = YES;
-    self.ivProgressBackground.hidden = NO;
-    [self.activityIndicatorView startAnimating];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         self.mediaCollection = [WFIGMedia popularMediaWithError:NULL];
@@ -111,8 +101,7 @@ static NSString * const CurrentUserKeyPath = @"currentUser";
                 self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * pageCount, self.scrollView.frame.size.height);
                 self.scrollView.contentOffset = CGPointMake(0, 0);
                 
-                self.ivProgressBackground.hidden = YES;
-                [self.activityIndicatorView stopAnimating];
+                [self setProgressViewShown:NO];
                 self.scrollView.hidden = NO;
                 
                 [self loadScrollViewWithPage:0];
@@ -178,14 +167,19 @@ static NSString * const CurrentUserKeyPath = @"currentUser";
 
 - (IBAction)touchPopular:(id)sender {
     [super touchPopular:sender];
-    
-    [self loadMediaCollection];
+    if (self.scrollView.contentOffset.x > 0) {
+        [self.scrollView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+    } else {
+        [self loadMediaCollection];
+    }
 }
 
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)sender
 {
+    [super scrollViewDidScroll:sender];
+    
     // Switch the indicator when more than 50% of the previous/next page is visible
     CGFloat pageWidth = self.scrollView.frame.size.width;
     int page = floor((self.scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;

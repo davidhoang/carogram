@@ -10,11 +10,8 @@
 #import "CGViewController.h"
 #import "WFInstagramAPI.h"
 
-@interface PopularViewController : CGViewController <UIScrollViewDelegate>
+@interface PopularViewController : CGViewController
 
 @property (strong, atomic) WFIGMediaCollection *mediaCollection;
-@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (strong, nonatomic) IBOutlet UIImageView *ivProgressBackground;
-@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorView;
 
 @end

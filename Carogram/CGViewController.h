@@ -10,7 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "WFInstagramAPI.h"
 
-@interface CGViewController : UIViewController <UIActionSheetDelegate>
+@interface CGViewController : UIViewController <UIActionSheetDelegate, UIScrollViewDelegate>
 
 @property (strong, nonatomic) WFIGUser *currentUser;
 @property (strong, nonatomic) IBOutlet UIView *titleBarView;
@@ -18,9 +18,14 @@
 @property (strong, nonatomic) IBOutlet UIButton *btnPopular;
 @property (strong, nonatomic) IBOutlet UIButton *btnHome;
 @property (strong, nonatomic) IBOutlet UIImageView *ivPhoto;
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (strong, nonatomic) IBOutlet UIImageView *ivProgressBackground;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorView;
 
 - (IBAction)touchPopular:(id)sender;
 - (IBAction)touchHome:(id)sender;
 - (IBAction)touchUser:(id)sender;
+- (void)refresh;
+- (void)setProgressViewShown:(BOOL)shown;
 
 @end

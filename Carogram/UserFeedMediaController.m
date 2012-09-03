@@ -101,8 +101,8 @@ static NSString * const MediaKeyPath = @"media";
         [self loadImage];
         [self loadProfilePicture];
         [self.lblCaption setText:[self.media caption]];
-        [self.lblComments setText:[NSString stringWithFormat:@"%d", [[self.media comments] count]]];
-        [self.lblLikes setText:@"0"];
+        [self.lblComments setText:[NSString stringWithFormat:@"%d", [self.media commentsCount]]];
+        [self.lblLikes setText:[NSString stringWithFormat:@"%d", [self.media likesCount]]];
     } else {
         [self.ivPhoto setImage:nil];
         [self.ivUser setImage:nil];

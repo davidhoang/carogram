@@ -8,11 +8,8 @@
 
 #import "CGViewController.h"
 
-@interface HomeViewController : CGViewController <UIScrollViewDelegate>
+@interface HomeViewController : CGViewController
 
 @property (strong, atomic) WFIGMediaCollection *mediaCollection;
-@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorView;
-@property (strong, nonatomic) IBOutlet UIImageView *ivProgressBackground;
 
 @end
