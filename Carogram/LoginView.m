@@ -21,7 +21,7 @@
         
         CGRect bgFrame = CGRectMake(0, 0, 1024, 748);
         UIImageView *ivBackground = [[UIImageView alloc] initWithFrame:bgFrame];
-        [ivBackground setImage:[UIImage imageNamed:@"connect-background"]];
+        [ivBackground setImage:[UIImage imageNamed:@"connect-background.jpg"]];
         [self addSubview:ivBackground];
         
         UIButton *btnLogin = [UIButton buttonWithType:UIButtonTypeCustom];
