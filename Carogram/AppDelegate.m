@@ -22,6 +22,7 @@ NSString * const kCurrentUserKeyPath = @"currentUser";
 
 @interface AppDelegate ()
 @property (strong, nonatomic) UIWindow *authWindow;
+- (void)deleteCookies;
 @end
 
 @implementation AppDelegate
@@ -33,6 +34,8 @@ NSString * const kCurrentUserKeyPath = @"currentUser";
 #if defined (ADHOC)
     [TestFlight takeOff:@"03546bd435156f2bdef6834b4fb111d9_MTI2NTQ1MjAxMi0wOC0yOSAxMzoyODo1OS4wNDUxMTI"];
 #endif
+    
+    [self deleteCookies];
     
     NSString *config = [[NSBundle mainBundle] pathForResource:@"APIClient" ofType:@"plist"];
     if (nil == config) {
@@ -171,11 +174,22 @@ NSString * const kCurrentUserKeyPath = @"currentUser";
 
 - (void)logout
 {
+    [self deleteCookies];
+    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults removeObjectForKey:kDefaultsUserToken];
     [defaults synchronize];
     [WFInstagramAPI setAccessToken:nil];
     [self enterAuthFlowAnimated:NO];
+}
+
+- (void)deleteCookies
+{
+    NSHTTPCookie *cookie;
+    NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    for (cookie in [storage cookies]) {
+        [storage deleteCookie:cookie];
+    }
 }
 
 @end
