@@ -26,6 +26,7 @@ static NSString * const MediaKeyPath = @"media";
 @synthesize lblCaption = _lblCaption;
 @synthesize lblComments = _lblComments;
 @synthesize lblLikes = _lblLikes;
+@synthesize mediaView = _mediaView;
 
 - (id)initWithCoder:(NSCoder *)decoder
 {
@@ -76,6 +77,7 @@ static NSString * const MediaKeyPath = @"media";
     [self setLblCaption:nil];
     [self setLblComments:nil];
     [self setLblLikes:nil];
+    [self setMediaView:nil];
     [super viewDidUnload];
 }
 
@@ -133,6 +135,12 @@ static NSString * const MediaKeyPath = @"media";
             }
         });
     });
+}
+
+- (IBAction)touchMedia:(id)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(didSelectMedia:fromRect:)]) {
+        [self.delegate didSelectMedia:self.media fromRect:self.ivPhoto.frame];
+    }
 }
 
 @end

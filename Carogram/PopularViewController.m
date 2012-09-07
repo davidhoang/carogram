@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import "ImageGridViewCell.h"
 #import "GridViewController.h"
+#import "DetailsViewController.h"
 
 static NSSet * ObservableKeys = nil;
 
@@ -27,6 +28,7 @@ static NSString * const CurrentUserKeyPath = @"currentUser";
     int pageCount;
     BOOL isLoadingMoreMedia;
 }
+
 @synthesize mediaCollection = _mediaCollection;
 
 - (id)initWithCoder:(NSCoder *)decoder
@@ -126,6 +128,7 @@ static NSString * const CurrentUserKeyPath = @"currentUser";
     GridViewController * controller = [self.gridViewControllers objectAtIndex:page];
     if ((NSNull *)controller == [NSNull null]) {
         controller = [[GridViewController alloc] initWithMediaCollection:self.mediaCollection atPage:page];
+        [controller setDelegate:self];
         [self.gridViewControllers replaceObjectAtIndex:page withObject:controller];
     }
     
@@ -188,6 +191,18 @@ static NSString * const CurrentUserKeyPath = @"currentUser";
     [self loadScrollViewWithPage:page - 1];
     [self loadScrollViewWithPage:page];
     [self loadScrollViewWithPage:page + 1];
+}
+
+#pragma mark - MediaSelectorDelegate
+
+- (void)didSelectMedia:(WFIGMedia *)media fromRect:(CGRect)rect
+{
+    rect.origin.y += (self.scrollView.frame.origin.y + 20); // 20 = status bar height
+    DetailsViewController *detailsVC = (DetailsViewController *)[self.storyboard instantiateViewControllerWithIdentifier: @"Details"];
+    [detailsVC setMedia:media];
+    detailsVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    detailsVC.startRect = rect;
+    [self presentModalViewController:detailsVC animated:YES];
 }
 
 @end

@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 #import "WFInstagramAPI.h"
+#import "MediaSelectorDelegate.h"
 
-@interface CGViewController : UIViewController <UIActionSheetDelegate, UIScrollViewDelegate>
+@interface CGViewController : UIViewController <UIActionSheetDelegate, UIScrollViewDelegate, MediaSelectorDelegate>
 
 @property (strong, nonatomic) WFIGUser *currentUser;
 @property (strong, nonatomic) IBOutlet UIView *titleBarView;

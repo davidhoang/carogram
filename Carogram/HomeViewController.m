@@ -8,6 +8,7 @@
 
 #import "HomeViewController.h"
 #import "UserFeedMediaController.h"
+#import "DetailsViewController.h"
 
 static NSSet * ObservableKeys = nil;
 
@@ -124,6 +125,7 @@ static NSString * const CurrentUserKeyPath = @"currentUser";
         controller = (UserFeedMediaController *)[self.storyboard instantiateViewControllerWithIdentifier: @"UserFeedMedia"];
         WFIGMedia *media = [self.mediaCollection objectAtIndex:page];
         [controller setMedia:media];
+        [controller setDelegate:self];
         [self.mediaControllers replaceObjectAtIndex:page withObject:controller];
     }
     
@@ -187,15 +189,27 @@ static NSString * const CurrentUserKeyPath = @"currentUser";
 - (void)scrollViewDidScroll:(UIScrollView *)sender
 {
     [super scrollViewDidScroll:sender];
-       
-    // Switch the indicator when more than 50% of the previous/next page is visible
+
     CGFloat pageWidth = self.scrollView.frame.size.width;
     int page = floor((self.scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
     
-    // load the visible page and the page on either side of it (to avoid flashes when the user starts scrolling)
     [self loadScrollViewWithPage:page - 1];
     [self loadScrollViewWithPage:page];
     [self loadScrollViewWithPage:page + 1];
+}
+
+#pragma mark - MediaSelectorDelegate
+
+- (void)didSelectMedia:(WFIGMedia *)media fromRect:(CGRect)rect
+{
+    rect.origin.x += self.scrollView.frame.origin.x;
+    rect.origin.y += (self.scrollView.frame.origin.y + 20); // 20 = status bar height
+    
+    DetailsViewController *detailsVC = (DetailsViewController *)[self.storyboard instantiateViewControllerWithIdentifier: @"Details"];
+    [detailsVC setMedia:media];
+    detailsVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    detailsVC.startRect = rect;
+    [self presentModalViewController:detailsVC animated:YES];
 }
 
 @end

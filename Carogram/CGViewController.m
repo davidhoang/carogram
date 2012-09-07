@@ -8,6 +8,7 @@
 
 #import "CGViewController.h"
 #import "AppDelegate.h"
+#import "DetailsViewController.h"
 
 #define kRefreshDrag -67.
 
@@ -269,6 +270,17 @@ static NSSet * ObservableKeys = nil;
     if (self.scrollView.contentOffset.x <= kRefreshDrag) {
         [self refresh];
     }
+}
+
+#pragma mark - MediaSelectorDelegate
+
+- (void)didSelectMedia:(WFIGMedia *)media fromRect:(CGRect)rect
+{   
+    DetailsViewController *detailsVC = (DetailsViewController *)[self.storyboard instantiateViewControllerWithIdentifier: @"Details"];
+    [detailsVC setMedia:media];
+    detailsVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    detailsVC.startRect = rect;
+    [self presentModalViewController:detailsVC animated:YES];
 }
 
 @end

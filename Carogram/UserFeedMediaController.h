@@ -8,14 +8,19 @@
 
 #import <UIKit/UIKit.h>
 #import "WFInstagramAPI.h"
+#import "MediaSelectorDelegate.h"
 
 @interface UserFeedMediaController : UIViewController
 
+@property (weak, nonatomic) id<MediaSelectorDelegate> delegate;
 @property (strong, nonatomic) WFIGMedia *media;
 @property (strong, nonatomic) IBOutlet UIImageView *ivPhoto;
 @property (strong, nonatomic) IBOutlet UIImageView *ivUser;
 @property (strong, nonatomic) IBOutlet UILabel *lblCaption;
 @property (strong, nonatomic) IBOutlet UILabel *lblComments;
 @property (strong, nonatomic) IBOutlet UILabel *lblLikes;
+@property (strong, nonatomic) IBOutlet UIView *mediaView;
+
+- (IBAction)touchMedia:(id)sender;
 
 @end

@@ -47,14 +47,18 @@
         
         int x = 46 + ((i % 4) * 244);
         int y = 26 + ((i / 4) * 224);
-
-//        int x = 28 + ((i % 4) * 256);
-//        int y = 16 + ((i / 4) * 232);
         
         CGRect frame = CGRectMake(x, y, 200, 200);
         ImageGridViewCell *cell = [[ImageGridViewCell alloc] initWithMedia:media frame:frame];
         [cells addObject:cell];
         [self.view addSubview:cell];
+        
+        // Add invisible button
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        btn.frame = frame;
+        btn.tag = i;
+        [btn addTarget:self action:@selector(touchCell:) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:btn];
     }
     self.gridCells = cells;
 }
@@ -69,6 +73,17 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
 	return NO;
+}
+
+- (void)touchCell:(id)sender
+{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(didSelectMedia:fromRect:)]) {
+        UIButton *btn = (UIButton *)sender;
+        int tag = btn.tag;
+        int index = tag + (page * kImageCount);
+    
+        [self.delegate didSelectMedia:[self.mediaCollection objectAtIndex:index] fromRect:btn.frame];
+    }
 }
 
 @end

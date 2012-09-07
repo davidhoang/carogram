@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "WFInstagramAPI.h"
+#import "MediaSelectorDelegate.h"
 
 #define kImageCount 12
 
 @interface GridViewController : UIViewController
 
+@property (weak, nonatomic) id<MediaSelectorDelegate>delegate;
 @property (strong, nonatomic) WFIGMediaCollection *mediaCollection;
 
 - (id)initWithMediaCollection:(WFIGMediaCollection *)mediaCollection atPage:(int)page;
