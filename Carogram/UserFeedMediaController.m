@@ -8,6 +8,7 @@
 
 #import "UserFeedMediaController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "WFIGImageCache.h"
 
 static NSSet * ObservableKeys = nil;
 
@@ -15,7 +16,6 @@ static NSString * const MediaKeyPath = @"media";
 
 @interface UserFeedMediaController ()
 - (void)configureViews;
-- (void)loadImage;
 - (void)loadProfilePicture;
 @end
 
@@ -100,7 +100,11 @@ static NSString * const MediaKeyPath = @"media";
 - (void)configureViews
 {
     if (nil != self.media) {
-        [self loadImage];
+        [self.media imageCompletionBlock:^(WFIGMedia* imgMedia, UIImage *img) {
+            if (imgMedia == self.media) {
+                [self.ivPhoto setImage:img];
+            }
+        }];
         [self loadProfilePicture];
         [self.lblCaption setText:[self.media caption]];
         [self.lblComments setText:[NSString stringWithFormat:@"%d", [self.media commentsCount]]];
@@ -114,21 +118,10 @@ static NSString * const MediaKeyPath = @"media";
     }
 }
 
-- (void)loadImage
-{
-    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        UIImage *img = [self.media image];
-        
-        dispatch_async( dispatch_get_main_queue(), ^{
-            [self.ivPhoto setImage:img];
-        });
-    });
-}
-
 - (void)loadProfilePicture
 {
     dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[self.media.user profilePicture]]]];
+        UIImage *image = [WFIGImageCache getImageAtURL:[self.media.user profilePicture]];
         dispatch_async( dispatch_get_main_queue(), ^{
             if (image != nil) {
                 self.ivUser.image = image;

@@ -37,13 +37,11 @@
 {
     _media = media;
     
-    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        UIImage *img = [self.media image];
-        
-        dispatch_async( dispatch_get_main_queue(), ^{
+    [self.media imageCompletionBlock:^(WFIGMedia* imgMedia, UIImage *img) {
+        if (imgMedia == self.media) {
             [self.imageView setImage:img];
-        });
-    });
+        }
+    }];
 }
 
 @end

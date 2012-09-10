@@ -9,6 +9,7 @@
 #import "CGViewController.h"
 #import "AppDelegate.h"
 #import "DetailsViewController.h"
+#import "WFIGImageCache.h"
 
 #define kRefreshDrag -67.
 
@@ -194,7 +195,7 @@ static NSSet * ObservableKeys = nil;
 - (void)loadProfilePicture
 {
     dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[self.currentUser profilePicture]]]];
+        UIImage *image = [WFIGImageCache getImageAtURL:[self.currentUser profilePicture]];
         dispatch_async( dispatch_get_main_queue(), ^{
             if (image != nil) {
                 self.ivPhoto.image = image;
