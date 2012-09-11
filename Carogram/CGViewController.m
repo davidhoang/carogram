@@ -241,34 +241,34 @@ static NSSet * ObservableKeys = nil;
     }
 }
 
-#pragma mark - UIScrollViewDelegate
+#pragma mark - PagingMediaScrollDelegate
 
-- (void)scrollViewDidScroll:(UIScrollView *)sender
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if (self.scrollView.contentOffset.x < 1) {
+    if (scrollView.contentOffset.x < 1) {
         CGRect bgFrame = self.ivBackground.frame;
-        bgFrame.origin.x = -self.scrollView.contentOffset.x;
+        bgFrame.origin.x = -scrollView.contentOffset.x;
         self.ivBackground.frame = bgFrame;
         
         CGRect progressBgFrame = self.ivProgressBackground.frame;
-        progressBgFrame.origin.x = (int)((self.view.frame.size.width/2.) - (progressBgFrame.size.width/2.)) - self.scrollView.contentOffset.x;
+        progressBgFrame.origin.x = (int)((self.view.frame.size.width/2.) - (progressBgFrame.size.width/2.)) - scrollView.contentOffset.x;
         self.ivProgressBackground.frame = progressBgFrame;
 
         CGRect activityFrame = self.activityIndicatorView.frame;
-        activityFrame.origin.x = (int)((self.view.frame.size.width/2.) - (activityFrame.size.width/2.)) - self.scrollView.contentOffset.x;
+        activityFrame.origin.x = (int)((self.view.frame.size.width/2.) - (activityFrame.size.width/2.)) - scrollView.contentOffset.x;
         self.activityIndicatorView.frame = activityFrame;
     }
     
-    if (self.scrollView.contentOffset.x <= kRefreshDrag) {
+    if (scrollView.contentOffset.x <= kRefreshDrag) {
         self.ivRefreshIcon.layer.opacity = 1.0;
     } else {
         self.ivRefreshIcon.layer.opacity = 0.5;
     }
 }
 
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView
 {
-    if (self.scrollView.contentOffset.x <= kRefreshDrag) {
+    if (scrollView.contentOffset.x <= kRefreshDrag) {
         [self refresh];
     }
 }

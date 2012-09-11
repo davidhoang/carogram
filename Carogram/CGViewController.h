@@ -10,8 +10,9 @@
 #import <QuartzCore/QuartzCore.h>
 #import "WFInstagramAPI.h"
 #import "MediaSelectorDelegate.h"
+#import "PagingMediaViewController.h"
 
-@interface CGViewController : UIViewController <UIActionSheetDelegate, UIScrollViewDelegate, MediaSelectorDelegate>
+@interface CGViewController : UIViewController <UIActionSheetDelegate, UIScrollViewDelegate, MediaSelectorDelegate, PagingMediaScrollDelegate>
 
 @property (strong, nonatomic) WFIGUser *currentUser;
 @property (strong, nonatomic) IBOutlet UIView *titleBarView;

@@ -199,8 +199,8 @@
     
     if (![self.media hasAllComments]) {
         int oldCommentsCount = [self.media.comments count];
-        [self.media loadAllCommentsWithCompletion:^(NSError *error) {
-            if (!error) {
+        [self.media allCommentsWithCompletionBlock:^(WFIGMedia *commentsMedia, NSArray *comments, NSError *error) {
+            if (self.media == commentsMedia && error == nil) {
                 int rowsAdded = [self.media commentsCount] - oldCommentsCount;
                 
                 NSMutableArray *indexPaths = [[NSMutableArray alloc] initWithCapacity:rowsAdded];

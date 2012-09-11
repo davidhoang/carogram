@@ -18,10 +18,6 @@
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="LIV-kg-s67">
-                                <rect key="frame" x="0.0" y="50" width="1024" height="699"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -29,9 +25,6 @@
                     <navigationItem key="navigationItem" id="mSc-0G-qbO"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <connections>
-                        <outlet property="scrollView" destination="LIV-kg-s67" id="AOP-34-BKW"/>
-                    </connections>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="-1160" y="-263"/>
@@ -142,7 +135,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="-1062" y="-2511"/>
+            <point key="canvasLocation" x="330" y="-2343"/>
         </scene>
         <!--Home View Controller-->
         <scene sceneID="Skj-Ha-VLF">
@@ -397,6 +390,68 @@
             </objects>
             <point key="canvasLocation" x="-2530" y="-263"/>
         </scene>
+        <!--Paging Grid View Controller-->
+        <scene sceneID="RSN-SO-tMX">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wgC-75-iOP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController storyboardIdentifier="PagingGrid" autoresizesArchivedViewToFullSize="NO" id="r9X-9x-QdL" customClass="PagingGridViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="NjK-0f-0G8">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="699"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="RSv-p1-B8g">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="699"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="r9X-9x-QdL" id="j8N-n4-7fd"/>
+                                </connections>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="scrollView" destination="RSv-p1-B8g" id="d6d-U8-T8a"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="-1160" y="-3460"/>
+        </scene>
+        <!--Slide View Controller-->
+        <scene sceneID="xpy-yB-qA0">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5pV-PT-3Jl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="IsW-fe-hdu" customClass="SlideViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jMi-zv-yZk">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="699"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="dVy-ZU-CG6" customClass="ClipView">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="699"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="scrollView" destination="O1v-aa-1JH" id="b6S-AE-YN3"/>
+                                </connections>
+                            </view>
+                            <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="9x0-sj-bYu">
+                                <rect key="frame" x="170" y="0.0" width="684" height="699"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="-1160" y="-2348"/>
+        </scene>
         <!--Navigation Controller - Item-->
         <scene sceneID="UYD-M2-qG9">
             <objects>
@@ -480,15 +535,21 @@
         </class>
         <class className="HomeViewController" superclassName="CGViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/HomeViewController.h"/>
+        </class>
+        <class className="PagingGridViewController" superclassName="PagingMediaViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PagingGridViewController.h"/>
+        </class>
+        <class className="PagingMediaViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PagingMediaViewController.h"/>
             <relationships>
-                <relationship kind="action" name="touchHome:"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
             </relationships>
         </class>
         <class className="PopularViewController" superclassName="CGViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PopularViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="touchPopular:"/>
-            </relationships>
+        </class>
+        <class className="SlideViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SlideViewController.h"/>
         </class>
         <class className="UserFeedMediaController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/UserFeedMediaController.h"/>

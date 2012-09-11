@@ -44,6 +44,9 @@
 		2314F7E715F7FD3E00445BDE /* CommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2314F7E615F7FD3E00445BDE /* CommentCell.xib */; };
 		2314F7EA15F802F900445BDE /* comment-cell-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 2314F7E815F802F900445BDE /* comment-cell-bg.png */; };
 		2314F7EB15F802F900445BDE /* comment-cell-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2314F7E915F802F900445BDE /* comment-cell-bg@2x.png */; };
+		2314F80C15FE6D2600445BDE /* SlideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2314F80B15FE6D2600445BDE /* SlideViewController.m */; };
+		2314F80F15FE92CB00445BDE /* PagingGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2314F80E15FE92CA00445BDE /* PagingGridViewController.m */; };
+		2314F81215FEAE8800445BDE /* PagingMediaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2314F81115FEAE8800445BDE /* PagingMediaViewController.m */; };
 		231F5A8E15E6124B00D85115 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 231F5A8C15E6124B00D85115 /* bg.png */; };
 		231F5A8F15E6124B00D85115 /* bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 231F5A8D15E6124B00D85115 /* bg@2x.png */; };
 		231F5A9315E6175A00D85115 /* search-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 231F5A9115E6175A00D85115 /* search-bg.png */; };
@@ -159,6 +162,13 @@
 		2314F7E615F7FD3E00445BDE /* CommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentCell.xib; sourceTree = "<group>"; };
 		2314F7E815F802F900445BDE /* comment-cell-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comment-cell-bg.png"; sourceTree = "<group>"; };
 		2314F7E915F802F900445BDE /* comment-cell-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comment-cell-bg@2x.png"; sourceTree = "<group>"; };
+		2314F80A15FE6D2600445BDE /* SlideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideViewController.h; sourceTree = "<group>"; };
+		2314F80B15FE6D2600445BDE /* SlideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideViewController.m; sourceTree = "<group>"; };
+		2314F80D15FE92CA00445BDE /* PagingGridViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PagingGridViewController.h; sourceTree = "<group>"; };
+		2314F80E15FE92CA00445BDE /* PagingGridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PagingGridViewController.m; sourceTree = "<group>"; };
+		2314F81015FEAE8700445BDE /* PagingMediaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PagingMediaViewController.h; sourceTree = "<group>"; };
+		2314F81115FEAE8800445BDE /* PagingMediaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PagingMediaViewController.m; sourceTree = "<group>"; };
+		2314F81415FF133800445BDE /* MediaCollectionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MediaCollectionDelegate.h; sourceTree = "<group>"; };
 		231F5A8C15E6124B00D85115 /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
 		231F5A8D15E6124B00D85115 /* bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg@2x.png"; sourceTree = "<group>"; };
 		231F5A9115E6175A00D85115 /* search-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search-bg.png"; sourceTree = "<group>"; };
@@ -272,6 +282,15 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
+		2314F81315FF130A00445BDE /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				2314F7B615F6B83300445BDE /* MediaSelectorDelegate.h */,
+				2314F81415FF133800445BDE /* MediaCollectionDelegate.h */,
+			);
+			name = Delegates;
+			sourceTree = "<group>";
+		};
 		236BDB9715E750C400020CE8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -298,7 +317,12 @@
 				23A49E4615E444FE00038FCA /* PopularViewController.m */,
 				238426C415EF2D330077DDF8 /* UserFeedMediaController.h */,
 				238426C515EF2D330077DDF8 /* UserFeedMediaController.m */,
-				2314F7B615F6B83300445BDE /* MediaSelectorDelegate.h */,
+				2314F80A15FE6D2600445BDE /* SlideViewController.h */,
+				2314F80B15FE6D2600445BDE /* SlideViewController.m */,
+				2314F80D15FE92CA00445BDE /* PagingGridViewController.h */,
+				2314F80E15FE92CA00445BDE /* PagingGridViewController.m */,
+				2314F81015FEAE8700445BDE /* PagingMediaViewController.h */,
+				2314F81115FEAE8800445BDE /* PagingMediaViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -359,6 +383,7 @@
 				666EFF9915CB369500CA30B7 /* AppDelegate.h */,
 				666EFF9A15CB369500CA30B7 /* AppDelegate.m */,
 				23A49E4415E4449C00038FCA /* Controllers */,
+				2314F81315FF130A00445BDE /* Delegates */,
 				230BF2D115E8286E005DB8A0 /* Extensions */,
 				66DCDAE115DC5F9900E4B966 /* Images */,
 				666EFF9C15CB369500CA30B7 /* MainStoryboard.storyboard */,
@@ -609,6 +634,9 @@
 				238426C715EF31780077DDF8 /* ClipView.m in Sources */,
 				2314F7B515F5DD8200445BDE /* DetailsViewController.m in Sources */,
 				2314F7E515F7EBA300445BDE /* CommentCell.m in Sources */,
+				2314F80C15FE6D2600445BDE /* SlideViewController.m in Sources */,
+				2314F80F15FE92CB00445BDE /* PagingGridViewController.m in Sources */,
+				2314F81215FEAE8800445BDE /* PagingMediaViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
