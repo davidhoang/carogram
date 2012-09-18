@@ -1,27 +1,26 @@
 //
-//  PagingGridViewController.m
+//  PagingSlideViewController.m
 //  Carogram
 //
 //  Created by Jacob Moore on 9/10/12.
 //  Copyright (c) 2012 Xhatch Interactive, LLC. All rights reserved.
 //
 
-#import "PagingGridViewController.h"
-#import "GridViewController.h"
+#import "PagingSlideViewController.h"
 #import "DetailsViewController.h"
+#import "SlideViewController.h"
 
 static NSSet * ObservableKeys = nil;
 
 static NSString * const MediaCollectionKeyPath = @"mediaCollection";
 
-@interface PagingGridViewController ()
-@property (nonatomic, strong) NSMutableArray *gridViewControllers;
+@interface PagingSlideViewController ()
+@property (nonatomic, strong) NSMutableArray *slideViewControllers;
 - (void)configureView;
 - (void)loadScrollViewWithPage:(int)page;
-- (void)loadMoreMedia;
 @end
 
-@implementation PagingGridViewController {
+@implementation PagingSlideViewController {
 @private
     int pageCount;
 }
@@ -34,10 +33,7 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
             ObservableKeys = [[NSSet alloc] initWithObjects:MediaCollectionKeyPath, nil];
         }
         for (NSString *keyPath in ObservableKeys) {
-            [self addObserver:self
-                   forKeyPath:keyPath
-                      options:(NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld)
-                      context:nil];
+            [self addObserver:self forKeyPath:keyPath options:NSKeyValueObservingOptionNew context:nil];
         }
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(mediaCollectionDidLoadNextPage:)
@@ -58,7 +54,7 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     if ([self.mediaCollection count] > 0) {
         [self configureView];
     }
@@ -77,13 +73,13 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
 
 - (void)didReceiveMemoryWarning
 {
-    NSLog(@"<PGVC> didReceiveMemoryWarning");
+    NSLog(@"<PSVC> didReceiveMemoryWarning");
     [super didReceiveMemoryWarning];
 }
 
 - (void) configureView
 {
-    pageCount = pageCount = ceil((double)[self.mediaCollection count] / (double)kImageCount);
+    pageCount = [self.mediaCollection count];
     
     // view controllers are created lazily
     // in the meantime, load the array with placeholders which will be replaced on demand
@@ -91,7 +87,7 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
     for (unsigned i = 0; i < pageCount; i++) {
         [controllers addObject:[NSNull null]];
     }
-    self.gridViewControllers = controllers;
+    self.slideViewControllers = controllers;
     
     self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * pageCount, self.scrollView.frame.size.height);
     self.scrollView.contentOffset = CGPointMake(0, 0);
@@ -113,22 +109,23 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
 
 - (void)loadScrollViewWithPage:(int)page
 {
-    if (page < 0) return;
-    if (page >= pageCount) return;
+    if (page < 0)
+        return;
+    if (page >= pageCount) {
+        if ([self.mediaCollection hasNextPage] && self.delegate != nil && [self.delegate respondsToSelector:@selector(loadMoreMedia)]) {
+            [self.delegate loadMoreMedia];
+        }
+        return;
+    }
     
     // replace the placeholder if necessary
-    GridViewController * controller = [self.gridViewControllers objectAtIndex:page];
+    SlideViewController *controller = [self.slideViewControllers objectAtIndex:page];
     if ((NSNull *)controller == [NSNull null]) {
-        controller = [[GridViewController alloc] initWithMediaCollection:self.mediaCollection atPage:page];
-        [controller setDelegate:self.mediaSelectorDelegate];
-        [self.gridViewControllers replaceObjectAtIndex:page withObject:controller];
-    } else {
-        if (((page+1)*kImageCount) <= [self.mediaCollection count] && ![controller isGridFull]) {
-            if (controller.view.superview != nil) [controller.view removeFromSuperview];
-            controller = [[GridViewController alloc] initWithMediaCollection:self.mediaCollection atPage:page];
-            [controller setDelegate:self.mediaSelectorDelegate];
-            [self.gridViewControllers replaceObjectAtIndex:page withObject:controller];
-        }
+        controller = (SlideViewController *)[self.storyboard instantiateViewControllerWithIdentifier: @"Slide"];
+        WFIGMedia *media = [self.mediaCollection objectAtIndex:page];
+        [controller setMedia:media];
+        [controller setDelegate:self];
+        [self.slideViewControllers replaceObjectAtIndex:page withObject:controller];
     }
     
     // add the controller's view to the scroll view
@@ -142,26 +139,21 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
     }
 }
 
-- (void)loadMoreMedia
-{
-    if ([self.mediaCollection hasNextPage] && self.delegate != nil && [self.delegate respondsToSelector:@selector(loadMoreMedia)]) {
-        [self.delegate loadMoreMedia];
-    }    
-}
-
 - (void)mediaCollectionDidLoadNextPage:(NSNotification *)notification
 {
     if (self.mediaCollection == [notification object]) {
         int oldPageCount = pageCount;
-        pageCount = pageCount = ceil((double)[self.mediaCollection count] / (double)kImageCount);
-
+        pageCount = [self.mediaCollection count];
+        
+        // view controllers are created lazily
+        // in the meantime, load the array with placeholders which will be replaced on demand
         NSMutableArray *controllers = [[NSMutableArray alloc] init];
-        [controllers addObjectsFromArray:self.gridViewControllers];
+        [controllers addObjectsFromArray:self.slideViewControllers];
         for (unsigned i = oldPageCount; i < pageCount; i++) {
             [controllers addObject:[NSNull null]];
         }
-        self.gridViewControllers = controllers;
-
+        self.slideViewControllers = controllers;
+        
         self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * pageCount, self.scrollView.frame.size.height);
         
         int currentPage = [self currentPage];
@@ -175,7 +167,6 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
 
 - (void)scrollViewDidScroll:(UIScrollView *)sender
 {
-    // Switch the indicator when more than 50% of the previous/next page is visible
     CGFloat pageWidth = self.scrollView.frame.size.width;
     int page = floor((self.scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
     
@@ -196,10 +187,16 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
     }
 }
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+#pragma mark - MediaSelectorDelegate
+
+- (void)didSelectMedia:(WFIGMedia *)media fromRect:(CGRect)rect
 {
-    BOOL isLastPage = [self currentPage] == ([self.gridViewControllers count] - 1);
-    if (isLastPage) [self loadMoreMedia];
+    rect.origin.x += self.scrollView.frame.origin.x;
+    rect.origin.y += self.scrollView.frame.origin.y;
+    
+    if (self.mediaSelectorDelegate && [self.mediaSelectorDelegate respondsToSelector:@selector(didSelectMedia:fromRect:)]) {
+        [self.mediaSelectorDelegate didSelectMedia:media fromRect:rect];
+    }
 }
 
 @end

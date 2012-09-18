@@ -17,6 +17,7 @@
 @implementation GridViewController {
 @private
     int page;
+    BOOL gridFull;
 }
 @synthesize gridCells = _gridCells;
 
@@ -26,6 +27,7 @@
     if (self) {
         self.mediaCollection = mediaCollection;
         page = aPage;
+        gridFull = NO;
     }
     return self;
 }
@@ -42,7 +44,13 @@
     NSMutableArray *cells = [[NSMutableArray alloc] initWithCapacity:kImageCount];
     for (int i = 0; i < kImageCount; i++) {
         int index = i + (page * kImageCount);
-        if (index >= [self.mediaCollection count]) break;
+        if (index >= [self.mediaCollection count]) {
+            gridFull = NO;
+            break;
+        } else if (i == (kImageCount - 1)) {
+            gridFull = YES;
+        }
+        
         WFIGMedia *media = [self.mediaCollection objectAtIndex:index];
         
         int x = 46 + ((i % 4) * 244);
@@ -84,6 +92,11 @@
     
         [self.delegate didSelectMedia:[self.mediaCollection objectAtIndex:index] fromRect:btn.frame];
     }
+}
+
+- (BOOL)isGridFull
+{
+    return gridFull;
 }
 
 @end

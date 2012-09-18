@@ -10,6 +10,4 @@
 
 @interface HomeViewController : CGViewController
 
-@property (strong, atomic) WFIGMediaCollection *mediaCollection;
-
 @end

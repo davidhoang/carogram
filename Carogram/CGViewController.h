@@ -11,8 +11,9 @@
 #import "WFInstagramAPI.h"
 #import "MediaSelectorDelegate.h"
 #import "PagingMediaViewController.h"
+#import "MediaCollectionDelegate.h"
 
-@interface CGViewController : UIViewController <UIActionSheetDelegate, UIScrollViewDelegate, MediaSelectorDelegate, PagingMediaScrollDelegate>
+@interface CGViewController : UIViewController <UIActionSheetDelegate, UIScrollViewDelegate, MediaSelectorDelegate, PagingMediaViewControllerDelegate>
 
 @property (strong, nonatomic) WFIGUser *currentUser;
 @property (strong, nonatomic) IBOutlet UIView *titleBarView;
@@ -23,11 +24,14 @@
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIImageView *ivProgressBackground;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorView;
+@property (strong, atomic) WFIGMediaCollection *mediaCollection;
+@property (strong, nonatomic) PagingMediaViewController *currentMediaController;
 
 - (IBAction)touchPopular:(id)sender;
 - (IBAction)touchHome:(id)sender;
 - (IBAction)touchUser:(id)sender;
 - (void)refresh;
 - (void)setProgressViewShown:(BOOL)shown;
+- (void)loadMediaCollection;
 
 @end

@@ -18,5 +18,6 @@
 @property (strong, nonatomic) WFIGMediaCollection *mediaCollection;
 
 - (id)initWithMediaCollection:(WFIGMediaCollection *)mediaCollection atPage:(int)page;
+- (BOOL)isGridFull;
 
 @end

@@ -12,6 +12,4 @@
 
 @interface PopularViewController : CGViewController
 
-@property (strong, atomic) WFIGMediaCollection *mediaCollection;
-
 @end

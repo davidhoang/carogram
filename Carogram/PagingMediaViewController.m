@@ -8,12 +8,15 @@
 
 #import "PagingMediaViewController.h"
 
+NSString * const MediaCollectionDidLoadNextPageNotification = @"MediaCollectionDidLoadNextPageNotification";
+
 @interface PagingMediaViewController ()
 
 @end
 
 @implementation PagingMediaViewController
-@synthesize mediaCollectionDelegate = _mediaCollectionDelegate;
+@synthesize delegate = _delegate;
+@synthesize mediaSelectorDelegate = _mediaSelectorDelegate;
 @synthesize mediaCollection = _mediaCollection;
 @synthesize scrollView = _scrollView;
 
@@ -55,5 +58,7 @@
         [self.scrollView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
     }
 }
+
+- (void)nextPageLoaded { } // 
 
 @end

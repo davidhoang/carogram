@@ -51,11 +51,11 @@
             </objects>
             <point key="canvasLocation" x="-3853" y="-776"/>
         </scene>
-        <!--User Feed Media Controller-->
+        <!--Slide View Controller-->
         <scene sceneID="PbB-dF-Q5W">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5jz-LC-TGf" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController storyboardIdentifier="UserFeedMedia" id="Vr6-14-6os" customClass="UserFeedMediaController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Slide" id="Vr6-14-6os" customClass="SlideViewController" sceneMemberID="viewController">
                     <view key="view" autoresizesSubviews="NO" contentMode="center" id="Ygf-Fa-a0W">
                         <rect key="frame" x="0.0" y="0.0" width="684" height="699"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -141,7 +141,7 @@
         <scene sceneID="Skj-Ha-VLF">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gWz-43-Iep" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController hidesBottomBarWhenPushed="YES" id="d5J-fN-KO9" customClass="HomeViewController" sceneMemberID="viewController">
+                <viewController autoresizesArchivedViewToFullSize="NO" hidesBottomBarWhenPushed="YES" id="d5J-fN-KO9" customClass="HomeViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Frd-8l-WdZ">
                         <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -154,7 +154,7 @@
                                     <outlet property="scrollView" destination="O1v-aa-1JH" id="8uC-ph-oR1"/>
                                 </connections>
                             </view>
-                            <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="O1v-aa-1JH">
+                            <scrollView hidden="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="O1v-aa-1JH">
                                 <rect key="frame" x="170" y="49" width="684" height="699"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </scrollView>
@@ -420,11 +420,11 @@
             </objects>
             <point key="canvasLocation" x="-1160" y="-3460"/>
         </scene>
-        <!--Slide View Controller-->
+        <!--Paging Slide View Controller-->
         <scene sceneID="xpy-yB-qA0">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5pV-PT-3Jl" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="IsW-fe-hdu" customClass="SlideViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PagingSlide" autoresizesArchivedViewToFullSize="NO" id="IsW-fe-hdu" customClass="PagingSlideViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jMi-zv-yZk">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="699"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -434,20 +434,26 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <connections>
-                                    <outlet property="scrollView" destination="O1v-aa-1JH" id="b6S-AE-YN3"/>
+                                    <outlet property="scrollView" destination="9x0-sj-bYu" id="cC0-9u-Teg"/>
                                 </connections>
                             </view>
                             <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="9x0-sj-bYu">
                                 <rect key="frame" x="170" y="0.0" width="684" height="699"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="IsW-fe-hdu" id="yRY-W8-N8K"/>
+                                </connections>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="scrollView" destination="9x0-sj-bYu" id="72A-IB-sUf"/>
+                    </connections>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="-1160" y="-2348"/>
@@ -545,14 +551,17 @@
                 <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
             </relationships>
         </class>
+        <class className="PagingSlideViewController" superclassName="PagingMediaViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PagingSlideViewController.h"/>
+        </class>
         <class className="PopularViewController" superclassName="CGViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PopularViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="touchPopular:"/>
+            </relationships>
         </class>
         <class className="SlideViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SlideViewController.h"/>
-        </class>
-        <class className="UserFeedMediaController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UserFeedMediaController.h"/>
             <relationships>
                 <relationship kind="action" name="touchMedia:"/>
                 <relationship kind="outlet" name="ivPhoto" candidateClass="UIImageView"/>

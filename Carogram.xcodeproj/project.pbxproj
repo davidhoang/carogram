@@ -44,7 +44,7 @@
 		2314F7E715F7FD3E00445BDE /* CommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2314F7E615F7FD3E00445BDE /* CommentCell.xib */; };
 		2314F7EA15F802F900445BDE /* comment-cell-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 2314F7E815F802F900445BDE /* comment-cell-bg.png */; };
 		2314F7EB15F802F900445BDE /* comment-cell-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2314F7E915F802F900445BDE /* comment-cell-bg@2x.png */; };
-		2314F80C15FE6D2600445BDE /* SlideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2314F80B15FE6D2600445BDE /* SlideViewController.m */; };
+		2314F80C15FE6D2600445BDE /* PagingSlideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2314F80B15FE6D2600445BDE /* PagingSlideViewController.m */; };
 		2314F80F15FE92CB00445BDE /* PagingGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2314F80E15FE92CA00445BDE /* PagingGridViewController.m */; };
 		2314F81215FEAE8800445BDE /* PagingMediaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2314F81115FEAE8800445BDE /* PagingMediaViewController.m */; };
 		231F5A8E15E6124B00D85115 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 231F5A8C15E6124B00D85115 /* bg.png */; };
@@ -76,7 +76,7 @@
 		238426C715EF31780077DDF8 /* ClipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 238426B815EF016C0077DDF8 /* ClipView.m */; };
 		238FF21815E8A533004D3356 /* CGAuthController.m in Sources */ = {isa = PBXBuildFile; fileRef = 238FF21715E8A533004D3356 /* CGAuthController.m */; };
 		23A49E4815E444FE00038FCA /* PopularViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A49E4615E444FE00038FCA /* PopularViewController.m */; };
-		23B09F7115F04FAA00490AF9 /* UserFeedMediaController.m in Sources */ = {isa = PBXBuildFile; fileRef = 238426C515EF2D330077DDF8 /* UserFeedMediaController.m */; };
+		23B09F7115F04FAA00490AF9 /* SlideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 238426C515EF2D330077DDF8 /* SlideViewController.m */; };
 		23F9DDA415F04930002A62F7 /* connect-background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 23F9DDA215F04930002A62F7 /* connect-background.jpg */; };
 		23F9DDA515F04930002A62F7 /* connect-background@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 23F9DDA315F04930002A62F7 /* connect-background@2x.jpg */; };
 		23FC575115F01923002304D9 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 23FC574D15F01923002304D9 /* libTestFlight.a */; };
@@ -162,8 +162,8 @@
 		2314F7E615F7FD3E00445BDE /* CommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentCell.xib; sourceTree = "<group>"; };
 		2314F7E815F802F900445BDE /* comment-cell-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comment-cell-bg.png"; sourceTree = "<group>"; };
 		2314F7E915F802F900445BDE /* comment-cell-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comment-cell-bg@2x.png"; sourceTree = "<group>"; };
-		2314F80A15FE6D2600445BDE /* SlideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideViewController.h; sourceTree = "<group>"; };
-		2314F80B15FE6D2600445BDE /* SlideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideViewController.m; sourceTree = "<group>"; };
+		2314F80A15FE6D2600445BDE /* PagingSlideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PagingSlideViewController.h; sourceTree = "<group>"; };
+		2314F80B15FE6D2600445BDE /* PagingSlideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PagingSlideViewController.m; sourceTree = "<group>"; };
 		2314F80D15FE92CA00445BDE /* PagingGridViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PagingGridViewController.h; sourceTree = "<group>"; };
 		2314F80E15FE92CA00445BDE /* PagingGridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PagingGridViewController.m; sourceTree = "<group>"; };
 		2314F81015FEAE8700445BDE /* PagingMediaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PagingMediaViewController.h; sourceTree = "<group>"; };
@@ -197,8 +197,8 @@
 		238426A515EEE1CB0077DDF8 /* progress-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "progress-bg@2x.png"; sourceTree = "<group>"; };
 		238426B715EF016C0077DDF8 /* ClipView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClipView.h; sourceTree = "<group>"; };
 		238426B815EF016C0077DDF8 /* ClipView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClipView.m; sourceTree = "<group>"; };
-		238426C415EF2D330077DDF8 /* UserFeedMediaController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserFeedMediaController.h; sourceTree = "<group>"; };
-		238426C515EF2D330077DDF8 /* UserFeedMediaController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserFeedMediaController.m; sourceTree = "<group>"; };
+		238426C415EF2D330077DDF8 /* SlideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideViewController.h; sourceTree = "<group>"; };
+		238426C515EF2D330077DDF8 /* SlideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideViewController.m; sourceTree = "<group>"; };
 		238FF21615E8A533004D3356 /* CGAuthController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGAuthController.h; sourceTree = "<group>"; };
 		238FF21715E8A533004D3356 /* CGAuthController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGAuthController.m; sourceTree = "<group>"; };
 		23A49E4515E444FE00038FCA /* PopularViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularViewController.h; sourceTree = "<group>"; };
@@ -315,10 +315,10 @@
 				230B1EFC15EE986F00A00058 /* HomeViewController.m */,
 				23A49E4515E444FE00038FCA /* PopularViewController.h */,
 				23A49E4615E444FE00038FCA /* PopularViewController.m */,
-				238426C415EF2D330077DDF8 /* UserFeedMediaController.h */,
-				238426C515EF2D330077DDF8 /* UserFeedMediaController.m */,
-				2314F80A15FE6D2600445BDE /* SlideViewController.h */,
-				2314F80B15FE6D2600445BDE /* SlideViewController.m */,
+				238426C415EF2D330077DDF8 /* SlideViewController.h */,
+				238426C515EF2D330077DDF8 /* SlideViewController.m */,
+				2314F80A15FE6D2600445BDE /* PagingSlideViewController.h */,
+				2314F80B15FE6D2600445BDE /* PagingSlideViewController.m */,
 				2314F80D15FE92CA00445BDE /* PagingGridViewController.h */,
 				2314F80E15FE92CA00445BDE /* PagingGridViewController.m */,
 				2314F81015FEAE8700445BDE /* PagingMediaViewController.h */,
@@ -620,7 +620,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				23B09F7115F04FAA00490AF9 /* UserFeedMediaController.m in Sources */,
+				23B09F7115F04FAA00490AF9 /* SlideViewController.m in Sources */,
 				230BF2D415E83314005DB8A0 /* NSURL+WillFleming.m in Sources */,
 				666EFF9715CB369500CA30B7 /* main.m in Sources */,
 				666EFF9B15CB369500CA30B7 /* AppDelegate.m in Sources */,
@@ -634,7 +634,7 @@
 				238426C715EF31780077DDF8 /* ClipView.m in Sources */,
 				2314F7B515F5DD8200445BDE /* DetailsViewController.m in Sources */,
 				2314F7E515F7EBA300445BDE /* CommentCell.m in Sources */,
-				2314F80C15FE6D2600445BDE /* SlideViewController.m in Sources */,
+				2314F80C15FE6D2600445BDE /* PagingSlideViewController.m in Sources */,
 				2314F80F15FE92CB00445BDE /* PagingGridViewController.m in Sources */,
 				2314F81215FEAE8800445BDE /* PagingMediaViewController.m in Sources */,
 			);

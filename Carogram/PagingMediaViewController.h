@@ -8,23 +8,29 @@
 
 #import <UIKit/UIKit.h>
 #import "MediaCollectionDelegate.h"
+#import "MediaSelectorDelegate.h"
 
-@protocol PagingMediaScrollDelegate;
+extern NSString *  const MediaCollectionDidLoadNextPageNotification;
+
+@protocol PagingMediaViewControllerDelegate;
 
 @interface PagingMediaViewController : UIViewController
 
-@property (weak, nonatomic) id<MediaCollectionDelegate> mediaCollectionDelegate;
-@property (weak, nonatomic) id<PagingMediaScrollDelegate>pagingMediaScrollDelegate;
+@property (weak, nonatomic) id<PagingMediaViewControllerDelegate> delegate;
+@property (weak, nonatomic) id<MediaSelectorDelegate> mediaSelectorDelegate;
 @property (strong, nonatomic) WFIGMediaCollection *mediaCollection;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 
 - (int)currentPage;
 - (void)scrollToFirstPage;
+- (void)nextPageLoaded;
 
 @end
 
-@protocol PagingMediaScrollDelegate <NSObject>
+@protocol PagingMediaViewControllerDelegate <NSObject>
 @optional
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView;
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView;
+- (void)didSelectMedia:(WFIGMedia *)media fromRect:(CGRect)rect;
+- (void)loadMoreMedia;
 @end

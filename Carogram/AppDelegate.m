@@ -29,11 +29,18 @@ NSString * const kCurrentUserKeyPath = @"currentUser";
 @synthesize authWindow = _authWindow;
 @synthesize currentUser = _currentUser;
 
+void onUncaughtException(NSException* exception)
+{
+    NSLog(@"uncaught exception: %@", exception.description);
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 #if defined (ADHOC)
     [TestFlight takeOff:@"03546bd435156f2bdef6834b4fb111d9_MTI2NTQ1MjAxMi0wOC0yOSAxMzoyODo1OS4wNDUxMTI"];
 #endif
+    
+    NSSetUncaughtExceptionHandler(&onUncaughtException);
     
     [self deleteCookies];
     

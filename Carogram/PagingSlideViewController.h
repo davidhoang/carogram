@@ -1,5 +1,5 @@
 //
-//  PagingGridViewController.h
+//  SlideViewController.h
 //  Carogram
 //
 //  Created by Jacob Moore on 9/10/12.
@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "PagingMediaViewController.h"
+#import "MediaSelectorDelegate.h"
 
-@interface PagingGridViewController : PagingMediaViewController
+@interface PagingSlideViewController : PagingMediaViewController <MediaSelectorDelegate>
 
 @end
