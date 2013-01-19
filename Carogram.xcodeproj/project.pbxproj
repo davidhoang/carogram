@@ -401,7 +401,6 @@
 		666EFF7B15CB369500CA30B7 = {
 			isa = PBXGroup;
 			children = (
-				23FC575415F0195E002304D9 /* libz.dylib */,
 				666EFF9015CB369500CA30B7 /* Carogram */,
 				666EFF8915CB369500CA30B7 /* Frameworks */,
 				23FC574B15F01903002304D9 /* Libraries */,
@@ -420,11 +419,12 @@
 		666EFF8915CB369500CA30B7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2320A6CF16A7DB8D00194A8F /* WFInstagramAPI.xcodeproj */,
 				666EFF8E15CB369500CA30B7 /* CoreGraphics.framework */,
 				666EFF8C15CB369500CA30B7 /* Foundation.framework */,
+				23FC575415F0195E002304D9 /* libz.dylib */,
 				2303559915EA0EB000C80D31 /* QuartzCore.framework */,
 				666EFF8A15CB369500CA30B7 /* UIKit.framework */,
+				2320A6CF16A7DB8D00194A8F /* WFInstagramAPI.xcodeproj */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

@@ -36,6 +36,7 @@
 {
     [super viewDidLoad];
 
+    NSLog(@"view bounds: %@", NSStringFromCGRect(self.view.bounds));
     [self initGrid];
 }
 
@@ -54,7 +55,7 @@
         WFIGMedia *media = [self.mediaCollection objectAtIndex:index];
         
         int x = 46 + ((i % 4) * 244);
-        int y = 26 + ((i / 4) * 224);
+        int y = 29 + ((i / 4) * 230);
         
         CGRect frame = CGRectMake(x, y, 200, 200);
         ImageGridViewCell *cell = [[ImageGridViewCell alloc] initWithMedia:media frame:frame];

@@ -84,8 +84,6 @@
 {
     [super viewWillAppear:animated];
     
-    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
-    
     CGRect commentsFrame = self.commentsView.frame;
     CGRect startCommentsFrame = self.commentsView.frame;
     startCommentsFrame.origin.x = self.view.frame.size.width;
@@ -110,8 +108,6 @@
     [super viewWillDisappear:animated];
     
     [self.tableView setHidden:YES];
-    
-    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
     
     CGRect commentsFrame = self.commentsView.frame;
     commentsFrame.origin.x = self.view.frame.size.width;

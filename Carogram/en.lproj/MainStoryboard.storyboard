@@ -540,9 +540,6 @@
         </class>
         <class className="HomeViewController" superclassName="CGViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/HomeViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="touchHome:"/>
-            </relationships>
         </class>
         <class className="PagingGridViewController" superclassName="PagingMediaViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PagingGridViewController.h"/>
@@ -558,9 +555,6 @@
         </class>
         <class className="PopularViewController" superclassName="CGViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PopularViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="touchPopular:"/>
-            </relationships>
         </class>
         <class className="SlideViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SlideViewController.h"/>
