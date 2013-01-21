@@ -52,6 +52,13 @@ NSString * const MediaCollectionDidLoadNextPageNotification = @"MediaCollectionD
     return floor((self.scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
 }
 
+- (void)setCurrentPage:(int)page animated:(BOOL)animated
+{
+    CGFloat pageWidth = self.scrollView.frame.size.width;
+    CGPoint offset = CGPointMake((float)page * pageWidth, self.scrollView.contentOffset.y);
+    [self.scrollView setContentOffset:offset animated:animated];
+}
+
 - (void)scrollToFirstPage
 {
     if (self.scrollView.contentOffset.x > 0) {

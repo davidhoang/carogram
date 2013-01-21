@@ -23,12 +23,14 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
 @implementation PagingSlideViewController {
 @private
     int pageCount;
+    BOOL zoomRecognized_;
 }
 
 - (id)initWithCoder:(NSCoder *)decoder
 {
     self = [super initWithCoder:decoder];
     if (self) {
+        zoomRecognized_ = NO;
         if (nil == ObservableKeys) {
             ObservableKeys = [[NSSet alloc] initWithObjects:MediaCollectionKeyPath, nil];
         }
@@ -51,6 +53,8 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+#pragma mark - View management
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -58,6 +62,11 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
     if ([self.mediaCollection count] > 0) {
         [self configureView];
     }
+
+    UIPinchGestureRecognizer *pinchRecognizer =
+        [[UIPinchGestureRecognizer alloc] initWithTarget:self
+                                                  action:@selector(handlePinch:)];
+    [self.view addGestureRecognizer:pinchRecognizer];
 }
 
 - (void)viewDidUnload
@@ -94,6 +103,30 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
     
     [self loadScrollViewWithPage:0];
     [self loadScrollViewWithPage:1];
+}
+
+#pragma mark -
+
+- (void)handlePinch:(UIPinchGestureRecognizer *)recognizer
+{
+    switch (recognizer.state) {
+        case UIGestureRecognizerStateBegan: {
+            zoomRecognized_ = NO;
+            break;
+        }
+        case UIGestureRecognizerStateChanged: {
+            if ([recognizer scale] <= 0.7 && !zoomRecognized_) {
+                zoomRecognized_ = YES;
+
+                if ([self.delegate respondsToSelector:@selector(pagingMediaViewController:didZoomOutAtIndex:)])
+                {
+                    [self.delegate pagingMediaViewController:self didZoomOutAtIndex:[self currentPage]];
+                }
+            }
+            break;
+        }
+        default: break;
+    }
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context

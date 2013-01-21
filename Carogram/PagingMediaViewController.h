@@ -22,6 +22,7 @@ extern NSString *  const MediaCollectionDidLoadNextPageNotification;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 
 - (int)currentPage;
+- (void)setCurrentPage:(int)page animated:(BOOL)animated;
 - (void)scrollToFirstPage;
 - (void)nextPageLoaded;
 
@@ -33,4 +34,6 @@ extern NSString *  const MediaCollectionDidLoadNextPageNotification;
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView;
 - (void)didSelectMedia:(WFIGMedia *)media fromRect:(CGRect)rect;
 - (void)loadMoreMedia;
+- (void)pagingMediaViewController:(PagingMediaViewController *)pagingMediaViewController didZoomInAtIndex:(int)index;
+- (void)pagingMediaViewController:(PagingMediaViewController *)pagingMediaViewController didZoomOutAtIndex:(int)index;
 @end

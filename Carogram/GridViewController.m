@@ -9,6 +9,8 @@
 #import "GridViewController.h"
 #import "ImageGridViewCell.h"
 
+#define kNumberOfColumns 4
+
 @interface GridViewController ()
 @property (strong, nonatomic) NSArray *gridCells;
 - (void)initGrid;
@@ -36,7 +38,6 @@
 {
     [super viewDidLoad];
 
-    NSLog(@"view bounds: %@", NSStringFromCGRect(self.view.bounds));
     [self initGrid];
 }
 
@@ -54,8 +55,8 @@
         
         WFIGMedia *media = [self.mediaCollection objectAtIndex:index];
         
-        int x = 46 + ((i % 4) * 244);
-        int y = 29 + ((i / 4) * 230);
+        int x = 46 + ((i % kNumberOfColumns) * 244);
+        int y = 29 + ((i / kNumberOfColumns) * 230);
         
         CGRect frame = CGRectMake(x, y, 200, 200);
         ImageGridViewCell *cell = [[ImageGridViewCell alloc] initWithMedia:media frame:frame];
@@ -98,6 +99,18 @@
 - (BOOL)isGridFull
 {
     return gridFull;
+}
+
+- (int)indexOfMediaAtPoint:(CGPoint)point
+{
+    float columnDivisor = self.view.bounds.size.width / kNumberOfColumns;
+    int column = (int)(point.x / columnDivisor);
+
+    float rowDivisor = self.view.bounds.size.height / (kImageCount/kNumberOfColumns);
+    int row = (int)(point.y / rowDivisor);
+
+    int index = row * kNumberOfColumns + column;
+    return index;
 }
 
 @end

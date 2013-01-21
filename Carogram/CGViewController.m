@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import "DetailsViewController.h"
 #import "WFIGImageCache.h"
+#import "GridViewController.h"
 #import "PagingGridViewController.h"
 #import "PagingSlideViewController.h"
 
@@ -22,13 +23,12 @@ static NSSet * ObservableKeys = nil;
 @property (strong, nonatomic) UIImageView *ivRefreshIcon;
 @property (strong, nonatomic) PagingGridViewController *pagingGridViewController;
 @property (strong, nonatomic) PagingSlideViewController *pagingSlideViewController;
+@property (nonatomic) CGRect contentFrame;
 - (void)loadProfilePicture;
 - (void)setupRefreshViews;
 - (void)setupBackgroundView;
 - (void)setupProgressView;
 - (void)setupTitleBarView;
-- (void)showSlideView;
-- (void)showGridView;
 @end
 
 @implementation CGViewController
@@ -74,77 +74,58 @@ static NSSet * ObservableKeys = nil;
     [self setupBackgroundView];
     [self setupProgressView];
     [self setupTitleBarView];
-    
-    self.pagingGridViewController = (PagingGridViewController *)[self.storyboard instantiateViewControllerWithIdentifier: @"PagingGrid"];
-    self.pagingGridViewController.delegate = self;
-    self.pagingGridViewController.mediaSelectorDelegate = self;
-    
-    CGRect pagingGridViewFrame = self.pagingGridViewController.view.frame;
-    pagingGridViewFrame.origin.y = 50;
-    self.pagingGridViewController.view.frame = pagingGridViewFrame;
-    
-    self.currentMediaController = self.pagingGridViewController;
-    [self.view addSubview:self.pagingGridViewController.view];
-    
-    UIPinchGestureRecognizer *pinchRecognizer =
-        [[UIPinchGestureRecognizer alloc] initWithTarget:self
-                                                  action:@selector(handlePinch:)];
-    [self.view addGestureRecognizer:pinchRecognizer];
-    
+    [self setupContentFrame];
+
+    [self showGridViewAtIndex:0];
     [self loadMediaCollection];
 }
 
-- (void)handlePinch:(UIPinchGestureRecognizer *)recognizer
-{   
-    if ([recognizer scale] >= 1.5) {
-        if (self.currentMediaController == self.pagingGridViewController) {
-            [self showSlideView];
-        }
-    } else if ([recognizer scale] <= 0.7) {
-        if (self.currentMediaController == self.pagingSlideViewController) {
-            [self showGridView];
-        }
-    }
-}
-
-- (void)showSlideView
+- (void)showSlideViewAtIndex:(int)index
 {
-    NSLog(@"showSlideView");
     if (self.pagingSlideViewController == nil) {
-        self.pagingSlideViewController = (PagingSlideViewController *)[self.storyboard instantiateViewControllerWithIdentifier: @"PagingSlide"];
+        self.pagingSlideViewController =
+            (PagingSlideViewController *)[self.storyboard instantiateViewControllerWithIdentifier: @"PagingSlide"];
         self.pagingSlideViewController.delegate = self;
         self.pagingSlideViewController.mediaSelectorDelegate = self;
         self.pagingSlideViewController.mediaCollection = self.mediaCollection;
-        
-        CGRect pagingSlideViewFrame = self.pagingSlideViewController.view.frame;
-        pagingSlideViewFrame.origin.y = 50;
-        self.pagingSlideViewController.view.frame = pagingSlideViewFrame;
+        self.pagingSlideViewController.view.frame = self.contentFrame;
     }
+    [self.pagingSlideViewController setCurrentPage:index animated:NO];
     
-    self.currentMediaController = self.pagingSlideViewController;
+    [self.pagingGridViewController willMoveToParentViewController:nil];
+    [self addChildViewController:self.pagingSlideViewController];
+
     [self.pagingGridViewController.view removeFromSuperview];
     [self.view addSubview:self.pagingSlideViewController.view];
+
+    [self.pagingGridViewController removeFromParentViewController];
+    [self.pagingSlideViewController didMoveToParentViewController:self];
+
+    self.currentMediaController = self.pagingSlideViewController;
 }
 
-- (void)showGridView
+- (void)showGridViewAtIndex:(int)index
 {
-    NSLog(@"showGridView");
     if (self.pagingGridViewController == nil) {
-        self.pagingGridViewController = (PagingGridViewController *)[self.storyboard instantiateViewControllerWithIdentifier: @"PagingGrid"];
+        self.pagingGridViewController =
+            (PagingGridViewController *)[self.storyboard instantiateViewControllerWithIdentifier: @"PagingGrid"];
         self.pagingGridViewController.delegate = self;
         self.pagingGridViewController.mediaSelectorDelegate = self;
         self.pagingGridViewController.mediaCollection = self.mediaCollection;
-        
-        CGRect pagingGridViewFrame = self.pagingGridViewController.view.frame;
-        pagingGridViewFrame.origin.y = 50;
-        self.pagingGridViewController.view.frame = pagingGridViewFrame;
+        self.pagingGridViewController.view.frame = self.contentFrame;
     }
+    [self.pagingGridViewController setCurrentPage:index animated:NO];
     
-    self.currentMediaController = self.pagingGridViewController;
+    [self.pagingSlideViewController willMoveToParentViewController:nil];
+    [self addChildViewController:self.pagingGridViewController];
+
     [self.pagingSlideViewController.view removeFromSuperview];
     [self.view addSubview:self.pagingGridViewController.view];
-    
-//    self.pagingGridViewController.mediaCollection = self.mediaCollection;
+
+    [self.pagingSlideViewController removeFromParentViewController];
+    [self.pagingGridViewController didMoveToParentViewController:self];
+
+    self.currentMediaController = self.pagingGridViewController;
 }
 
 - (void)viewDidUnload
@@ -222,15 +203,26 @@ static NSSet * ObservableKeys = nil;
     int x = (int)((self.view.frame.size.width/2.) - (127./2.));
     int y = (int)((self.view.frame.size.height/2.) - (107./2.));
     self.ivProgressBackground = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, 127, 107)];
-    self.ivProgressBackground.image = [[UIImage imageNamed:@"progress-bg"] stretchableImageWithLeftCapWidth:29 topCapHeight:30];
-    [self.ivProgressBackground setAutoresizingMask:UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleRightMargin];
+    self.ivProgressBackground.image =
+            [[UIImage imageNamed:@"progress-bg"] stretchableImageWithLeftCapWidth:29 topCapHeight:30];
+    [self.ivProgressBackground setAutoresizingMask:UIViewAutoresizingFlexibleTopMargin
+                                                   |UIViewAutoresizingFlexibleLeftMargin
+                                                   |UIViewAutoresizingFlexibleBottomMargin
+                                                   |UIViewAutoresizingFlexibleRightMargin];
     [self.view insertSubview:self.ivProgressBackground aboveSubview:self.ivBackground];
 
-    self.activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    self.activityIndicatorView =
+            [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     x = (int)((self.view.frame.size.width/2.) - (self.activityIndicatorView.frame.size.width/2.));
     y = (int)((self.view.frame.size.height/2.) - (self.activityIndicatorView.frame.size.height/2.));
-    self.activityIndicatorView.frame = CGRectMake(x, y, self.activityIndicatorView.frame.size.width, self.activityIndicatorView.frame.size.height);
-    [self.activityIndicatorView setAutoresizingMask:UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleRightMargin];
+    self.activityIndicatorView.frame = CGRectMake(x,
+                                                  y,
+                                                  self.activityIndicatorView.frame.size.width,
+                                                  self.activityIndicatorView.frame.size.height);
+    [self.activityIndicatorView setAutoresizingMask:UIViewAutoresizingFlexibleTopMargin
+                                                    |UIViewAutoresizingFlexibleLeftMargin
+                                                    |UIViewAutoresizingFlexibleBottomMargin
+                                                    |UIViewAutoresizingFlexibleRightMargin];
     self.activityIndicatorView.color = [UIColor colorWithRed:(225./255.) green:(225./255.) blue:(225./255.) alpha:1];
     [self.view insertSubview:self.activityIndicatorView aboveSubview:self.ivProgressBackground];
 }
@@ -239,12 +231,14 @@ static NSSet * ObservableKeys = nil;
 {
     [[NSBundle mainBundle] loadNibNamed:@"TitleBarView" owner:self options:nil];
     [self.view addSubview:self.titleBarView];
+    NSLog(@"titleBarView height: %f", self.titleBarView.bounds.size.height);
     
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     self.currentUser = appDelegate.currentUser;
     if (nil != self.currentUser) [self loadProfilePicture];
 
-    self.ivSearchBg.image = [[UIImage imageNamed:@"search-bg"] stretchableImageWithLeftCapWidth:4 topCapHeight:4];
+    self.ivSearchBg.image =
+            [[UIImage imageNamed:@"search-bg"] stretchableImageWithLeftCapWidth:4 topCapHeight:4];
     
     // Round avatar image view
     self.ivPhoto.layer.opaque = YES;
@@ -269,6 +263,15 @@ static NSSet * ObservableKeys = nil;
         [self.btnHome setImage:[UIImage imageNamed:@"btn-home"] forState:UIControlStateNormal];
         [self.btnPopular setImage:[UIImage imageNamed:@"btn-popular-depressed"] forState:UIControlStateNormal];
     }
+}
+
+- (void)setupContentFrame
+{
+    float titleBarHeight = self.titleBarView.bounds.size.height;
+    self.contentFrame = CGRectMake(0,
+                                  titleBarHeight,
+                                  self.view.bounds.size.width,
+                                  self.view.bounds.size.height - titleBarHeight);
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -368,6 +371,21 @@ static NSSet * ObservableKeys = nil;
 {
     if (scrollView.contentOffset.x <= kRefreshDrag) {
         [self refresh];
+    }
+}
+
+- (void)pagingMediaViewController:(PagingMediaViewController *)pagingMediaViewController didZoomInAtIndex:(int)index
+{
+    if (self.currentMediaController == self.pagingGridViewController) {
+        [self showSlideViewAtIndex:index];
+    }
+}
+
+- (void)pagingMediaViewController:(PagingMediaViewController *)pagingMediaViewController didZoomOutAtIndex:(int)index
+{
+    if (self.currentMediaController == self.pagingSlideViewController) {
+        int pageIndex = index / kImageCount;
+        [self showGridViewAtIndex:pageIndex];
     }
 }
 

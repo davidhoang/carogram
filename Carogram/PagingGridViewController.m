@@ -24,12 +24,14 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
 @implementation PagingGridViewController {
 @private
     int pageCount;
+    BOOL zoomRecognized_;
 }
 
 - (id)initWithCoder:(NSCoder *)decoder
 {
     self = [super initWithCoder:decoder];
     if (self) {
+        zoomRecognized_ = NO;
         if (nil == ObservableKeys) {
             ObservableKeys = [[NSSet alloc] initWithObjects:MediaCollectionKeyPath, nil];
         }
@@ -55,6 +57,8 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+#pragma mark - View management
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -62,6 +66,11 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
     if ([self.mediaCollection count] > 0) {
         [self configureView];
     }
+    
+    UIPinchGestureRecognizer *pinchRecognizer =
+        [[UIPinchGestureRecognizer alloc] initWithTarget:self
+                                                  action:@selector(handlePinch:)];
+    [self.view addGestureRecognizer:pinchRecognizer];
 }
 
 - (void)viewDidUnload
@@ -98,6 +107,42 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
     
     [self loadScrollViewWithPage:0];
     [self loadScrollViewWithPage:1];
+}
+
+#pragma mark -
+
+- (void)handlePinch:(UIPinchGestureRecognizer *)recognizer
+{
+    switch (recognizer.state) {
+        case UIGestureRecognizerStateBegan: {
+            zoomRecognized_ = NO;
+            break;
+        }
+        case UIGestureRecognizerStateChanged: {
+            if ([recognizer scale] >= 1.5 && !zoomRecognized_) {
+                zoomRecognized_ = YES;
+                CGPoint firstPt = [recognizer locationOfTouch:0 inView:self.view];
+                CGPoint secondPt = [recognizer locationOfTouch:1 inView:self.view];
+                CGPoint midPt = CGPointMake((firstPt.x + secondPt.x) / 2.,
+                                            (firstPt.y + secondPt.y) / 2.);
+                [self zoomInFromPoint:midPt];
+            }
+            break;
+        }
+        default: break;
+    }
+}
+
+- (void)zoomInFromPoint:(CGPoint)point
+{
+    GridViewController *currentGridViewController = self.gridViewControllers[self.currentPage];
+    int pageIndex = [currentGridViewController indexOfMediaAtPoint:point];
+    int mediaIndex = self.currentPage * kImageCount + pageIndex;
+    
+    if ([self.delegate respondsToSelector:@selector(pagingMediaViewController:didZoomInAtIndex:)])
+    {
+        [self.delegate pagingMediaViewController:self didZoomInAtIndex:mediaIndex];
+    }
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -144,7 +189,7 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
 
 - (void)loadMoreMedia
 {
-    if ([self.mediaCollection hasNextPage] && self.delegate != nil && [self.delegate respondsToSelector:@selector(loadMoreMedia)]) {
+    if ([self.mediaCollection hasNextPage] && [self.delegate respondsToSelector:@selector(loadMoreMedia)]) {
         [self.delegate loadMoreMedia];
     }    
 }
