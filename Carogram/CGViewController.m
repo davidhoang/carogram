@@ -231,7 +231,6 @@ static NSSet * ObservableKeys = nil;
 {
     [[NSBundle mainBundle] loadNibNamed:@"TitleBarView" owner:self options:nil];
     [self.view addSubview:self.titleBarView];
-    NSLog(@"titleBarView height: %f", self.titleBarView.bounds.size.height);
     
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     self.currentUser = appDelegate.currentUser;
@@ -307,12 +306,18 @@ static NSSet * ObservableKeys = nil;
 
 - (void) loadMediaCollection { } // subclasses should override this method
 
-- (IBAction)touchPopular:(id)sender {
-    [self.tabBarController setSelectedIndex:1];
+#pragma mark - Actions
+
+- (IBAction)search:(id)sender {
+    [self.tabBarController setSelectedIndex:2];
 }
 
 - (IBAction)touchHome:(id)sender {
     [self.tabBarController setSelectedIndex:0];
+}
+
+- (IBAction)touchPopular:(id)sender {
+    [self.tabBarController setSelectedIndex:1];
 }
 
 - (IBAction)touchUser:(id)sender {
@@ -320,6 +325,8 @@ static NSSet * ObservableKeys = nil;
     actionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
     [actionSheet showFromRect:self.ivPhoto.frame inView:self.titleBarView animated:YES];
 }
+
+#pragma mark -
 
 - (void)setProgressViewShown:(BOOL)shown
 {

@@ -27,7 +27,26 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XUP-P1-HCt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1160" y="-263"/>
+            <point key="canvasLocation" x="-1120" y="-1895"/>
+        </scene>
+        <!--Search View Controller-->
+        <scene sceneID="UHT-Dc-1s6">
+            <objects>
+                <viewController autoresizesArchivedViewToFullSize="NO" hidesBottomBarWhenPushed="YES" id="rY6-xi-Pns" customClass="SearchViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="I0b-HE-1Pk">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="7Ce-aa-HkB"/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="W5Q-AJ-3Pw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1120" y="-906"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="7yj-oN-bQk">
@@ -45,11 +64,12 @@
                     <connections>
                         <segue destination="LNI-iG-dbm" kind="relationship" relationship="viewControllers" id="4df-qW-OEn"/>
                         <segue destination="kna-6o-FzJ" kind="relationship" relationship="viewControllers" id="UKe-ae-hfp"/>
+                        <segue destination="u76-6M-cMe" kind="relationship" relationship="viewControllers" id="svd-aX-d6z"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IG6-nJ-syL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3853" y="-776"/>
+            <point key="canvasLocation" x="-3853" y="-1895"/>
         </scene>
         <!--Slide View Controller-->
         <scene sceneID="PbB-dF-Q5W">
@@ -135,7 +155,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5jz-LC-TGf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="330" y="-2343"/>
+            <point key="canvasLocation" x="370" y="-3975"/>
         </scene>
         <!--Home View Controller-->
         <scene sceneID="Skj-Ha-VLF">
@@ -170,7 +190,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gWz-43-Iep" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1160" y="-1261"/>
+            <point key="canvasLocation" x="-1120" y="-2893"/>
         </scene>
         <!--Details View Controller-->
         <scene sceneID="RFI-nM-sBf">
@@ -367,7 +387,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sds-pJ-61D" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="270" y="-737"/>
+            <point key="canvasLocation" x="310" y="-2369"/>
         </scene>
         <!--Navigation Controller - Item-->
         <scene sceneID="cQQ-sf-PqB">
@@ -388,7 +408,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oCz-Gy-skg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2530" y="-263"/>
+            <point key="canvasLocation" x="-2490" y="-1895"/>
         </scene>
         <!--Paging Grid View Controller-->
         <scene sceneID="RSN-SO-tMX">
@@ -418,7 +438,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wgC-75-iOP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1160" y="-3460"/>
+            <point key="canvasLocation" x="-1120" y="-5092"/>
         </scene>
         <!--Paging Slide View Controller-->
         <scene sceneID="xpy-yB-qA0">
@@ -456,7 +476,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5pV-PT-3Jl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1160" y="-2348"/>
+            <point key="canvasLocation" x="-1120" y="-3980"/>
         </scene>
         <!--Navigation Controller - Item-->
         <scene sceneID="UYD-M2-qG9">
@@ -479,7 +499,30 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b6v-bT-wNA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2530" y="-1261"/>
+            <point key="canvasLocation" x="-2490" y="-2893"/>
+        </scene>
+        <!--Navigation Controller - Item-->
+        <scene sceneID="fli-bL-Q7t">
+            <objects>
+                <navigationController navigationBarHidden="YES" id="u76-6M-cMe" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="73H-Kb-6DX"/>
+                    <toolbarItems/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="mYb-81-nS6">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="rY6-xi-Pns" kind="relationship" relationship="rootViewController" id="qDZ-dp-FiY"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kah-CY-hmh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2490" y="-906"/>
         </scene>
     </scenes>
     <resources>
@@ -562,6 +605,9 @@
             <relationships>
                 <relationship kind="action" name="touchPopular:"/>
             </relationships>
+        </class>
+        <class className="SearchViewController" superclassName="CGViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SearchViewController.h"/>
         </class>
         <class className="SlideViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SlideViewController.h"/>
