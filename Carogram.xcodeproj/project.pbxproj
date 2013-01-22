@@ -69,7 +69,6 @@
 		2320A6EA16A8689300194A8F /* WFIGCJSONSerializer.h in Resources */ = {isa = PBXBuildFile; fileRef = 2320A6E316A8689300194A8F /* WFIGCJSONSerializer.h */; };
 		2320A6EB16A8689300194A8F /* WFIGImageCache.h in Resources */ = {isa = PBXBuildFile; fileRef = 2320A6E416A8689300194A8F /* WFIGImageCache.h */; };
 		2320A6EC16A8689300194A8F /* WFIGMedia.h in Resources */ = {isa = PBXBuildFile; fileRef = 2320A6E516A8689300194A8F /* WFIGMedia.h */; };
-		2320A6F116A868AC00194A8F /* WFIGMedia.h in Resources */ = {isa = PBXBuildFile; fileRef = 2320A6ED16A868AC00194A8F /* WFIGMedia.h */; };
 		2320A6F216A868AC00194A8F /* WFIGMediaCollection.h in Resources */ = {isa = PBXBuildFile; fileRef = 2320A6EE16A868AC00194A8F /* WFIGMediaCollection.h */; };
 		2320A6F316A868AC00194A8F /* WFIGUser.h in Resources */ = {isa = PBXBuildFile; fileRef = 2320A6EF16A868AC00194A8F /* WFIGUser.h */; };
 		2320A6F416A868AC00194A8F /* WFIGComment.h in Resources */ = {isa = PBXBuildFile; fileRef = 2320A6F016A868AC00194A8F /* WFIGComment.h */; };
@@ -369,28 +368,28 @@
 			children = (
 				238FF21615E8A533004D3356 /* CRGAuthController.h */,
 				238FF21715E8A533004D3356 /* CRGAuthController.m */,
-				231082C215E5FEC8008D3F70 /* CRGMediaViewController.h */,
-				231082C315E5FEC8008D3F70 /* CRGMediaViewController.m */,
 				2314F7B315F5DD8200445BDE /* CRGDetailsViewController.h */,
 				2314F7B415F5DD8200445BDE /* CRGDetailsViewController.m */,
 				230355E015EC241000C80D31 /* CRGGridViewController.h */,
 				230355E115EC241000C80D31 /* CRGGridViewController.m */,
-				230B1EFB15EE986F00A00058 /* CRGUserFeedViewController.h */,
-				230B1EFC15EE986F00A00058 /* CRGUserFeedViewController.m */,
-				23A49E4515E444FE00038FCA /* CRGPopularMediaViewController.h */,
-				23A49E4615E444FE00038FCA /* CRGPopularMediaViewController.m */,
-				238426C415EF2D330077DDF8 /* CRGSlideViewController.h */,
-				238426C515EF2D330077DDF8 /* CRGSlideViewController.m */,
-				2314F80A15FE6D2600445BDE /* CRGPagingSlideViewController.h */,
-				2314F80B15FE6D2600445BDE /* CRGPagingSlideViewController.m */,
+				238A5D6616AE16EE00CAA6C1 /* CRGMainViewController.h */,
+				238A5D6716AE16EE00CAA6C1 /* CRGMainViewController.m */,
+				231082C215E5FEC8008D3F70 /* CRGMediaViewController.h */,
+				231082C315E5FEC8008D3F70 /* CRGMediaViewController.m */,
 				2314F80D15FE92CA00445BDE /* CRGPagingGridViewController.h */,
 				2314F80E15FE92CA00445BDE /* CRGPagingGridViewController.m */,
 				2314F81015FEAE8700445BDE /* CRGPagingMediaViewController.h */,
 				2314F81115FEAE8800445BDE /* CRGPagingMediaViewController.m */,
+				2314F80A15FE6D2600445BDE /* CRGPagingSlideViewController.h */,
+				2314F80B15FE6D2600445BDE /* CRGPagingSlideViewController.m */,
+				23A49E4515E444FE00038FCA /* CRGPopularMediaViewController.h */,
+				23A49E4615E444FE00038FCA /* CRGPopularMediaViewController.m */,
+				238426C415EF2D330077DDF8 /* CRGSlideViewController.h */,
+				238426C515EF2D330077DDF8 /* CRGSlideViewController.m */,
 				238A5D6316ADF3E200CAA6C1 /* CRGTagSearchViewController.h */,
 				238A5D6416ADF3E200CAA6C1 /* CRGTagSearchViewController.m */,
-				238A5D6616AE16EE00CAA6C1 /* CRGMainViewController.h */,
-				238A5D6716AE16EE00CAA6C1 /* CRGMainViewController.m */,
+				230B1EFB15EE986F00A00058 /* CRGUserFeedViewController.h */,
+				230B1EFC15EE986F00A00058 /* CRGUserFeedViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -556,7 +555,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = CRG;
-				LastUpgradeCheck = 0440;
+				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = "Xhatch Interactive, LLC";
 			};
 			buildConfigurationList = 666EFF8015CB369500CA30B7 /* Build configuration list for PBXProject "Carogram" */;
@@ -674,7 +673,6 @@
 				2320A6EA16A8689300194A8F /* WFIGCJSONSerializer.h in Resources */,
 				2320A6EB16A8689300194A8F /* WFIGImageCache.h in Resources */,
 				2320A6EC16A8689300194A8F /* WFIGMedia.h in Resources */,
-				2320A6F116A868AC00194A8F /* WFIGMedia.h in Resources */,
 				2320A6F216A868AC00194A8F /* WFIGMediaCollection.h in Resources */,
 				2320A6F316A868AC00194A8F /* WFIGUser.h in Resources */,
 				2320A6F416A868AC00194A8F /* WFIGComment.h in Resources */,

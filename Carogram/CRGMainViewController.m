@@ -12,6 +12,8 @@
 #import "WFInstagramAPI.h"
 #import "WFIGImageCache.h"
 #import "CRGUserFeedViewController.h"
+#import "CRGPopularMediaViewController.h"
+#import "CRGTagSearchViewController.h"
 
 #define USER_FEED_INDEX     0
 #define POPULAR_MEDIA_INDEX 1
@@ -26,7 +28,11 @@ static int currentUserObserverContext;
 @property (strong, nonatomic) IBOutlet UIButton *accountButton;
 @property (nonatomic) CGRect contentFrame;
 @property (strong, nonatomic) NSMutableArray *viewControllers;
+@property (nonatomic) int currentViewControllerIndex;
 @property (strong, nonatomic) UIViewController *currentViewController;
+@property (strong, nonatomic) IBOutlet UIButton *popularMediaButton;
+@property (strong, nonatomic) IBOutlet UIButton *userFeedButton;
+@property (strong, nonatomic) IBOutlet UITextField *searchTextField;
 @end
 
 @implementation CRGMainViewController
@@ -35,7 +41,7 @@ static int currentUserObserverContext;
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        _currentViewControllerIndex = -1;
     }
     return self;
 }
@@ -45,7 +51,7 @@ static int currentUserObserverContext;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
+
     [self setupTitleBarView];
     
     self.contentFrame = CGRectMake(0,
@@ -58,7 +64,8 @@ static int currentUserObserverContext;
     [self.viewControllers addObject:[NSNull null]];
     [self.viewControllers addObject:[NSNull null]];
     
-    [self showUserFeed];
+    self.currentViewControllerIndex = -1;
+    [self showUserFeed:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -115,8 +122,96 @@ static int currentUserObserverContext;
 
 #pragma mark - Actions
 
-- (IBAction)search:(id)sender {
-    NSLog(@"searching...");
+- (IBAction)showUserFeed:(id)sender
+{
+    if (USER_FEED_INDEX == self.currentViewControllerIndex) return;
+    self.currentViewControllerIndex = USER_FEED_INDEX;
+    
+    [self.userFeedButton setImage:[UIImage imageNamed:@"btn-home-depressed"] forState:UIControlStateNormal];
+    [self.popularMediaButton setImage:[UIImage imageNamed:@"btn-popular"] forState:UIControlStateNormal];
+    
+    CRGUserFeedViewController *userFeedController = self.viewControllers[USER_FEED_INDEX];
+    if ((NSNull *)userFeedController == [NSNull null]) {
+        userFeedController = [[CRGUserFeedViewController alloc] initWithNibName:nil bundle:nil];
+        userFeedController.view.frame = self.contentFrame;
+        self.viewControllers[USER_FEED_INDEX] = userFeedController;
+    }
+    
+    [self.currentViewController willMoveToParentViewController:nil];
+    [self addChildViewController:userFeedController];
+    
+    [self.currentViewController.view removeFromSuperview];
+    [self.view insertSubview:userFeedController.view belowSubview:self.titleBarView];
+    
+    [self.currentViewController removeFromParentViewController];
+    [userFeedController didMoveToParentViewController:self];
+    
+    self.currentViewController = userFeedController;
+}
+
+- (IBAction)showPopularMedia:(id)sender
+{
+    if (POPULAR_MEDIA_INDEX == self.currentViewControllerIndex) return;
+    self.currentViewControllerIndex = POPULAR_MEDIA_INDEX;
+    
+    [self.popularMediaButton setImage:[UIImage imageNamed:@"btn-popular-depressed"] forState:UIControlStateNormal];
+    [self.userFeedButton setImage:[UIImage imageNamed:@"btn-home"] forState:UIControlStateNormal];
+    
+    CRGPopularMediaViewController *popularMediaController = self.viewControllers[POPULAR_MEDIA_INDEX];
+    if ((NSNull *)popularMediaController == [NSNull null]) {
+        popularMediaController = [[CRGPopularMediaViewController alloc] initWithNibName:nil bundle:nil];
+        popularMediaController.view.frame = self.contentFrame;
+        self.viewControllers[POPULAR_MEDIA_INDEX] = popularMediaController;
+    }
+    
+    [self.currentViewController willMoveToParentViewController:nil];
+    [self addChildViewController:popularMediaController];
+    
+    [self.currentViewController.view removeFromSuperview];
+    [self.view insertSubview:popularMediaController.view belowSubview:self.titleBarView];
+    
+    [self.currentViewController removeFromParentViewController];
+    [popularMediaController didMoveToParentViewController:self];
+    
+    self.currentViewController = popularMediaController;
+}
+
+- (IBAction)search:(id)sender
+{
+    [self.searchTextField resignFirstResponder];
+
+    NSString *searchTag = self.searchTextField.text;
+    if (! [searchTag length]) return;
+    
+    if ('#' == [searchTag characterAtIndex:0]) searchTag = [searchTag substringFromIndex:1];
+
+    [self.popularMediaButton setImage:[UIImage imageNamed:@"btn-popular"] forState:UIControlStateNormal];
+    [self.userFeedButton setImage:[UIImage imageNamed:@"btn-home"] forState:UIControlStateNormal];
+
+    CRGTagSearchViewController *tagSearchController = self.viewControllers[TAG_SEARCH_INDEX];
+    if ((NSNull *)tagSearchController == [NSNull null]) {
+        tagSearchController = [[CRGTagSearchViewController alloc] initWithNibName:nil bundle:nil];
+        tagSearchController.view.frame = self.contentFrame;
+        self.viewControllers[TAG_SEARCH_INDEX] = tagSearchController;
+    }
+
+    if (TAG_SEARCH_INDEX != self.currentViewControllerIndex) {
+        self.currentViewControllerIndex = TAG_SEARCH_INDEX;
+        
+        [self.currentViewController willMoveToParentViewController:nil];
+        [self addChildViewController:tagSearchController];
+        
+        [self.currentViewController.view removeFromSuperview];
+        [self.view insertSubview:tagSearchController.view belowSubview:self.titleBarView];
+        
+        [self.currentViewController removeFromParentViewController];
+        [tagSearchController didMoveToParentViewController:self];
+        
+        self.currentViewController = tagSearchController;
+    }
+
+    tagSearchController.searchTag = searchTag;
+    [tagSearchController loadMediaCollection];
 }
 
 - (IBAction)showAccountPopup:(id)sender {
@@ -164,29 +259,6 @@ static int currentUserObserverContext;
 
 #pragma mark -
 
-- (void)showUserFeed
-{
-    // TODO: select the home button "tab"
-
-    CRGUserFeedViewController *userFeedController = self.viewControllers[USER_FEED_INDEX];
-    if ((NSNull *)userFeedController == [NSNull null]) {
-        userFeedController = [[CRGUserFeedViewController alloc] initWithNibName:nil bundle:nil];
-        userFeedController.view.frame = self.contentFrame;
-        self.viewControllers[USER_FEED_INDEX] = userFeedController;
-    }
-    
-    [self.currentViewController willMoveToParentViewController:nil];
-    [self addChildViewController:userFeedController];
-    
-    [self.currentViewController.view removeFromSuperview];
-    [self.view insertSubview:userFeedController.view belowSubview:self.titleBarView];
-    
-    [self.currentViewController removeFromParentViewController];
-    [userFeedController didMoveToParentViewController:self];
-    
-    self.currentViewController = userFeedController;
-}
-
 - (void)loadProfilePicture
 {
     dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -201,6 +273,9 @@ static int currentUserObserverContext;
         
 - (void)viewDidUnload {
     [self setTitleBarView:nil];
+    [self setPopularMediaButton:nil];
+    [self setUserFeedButton:nil];
+    [self setSearchTextField:nil];
     [super viewDidUnload];
 }
 

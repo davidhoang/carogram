@@ -61,6 +61,10 @@ static int currentUserObserverContext;
     [self setupBackgroundView];
     [self setupProgressView];
     [self showGridViewAtIndex:0];
+    
+    CRGAppDelegate *appDelegate = (CRGAppDelegate *)[[UIApplication sharedApplication] delegate];
+    self.currentUser = appDelegate.currentUser;
+    
     [self loadMediaCollection];
 }
 
@@ -166,7 +170,7 @@ static int currentUserObserverContext;
         self.pagingSlideViewController.delegate = self;
         self.pagingSlideViewController.mediaSelectorDelegate = self;
         self.pagingSlideViewController.mediaCollection = self.mediaCollection;
-        self.pagingSlideViewController.view.frame = self.view.bounds; // self.contentFrame;
+        self.pagingSlideViewController.view.frame = self.view.bounds;
     }
     [self.pagingSlideViewController setCurrentPage:index animated:NO];
     
@@ -191,7 +195,7 @@ static int currentUserObserverContext;
         self.pagingGridViewController.delegate = self;
         self.pagingGridViewController.mediaSelectorDelegate = self;
         self.pagingGridViewController.mediaCollection = self.mediaCollection;
-        self.pagingGridViewController.view.frame = self.view.bounds; // self.contentFrame;
+        self.pagingGridViewController.view.frame = self.view.bounds;
     }
     [self.pagingGridViewController setCurrentPage:index animated:NO];
     

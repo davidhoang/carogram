@@ -30,8 +30,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.searchTag = @"snow";
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
 }
 
 - (void)didReceiveMemoryWarning
@@ -41,7 +44,7 @@
 }
 
 - (void) loadMediaCollection {
-    if (self.currentUser == nil) return;
+    if (! self.searchTag) return;
     
     [self setProgressViewShown:YES];
     self.scrollView.hidden = YES;
