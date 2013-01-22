@@ -13,7 +13,7 @@
 #import "PagingMediaViewController.h"
 #import "MediaCollectionDelegate.h"
 
-@interface CGViewController : UIViewController <UIActionSheetDelegate, UIScrollViewDelegate, MediaSelectorDelegate, PagingMediaViewControllerDelegate>
+@interface CRGMediaViewController : UIViewController <UIActionSheetDelegate, UIScrollViewDelegate, MediaSelectorDelegate, PagingMediaViewControllerDelegate>
 
 @property (strong, nonatomic) WFIGUser *currentUser;
 @property (strong, nonatomic) IBOutlet UIView *titleBarView;

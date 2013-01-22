@@ -1,12 +1,12 @@
 //
-//  CGViewController.m
+//  CRGMediaViewController.m
 //  Carogram
 //
 //  Created by Jacob Moore on 8/22/12.
 //  Copyright (c) 2012 Xhatch Interactive, LLC. All rights reserved.
 //
 
-#import "CGViewController.h"
+#import "CRGMediaViewController.h"
 #import "AppDelegate.h"
 #import "DetailsViewController.h"
 #import "WFIGImageCache.h"
@@ -18,7 +18,7 @@
 
 static int currentUserObserverContext;
 
-@interface CGViewController ()
+@interface CRGMediaViewController ()
 @property (strong, nonatomic) UIImageView *ivBackground;
 @property (strong, nonatomic) UIImageView *ivRefreshIcon;
 @property (strong, nonatomic) PagingGridViewController *pagingGridViewController;
@@ -28,7 +28,7 @@ static int currentUserObserverContext;
 - (void)setupProgressView;
 @end
 
-@implementation CGViewController
+@implementation CRGMediaViewController
 @synthesize currentUser = _currentUser;
 @synthesize titleBarView = _titleBarView;
 @synthesize ivSearchBg = _ivSearchBg;

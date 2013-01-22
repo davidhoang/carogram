@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 Xhatch Interactive, LLC. All rights reserved.
 //
 
-#import "CGViewController.h"
+#import "CRGMediaViewController.h"
 
-@interface SearchViewController : CGViewController
+@interface SearchViewController : CRGMediaViewController
 @property (strong, nonatomic) NSString *searchTag;
 @end

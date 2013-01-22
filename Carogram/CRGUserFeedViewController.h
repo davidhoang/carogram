@@ -6,8 +6,8 @@
 //  Copyright (c) 2012 Xhatch Interactive, LLC. All rights reserved.
 //
 
-#import "CGViewController.h"
+#import "CRGMediaViewController.h"
 
-@interface CRGUserFeedViewController : CGViewController
+@interface CRGUserFeedViewController : CRGMediaViewController
 
 @end

@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CGViewController.h"
+#import "CRGMediaViewController.h"
 #import "WFInstagramAPI.h"
 
-@interface PopularViewController : CGViewController
+@interface PopularViewController : CRGMediaViewController
 
 @end
