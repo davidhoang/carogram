@@ -10,10 +10,9 @@
 		2303559A15EA0EB000C80D31 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2303559915EA0EB000C80D31 /* QuartzCore.framework */; };
 		230355E315EC241000C80D31 /* GridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 230355E115EC241000C80D31 /* GridViewController.m */; };
 		230355EC15EC854B00C80D31 /* ImageGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 230355EB15EC854B00C80D31 /* ImageGridViewCell.m */; };
-		230B1EFD15EE986F00A00058 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 230B1EFC15EE986F00A00058 /* HomeViewController.m */; };
+		230B1EFD15EE986F00A00058 /* CRGUserFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 230B1EFC15EE986F00A00058 /* CRGUserFeedViewController.m */; };
 		230BF2D415E83314005DB8A0 /* NSURL+WillFleming.m in Sources */ = {isa = PBXBuildFile; fileRef = 230BF2D315E828B8005DB8A0 /* NSURL+WillFleming.m */; };
 		230BF2D715E83BB9005DB8A0 /* LoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 230BF2D615E83BB9005DB8A0 /* LoginView.m */; };
-		231082B715E5FB18008D3F70 /* TitleBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 231082B615E5FB18008D3F70 /* TitleBarView.xib */; };
 		231082BC15E5FB9B008D3F70 /* title-bar-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 231082BA15E5FB9B008D3F70 /* title-bar-bg.png */; };
 		231082BD15E5FB9B008D3F70 /* title-bar-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 231082BB15E5FB9B008D3F70 /* title-bar-bg@2x.png */; };
 		231082C415E5FEC8008D3F70 /* CGViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 231082C315E5FEC8008D3F70 /* CGViewController.m */; };
@@ -93,6 +92,7 @@
 		238426A715EEE1CB0077DDF8 /* progress-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 238426A515EEE1CB0077DDF8 /* progress-bg@2x.png */; };
 		238426C715EF31780077DDF8 /* ClipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 238426B815EF016C0077DDF8 /* ClipView.m */; };
 		238A5D6516ADF3E200CAA6C1 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 238A5D6416ADF3E200CAA6C1 /* SearchViewController.m */; };
+		238A5D6816AE16EF00CAA6C1 /* CRGMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 238A5D6716AE16EE00CAA6C1 /* CRGMainViewController.m */; };
 		238FF21815E8A533004D3356 /* CGAuthController.m in Sources */ = {isa = PBXBuildFile; fileRef = 238FF21715E8A533004D3356 /* CGAuthController.m */; };
 		23A49E4815E444FE00038FCA /* PopularViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A49E4615E444FE00038FCA /* PopularViewController.m */; };
 		23B09F7115F04FAA00490AF9 /* SlideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 238426C515EF2D330077DDF8 /* SlideViewController.m */; };
@@ -137,13 +137,12 @@
 		230355E115EC241000C80D31 /* GridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridViewController.m; sourceTree = "<group>"; };
 		230355EA15EC854B00C80D31 /* ImageGridViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageGridViewCell.h; sourceTree = "<group>"; };
 		230355EB15EC854B00C80D31 /* ImageGridViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageGridViewCell.m; sourceTree = "<group>"; };
-		230B1EFB15EE986F00A00058 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
-		230B1EFC15EE986F00A00058 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		230B1EFB15EE986F00A00058 /* CRGUserFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRGUserFeedViewController.h; sourceTree = "<group>"; };
+		230B1EFC15EE986F00A00058 /* CRGUserFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRGUserFeedViewController.m; sourceTree = "<group>"; };
 		230BF2D215E828B8005DB8A0 /* NSURL+WillFleming.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSURL+WillFleming.h"; sourceTree = "<group>"; };
 		230BF2D315E828B8005DB8A0 /* NSURL+WillFleming.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSURL+WillFleming.m"; sourceTree = "<group>"; };
 		230BF2D515E83BB9005DB8A0 /* LoginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginView.h; sourceTree = "<group>"; };
 		230BF2D615E83BB9005DB8A0 /* LoginView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginView.m; sourceTree = "<group>"; };
-		231082B615E5FB18008D3F70 /* TitleBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TitleBarView.xib; sourceTree = "<group>"; };
 		231082BA15E5FB9B008D3F70 /* title-bar-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "title-bar-bg.png"; sourceTree = "<group>"; };
 		231082BB15E5FB9B008D3F70 /* title-bar-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "title-bar-bg@2x.png"; sourceTree = "<group>"; };
 		231082C215E5FEC8008D3F70 /* CGViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGViewController.h; sourceTree = "<group>"; };
@@ -236,6 +235,8 @@
 		238426C515EF2D330077DDF8 /* SlideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideViewController.m; sourceTree = "<group>"; };
 		238A5D6316ADF3E200CAA6C1 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		238A5D6416ADF3E200CAA6C1 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
+		238A5D6616AE16EE00CAA6C1 /* CRGMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRGMainViewController.h; sourceTree = "<group>"; };
+		238A5D6716AE16EE00CAA6C1 /* CRGMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRGMainViewController.m; sourceTree = "<group>"; };
 		238FF21615E8A533004D3356 /* CGAuthController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGAuthController.h; sourceTree = "<group>"; };
 		238FF21715E8A533004D3356 /* CGAuthController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGAuthController.m; sourceTree = "<group>"; };
 		23A49E4515E444FE00038FCA /* PopularViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularViewController.h; sourceTree = "<group>"; };
@@ -308,7 +309,6 @@
 				238426B715EF016C0077DDF8 /* ClipView.h */,
 				238426B815EF016C0077DDF8 /* ClipView.m */,
 				230355E915EC84AF00C80D31 /* TableCells */,
-				231082B615E5FB18008D3F70 /* TitleBarView.xib */,
 				230BF2D515E83BB9005DB8A0 /* LoginView.h */,
 				230BF2D615E83BB9005DB8A0 /* LoginView.m */,
 			);
@@ -377,8 +377,8 @@
 				2314F7B415F5DD8200445BDE /* DetailsViewController.m */,
 				230355E015EC241000C80D31 /* GridViewController.h */,
 				230355E115EC241000C80D31 /* GridViewController.m */,
-				230B1EFB15EE986F00A00058 /* HomeViewController.h */,
-				230B1EFC15EE986F00A00058 /* HomeViewController.m */,
+				230B1EFB15EE986F00A00058 /* CRGUserFeedViewController.h */,
+				230B1EFC15EE986F00A00058 /* CRGUserFeedViewController.m */,
 				23A49E4515E444FE00038FCA /* PopularViewController.h */,
 				23A49E4615E444FE00038FCA /* PopularViewController.m */,
 				238426C415EF2D330077DDF8 /* SlideViewController.h */,
@@ -391,6 +391,8 @@
 				2314F81115FEAE8800445BDE /* PagingMediaViewController.m */,
 				238A5D6316ADF3E200CAA6C1 /* SearchViewController.h */,
 				238A5D6416ADF3E200CAA6C1 /* SearchViewController.m */,
+				238A5D6616AE16EE00CAA6C1 /* CRGMainViewController.h */,
+				238A5D6716AE16EE00CAA6C1 /* CRGMainViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -612,7 +614,6 @@
 				66DCDAE915DC5F9900E4B966 /* launch@2x.png in Resources */,
 				66DCDAEC15DC608D00E4B966 /* btn-connect.png in Resources */,
 				66DCDAED15DC608D00E4B966 /* btn-connect@2x.png in Resources */,
-				231082B715E5FB18008D3F70 /* TitleBarView.xib in Resources */,
 				231082BC15E5FB9B008D3F70 /* title-bar-bg.png in Resources */,
 				231082BD15E5FB9B008D3F70 /* title-bar-bg@2x.png in Resources */,
 				231F5A8E15E6124B00D85115 /* bg.png in Resources */,
@@ -704,7 +705,7 @@
 				238FF21815E8A533004D3356 /* CGAuthController.m in Sources */,
 				230355E315EC241000C80D31 /* GridViewController.m in Sources */,
 				230355EC15EC854B00C80D31 /* ImageGridViewCell.m in Sources */,
-				230B1EFD15EE986F00A00058 /* HomeViewController.m in Sources */,
+				230B1EFD15EE986F00A00058 /* CRGUserFeedViewController.m in Sources */,
 				238426C715EF31780077DDF8 /* ClipView.m in Sources */,
 				2314F7B515F5DD8200445BDE /* DetailsViewController.m in Sources */,
 				2314F7E515F7EBA300445BDE /* CommentCell.m in Sources */,
@@ -712,6 +713,7 @@
 				2314F80F15FE92CB00445BDE /* PagingGridViewController.m in Sources */,
 				2314F81215FEAE8800445BDE /* PagingMediaViewController.m in Sources */,
 				238A5D6516ADF3E200CAA6C1 /* SearchViewController.m in Sources */,
+				238A5D6816AE16EF00CAA6C1 /* CRGMainViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

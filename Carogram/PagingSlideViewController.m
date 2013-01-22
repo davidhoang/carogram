@@ -145,7 +145,7 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
     if (page < 0)
         return;
     if (page >= pageCount) {
-        if ([self.mediaCollection hasNextPage] && self.delegate != nil && [self.delegate respondsToSelector:@selector(loadMoreMedia)]) {
+        if ([self.mediaCollection hasNextPage] && [self.delegate respondsToSelector:@selector(loadMoreMedia)]) {
             [self.delegate loadMoreMedia];
         }
         return;
@@ -165,7 +165,7 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
     if (controller.view.superview == nil) {
         CGRect frame = self.scrollView.frame;
         frame.origin.x = frame.size.width * page;
-        frame.origin.y = 0;
+        frame.origin.y = self.view.bounds.size.height/2. - controller.view.bounds.size.height/2.;
         
         controller.view.frame = frame;
         [self.scrollView addSubview:controller.view];

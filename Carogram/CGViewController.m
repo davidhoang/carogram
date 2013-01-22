@@ -16,19 +16,16 @@
 
 #define kRefreshDrag -67.
 
-static NSSet * ObservableKeys = nil;
+static int currentUserObserverContext;
 
 @interface CGViewController ()
 @property (strong, nonatomic) UIImageView *ivBackground;
 @property (strong, nonatomic) UIImageView *ivRefreshIcon;
 @property (strong, nonatomic) PagingGridViewController *pagingGridViewController;
 @property (strong, nonatomic) PagingSlideViewController *pagingSlideViewController;
-@property (nonatomic) CGRect contentFrame;
-- (void)loadProfilePicture;
 - (void)setupRefreshViews;
 - (void)setupBackgroundView;
 - (void)setupProgressView;
-- (void)setupTitleBarView;
 @end
 
 @implementation CGViewController
@@ -49,119 +46,36 @@ static NSSet * ObservableKeys = nil;
 {
     self = [super initWithCoder:decoder];
     if (self) {
-        if (nil == ObservableKeys) {
-            ObservableKeys = [[NSSet alloc] initWithObjects:kCurrentUserKeyPath, nil];
-        }
     }
     return self;
 }
 
+#pragma mark - View Management
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    for (NSString *keyPath in ObservableKeys) {
-        [appDelegate addObserver:self
-                      forKeyPath:keyPath
-                         options:NSKeyValueObservingOptionNew
-                         context:nil];
-    }
-    
     self.scrollView.delegate = self;
     
     [self setupRefreshViews];
     [self setupBackgroundView];
     [self setupProgressView];
-    [self setupTitleBarView];
-    [self setupContentFrame];
-
     [self showGridViewAtIndex:0];
     [self loadMediaCollection];
 }
 
-- (void)showSlideViewAtIndex:(int)index
+- (void)viewWillAppear:(BOOL)animated
 {
-    if (self.pagingSlideViewController == nil) {
-        self.pagingSlideViewController =
-            (PagingSlideViewController *)[self.storyboard instantiateViewControllerWithIdentifier: @"PagingSlide"];
-        self.pagingSlideViewController.delegate = self;
-        self.pagingSlideViewController.mediaSelectorDelegate = self;
-        self.pagingSlideViewController.mediaCollection = self.mediaCollection;
-        self.pagingSlideViewController.view.frame = self.contentFrame;
-    }
-    [self.pagingSlideViewController setCurrentPage:index animated:NO];
+    [super viewWillAppear:animated];
     
-    [self.pagingGridViewController willMoveToParentViewController:nil];
-    [self addChildViewController:self.pagingSlideViewController];
-
-    [self.pagingGridViewController.view removeFromSuperview];
-    [self.view addSubview:self.pagingSlideViewController.view];
-
-    [self.pagingGridViewController removeFromParentViewController];
-    [self.pagingSlideViewController didMoveToParentViewController:self];
-
-    self.currentMediaController = self.pagingSlideViewController;
+    [self addKeyValueObservers];
 }
 
-- (void)showGridViewAtIndex:(int)index
+- (void)viewDidDisappear:(BOOL)animated
 {
-    if (self.pagingGridViewController == nil) {
-        self.pagingGridViewController =
-            (PagingGridViewController *)[self.storyboard instantiateViewControllerWithIdentifier: @"PagingGrid"];
-        self.pagingGridViewController.delegate = self;
-        self.pagingGridViewController.mediaSelectorDelegate = self;
-        self.pagingGridViewController.mediaCollection = self.mediaCollection;
-        self.pagingGridViewController.view.frame = self.contentFrame;
-    }
-    [self.pagingGridViewController setCurrentPage:index animated:NO];
+    [super viewDidDisappear:animated];
     
-    [self.pagingSlideViewController willMoveToParentViewController:nil];
-    [self addChildViewController:self.pagingGridViewController];
-
-    [self.pagingSlideViewController.view removeFromSuperview];
-    [self.view addSubview:self.pagingGridViewController.view];
-
-    [self.pagingSlideViewController removeFromParentViewController];
-    [self.pagingGridViewController didMoveToParentViewController:self];
-
-    self.currentMediaController = self.pagingGridViewController;
-}
-
-- (void)viewDidUnload
-{
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    for (NSString *keyPath in ObservableKeys) {
-        [appDelegate removeObserver:self forKeyPath:keyPath context:nil];
-    }
-    
-    [self setTitleBarView:nil];
-    [self setIvSearchBg:nil];
-    [self setBtnPopular:nil];
-    [self setBtnHome:nil];
-    [self setIvPhoto:nil];
-    [self setScrollView:nil];
-    
-    [super viewDidUnload];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    NSLog(@"<CGVC> didReceiveMemoryWarning");
-    if (self.pagingSlideViewController != nil && [self.pagingSlideViewController.view superview] == nil) {
-        NSLog(@"setting pagingSlideVC to nil");
-        self.pagingSlideViewController = nil;
-    }
-    if (self.pagingGridViewController != nil && [self.pagingGridViewController.view superview] == nil) {
-        NSLog(@"setting pagingGridVC to nil");
-        self.pagingGridViewController = nil;
-    }
-    [super didReceiveMemoryWarning];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-	return UIInterfaceOrientationIsLandscape(interfaceOrientation);
+    [self removeKeyValueObservers];
 }
 
 - (void)setupRefreshViews
@@ -204,15 +118,15 @@ static NSSet * ObservableKeys = nil;
     int y = (int)((self.view.frame.size.height/2.) - (107./2.));
     self.ivProgressBackground = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, 127, 107)];
     self.ivProgressBackground.image =
-            [[UIImage imageNamed:@"progress-bg"] stretchableImageWithLeftCapWidth:29 topCapHeight:30];
+    [[UIImage imageNamed:@"progress-bg"] stretchableImageWithLeftCapWidth:29 topCapHeight:30];
     [self.ivProgressBackground setAutoresizingMask:UIViewAutoresizingFlexibleTopMargin
-                                                   |UIViewAutoresizingFlexibleLeftMargin
-                                                   |UIViewAutoresizingFlexibleBottomMargin
-                                                   |UIViewAutoresizingFlexibleRightMargin];
+     |UIViewAutoresizingFlexibleLeftMargin
+     |UIViewAutoresizingFlexibleBottomMargin
+     |UIViewAutoresizingFlexibleRightMargin];
     [self.view insertSubview:self.ivProgressBackground aboveSubview:self.ivBackground];
-
+    
     self.activityIndicatorView =
-            [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     x = (int)((self.view.frame.size.width/2.) - (self.activityIndicatorView.frame.size.width/2.));
     y = (int)((self.view.frame.size.height/2.) - (self.activityIndicatorView.frame.size.height/2.));
     self.activityIndicatorView.frame = CGRectMake(x,
@@ -220,83 +134,82 @@ static NSSet * ObservableKeys = nil;
                                                   self.activityIndicatorView.frame.size.width,
                                                   self.activityIndicatorView.frame.size.height);
     [self.activityIndicatorView setAutoresizingMask:UIViewAutoresizingFlexibleTopMargin
-                                                    |UIViewAutoresizingFlexibleLeftMargin
-                                                    |UIViewAutoresizingFlexibleBottomMargin
-                                                    |UIViewAutoresizingFlexibleRightMargin];
+     |UIViewAutoresizingFlexibleLeftMargin
+     |UIViewAutoresizingFlexibleBottomMargin
+     |UIViewAutoresizingFlexibleRightMargin];
     self.activityIndicatorView.color = [UIColor colorWithRed:(225./255.) green:(225./255.) blue:(225./255.) alpha:1];
     [self.view insertSubview:self.activityIndicatorView aboveSubview:self.ivProgressBackground];
 }
 
-- (void)setupTitleBarView
+- (void)didReceiveMemoryWarning
 {
-    [[NSBundle mainBundle] loadNibNamed:@"TitleBarView" owner:self options:nil];
-    [self.view addSubview:self.titleBarView];
-    
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    self.currentUser = appDelegate.currentUser;
-    if (nil != self.currentUser) [self loadProfilePicture];
-
-    self.ivSearchBg.image =
-            [[UIImage imageNamed:@"search-bg"] stretchableImageWithLeftCapWidth:4 topCapHeight:4];
-    
-    // Round avatar image view
-    self.ivPhoto.layer.opaque = YES;
-    self.ivPhoto.layer.masksToBounds = YES;
-    self.ivPhoto.layer.cornerRadius = 2.0;
-    
-    // Add rounded border layer
-    CALayer *roundedLayer = [CALayer layer];
-    roundedLayer.frame = CGRectMake(-1.0, -1.0, (self.ivPhoto.frame.size.width + 2.0), (self.ivPhoto.frame.size.height + 2.0));
-    roundedLayer.opaque = YES;
-    roundedLayer.masksToBounds = YES;
-    roundedLayer.cornerRadius = 2.0;
-    roundedLayer.borderWidth = 2.5;
-    roundedLayer.borderColor = [[UIColor colorWithRed:(69.0/255.0) green:(73.0/255.0) blue:(76.0/255.0) alpha:1.0] CGColor];
-    
-    [self.ivPhoto.layer addSublayer:roundedLayer];
-    
-    if (self.tabBarController.selectedIndex == 0) {
-        [self.btnHome setImage:[UIImage imageNamed:@"btn-home-depressed"] forState:UIControlStateNormal];
-        [self.btnPopular setImage:[UIImage imageNamed:@"btn-popular"] forState:UIControlStateNormal];
-    } else {
-        [self.btnHome setImage:[UIImage imageNamed:@"btn-home"] forState:UIControlStateNormal];
-        [self.btnPopular setImage:[UIImage imageNamed:@"btn-popular-depressed"] forState:UIControlStateNormal];
+    NSLog(@"<CGVC> didReceiveMemoryWarning");
+    if (self.pagingSlideViewController != nil && [self.pagingSlideViewController.view superview] == nil) {
+        NSLog(@"setting pagingSlideVC to nil");
+        self.pagingSlideViewController = nil;
     }
+    if (self.pagingGridViewController != nil && [self.pagingGridViewController.view superview] == nil) {
+        NSLog(@"setting pagingGridVC to nil");
+        self.pagingGridViewController = nil;
+    }
+    [super didReceiveMemoryWarning];
 }
 
-- (void)setupContentFrame
-{
-    float titleBarHeight = self.titleBarView.bounds.size.height;
-    self.contentFrame = CGRectMake(0,
-                                  titleBarHeight,
-                                  self.view.bounds.size.width,
-                                  self.view.bounds.size.height - titleBarHeight);
-}
+#pragma mark -
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+- (void)showSlideViewAtIndex:(int)index
 {
-    if (![ObservableKeys containsObject:keyPath]) {
-        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-        return;
+    if (self.pagingSlideViewController == nil) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:[NSBundle mainBundle]];
+        self.pagingSlideViewController =
+            (PagingSlideViewController *)[storyboard instantiateViewControllerWithIdentifier: @"PagingSlide"];
+        self.pagingSlideViewController.delegate = self;
+        self.pagingSlideViewController.mediaSelectorDelegate = self;
+        self.pagingSlideViewController.mediaCollection = self.mediaCollection;
+        self.pagingSlideViewController.view.frame = self.view.bounds; // self.contentFrame;
     }
+    [self.pagingSlideViewController setCurrentPage:index animated:NO];
     
-    if ([kCurrentUserKeyPath isEqualToString:keyPath]) {
-        self.currentUser = (WFIGUser *)[change objectForKey:NSKeyValueChangeNewKey];
-        [self loadProfilePicture];
-        [self loadMediaCollection];
-    }
+    [self.pagingGridViewController willMoveToParentViewController:nil];
+    [self addChildViewController:self.pagingSlideViewController];
+
+    [self.pagingGridViewController.view removeFromSuperview];
+    [self.view addSubview:self.pagingSlideViewController.view];
+
+    [self.pagingGridViewController removeFromParentViewController];
+    [self.pagingSlideViewController didMoveToParentViewController:self];
+
+    self.currentMediaController = self.pagingSlideViewController;
 }
 
-- (void)loadProfilePicture
+- (void)showGridViewAtIndex:(int)index
 {
-    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        UIImage *image = [WFIGImageCache getImageAtURL:[self.currentUser profilePicture]];
-        dispatch_async( dispatch_get_main_queue(), ^{
-            if (image != nil) {
-                self.ivPhoto.image = image;
-            }
-        });
-    });
+    if (self.pagingGridViewController == nil) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:[NSBundle mainBundle]];
+        self.pagingGridViewController =
+            (PagingGridViewController *)[storyboard instantiateViewControllerWithIdentifier: @"PagingGrid"];
+        self.pagingGridViewController.delegate = self;
+        self.pagingGridViewController.mediaSelectorDelegate = self;
+        self.pagingGridViewController.mediaCollection = self.mediaCollection;
+        self.pagingGridViewController.view.frame = self.view.bounds; // self.contentFrame;
+    }
+    [self.pagingGridViewController setCurrentPage:index animated:NO];
+    
+    [self.pagingSlideViewController willMoveToParentViewController:nil];
+    [self addChildViewController:self.pagingGridViewController];
+
+    [self.pagingSlideViewController.view removeFromSuperview];
+    [self.view addSubview:self.pagingGridViewController.view];
+
+    [self.pagingSlideViewController removeFromParentViewController];
+    [self.pagingGridViewController didMoveToParentViewController:self];
+
+    self.currentMediaController = self.pagingGridViewController;
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+	return UIInterfaceOrientationIsLandscape(interfaceOrientation);
 }
 
 - (void)refresh
@@ -306,24 +219,31 @@ static NSSet * ObservableKeys = nil;
 
 - (void) loadMediaCollection { } // subclasses should override this method
 
-#pragma mark - Actions
+#pragma mark - Key Value Observing
 
-- (IBAction)search:(id)sender {
-    [self.tabBarController setSelectedIndex:2];
+- (void)addKeyValueObservers
+{
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDelegate addObserver:self
+                  forKeyPath:kCurrentUserKeyPath
+                     options:NSKeyValueObservingOptionNew
+                     context:&currentUserObserverContext];
 }
 
-- (IBAction)touchHome:(id)sender {
-    [self.tabBarController setSelectedIndex:0];
+- (void)removeKeyValueObservers
+{
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDelegate removeObserver:self forKeyPath:kCurrentUserKeyPath context:&currentUserObserverContext];
 }
 
-- (IBAction)touchPopular:(id)sender {
-    [self.tabBarController setSelectedIndex:1];
-}
-
-- (IBAction)touchUser:(id)sender {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:@"Logout" otherButtonTitles:nil];
-    actionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
-    [actionSheet showFromRect:self.ivPhoto.frame inView:self.titleBarView animated:YES];
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if (&currentUserObserverContext == context) {
+        self.currentUser = (WFIGUser *)[change objectForKey:NSKeyValueChangeNewKey];
+        [self loadMediaCollection];
+    }  else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
 }
 
 #pragma mark -
@@ -401,7 +321,8 @@ static NSSet * ObservableKeys = nil;
 - (void)didSelectMedia:(WFIGMedia *)media fromRect:(CGRect)rect
 {   
     rect.origin.y += (self.currentMediaController.view.frame.origin.y + 20); // 20 = status bar height
-    DetailsViewController *detailsVC = (DetailsViewController *)[self.storyboard instantiateViewControllerWithIdentifier: @"Details"];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:[NSBundle mainBundle]];
+    DetailsViewController *detailsVC = (DetailsViewController *)[storyboard instantiateViewControllerWithIdentifier: @"Details"];
     [detailsVC setMedia:media];
     detailsVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     detailsVC.startRect = rect;
@@ -413,3 +334,4 @@ static NSSet * ObservableKeys = nil;
 - (void)loadMoreMedia { } // subclasses should override this method
 
 @end
+

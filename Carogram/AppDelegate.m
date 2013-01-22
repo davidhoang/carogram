@@ -171,12 +171,6 @@ void onUncaughtException(NSException* exception)
         keyWindow.hidden = YES;
         [authWindow makeKeyAndVisible];
     }
-    
-    //    [UIView animateWithDuration:1.0 delay:0 options:UIViewAnimationOptionTransitionCurlDown animations:^{
-    //        [keyWindow resignKeyWindow];
-    //        keyWindow.hidden = YES;
-    //        [authWindow makeKeyAndVisible];
-    //    } completion:NULL];
 }
 
 - (void)logout

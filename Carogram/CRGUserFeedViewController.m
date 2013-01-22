@@ -6,15 +6,15 @@
 //  Copyright (c) 2012 Xhatch Interactive, LLC. All rights reserved.
 //
 
-#import "HomeViewController.h"
+#import "CRGUserFeedViewController.h"
 #import "SlideViewController.h"
 #import "DetailsViewController.h"
 
-@interface HomeViewController ()
+@interface CRGUserFeedViewController ()
 @property (nonatomic, strong) NSMutableArray *mediaControllers;
 @end
 
-@implementation HomeViewController {
+@implementation CRGUserFeedViewController {
 @private
     int pageCount;
     BOOL isLoadingMoreMedia;
@@ -72,14 +72,5 @@
     });
 }
 
-- (IBAction)touchHome:(id)sender {
-    [super touchHome:sender];
-    
-    if (self.currentMediaController.currentPage > 0) {
-        [self.currentMediaController scrollToFirstPage];
-    } else {
-        [self loadMediaCollection];
-    }
-}
-
 @end
+

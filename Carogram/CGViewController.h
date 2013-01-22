@@ -27,9 +27,6 @@
 @property (strong, atomic) WFIGMediaCollection *mediaCollection;
 @property (strong, nonatomic) PagingMediaViewController *currentMediaController;
 
-- (IBAction)touchPopular:(id)sender;
-- (IBAction)touchHome:(id)sender;
-- (IBAction)touchUser:(id)sender;
 - (void)refresh;
 - (void)setProgressViewShown:(BOOL)shown;
 - (void)loadMediaCollection;

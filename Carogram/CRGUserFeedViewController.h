@@ -8,6 +8,6 @@
 
 #import "CGViewController.h"
 
-@interface HomeViewController : CGViewController
+@interface CRGUserFeedViewController : CGViewController
 
 @end

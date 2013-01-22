@@ -40,14 +40,4 @@
     });
 }
 
-- (IBAction)touchPopular:(id)sender {
-    [super touchPopular:sender];
-    
-    if (self.currentMediaController.currentPage > 0) {
-        [self.currentMediaController scrollToFirstPage];
-    } else {
-        [self loadMediaCollection];
-    }
-}
-
 @end
