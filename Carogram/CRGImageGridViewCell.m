@@ -1,19 +1,19 @@
 //
-//  ImageGridViewCell.m
+//  CRGImageGridViewCell.m
 //  Carogram
 //
 //  Created by Jacob Moore on 8/27/12.
 //  Copyright (c) 2012 Xhatch Interactive, LLC. All rights reserved.
 //
 
-#import "ImageGridViewCell.h"
+#import "CRGImageGridViewCell.h"
 
-@interface ImageGridViewCell ()
+@interface CRGImageGridViewCell ()
 @property (strong, nonatomic) WFIGMedia *media;
 @property (strong, nonatomic) UIImageView *imageView;
 @end
 
-@implementation ImageGridViewCell
+@implementation CRGImageGridViewCell
 @synthesize imageView = _imageView;
 @synthesize media = _media;
 

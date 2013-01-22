@@ -7,7 +7,7 @@
 //
 
 #import "CRGMainViewController.h"
-#import "AppDelegate.h"
+#import "CRGAppDelegate.h"
 #import <QuartzCore/QuartzCore.h>
 #import "WFInstagramAPI.h"
 #import "WFIGImageCache.h"
@@ -83,7 +83,7 @@ static int currentUserObserverContext;
 
 - (void)setupTitleBarView
 {
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    CRGAppDelegate *appDelegate = (CRGAppDelegate *)[[UIApplication sharedApplication] delegate];
     self.currentUser = appDelegate.currentUser;
     if (nil != self.currentUser) [self loadProfilePicture];
     
@@ -130,7 +130,7 @@ static int currentUserObserverContext;
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     if (0 == buttonIndex) {
-        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        CRGAppDelegate *appDelegate = (CRGAppDelegate *)[[UIApplication sharedApplication] delegate];
         [appDelegate logout];
     }
 }
@@ -139,7 +139,7 @@ static int currentUserObserverContext;
 
 - (void)addKeyValueObservers
 {
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    CRGAppDelegate *appDelegate = (CRGAppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDelegate addObserver:self
                   forKeyPath:kCurrentUserKeyPath
                      options:NSKeyValueObservingOptionNew
@@ -148,7 +148,7 @@ static int currentUserObserverContext;
 
 - (void)removeKeyValueObservers
 {
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    CRGAppDelegate *appDelegate = (CRGAppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDelegate removeObserver:self forKeyPath:kCurrentUserKeyPath context:&currentUserObserverContext];
 }
 

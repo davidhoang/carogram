@@ -7,12 +7,12 @@
 //
 
 #import "CRGMediaViewController.h"
-#import "AppDelegate.h"
-#import "DetailsViewController.h"
+#import "CRGAppDelegate.h"
+#import "CRGDetailsViewController.h"
 #import "WFIGImageCache.h"
-#import "GridViewController.h"
-#import "PagingGridViewController.h"
-#import "PagingSlideViewController.h"
+#import "CRGGridViewController.h"
+#import "CRGPagingGridViewController.h"
+#import "CRGPagingSlideViewController.h"
 
 #define kRefreshDrag -67.
 
@@ -21,8 +21,8 @@ static int currentUserObserverContext;
 @interface CRGMediaViewController ()
 @property (strong, nonatomic) UIImageView *ivBackground;
 @property (strong, nonatomic) UIImageView *ivRefreshIcon;
-@property (strong, nonatomic) PagingGridViewController *pagingGridViewController;
-@property (strong, nonatomic) PagingSlideViewController *pagingSlideViewController;
+@property (strong, nonatomic) CRGPagingGridViewController *pagingGridViewController;
+@property (strong, nonatomic) CRGPagingSlideViewController *pagingSlideViewController;
 - (void)setupRefreshViews;
 - (void)setupBackgroundView;
 - (void)setupProgressView;
@@ -162,7 +162,7 @@ static int currentUserObserverContext;
     if (self.pagingSlideViewController == nil) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:[NSBundle mainBundle]];
         self.pagingSlideViewController =
-            (PagingSlideViewController *)[storyboard instantiateViewControllerWithIdentifier: @"PagingSlide"];
+            (CRGPagingSlideViewController *)[storyboard instantiateViewControllerWithIdentifier: @"PagingSlide"];
         self.pagingSlideViewController.delegate = self;
         self.pagingSlideViewController.mediaSelectorDelegate = self;
         self.pagingSlideViewController.mediaCollection = self.mediaCollection;
@@ -187,7 +187,7 @@ static int currentUserObserverContext;
     if (self.pagingGridViewController == nil) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:[NSBundle mainBundle]];
         self.pagingGridViewController =
-            (PagingGridViewController *)[storyboard instantiateViewControllerWithIdentifier: @"PagingGrid"];
+            (CRGPagingGridViewController *)[storyboard instantiateViewControllerWithIdentifier: @"PagingGrid"];
         self.pagingGridViewController.delegate = self;
         self.pagingGridViewController.mediaSelectorDelegate = self;
         self.pagingGridViewController.mediaCollection = self.mediaCollection;
@@ -223,7 +223,7 @@ static int currentUserObserverContext;
 
 - (void)addKeyValueObservers
 {
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    CRGAppDelegate *appDelegate = (CRGAppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDelegate addObserver:self
                   forKeyPath:kCurrentUserKeyPath
                      options:NSKeyValueObservingOptionNew
@@ -232,7 +232,7 @@ static int currentUserObserverContext;
 
 - (void)removeKeyValueObservers
 {
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    CRGAppDelegate *appDelegate = (CRGAppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDelegate removeObserver:self forKeyPath:kCurrentUserKeyPath context:&currentUserObserverContext];
 }
 
@@ -264,7 +264,7 @@ static int currentUserObserverContext;
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     if (0 == buttonIndex) {
-        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        CRGAppDelegate *appDelegate = (CRGAppDelegate *)[[UIApplication sharedApplication] delegate];
         [appDelegate logout];
     }
 }
@@ -301,14 +301,14 @@ static int currentUserObserverContext;
     }
 }
 
-- (void)pagingMediaViewController:(PagingMediaViewController *)pagingMediaViewController didZoomInAtIndex:(int)index
+- (void)pagingMediaViewController:(CRGPagingMediaViewController *)pagingMediaViewController didZoomInAtIndex:(int)index
 {
     if (self.currentMediaController == self.pagingGridViewController) {
         [self showSlideViewAtIndex:index];
     }
 }
 
-- (void)pagingMediaViewController:(PagingMediaViewController *)pagingMediaViewController didZoomOutAtIndex:(int)index
+- (void)pagingMediaViewController:(CRGPagingMediaViewController *)pagingMediaViewController didZoomOutAtIndex:(int)index
 {
     if (self.currentMediaController == self.pagingSlideViewController) {
         int pageIndex = index / kImageCount;
@@ -322,16 +322,11 @@ static int currentUserObserverContext;
 {   
     rect.origin.y += (self.currentMediaController.view.frame.origin.y + 20); // 20 = status bar height
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:[NSBundle mainBundle]];
-    DetailsViewController *detailsVC = (DetailsViewController *)[storyboard instantiateViewControllerWithIdentifier: @"Details"];
+    CRGDetailsViewController *detailsVC = (CRGDetailsViewController *)[storyboard instantiateViewControllerWithIdentifier: @"Details"];
     [detailsVC setMedia:media];
     detailsVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     detailsVC.startRect = rect;
     [self presentModalViewController:detailsVC animated:YES];
 }
 
-#pragma mark - MediaCollectionDelegate
-
-- (void)loadMoreMedia { } // subclasses should override this method
-
 @end
-

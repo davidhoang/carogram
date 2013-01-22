@@ -1,12 +1,12 @@
 //
-//  SlideViewController.m
+//  CRGSlideViewController.m
 //  Carogram
 //
 //  Created by Jacob Moore on 8/29/12.
 //  Copyright (c) 2012 Xhatch Interactive, LLC. All rights reserved.
 //
 
-#import "SlideViewController.h"
+#import "CRGSlideViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "WFIGImageCache.h"
 
@@ -14,12 +14,12 @@ static NSSet * ObservableKeys = nil;
 
 static NSString * const MediaKeyPath = @"media";
 
-@interface SlideViewController ()
+@interface CRGSlideViewController ()
 - (void)configureViews;
 - (void)loadProfilePicture;
 @end
 
-@implementation SlideViewController
+@implementation CRGSlideViewController
 @synthesize media = _media;
 @synthesize ivPhoto = _ivPhoto;
 @synthesize ivUser = _ivUser;

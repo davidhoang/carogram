@@ -1,18 +1,18 @@
 //
-//  LoginView.m
+//  CRGLoginView.m
 //  Carogram
 //
 //  Created by Jacob Moore on 8/24/12.
 //  Copyright (c) 2012 Xhatch Interactive, LLC. All rights reserved.
 //
 
-#import "LoginView.h"
+#import "CRGLoginView.h"
 
-@interface LoginView ()
+@interface CRGLoginView ()
 
 @end
 
-@implementation LoginView
+@implementation CRGLoginView
 @synthesize controller = _controller;
 
 - (id) initWithController:(WFIGAuthController*)controller {

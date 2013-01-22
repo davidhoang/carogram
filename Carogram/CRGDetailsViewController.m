@@ -1,24 +1,24 @@
 //
-//  DetailsViewController.m
+//  CRGDetailsViewController.m
 //  Carogram
 //
 //  Created by Jacob Moore on 9/3/12.
 //  Copyright (c) 2012 Xhatch Interactive, LLC. All rights reserved.
 //
 
-#import "DetailsViewController.h"
+#import "CRGDetailsViewController.h"
 #import <QuartzCore/QuartzCore.h>
-#import "CommentCell.h"
+#import "CRGCommentCell.h"
 #import "WFIGImageCache.h"
 
-@interface DetailsViewController ()
+@interface CRGDetailsViewController ()
 @property (nonatomic) CGRect mediaFrame;
 - (void)configureViews;
 - (void)loadProfilePicture;
 - (void)loadComments;
 @end
 
-@implementation DetailsViewController {
+@implementation CRGDetailsViewController {
 @private
     BOOL animationComplete;
 }
@@ -219,10 +219,10 @@
     
     static NSString *CellIdentifier = @"CommentCell";
 
-    CommentCell *cell = (CommentCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    CRGCommentCell *cell = (CRGCommentCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];
-        cell = (CommentCell *)[nib objectAtIndex:0];
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"CRGCommentCell" owner:self options:nil];
+        cell = (CRGCommentCell *)[nib objectAtIndex:0];
     }
 
     WFIGComment *comment = [self.media.comments objectAtIndex:indexPath.row];
@@ -275,7 +275,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     WFIGComment *comment = [self.media.comments objectAtIndex:indexPath.row];
-    return [CommentCell cellHeightWithCommentText:[comment text]];
+    return [CRGCommentCell cellHeightWithCommentText:[comment text]];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

@@ -1,18 +1,18 @@
 //
-//  SearchViewController.m
+//  CRGTagSearchViewController.m
 //  Carogram
 //
 //  Created by Jacob Moore on 1/21/13.
 //  Copyright (c) 2013 Xhatch Interactive, LLC. All rights reserved.
 //
 
-#import "SearchViewController.h"
+#import "CRGTagSearchViewController.h"
 
-@interface SearchViewController ()
+@interface CRGTagSearchViewController ()
 @property (nonatomic, strong) NSMutableArray *mediaControllers;
 @end
 
-@implementation SearchViewController {
+@implementation CRGTagSearchViewController {
 @private
     int pageCount;
     BOOL isLoadingMoreMedia;

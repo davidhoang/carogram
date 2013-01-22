@@ -1,5 +1,5 @@
 //
-//  PagingMediaViewController.h
+//  CRGPagingMediaViewController.h
 //  Carogram
 //
 //  Created by Jacob Moore on 9/10/12.
@@ -7,17 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MediaCollectionDelegate.h"
-#import "MediaSelectorDelegate.h"
+#import "CRGMediaSelectorDelegate.h"
 
 extern NSString *  const MediaCollectionDidLoadNextPageNotification;
 
 @protocol PagingMediaViewControllerDelegate;
 
-@interface PagingMediaViewController : UIViewController
+@interface CRGPagingMediaViewController : UIViewController
 
 @property (weak, nonatomic) id<PagingMediaViewControllerDelegate> delegate;
-@property (weak, nonatomic) id<MediaSelectorDelegate> mediaSelectorDelegate;
+@property (weak, nonatomic) id<CRGMediaSelectorDelegate> mediaSelectorDelegate;
 @property (strong, nonatomic) WFIGMediaCollection *mediaCollection;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 
@@ -34,6 +33,6 @@ extern NSString *  const MediaCollectionDidLoadNextPageNotification;
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView;
 - (void)didSelectMedia:(WFIGMedia *)media fromRect:(CGRect)rect;
 - (void)loadMoreMedia;
-- (void)pagingMediaViewController:(PagingMediaViewController *)pagingMediaViewController didZoomInAtIndex:(int)index;
-- (void)pagingMediaViewController:(PagingMediaViewController *)pagingMediaViewController didZoomOutAtIndex:(int)index;
+- (void)pagingMediaViewController:(CRGPagingMediaViewController *)pagingMediaViewController didZoomInAtIndex:(int)index;
+- (void)pagingMediaViewController:(CRGPagingMediaViewController *)pagingMediaViewController didZoomOutAtIndex:(int)index;
 @end

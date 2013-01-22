@@ -1,5 +1,5 @@
 //
-//  LoginView.h
+//  CRGLoginView.h
 //  Carogram
 //
 //  Created by Jacob Moore on 8/24/12.
@@ -15,7 +15,7 @@
 //- (id) initWithController:(WFIGAuthController*)controller;
 //@end
 
-@interface LoginView : UIView <WFIGAuthInitialView>
+@interface CRGLoginView : UIView <WFIGAuthInitialView>
 
 @property (strong, nonatomic) WFIGAuthController *controller;
 

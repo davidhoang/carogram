@@ -1,5 +1,5 @@
 //
-//  CGAuthController.h
+//  CRGAuthController.h
 //  Carogram
 //
 //  Created by Jacob Moore on 8/24/12.
@@ -8,6 +8,6 @@
 
 #import "WFInstagramAPI.h"
 
-@interface CGAuthController : WFIGAuthController
+@interface CRGAuthController : WFIGAuthController
 
 @end

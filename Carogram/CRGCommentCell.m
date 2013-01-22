@@ -1,12 +1,12 @@
 //
-//  CommentCell.m
+//  CRGCommentCell.m
 //  Carogram
 //
 //  Created by Jacob Moore on 9/5/12.
 //  Copyright (c) 2012 Xhatch Interactive, LLC. All rights reserved.
 //
 
-#import "CommentCell.h"
+#import "CRGCommentCell.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define kMinCellHeight 64.
@@ -16,13 +16,13 @@
 #define kOneDay    86400.
 #define kOneWeek   604800.
 
-@interface CommentCell()
+@interface CRGCommentCell()
 - (void)loadProfilePicture;
 - (NSString *)dateString;
 - (void)configureCommentLabelWithText:(NSString*)commentText;
 @end
 
-@implementation CommentCell
+@implementation CRGCommentCell
 @synthesize comment = _comment;
 @synthesize ivBackground = _ivBackground;
 @synthesize ivUser = _ivUser;

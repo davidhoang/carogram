@@ -1,5 +1,5 @@
 //
-//  CommentCell.h
+//  CRGCommentCell.h
 //  Carogram
 //
 //  Created by Jacob Moore on 9/5/12.
@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "WFInstagramAPI.h"
 
-@interface CommentCell : UITableViewCell
+@interface CRGCommentCell : UITableViewCell
 
 @property (strong, nonatomic) WFIGComment *comment;
 @property (strong, nonatomic) IBOutlet UIImageView *ivBackground;

@@ -1,26 +1,26 @@
 //
-//  PagingSlideViewController.m
+//  CRGPagingSlideViewController.m
 //  Carogram
 //
 //  Created by Jacob Moore on 9/10/12.
 //  Copyright (c) 2012 Xhatch Interactive, LLC. All rights reserved.
 //
 
-#import "PagingSlideViewController.h"
-#import "DetailsViewController.h"
-#import "SlideViewController.h"
+#import "CRGPagingSlideViewController.h"
+#import "CRGDetailsViewController.h"
+#import "CRGSlideViewController.h"
 
 static NSSet * ObservableKeys = nil;
 
 static NSString * const MediaCollectionKeyPath = @"mediaCollection";
 
-@interface PagingSlideViewController ()
+@interface CRGPagingSlideViewController ()
 @property (nonatomic, strong) NSMutableArray *slideViewControllers;
 - (void)configureView;
 - (void)loadScrollViewWithPage:(int)page;
 @end
 
-@implementation PagingSlideViewController {
+@implementation CRGPagingSlideViewController {
 @private
     int pageCount;
     BOOL zoomRecognized_;
@@ -152,9 +152,9 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
     }
     
     // replace the placeholder if necessary
-    SlideViewController *controller = [self.slideViewControllers objectAtIndex:page];
+    CRGSlideViewController *controller = [self.slideViewControllers objectAtIndex:page];
     if ((NSNull *)controller == [NSNull null]) {
-        controller = (SlideViewController *)[self.storyboard instantiateViewControllerWithIdentifier: @"Slide"];
+        controller = (CRGSlideViewController *)[self.storyboard instantiateViewControllerWithIdentifier: @"Slide"];
         WFIGMedia *media = [self.mediaCollection objectAtIndex:page];
         [controller setMedia:media];
         [controller setDelegate:self];

@@ -1,18 +1,18 @@
 //
-//  CGAuthController.m
+//  CRGAuthController.m
 //  Carogram
 //
 //  Created by Jacob Moore on 8/24/12.
 //  Copyright (c) 2012 Xhatch Interactive, LLC. All rights reserved.
 //
 
-#import "CGAuthController.h"
+#import "CRGAuthController.h"
 
-@interface CGAuthController ()
+@interface CRGAuthController ()
 
 @end
 
-@implementation CGAuthController
+@implementation CRGAuthController
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {

@@ -117,7 +117,7 @@
         <!--Slide View Controller-->
         <scene sceneID="PbB-dF-Q5W">
             <objects>
-                <viewController storyboardIdentifier="Slide" autoresizesArchivedViewToFullSize="NO" id="Vr6-14-6os" customClass="SlideViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Slide" autoresizesArchivedViewToFullSize="NO" id="Vr6-14-6os" customClass="CRGSlideViewController" sceneMemberID="viewController">
                     <view key="view" autoresizesSubviews="NO" contentMode="center" id="Ygf-Fa-a0W">
                         <rect key="frame" x="0.0" y="0.0" width="684" height="699"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -203,7 +203,7 @@
         <!--Details View Controller-->
         <scene sceneID="RFI-nM-sBf">
             <objects>
-                <viewController storyboardIdentifier="Details" autoresizesArchivedViewToFullSize="NO" modalPresentationStyle="currentContext" id="xj4-L6-Tpp" customClass="DetailsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Details" autoresizesArchivedViewToFullSize="NO" modalPresentationStyle="currentContext" id="xj4-L6-Tpp" customClass="CRGDetailsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bcD-w0-v7h">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -400,7 +400,7 @@
         <!--Paging Grid View Controller-->
         <scene sceneID="RSN-SO-tMX">
             <objects>
-                <viewController storyboardIdentifier="PagingGrid" autoresizesArchivedViewToFullSize="NO" id="r9X-9x-QdL" customClass="PagingGridViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PagingGrid" autoresizesArchivedViewToFullSize="NO" id="r9X-9x-QdL" customClass="CRGPagingGridViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NjK-0f-0G8">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="699"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
@@ -430,12 +430,12 @@
         <!--Paging Slide View Controller-->
         <scene sceneID="xpy-yB-qA0">
             <objects>
-                <viewController storyboardIdentifier="PagingSlide" autoresizesArchivedViewToFullSize="NO" id="IsW-fe-hdu" customClass="PagingSlideViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PagingSlide" autoresizesArchivedViewToFullSize="NO" id="IsW-fe-hdu" customClass="CRGPagingSlideViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jMi-zv-yZk">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="719"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="dVy-ZU-CG6" customClass="ClipView">
+                            <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="dVy-ZU-CG6" customClass="CRGClipView">
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="699"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -493,58 +493,6 @@
                 <relationship kind="outlet" name="progressBackgroundView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="searchBackgroundView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="titleBarView" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="ClipView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ClipView.h"/>
-            <relationships>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-            </relationships>
-        </class>
-        <class className="DetailsViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DetailsViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="touchClose:"/>
-                <relationship kind="action" name="touchComments:"/>
-                <relationship kind="action" name="touchLikes:"/>
-                <relationship kind="action" name="touchMail:"/>
-                <relationship kind="action" name="touchTweet:"/>
-                <relationship kind="outlet" name="btnComments" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="btnLikes" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="btnMail" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="btnTweet" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="commentsView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="ivPhoto" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="ivUser" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="lblCaption" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="lblComments" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="lblLikes" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="mediaView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="PagingGridViewController" superclassName="PagingMediaViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PagingGridViewController.h"/>
-        </class>
-        <class className="PagingMediaViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PagingMediaViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-            </relationships>
-        </class>
-        <class className="PagingSlideViewController" superclassName="PagingMediaViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PagingSlideViewController.h"/>
-        </class>
-        <class className="SlideViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SlideViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="touchMedia:"/>
-                <relationship kind="outlet" name="ivPhoto" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="ivUser" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="lblCaption" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="lblComments" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="lblLikes" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="mediaView" candidateClass="UIView"/>
             </relationships>
         </class>
     </classes>

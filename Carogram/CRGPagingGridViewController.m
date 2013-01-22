@@ -1,27 +1,27 @@
 //
-//  PagingGridViewController.m
+//  CRGPagingGridViewController.m
 //  Carogram
 //
 //  Created by Jacob Moore on 9/10/12.
 //  Copyright (c) 2012 Xhatch Interactive, LLC. All rights reserved.
 //
 
-#import "PagingGridViewController.h"
-#import "GridViewController.h"
-#import "DetailsViewController.h"
+#import "CRGPagingGridViewController.h"
+#import "CRGGridViewController.h"
+#import "CRGDetailsViewController.h"
 
 static NSSet * ObservableKeys = nil;
 
 static NSString * const MediaCollectionKeyPath = @"mediaCollection";
 
-@interface PagingGridViewController ()
+@interface CRGPagingGridViewController ()
 @property (nonatomic, strong) NSMutableArray *gridViewControllers;
 - (void)configureView;
 - (void)loadScrollViewWithPage:(int)page;
 - (void)loadMoreMedia;
 @end
 
-@implementation PagingGridViewController {
+@implementation CRGPagingGridViewController {
 @private
     int pageCount;
     BOOL zoomRecognized_;
@@ -135,7 +135,7 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
 
 - (void)zoomInFromPoint:(CGPoint)point
 {
-    GridViewController *currentGridViewController = self.gridViewControllers[self.currentPage];
+    CRGGridViewController *currentGridViewController = self.gridViewControllers[self.currentPage];
     int pageIndex = [currentGridViewController indexOfMediaAtPoint:point];
     int mediaIndex = self.currentPage * kImageCount + pageIndex;
     
@@ -162,15 +162,15 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
     if (page >= pageCount) return;
     
     // replace the placeholder if necessary
-    GridViewController * controller = [self.gridViewControllers objectAtIndex:page];
+    CRGGridViewController * controller = [self.gridViewControllers objectAtIndex:page];
     if ((NSNull *)controller == [NSNull null]) {
-        controller = [[GridViewController alloc] initWithMediaCollection:self.mediaCollection atPage:page];
+        controller = [[CRGGridViewController alloc] initWithMediaCollection:self.mediaCollection atPage:page];
         [controller setDelegate:self.mediaSelectorDelegate];
         [self.gridViewControllers replaceObjectAtIndex:page withObject:controller];
     } else {
         if (((page+1)*kImageCount) <= [self.mediaCollection count] && ![controller isGridFull]) {
             if (controller.view.superview != nil) [controller.view removeFromSuperview];
-            controller = [[GridViewController alloc] initWithMediaCollection:self.mediaCollection atPage:page];
+            controller = [[CRGGridViewController alloc] initWithMediaCollection:self.mediaCollection atPage:page];
             [controller setDelegate:self.mediaSelectorDelegate];
             [self.gridViewControllers replaceObjectAtIndex:page withObject:controller];
         }

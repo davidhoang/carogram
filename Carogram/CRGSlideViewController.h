@@ -1,5 +1,5 @@
 //
-//  UserFeedMediaController.h
+//  CRGSlideViewController.h
 //  Carogram
 //
 //  Created by Jacob Moore on 8/29/12.
@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "WFInstagramAPI.h"
-#import "MediaSelectorDelegate.h"
+#import "CRGMediaSelectorDelegate.h"
 
-@interface SlideViewController : UIViewController
+@interface CRGSlideViewController : UIViewController
 
-@property (weak, nonatomic) id<MediaSelectorDelegate> delegate;
+@property (weak, nonatomic) id<CRGMediaSelectorDelegate> delegate;
 @property (strong, nonatomic) WFIGMedia *media;
 @property (strong, nonatomic) IBOutlet UIImageView *ivPhoto;
 @property (strong, nonatomic) IBOutlet UIImageView *ivUser;

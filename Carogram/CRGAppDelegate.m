@@ -1,16 +1,16 @@
 //
-//  AppDelegate.m
+//  CRGAppDelegate.m
 //  Carogram
 //
 //  Created by Adam McDonald on 8/3/12.
 //  Copyright (c) 2012 Xhatch Interactive, LLC. All rights reserved.
 //
 
-#import "AppDelegate.h"
+#import "CRGAppDelegate.h"
 #import "WFInstagramAPI.h"
 #import "NSURL+WillFleming.h"
-#import "CGAuthController.h"
-#import "LoginView.h"
+#import "CRGAuthController.h"
+#import "CRGLoginView.h"
 #import "TestFlight.h"
 
 #define APP_ID @"f4d2dcb4d1b3422a99344b1b10fad732"
@@ -20,12 +20,12 @@ NSString * const kOAuthCallbackURL = @"egwfapi://auth";
 
 NSString * const kCurrentUserKeyPath = @"currentUser";
 
-@interface AppDelegate ()
+@interface CRGAppDelegate ()
 @property (strong, nonatomic) UIWindow *authWindow;
 - (void)deleteCookies;
 @end
 
-@implementation AppDelegate
+@implementation CRGAppDelegate
 @synthesize authWindow = _authWindow;
 @synthesize currentUser = _currentUser;
 
@@ -149,8 +149,8 @@ void onUncaughtException(NSException* exception)
 - (void)enterAuthFlowAnimated:(BOOL)animated
 {
     // established that we're not valid yet - show the auth controller
-    CGAuthController *authController = [[CGAuthController alloc] init];
-    [WFIGAuthController setInitialViewClass:[LoginView class]];
+    CRGAuthController *authController = [[CRGAuthController alloc] init];
+    [WFIGAuthController setInitialViewClass:[CRGLoginView class]];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:authController];
     navController.navigationBarHidden = YES;
     

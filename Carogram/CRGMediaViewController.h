@@ -9,11 +9,10 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 #import "WFInstagramAPI.h"
-#import "MediaSelectorDelegate.h"
-#import "PagingMediaViewController.h"
-#import "MediaCollectionDelegate.h"
+#import "CRGMediaSelectorDelegate.h"
+#import "CRGPagingMediaViewController.h"
 
-@interface CRGMediaViewController : UIViewController <UIActionSheetDelegate, UIScrollViewDelegate, MediaSelectorDelegate, PagingMediaViewControllerDelegate>
+@interface CRGMediaViewController : UIViewController <UIActionSheetDelegate, UIScrollViewDelegate, CRGMediaSelectorDelegate, PagingMediaViewControllerDelegate>
 
 @property (strong, nonatomic) WFIGUser *currentUser;
 @property (strong, nonatomic) IBOutlet UIView *titleBarView;
@@ -25,7 +24,7 @@
 @property (strong, nonatomic) IBOutlet UIImageView *ivProgressBackground;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorView;
 @property (strong, atomic) WFIGMediaCollection *mediaCollection;
-@property (strong, nonatomic) PagingMediaViewController *currentMediaController;
+@property (strong, nonatomic) CRGPagingMediaViewController *currentMediaController;
 
 - (void)refresh;
 - (void)setProgressViewShown:(BOOL)shown;

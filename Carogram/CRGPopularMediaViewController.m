@@ -1,19 +1,19 @@
 //
-//  PopularViewController.m
+//  CRGPopularMediaViewController.m
 //  Carogram
 //
 //  Created by Jacob Moore on 8/21/12.
 //  Copyright (c) 2012 Xhatch Interactive, LLC. All rights reserved.
 //
 
-#import "PopularViewController.h"
-#import "AppDelegate.h"
-#import "DetailsViewController.h"
+#import "CRGPopularMediaViewController.h"
+#import "CRGAppDelegate.h"
+#import "CRGDetailsViewController.h"
 
-@interface PopularViewController ()
+@interface CRGPopularMediaViewController ()
 @end
 
-@implementation PopularViewController
+@implementation CRGPopularMediaViewController
 
 - (void)didReceiveMemoryWarning
 {

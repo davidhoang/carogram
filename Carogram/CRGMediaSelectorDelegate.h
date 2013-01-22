@@ -1,5 +1,5 @@
 //
-//  MediaSelectorDelegate.h
+//  CRGMediaSelectorDelegate.h
 //  Carogram
 //
 //  Created by Jacob Moore on 9/4/12.
@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "WFIGMedia.h"
 
-@protocol MediaSelectorDelegate <NSObject>
+@protocol CRGMediaSelectorDelegate <NSObject>
 @required
 - (void)didSelectMedia:(WFIGMedia *)media fromRect:(CGRect)rect;
 @end

@@ -8,15 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		2303559A15EA0EB000C80D31 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2303559915EA0EB000C80D31 /* QuartzCore.framework */; };
-		230355E315EC241000C80D31 /* GridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 230355E115EC241000C80D31 /* GridViewController.m */; };
-		230355EC15EC854B00C80D31 /* ImageGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 230355EB15EC854B00C80D31 /* ImageGridViewCell.m */; };
+		230355E315EC241000C80D31 /* CRGGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 230355E115EC241000C80D31 /* CRGGridViewController.m */; };
+		230355EC15EC854B00C80D31 /* CRGImageGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 230355EB15EC854B00C80D31 /* CRGImageGridViewCell.m */; };
 		230B1EFD15EE986F00A00058 /* CRGUserFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 230B1EFC15EE986F00A00058 /* CRGUserFeedViewController.m */; };
 		230BF2D415E83314005DB8A0 /* NSURL+WillFleming.m in Sources */ = {isa = PBXBuildFile; fileRef = 230BF2D315E828B8005DB8A0 /* NSURL+WillFleming.m */; };
-		230BF2D715E83BB9005DB8A0 /* LoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 230BF2D615E83BB9005DB8A0 /* LoginView.m */; };
+		230BF2D715E83BB9005DB8A0 /* CRGLoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 230BF2D615E83BB9005DB8A0 /* CRGLoginView.m */; };
 		231082BC15E5FB9B008D3F70 /* title-bar-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 231082BA15E5FB9B008D3F70 /* title-bar-bg.png */; };
 		231082BD15E5FB9B008D3F70 /* title-bar-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 231082BB15E5FB9B008D3F70 /* title-bar-bg@2x.png */; };
 		231082C415E5FEC8008D3F70 /* CRGMediaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 231082C315E5FEC8008D3F70 /* CRGMediaViewController.m */; };
-		2314F7B515F5DD8200445BDE /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2314F7B415F5DD8200445BDE /* DetailsViewController.m */; };
+		2314F7B515F5DD8200445BDE /* CRGDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2314F7B415F5DD8200445BDE /* CRGDetailsViewController.m */; };
 		2314F7B915F7361C00445BDE /* details-buttons-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 2314F7B715F7361C00445BDE /* details-buttons-bg.png */; };
 		2314F7BA15F7361C00445BDE /* details-buttons-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2314F7B815F7361C00445BDE /* details-buttons-bg@2x.png */; };
 		2314F7BD15F7385900445BDE /* details-comments-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 2314F7BB15F7385900445BDE /* details-comments-bg.png */; };
@@ -39,13 +39,13 @@
 		2314F7E015F7E2F900445BDE /* btn-mail-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2314F7DC15F7E2F900445BDE /* btn-mail-selected@2x.png */; };
 		2314F7E115F7E2F900445BDE /* btn-mail.png in Resources */ = {isa = PBXBuildFile; fileRef = 2314F7DD15F7E2F900445BDE /* btn-mail.png */; };
 		2314F7E215F7E2F900445BDE /* btn-mail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2314F7DE15F7E2F900445BDE /* btn-mail@2x.png */; };
-		2314F7E515F7EBA300445BDE /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2314F7E415F7EBA300445BDE /* CommentCell.m */; };
-		2314F7E715F7FD3E00445BDE /* CommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2314F7E615F7FD3E00445BDE /* CommentCell.xib */; };
+		2314F7E515F7EBA300445BDE /* CRGCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2314F7E415F7EBA300445BDE /* CRGCommentCell.m */; };
+		2314F7E715F7FD3E00445BDE /* CRGCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2314F7E615F7FD3E00445BDE /* CRGCommentCell.xib */; };
 		2314F7EA15F802F900445BDE /* comment-cell-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 2314F7E815F802F900445BDE /* comment-cell-bg.png */; };
 		2314F7EB15F802F900445BDE /* comment-cell-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2314F7E915F802F900445BDE /* comment-cell-bg@2x.png */; };
-		2314F80C15FE6D2600445BDE /* PagingSlideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2314F80B15FE6D2600445BDE /* PagingSlideViewController.m */; };
-		2314F80F15FE92CB00445BDE /* PagingGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2314F80E15FE92CA00445BDE /* PagingGridViewController.m */; };
-		2314F81215FEAE8800445BDE /* PagingMediaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2314F81115FEAE8800445BDE /* PagingMediaViewController.m */; };
+		2314F80C15FE6D2600445BDE /* CRGPagingSlideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2314F80B15FE6D2600445BDE /* CRGPagingSlideViewController.m */; };
+		2314F80F15FE92CB00445BDE /* CRGPagingGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2314F80E15FE92CA00445BDE /* CRGPagingGridViewController.m */; };
+		2314F81215FEAE8800445BDE /* CRGPagingMediaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2314F81115FEAE8800445BDE /* CRGPagingMediaViewController.m */; };
 		231F5A8E15E6124B00D85115 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 231F5A8C15E6124B00D85115 /* bg.png */; };
 		231F5A8F15E6124B00D85115 /* bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 231F5A8D15E6124B00D85115 /* bg@2x.png */; };
 		231F5A9315E6175A00D85115 /* search-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 231F5A9115E6175A00D85115 /* search-bg.png */; };
@@ -90,12 +90,12 @@
 		236BDBA415E7517B00020CE8 /* APIClient.plist in Resources */ = {isa = PBXBuildFile; fileRef = 236BDBA315E7517B00020CE8 /* APIClient.plist */; };
 		238426A615EEE1CB0077DDF8 /* progress-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 238426A415EEE1CB0077DDF8 /* progress-bg.png */; };
 		238426A715EEE1CB0077DDF8 /* progress-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 238426A515EEE1CB0077DDF8 /* progress-bg@2x.png */; };
-		238426C715EF31780077DDF8 /* ClipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 238426B815EF016C0077DDF8 /* ClipView.m */; };
-		238A5D6516ADF3E200CAA6C1 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 238A5D6416ADF3E200CAA6C1 /* SearchViewController.m */; };
+		238426C715EF31780077DDF8 /* CRGClipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 238426B815EF016C0077DDF8 /* CRGClipView.m */; };
+		238A5D6516ADF3E200CAA6C1 /* CRGTagSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 238A5D6416ADF3E200CAA6C1 /* CRGTagSearchViewController.m */; };
 		238A5D6816AE16EF00CAA6C1 /* CRGMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 238A5D6716AE16EE00CAA6C1 /* CRGMainViewController.m */; };
-		238FF21815E8A533004D3356 /* CGAuthController.m in Sources */ = {isa = PBXBuildFile; fileRef = 238FF21715E8A533004D3356 /* CGAuthController.m */; };
-		23A49E4815E444FE00038FCA /* PopularViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A49E4615E444FE00038FCA /* PopularViewController.m */; };
-		23B09F7115F04FAA00490AF9 /* SlideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 238426C515EF2D330077DDF8 /* SlideViewController.m */; };
+		238FF21815E8A533004D3356 /* CRGAuthController.m in Sources */ = {isa = PBXBuildFile; fileRef = 238FF21715E8A533004D3356 /* CRGAuthController.m */; };
+		23A49E4815E444FE00038FCA /* CRGPopularMediaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A49E4615E444FE00038FCA /* CRGPopularMediaViewController.m */; };
+		23B09F7115F04FAA00490AF9 /* CRGSlideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 238426C515EF2D330077DDF8 /* CRGSlideViewController.m */; };
 		23F9DDA415F04930002A62F7 /* connect-background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 23F9DDA215F04930002A62F7 /* connect-background.jpg */; };
 		23F9DDA515F04930002A62F7 /* connect-background@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 23F9DDA315F04930002A62F7 /* connect-background@2x.jpg */; };
 		23FC575515F0195E002304D9 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 23FC575415F0195E002304D9 /* libz.dylib */; };
@@ -104,7 +104,7 @@
 		666EFF8F15CB369500CA30B7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 666EFF8E15CB369500CA30B7 /* CoreGraphics.framework */; };
 		666EFF9515CB369500CA30B7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 666EFF9315CB369500CA30B7 /* InfoPlist.strings */; };
 		666EFF9715CB369500CA30B7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 666EFF9615CB369500CA30B7 /* main.m */; };
-		666EFF9B15CB369500CA30B7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 666EFF9A15CB369500CA30B7 /* AppDelegate.m */; };
+		666EFF9B15CB369500CA30B7 /* CRGAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 666EFF9A15CB369500CA30B7 /* CRGAppDelegate.m */; };
 		666EFF9E15CB369500CA30B7 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 666EFF9C15CB369500CA30B7 /* MainStoryboard.storyboard */; };
 		66DCDADE15DC5C0B00E4B966 /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 66DCDADD15DC5C0B00E4B966 /* Default-Landscape@2x~ipad.png */; };
 		66DCDAE015DC5C4D00E4B966 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 66DCDADF15DC5C4D00E4B966 /* Default-Landscape~ipad.png */; };
@@ -133,23 +133,23 @@
 
 /* Begin PBXFileReference section */
 		2303559915EA0EB000C80D31 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		230355E015EC241000C80D31 /* GridViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridViewController.h; sourceTree = "<group>"; };
-		230355E115EC241000C80D31 /* GridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridViewController.m; sourceTree = "<group>"; };
-		230355EA15EC854B00C80D31 /* ImageGridViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageGridViewCell.h; sourceTree = "<group>"; };
-		230355EB15EC854B00C80D31 /* ImageGridViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageGridViewCell.m; sourceTree = "<group>"; };
+		230355E015EC241000C80D31 /* CRGGridViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRGGridViewController.h; sourceTree = "<group>"; };
+		230355E115EC241000C80D31 /* CRGGridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRGGridViewController.m; sourceTree = "<group>"; };
+		230355EA15EC854B00C80D31 /* CRGImageGridViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRGImageGridViewCell.h; sourceTree = "<group>"; };
+		230355EB15EC854B00C80D31 /* CRGImageGridViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRGImageGridViewCell.m; sourceTree = "<group>"; };
 		230B1EFB15EE986F00A00058 /* CRGUserFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRGUserFeedViewController.h; sourceTree = "<group>"; };
 		230B1EFC15EE986F00A00058 /* CRGUserFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRGUserFeedViewController.m; sourceTree = "<group>"; };
 		230BF2D215E828B8005DB8A0 /* NSURL+WillFleming.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSURL+WillFleming.h"; sourceTree = "<group>"; };
 		230BF2D315E828B8005DB8A0 /* NSURL+WillFleming.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSURL+WillFleming.m"; sourceTree = "<group>"; };
-		230BF2D515E83BB9005DB8A0 /* LoginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginView.h; sourceTree = "<group>"; };
-		230BF2D615E83BB9005DB8A0 /* LoginView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginView.m; sourceTree = "<group>"; };
+		230BF2D515E83BB9005DB8A0 /* CRGLoginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRGLoginView.h; sourceTree = "<group>"; };
+		230BF2D615E83BB9005DB8A0 /* CRGLoginView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRGLoginView.m; sourceTree = "<group>"; };
 		231082BA15E5FB9B008D3F70 /* title-bar-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "title-bar-bg.png"; sourceTree = "<group>"; };
 		231082BB15E5FB9B008D3F70 /* title-bar-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "title-bar-bg@2x.png"; sourceTree = "<group>"; };
 		231082C215E5FEC8008D3F70 /* CRGMediaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRGMediaViewController.h; sourceTree = "<group>"; };
 		231082C315E5FEC8008D3F70 /* CRGMediaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRGMediaViewController.m; sourceTree = "<group>"; };
-		2314F7B315F5DD8200445BDE /* DetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailsViewController.h; sourceTree = "<group>"; };
-		2314F7B415F5DD8200445BDE /* DetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailsViewController.m; sourceTree = "<group>"; };
-		2314F7B615F6B83300445BDE /* MediaSelectorDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MediaSelectorDelegate.h; sourceTree = "<group>"; };
+		2314F7B315F5DD8200445BDE /* CRGDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRGDetailsViewController.h; sourceTree = "<group>"; };
+		2314F7B415F5DD8200445BDE /* CRGDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRGDetailsViewController.m; sourceTree = "<group>"; };
+		2314F7B615F6B83300445BDE /* CRGMediaSelectorDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CRGMediaSelectorDelegate.h; sourceTree = "<group>"; };
 		2314F7B715F7361C00445BDE /* details-buttons-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "details-buttons-bg.png"; sourceTree = "<group>"; };
 		2314F7B815F7361C00445BDE /* details-buttons-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "details-buttons-bg@2x.png"; sourceTree = "<group>"; };
 		2314F7BB15F7385900445BDE /* details-comments-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "details-comments-bg.png"; sourceTree = "<group>"; };
@@ -172,18 +172,17 @@
 		2314F7DC15F7E2F900445BDE /* btn-mail-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-mail-selected@2x.png"; sourceTree = "<group>"; };
 		2314F7DD15F7E2F900445BDE /* btn-mail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-mail.png"; sourceTree = "<group>"; };
 		2314F7DE15F7E2F900445BDE /* btn-mail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-mail@2x.png"; sourceTree = "<group>"; };
-		2314F7E315F7EBA300445BDE /* CommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentCell.h; sourceTree = "<group>"; };
-		2314F7E415F7EBA300445BDE /* CommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentCell.m; sourceTree = "<group>"; };
-		2314F7E615F7FD3E00445BDE /* CommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentCell.xib; sourceTree = "<group>"; };
+		2314F7E315F7EBA300445BDE /* CRGCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRGCommentCell.h; sourceTree = "<group>"; };
+		2314F7E415F7EBA300445BDE /* CRGCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRGCommentCell.m; sourceTree = "<group>"; };
+		2314F7E615F7FD3E00445BDE /* CRGCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CRGCommentCell.xib; sourceTree = "<group>"; };
 		2314F7E815F802F900445BDE /* comment-cell-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comment-cell-bg.png"; sourceTree = "<group>"; };
 		2314F7E915F802F900445BDE /* comment-cell-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comment-cell-bg@2x.png"; sourceTree = "<group>"; };
-		2314F80A15FE6D2600445BDE /* PagingSlideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PagingSlideViewController.h; sourceTree = "<group>"; };
-		2314F80B15FE6D2600445BDE /* PagingSlideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PagingSlideViewController.m; sourceTree = "<group>"; };
-		2314F80D15FE92CA00445BDE /* PagingGridViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PagingGridViewController.h; sourceTree = "<group>"; };
-		2314F80E15FE92CA00445BDE /* PagingGridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PagingGridViewController.m; sourceTree = "<group>"; };
-		2314F81015FEAE8700445BDE /* PagingMediaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PagingMediaViewController.h; sourceTree = "<group>"; };
-		2314F81115FEAE8800445BDE /* PagingMediaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PagingMediaViewController.m; sourceTree = "<group>"; };
-		2314F81415FF133800445BDE /* MediaCollectionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MediaCollectionDelegate.h; sourceTree = "<group>"; };
+		2314F80A15FE6D2600445BDE /* CRGPagingSlideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRGPagingSlideViewController.h; sourceTree = "<group>"; };
+		2314F80B15FE6D2600445BDE /* CRGPagingSlideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRGPagingSlideViewController.m; sourceTree = "<group>"; };
+		2314F80D15FE92CA00445BDE /* CRGPagingGridViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRGPagingGridViewController.h; sourceTree = "<group>"; };
+		2314F80E15FE92CA00445BDE /* CRGPagingGridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRGPagingGridViewController.m; sourceTree = "<group>"; };
+		2314F81015FEAE8700445BDE /* CRGPagingMediaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRGPagingMediaViewController.h; sourceTree = "<group>"; };
+		2314F81115FEAE8800445BDE /* CRGPagingMediaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRGPagingMediaViewController.m; sourceTree = "<group>"; };
 		231F5A8C15E6124B00D85115 /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
 		231F5A8D15E6124B00D85115 /* bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg@2x.png"; sourceTree = "<group>"; };
 		231F5A9115E6175A00D85115 /* search-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search-bg.png"; sourceTree = "<group>"; };
@@ -229,18 +228,18 @@
 		236BDBA315E7517B00020CE8 /* APIClient.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = APIClient.plist; sourceTree = "<group>"; };
 		238426A415EEE1CB0077DDF8 /* progress-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "progress-bg.png"; sourceTree = "<group>"; };
 		238426A515EEE1CB0077DDF8 /* progress-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "progress-bg@2x.png"; sourceTree = "<group>"; };
-		238426B715EF016C0077DDF8 /* ClipView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClipView.h; sourceTree = "<group>"; };
-		238426B815EF016C0077DDF8 /* ClipView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClipView.m; sourceTree = "<group>"; };
-		238426C415EF2D330077DDF8 /* SlideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideViewController.h; sourceTree = "<group>"; };
-		238426C515EF2D330077DDF8 /* SlideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideViewController.m; sourceTree = "<group>"; };
-		238A5D6316ADF3E200CAA6C1 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
-		238A5D6416ADF3E200CAA6C1 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
+		238426B715EF016C0077DDF8 /* CRGClipView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CRGClipView.h; sourceTree = "<group>"; };
+		238426B815EF016C0077DDF8 /* CRGClipView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CRGClipView.m; sourceTree = "<group>"; };
+		238426C415EF2D330077DDF8 /* CRGSlideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRGSlideViewController.h; sourceTree = "<group>"; };
+		238426C515EF2D330077DDF8 /* CRGSlideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRGSlideViewController.m; sourceTree = "<group>"; };
+		238A5D6316ADF3E200CAA6C1 /* CRGTagSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRGTagSearchViewController.h; sourceTree = "<group>"; };
+		238A5D6416ADF3E200CAA6C1 /* CRGTagSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRGTagSearchViewController.m; sourceTree = "<group>"; };
 		238A5D6616AE16EE00CAA6C1 /* CRGMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRGMainViewController.h; sourceTree = "<group>"; };
 		238A5D6716AE16EE00CAA6C1 /* CRGMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRGMainViewController.m; sourceTree = "<group>"; };
-		238FF21615E8A533004D3356 /* CGAuthController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGAuthController.h; sourceTree = "<group>"; };
-		238FF21715E8A533004D3356 /* CGAuthController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGAuthController.m; sourceTree = "<group>"; };
-		23A49E4515E444FE00038FCA /* PopularViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularViewController.h; sourceTree = "<group>"; };
-		23A49E4615E444FE00038FCA /* PopularViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularViewController.m; sourceTree = "<group>"; };
+		238FF21615E8A533004D3356 /* CRGAuthController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRGAuthController.h; sourceTree = "<group>"; };
+		238FF21715E8A533004D3356 /* CRGAuthController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRGAuthController.m; sourceTree = "<group>"; };
+		23A49E4515E444FE00038FCA /* CRGPopularMediaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRGPopularMediaViewController.h; sourceTree = "<group>"; };
+		23A49E4615E444FE00038FCA /* CRGPopularMediaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRGPopularMediaViewController.m; sourceTree = "<group>"; };
 		23F9DDA215F04930002A62F7 /* connect-background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "connect-background.jpg"; sourceTree = "<group>"; };
 		23F9DDA315F04930002A62F7 /* connect-background@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "connect-background@2x.jpg"; sourceTree = "<group>"; };
 		23FC575415F0195E002304D9 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -252,8 +251,8 @@
 		666EFF9415CB369500CA30B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		666EFF9615CB369500CA30B7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		666EFF9815CB369500CA30B7 /* Carogram-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Carogram-Prefix.pch"; sourceTree = "<group>"; };
-		666EFF9915CB369500CA30B7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		666EFF9A15CB369500CA30B7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		666EFF9915CB369500CA30B7 /* CRGAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CRGAppDelegate.h; sourceTree = "<group>"; };
+		666EFF9A15CB369500CA30B7 /* CRGAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CRGAppDelegate.m; sourceTree = "<group>"; };
 		666EFF9D15CB369500CA30B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		66DCDADB15DC5B2100E4B966 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape~ipad.png"; path = "../../Default-Landscape~ipad.png"; sourceTree = "<group>"; };
 		66DCDADD15DC5C0B00E4B966 /* Default-Landscape@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape@2x~ipad.png"; path = "../../Default-Landscape@2x~ipad.png"; sourceTree = "<group>"; };
@@ -285,11 +284,11 @@
 		230355E915EC84AF00C80D31 /* TableCells */ = {
 			isa = PBXGroup;
 			children = (
-				2314F7E315F7EBA300445BDE /* CommentCell.h */,
-				2314F7E415F7EBA300445BDE /* CommentCell.m */,
-				2314F7E615F7FD3E00445BDE /* CommentCell.xib */,
-				230355EA15EC854B00C80D31 /* ImageGridViewCell.h */,
-				230355EB15EC854B00C80D31 /* ImageGridViewCell.m */,
+				2314F7E315F7EBA300445BDE /* CRGCommentCell.h */,
+				2314F7E415F7EBA300445BDE /* CRGCommentCell.m */,
+				2314F7E615F7FD3E00445BDE /* CRGCommentCell.xib */,
+				230355EA15EC854B00C80D31 /* CRGImageGridViewCell.h */,
+				230355EB15EC854B00C80D31 /* CRGImageGridViewCell.m */,
 			);
 			name = TableCells;
 			sourceTree = "<group>";
@@ -306,11 +305,11 @@
 		231082B915E5FB49008D3F70 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				238426B715EF016C0077DDF8 /* ClipView.h */,
-				238426B815EF016C0077DDF8 /* ClipView.m */,
+				238426B715EF016C0077DDF8 /* CRGClipView.h */,
+				238426B815EF016C0077DDF8 /* CRGClipView.m */,
 				230355E915EC84AF00C80D31 /* TableCells */,
-				230BF2D515E83BB9005DB8A0 /* LoginView.h */,
-				230BF2D615E83BB9005DB8A0 /* LoginView.m */,
+				230BF2D515E83BB9005DB8A0 /* CRGLoginView.h */,
+				230BF2D615E83BB9005DB8A0 /* CRGLoginView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -318,8 +317,7 @@
 		2314F81315FF130A00445BDE /* Delegates */ = {
 			isa = PBXGroup;
 			children = (
-				2314F7B615F6B83300445BDE /* MediaSelectorDelegate.h */,
-				2314F81415FF133800445BDE /* MediaCollectionDelegate.h */,
+				2314F7B615F6B83300445BDE /* CRGMediaSelectorDelegate.h */,
 			);
 			name = Delegates;
 			sourceTree = "<group>";
@@ -369,28 +367,28 @@
 		23A49E4415E4449C00038FCA /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				238FF21615E8A533004D3356 /* CGAuthController.h */,
-				238FF21715E8A533004D3356 /* CGAuthController.m */,
+				238FF21615E8A533004D3356 /* CRGAuthController.h */,
+				238FF21715E8A533004D3356 /* CRGAuthController.m */,
 				231082C215E5FEC8008D3F70 /* CRGMediaViewController.h */,
 				231082C315E5FEC8008D3F70 /* CRGMediaViewController.m */,
-				2314F7B315F5DD8200445BDE /* DetailsViewController.h */,
-				2314F7B415F5DD8200445BDE /* DetailsViewController.m */,
-				230355E015EC241000C80D31 /* GridViewController.h */,
-				230355E115EC241000C80D31 /* GridViewController.m */,
+				2314F7B315F5DD8200445BDE /* CRGDetailsViewController.h */,
+				2314F7B415F5DD8200445BDE /* CRGDetailsViewController.m */,
+				230355E015EC241000C80D31 /* CRGGridViewController.h */,
+				230355E115EC241000C80D31 /* CRGGridViewController.m */,
 				230B1EFB15EE986F00A00058 /* CRGUserFeedViewController.h */,
 				230B1EFC15EE986F00A00058 /* CRGUserFeedViewController.m */,
-				23A49E4515E444FE00038FCA /* PopularViewController.h */,
-				23A49E4615E444FE00038FCA /* PopularViewController.m */,
-				238426C415EF2D330077DDF8 /* SlideViewController.h */,
-				238426C515EF2D330077DDF8 /* SlideViewController.m */,
-				2314F80A15FE6D2600445BDE /* PagingSlideViewController.h */,
-				2314F80B15FE6D2600445BDE /* PagingSlideViewController.m */,
-				2314F80D15FE92CA00445BDE /* PagingGridViewController.h */,
-				2314F80E15FE92CA00445BDE /* PagingGridViewController.m */,
-				2314F81015FEAE8700445BDE /* PagingMediaViewController.h */,
-				2314F81115FEAE8800445BDE /* PagingMediaViewController.m */,
-				238A5D6316ADF3E200CAA6C1 /* SearchViewController.h */,
-				238A5D6416ADF3E200CAA6C1 /* SearchViewController.m */,
+				23A49E4515E444FE00038FCA /* CRGPopularMediaViewController.h */,
+				23A49E4615E444FE00038FCA /* CRGPopularMediaViewController.m */,
+				238426C415EF2D330077DDF8 /* CRGSlideViewController.h */,
+				238426C515EF2D330077DDF8 /* CRGSlideViewController.m */,
+				2314F80A15FE6D2600445BDE /* CRGPagingSlideViewController.h */,
+				2314F80B15FE6D2600445BDE /* CRGPagingSlideViewController.m */,
+				2314F80D15FE92CA00445BDE /* CRGPagingGridViewController.h */,
+				2314F80E15FE92CA00445BDE /* CRGPagingGridViewController.m */,
+				2314F81015FEAE8700445BDE /* CRGPagingMediaViewController.h */,
+				2314F81115FEAE8800445BDE /* CRGPagingMediaViewController.m */,
+				238A5D6316ADF3E200CAA6C1 /* CRGTagSearchViewController.h */,
+				238A5D6416ADF3E200CAA6C1 /* CRGTagSearchViewController.m */,
 				238A5D6616AE16EE00CAA6C1 /* CRGMainViewController.h */,
 				238A5D6716AE16EE00CAA6C1 /* CRGMainViewController.m */,
 			);
@@ -440,8 +438,8 @@
 			isa = PBXGroup;
 			children = (
 				2320A6DC16A8683F00194A8F /* Dependent Headers */,
-				666EFF9915CB369500CA30B7 /* AppDelegate.h */,
-				666EFF9A15CB369500CA30B7 /* AppDelegate.m */,
+				666EFF9915CB369500CA30B7 /* CRGAppDelegate.h */,
+				666EFF9A15CB369500CA30B7 /* CRGAppDelegate.m */,
 				23A49E4415E4449C00038FCA /* Controllers */,
 				2314F81315FF130A00445BDE /* Delegates */,
 				230BF2D115E8286E005DB8A0 /* Extensions */,
@@ -665,7 +663,7 @@
 				2314F7E015F7E2F900445BDE /* btn-mail-selected@2x.png in Resources */,
 				2314F7E115F7E2F900445BDE /* btn-mail.png in Resources */,
 				2314F7E215F7E2F900445BDE /* btn-mail@2x.png in Resources */,
-				2314F7E715F7FD3E00445BDE /* CommentCell.xib in Resources */,
+				2314F7E715F7FD3E00445BDE /* CRGCommentCell.xib in Resources */,
 				2314F7EA15F802F900445BDE /* comment-cell-bg.png in Resources */,
 				2314F7EB15F802F900445BDE /* comment-cell-bg@2x.png in Resources */,
 				2320A6DE16A8686400194A8F /* WFInstagramAPI.h in Resources */,
@@ -695,24 +693,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				23B09F7115F04FAA00490AF9 /* SlideViewController.m in Sources */,
+				23B09F7115F04FAA00490AF9 /* CRGSlideViewController.m in Sources */,
 				230BF2D415E83314005DB8A0 /* NSURL+WillFleming.m in Sources */,
 				666EFF9715CB369500CA30B7 /* main.m in Sources */,
-				666EFF9B15CB369500CA30B7 /* AppDelegate.m in Sources */,
-				23A49E4815E444FE00038FCA /* PopularViewController.m in Sources */,
+				666EFF9B15CB369500CA30B7 /* CRGAppDelegate.m in Sources */,
+				23A49E4815E444FE00038FCA /* CRGPopularMediaViewController.m in Sources */,
 				231082C415E5FEC8008D3F70 /* CRGMediaViewController.m in Sources */,
-				230BF2D715E83BB9005DB8A0 /* LoginView.m in Sources */,
-				238FF21815E8A533004D3356 /* CGAuthController.m in Sources */,
-				230355E315EC241000C80D31 /* GridViewController.m in Sources */,
-				230355EC15EC854B00C80D31 /* ImageGridViewCell.m in Sources */,
+				230BF2D715E83BB9005DB8A0 /* CRGLoginView.m in Sources */,
+				238FF21815E8A533004D3356 /* CRGAuthController.m in Sources */,
+				230355E315EC241000C80D31 /* CRGGridViewController.m in Sources */,
+				230355EC15EC854B00C80D31 /* CRGImageGridViewCell.m in Sources */,
 				230B1EFD15EE986F00A00058 /* CRGUserFeedViewController.m in Sources */,
-				238426C715EF31780077DDF8 /* ClipView.m in Sources */,
-				2314F7B515F5DD8200445BDE /* DetailsViewController.m in Sources */,
-				2314F7E515F7EBA300445BDE /* CommentCell.m in Sources */,
-				2314F80C15FE6D2600445BDE /* PagingSlideViewController.m in Sources */,
-				2314F80F15FE92CB00445BDE /* PagingGridViewController.m in Sources */,
-				2314F81215FEAE8800445BDE /* PagingMediaViewController.m in Sources */,
-				238A5D6516ADF3E200CAA6C1 /* SearchViewController.m in Sources */,
+				238426C715EF31780077DDF8 /* CRGClipView.m in Sources */,
+				2314F7B515F5DD8200445BDE /* CRGDetailsViewController.m in Sources */,
+				2314F7E515F7EBA300445BDE /* CRGCommentCell.m in Sources */,
+				2314F80C15FE6D2600445BDE /* CRGPagingSlideViewController.m in Sources */,
+				2314F80F15FE92CB00445BDE /* CRGPagingGridViewController.m in Sources */,
+				2314F81215FEAE8800445BDE /* CRGPagingMediaViewController.m in Sources */,
+				238A5D6516ADF3E200CAA6C1 /* CRGTagSearchViewController.m in Sources */,
 				238A5D6816AE16EF00CAA6C1 /* CRGMainViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

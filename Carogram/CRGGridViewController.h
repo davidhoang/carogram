@@ -1,5 +1,5 @@
 //
-//  GridViewController.h
+//  CRGGridViewController.h
 //  Carogram
 //
 //  Created by Jacob Moore on 8/27/12.
@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "WFInstagramAPI.h"
-#import "MediaSelectorDelegate.h"
+#import "CRGMediaSelectorDelegate.h"
 
 #define kImageCount 12
 
-@interface GridViewController : UIViewController
+@interface CRGGridViewController : UIViewController
 
-@property (weak, nonatomic) id<MediaSelectorDelegate>delegate;
+@property (weak, nonatomic) id<CRGMediaSelectorDelegate>delegate;
 @property (strong, nonatomic) WFIGMediaCollection *mediaCollection;
 
 - (id)initWithMediaCollection:(WFIGMediaCollection *)mediaCollection atPage:(int)page;

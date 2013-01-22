@@ -1,5 +1,5 @@
 //
-//  DetailsViewController.h
+//  CRGDetailsViewController.h
 //  Carogram
 //
 //  Created by Jacob Moore on 9/3/12.
@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "WFInstagramAPI.h"
 
-@interface DetailsViewController : UIViewController
+@interface CRGDetailsViewController : UIViewController
 
 @property (strong, nonatomic) WFIGMedia *media;
 @property (strong, nonatomic) IBOutlet UIImageView *ivPhoto;

@@ -1,5 +1,5 @@
 //
-//  ImageGridViewCell.h
+//  CRGImageGridViewCell.h
 //  Carogram
 //
 //  Created by Jacob Moore on 8/27/12.
@@ -8,7 +8,7 @@
 
 #import "WFInstagramAPI.h"
 
-@interface ImageGridViewCell : UIView
+@interface CRGImageGridViewCell : UIView
 
 - (id)initWithMedia:(WFIGMedia *)media frame:(CGRect)frame;
 

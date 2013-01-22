@@ -1,5 +1,5 @@
 //
-//  HomeViewController.h
+//  CRGPopularMediaViewController.h
 //  Carogram
 //
 //  Created by Jacob Moore on 8/21/12.
@@ -10,6 +10,6 @@
 #import "CRGMediaViewController.h"
 #import "WFInstagramAPI.h"
 
-@interface PopularViewController : CRGMediaViewController
+@interface CRGPopularMediaViewController : CRGMediaViewController
 
 @end

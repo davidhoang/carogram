@@ -1,5 +1,5 @@
 //
-//  PagingGridViewController.h
+//  CRGPagingGridViewController.h
 //  Carogram
 //
 //  Created by Jacob Moore on 9/10/12.
@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PagingMediaViewController.h"
+#import "CRGPagingMediaViewController.h"
 
-@interface PagingGridViewController : PagingMediaViewController
+@interface CRGPagingGridViewController : CRGPagingMediaViewController
 
 @end

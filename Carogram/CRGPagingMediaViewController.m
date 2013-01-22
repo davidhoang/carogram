@@ -1,20 +1,20 @@
 //
-//  PagingMediaViewController.m
+//  CRGPagingMediaViewController.m
 //  Carogram
 //
 //  Created by Jacob Moore on 9/10/12.
 //  Copyright (c) 2012 Xhatch Interactive, LLC. All rights reserved.
 //
 
-#import "PagingMediaViewController.h"
+#import "CRGPagingMediaViewController.h"
 
 NSString * const MediaCollectionDidLoadNextPageNotification = @"MediaCollectionDidLoadNextPageNotification";
 
-@interface PagingMediaViewController ()
+@interface CRGPagingMediaViewController ()
 
 @end
 
-@implementation PagingMediaViewController
+@implementation CRGPagingMediaViewController
 @synthesize delegate = _delegate;
 @synthesize mediaSelectorDelegate = _mediaSelectorDelegate;
 @synthesize mediaCollection = _mediaCollection;

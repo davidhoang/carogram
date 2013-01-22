@@ -1,5 +1,5 @@
 //
-//  AppDelegate.h
+//  CRGAppDelegate.h
 //  Carogram
 //
 //  Created by Adam McDonald on 8/3/12.
@@ -10,7 +10,7 @@
 
 extern  NSString* const kCurrentUserKeyPath;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface CRGAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) WFIGUser *currentUser;

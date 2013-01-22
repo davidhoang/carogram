@@ -1,14 +1,14 @@
 //
-//  ClipView.m
-//  RentalGuard
+//  CRGClipView.m
+//  Carogram
 //
 //  Created by Jacob Moore on 12/11/11.
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "ClipView.h"
+#import "CRGClipView.h"
 
-@implementation ClipView
+@implementation CRGClipView
 
 @synthesize scrollView;
 

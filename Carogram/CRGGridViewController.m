@@ -1,22 +1,22 @@
 //
-//  GridViewController.m
+//  CRGGridViewController.m
 //  Carogram
 //
 //  Created by Jacob Moore on 8/27/12.
 //  Copyright (c) 2012 Xhatch Interactive, LLC. All rights reserved.
 //
 
-#import "GridViewController.h"
-#import "ImageGridViewCell.h"
+#import "CRGGridViewController.h"
+#import "CRGImageGridViewCell.h"
 
 #define kNumberOfColumns 4
 
-@interface GridViewController ()
+@interface CRGGridViewController ()
 @property (strong, nonatomic) NSArray *gridCells;
 - (void)initGrid;
 @end
 
-@implementation GridViewController {
+@implementation CRGGridViewController {
 @private
     int page;
     BOOL gridFull;
@@ -59,7 +59,7 @@
         int y = 29 + ((i / kNumberOfColumns) * 230);
         
         CGRect frame = CGRectMake(x, y, 200, 200);
-        ImageGridViewCell *cell = [[ImageGridViewCell alloc] initWithMedia:media frame:frame];
+        CRGImageGridViewCell *cell = [[CRGImageGridViewCell alloc] initWithMedia:media frame:frame];
         [cells addObject:cell];
         [self.view addSubview:cell];
         

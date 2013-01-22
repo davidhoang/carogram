@@ -1,5 +1,5 @@
 //
-//  SearchViewController.h
+//  CRGTagSearchViewController.h
 //  Carogram
 //
 //  Created by Jacob Moore on 1/21/13.
@@ -8,6 +8,6 @@
 
 #import "CRGMediaViewController.h"
 
-@interface SearchViewController : CRGMediaViewController
+@interface CRGTagSearchViewController : CRGMediaViewController
 @property (strong, nonatomic) NSString *searchTag;
 @end
