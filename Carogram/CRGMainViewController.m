@@ -94,27 +94,27 @@ static int currentUserObserverContext;
     self.currentUser = appDelegate.currentUser;
     if (nil != self.currentUser) [self loadProfilePicture];
     
+    UIImage *patternImage = [UIImage imageNamed:@"title-bar-bg-tile"];
+    self.titleBarView.backgroundColor = [UIColor colorWithPatternImage:patternImage];
+    
     self.searchBackgroundView.image =
     [[UIImage imageNamed:@"search-bg"] stretchableImageWithLeftCapWidth:4 topCapHeight:4];
+    
+    self.searchTextField.font = [UIFont fontWithName:@"Gotham-Medium" size:14.];
     
     // Round account image view
     self.accountImageView.layer.opaque = YES;
     self.accountImageView.layer.masksToBounds = YES;
-    self.accountImageView.layer.cornerRadius = 2.0;
     
     // Add rounded border layer
     CALayer *roundedLayer = [CALayer layer];
-    roundedLayer.frame = CGRectMake(-1.0,
-                                    -1.0,
-                                    (self.accountImageView.frame.size.width + 2.0),
-                                    (self.accountImageView.frame.size.height + 2.0));
+    roundedLayer.frame = self.accountImageView.bounds;
     roundedLayer.opaque = YES;
     roundedLayer.masksToBounds = YES;
-    roundedLayer.cornerRadius = 2.0;
-    roundedLayer.borderWidth = 2.5;
-    roundedLayer.borderColor = [[UIColor colorWithRed:(69.0/255.0)
-                                                green:(73.0/255.0)
-                                                 blue:(76.0/255.0)
+    roundedLayer.borderWidth = 1;
+    roundedLayer.borderColor = [[UIColor colorWithRed:(85.0/255.0)
+                                                green:(78.0/255.0)
+                                                 blue:(59.0/255.0)
                                                 alpha:1.0] CGColor];
     
     [self.accountImageView.layer addSublayer:roundedLayer];
@@ -127,8 +127,8 @@ static int currentUserObserverContext;
     if (USER_FEED_INDEX == self.currentViewControllerIndex) return;
     self.currentViewControllerIndex = USER_FEED_INDEX;
     
-    [self.userFeedButton setImage:[UIImage imageNamed:@"btn-home-depressed"] forState:UIControlStateNormal];
-    [self.popularMediaButton setImage:[UIImage imageNamed:@"btn-popular"] forState:UIControlStateNormal];
+    [self.userFeedButton setImage:[UIImage imageNamed:@"btn-user-feed-depressed"] forState:UIControlStateNormal];
+    [self.popularMediaButton setImage:[UIImage imageNamed:@"btn-popular-media"] forState:UIControlStateNormal];
     
     CRGUserFeedViewController *userFeedController = self.viewControllers[USER_FEED_INDEX];
     if ((NSNull *)userFeedController == [NSNull null]) {
@@ -154,8 +154,8 @@ static int currentUserObserverContext;
     if (POPULAR_MEDIA_INDEX == self.currentViewControllerIndex) return;
     self.currentViewControllerIndex = POPULAR_MEDIA_INDEX;
     
-    [self.popularMediaButton setImage:[UIImage imageNamed:@"btn-popular-depressed"] forState:UIControlStateNormal];
-    [self.userFeedButton setImage:[UIImage imageNamed:@"btn-home"] forState:UIControlStateNormal];
+    [self.popularMediaButton setImage:[UIImage imageNamed:@"btn-popular-media-depressed"] forState:UIControlStateNormal];
+    [self.userFeedButton setImage:[UIImage imageNamed:@"btn-user-feed"] forState:UIControlStateNormal];
     
     CRGPopularMediaViewController *popularMediaController = self.viewControllers[POPULAR_MEDIA_INDEX];
     if ((NSNull *)popularMediaController == [NSNull null]) {
@@ -185,8 +185,8 @@ static int currentUserObserverContext;
     
     if ('#' == [searchTag characterAtIndex:0]) searchTag = [searchTag substringFromIndex:1];
 
-    [self.popularMediaButton setImage:[UIImage imageNamed:@"btn-popular"] forState:UIControlStateNormal];
-    [self.userFeedButton setImage:[UIImage imageNamed:@"btn-home"] forState:UIControlStateNormal];
+    [self.popularMediaButton setImage:[UIImage imageNamed:@"btn-popular-media"] forState:UIControlStateNormal];
+    [self.userFeedButton setImage:[UIImage imageNamed:@"btn-user-feed"] forState:UIControlStateNormal];
 
     CRGTagSearchViewController *tagSearchController = self.viewControllers[TAG_SEARCH_INDEX];
     if ((NSNull *)tagSearchController == [NSNull null]) {
