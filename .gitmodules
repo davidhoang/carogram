@@ -1,0 +1,3 @@
+[submodule "WFInstagramAPI"]
+	path = WFInstagramAPI
+	url = git://github.com/Xhatch/WFInstagramAPI.git
