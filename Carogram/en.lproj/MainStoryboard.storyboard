@@ -251,8 +251,8 @@
                                         <rect key="frame" x="16" y="644" width="64" height="64"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     </imageView>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Bln-bF-D2C">
-                                        <rect key="frame" x="94" y="643" width="439" height="66"/>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Bln-bF-D2C">
+                                        <rect key="frame" x="94" y="675" width="439" height="34"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="20"/>
                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -280,6 +280,14 @@
                                         <rect key="frame" x="604" y="685" width="24" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                     </imageView>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fZ7-XF-kPo" userLabel="Label - Username">
+                                        <rect key="frame" x="94" y="644" width="439" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="0.0" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
@@ -403,6 +411,7 @@
                         <outlet property="lblLikes" destination="WGd-tm-0Mw" id="y4U-4y-tZe"/>
                         <outlet property="mediaView" destination="heh-P4-jHm" id="lJT-5y-tJV"/>
                         <outlet property="tableView" destination="LNv-SL-4cU" id="fej-rF-nbE"/>
+                        <outlet property="usernameLabel" destination="fZ7-XF-kPo" id="WqQ-i8-DaB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sds-pJ-61D" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -521,6 +530,7 @@
                 <relationship kind="outlet" name="lblLikes" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="mediaView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="usernameLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
         <class className="CRGMainViewController" superclassName="UIViewController">

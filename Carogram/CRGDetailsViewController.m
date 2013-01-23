@@ -13,6 +13,7 @@
 
 @interface CRGDetailsViewController ()
 @property (nonatomic) CGRect mediaFrame;
+@property (strong, nonatomic) IBOutlet UILabel *usernameLabel;
 - (void)configureViews;
 - (void)loadProfilePicture;
 - (void)loadComments;
@@ -77,6 +78,7 @@
     [self setBtnMail:nil];
     [self setBtnTweet:nil];
     [self setTableView:nil];
+    [self setUsernameLabel:nil];
     [super viewDidUnload];
 }
 
@@ -158,6 +160,7 @@
 
 - (void)configureViews
 {
+    self.usernameLabel.font = [UIFont fontWithName:@"Gotham-Medium" size:15.];
     if (nil != self.media) {
         [self.media imageCompletionBlock:^(WFIGMedia* imgMedia, UIImage *img) {
             if (imgMedia == self.media) {
@@ -165,6 +168,7 @@
             }
         }];
         [self loadProfilePicture];
+        self.usernameLabel.text = self.media.user.username;
         [self.lblCaption setText:[self.media caption]];
         [self.lblComments setText:[NSString stringWithFormat:@"%d", [self.media commentsCount]]];
         [self.lblLikes setText:[NSString stringWithFormat:@"%d", [self.media likesCount]]];
