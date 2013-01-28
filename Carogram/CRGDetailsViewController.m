@@ -52,12 +52,15 @@
     
     // Add rounded border layer
     CALayer *roundedLayer = [CALayer layer];
-    roundedLayer.frame = CGRectMake(0, 0, self.ivUser.frame.size.width, self.ivUser.frame.size.height);
+    roundedLayer.frame = self.ivUser.bounds;
     roundedLayer.opaque = YES;
     roundedLayer.masksToBounds = YES;
     roundedLayer.cornerRadius = 0;
     roundedLayer.borderWidth = 1.0;
-    roundedLayer.borderColor = [[UIColor colorWithRed:0 green:0 blue:0 alpha:0.3] CGColor];
+    roundedLayer.borderColor = [[UIColor colorWithRed:(220./255.)
+                                                green:(201./255.)
+                                                 blue:(201./255.)
+                                                alpha:1.] CGColor];
     
     [self.ivUser.layer addSublayer:roundedLayer];
     
@@ -161,6 +164,10 @@
 - (void)configureViews
 {
     self.usernameLabel.font = [UIFont fontWithName:@"Gotham-Medium" size:15.];
+    self.lblCaption.font = [UIFont fontWithName:@"Gotham-Medium" size:12.];
+    self.lblLikes.font = [UIFont fontWithName:@"Gotham-Medium" size:15.];
+    self.lblComments.font = [UIFont fontWithName:@"Gotham-Medium" size:15.];
+    
     if (nil != self.media) {
         [self.media imageCompletionBlock:^(WFIGMedia* imgMedia, UIImage *img) {
             if (imgMedia == self.media) {
