@@ -14,6 +14,7 @@
 @interface CRGDetailsViewController ()
 @property (nonatomic) CGRect mediaFrame;
 @property (strong, nonatomic) IBOutlet UILabel *usernameLabel;
+@property (strong, nonatomic) IBOutlet UIButton *btnShare;
 - (void)configureViews;
 - (void)loadProfilePicture;
 - (void)loadComments;
@@ -34,8 +35,6 @@
 @synthesize commentsView = _commentsView;
 @synthesize btnLikes = _btnLikes;
 @synthesize btnComments = _btnComments;
-@synthesize btnMail = _btnMail;
-@synthesize btnTweet = _btnTweet;
 @synthesize tableView = _tableView;
 
 - (void)viewDidLoad
@@ -78,10 +77,9 @@
     [self setCommentsView:nil];
     [self setBtnLikes:nil];
     [self setBtnComments:nil];
-    [self setBtnMail:nil];
-    [self setBtnTweet:nil];
     [self setTableView:nil];
     [self setUsernameLabel:nil];
+    [self setBtnShare:nil];
     [super viewDidUnload];
 }
 
@@ -134,35 +132,18 @@
 }
 
 - (IBAction)touchLikes:(id)sender {
-    [self.btnLikes setImage:[UIImage imageNamed:@"btn-like-selected"] forState:UIControlStateNormal];
-    [self.btnComments setImage:[UIImage imageNamed:@"btn-comment"] forState:UIControlStateNormal];
-    [self.btnMail setImage:[UIImage imageNamed:@"btn-mail"] forState:UIControlStateNormal];
-    [self.btnTweet setImage:[UIImage imageNamed:@"btn-bird"] forState:UIControlStateNormal];
 }
 
 - (IBAction)touchComments:(id)sender {
-    [self.btnLikes setImage:[UIImage imageNamed:@"btn-like"] forState:UIControlStateNormal];
-    [self.btnComments setImage:[UIImage imageNamed:@"btn-comment-selected"] forState:UIControlStateNormal];
-    [self.btnMail setImage:[UIImage imageNamed:@"btn-mail"] forState:UIControlStateNormal];
-    [self.btnTweet setImage:[UIImage imageNamed:@"btn-bird"] forState:UIControlStateNormal];
 }
 
-- (IBAction)touchMail:(id)sender {
-    [self.btnLikes setImage:[UIImage imageNamed:@"btn-like"] forState:UIControlStateNormal];
-    [self.btnComments setImage:[UIImage imageNamed:@"btn-comment"] forState:UIControlStateNormal];
-    [self.btnMail setImage:[UIImage imageNamed:@"btn-mail-selected"] forState:UIControlStateNormal];
-    [self.btnTweet setImage:[UIImage imageNamed:@"btn-bird"] forState:UIControlStateNormal];
-}
-
-- (IBAction)touchTweet:(id)sender {
-    [self.btnLikes setImage:[UIImage imageNamed:@"btn-like"] forState:UIControlStateNormal];
-    [self.btnComments setImage:[UIImage imageNamed:@"btn-comment"] forState:UIControlStateNormal];
-    [self.btnMail setImage:[UIImage imageNamed:@"btn-mail"] forState:UIControlStateNormal];
-    [self.btnTweet setImage:[UIImage imageNamed:@"btn-bird-selected"] forState:UIControlStateNormal];
+- (IBAction)touchShare:(id)sender {
 }
 
 - (void)configureViews
 {
+    self.commentsView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"details-bg-tile"]];
+    
     self.usernameLabel.font = [UIFont fontWithName:@"Gotham-Medium" size:15.];
     self.lblCaption.font = [UIFont fontWithName:@"Gotham-Medium" size:12.];
     self.lblLikes.font = [UIFont fontWithName:@"Gotham-Medium" size:15.];
@@ -212,7 +193,7 @@
                 
                 NSMutableArray *indexPaths = [[NSMutableArray alloc] initWithCapacity:rowsAdded];
                 for (int i = 0; i < rowsAdded; i++) {
-                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:(i+1) inSection:0]; // +1 for Comments header
                     [indexPaths addObject:indexPath];
                 }
                 
@@ -227,54 +208,35 @@
 #pragma mark - UITableViewDataSource methods
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    static NSString *CommentsLabelCellIdentifier = @"CommentsLabelCell";
     static NSString *CellIdentifier = @"CommentCell";
-
-    CRGCommentCell *cell = (CRGCommentCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"CRGCommentCell" owner:self options:nil];
-        cell = (CRGCommentCell *)[nib objectAtIndex:0];
-    }
-
-    WFIGComment *comment = [self.media.comments objectAtIndex:indexPath.row];
-    [cell configureWithComment:comment];
-
-    return cell;
-
-    /*
-    if (tableView == self.studentsTableView) {
-        static NSString *CellIdentifier = @"StudentCell";
-        
-        Student *student = [self.students objectAtIndex:indexPath.row];
-        
-        StudentCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    if (0 == indexPath.row) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CommentsLabelCellIdentifier];
         if (cell == nil) {
-            cell = [[StudentCell alloc] initWithStudent:student reuseIdentifier:CellIdentifier];
-        } else {
-            [cell setStudent:student];
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CommentsLabelCellIdentifier];
+            cell.textLabel.text = @"Comments";
+            cell.textLabel.textColor = [UIColor colorWithRed:(247./255.) green:(247./255.) blue:(247./255.) alpha:1];
+            cell.textLabel.font = [UIFont fontWithName:@"Gotham-Medium" size:16.];
         }
         return cell;
-    } else { // Report table view
-        static NSString *CellIdentifier = @"ScoreCell";
-        
-        NSArray *scores = [self.scores objectAtIndex:indexPath.section];
-        Score *score = [scores objectAtIndex:indexPath.row];
-        
-        ScoreCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    } else {
+        CRGCommentCell *cell = (CRGCommentCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
-            CGRect frame = [tableView rectForRowAtIndexPath:indexPath];
-            cell = [[ScoreCell alloc] initWithScore:score reuseIdentifier:CellIdentifier frame:frame];
-        } else {
-            [cell setScore:score];
+            NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"CRGCommentCell" owner:self options:nil];
+            cell = (CRGCommentCell *)[nib objectAtIndex:0];
         }
+
+        WFIGComment *comment = [self.media.comments objectAtIndex:(indexPath.row - 1)];
+        [cell configureWithComment:comment];
+
         return cell;
     }
-    */
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (!animationComplete) return 0;
-    return [[self.media comments] count];
+    return [[self.media comments] count] + 1;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -285,17 +247,14 @@
 #pragma mark - UITableViewDelegate methods
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    WFIGComment *comment = [self.media.comments objectAtIndex:indexPath.row];
+    if (0 == indexPath.row) return 26.;
+    
+    WFIGComment *comment = [self.media.comments objectAtIndex:(indexPath.row - 1)];
     return [CRGCommentCell cellHeightWithCommentText:[comment text]];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    /*
-    if (tableView == self.studentsTableView) {
-        [self setCurrentStudent:[self.students objectAtIndex:indexPath.row]];
-    }
-    */
 }
 
 @end

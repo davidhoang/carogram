@@ -8,7 +8,6 @@
 
 #import "CRGPagingGridViewController.h"
 #import "CRGGridViewController.h"
-#import "CRGDetailsViewController.h"
 
 static NSSet * ObservableKeys = nil;
 

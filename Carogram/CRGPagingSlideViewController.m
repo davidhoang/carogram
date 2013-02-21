@@ -7,7 +7,6 @@
 //
 
 #import "CRGPagingSlideViewController.h"
-#import "CRGDetailsViewController.h"
 #import "CRGSlideViewController.h"
 
 static NSSet * ObservableKeys = nil;

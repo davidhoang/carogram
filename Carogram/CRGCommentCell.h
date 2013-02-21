@@ -12,7 +12,6 @@
 @interface CRGCommentCell : UITableViewCell
 
 @property (strong, nonatomic) WFIGComment *comment;
-@property (strong, nonatomic) IBOutlet UIImageView *ivBackground;
 @property (strong, nonatomic) IBOutlet UIImageView *ivUser;
 @property (strong, nonatomic) IBOutlet UILabel *lblUser;
 @property (strong, nonatomic) IBOutlet UILabel *lblDate;

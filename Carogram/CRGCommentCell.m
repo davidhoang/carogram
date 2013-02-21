@@ -24,7 +24,6 @@
 
 @implementation CRGCommentCell
 @synthesize comment = _comment;
-@synthesize ivBackground = _ivBackground;
 @synthesize ivUser = _ivUser;
 @synthesize lblUser = _lblUser;
 @synthesize lblDate = _lblDate;
@@ -34,8 +33,6 @@
 {
     [super awakeFromNib];
     
-    self.ivBackground.image = [[UIImage imageNamed:@"comment-cell-bg"] stretchableImageWithLeftCapWidth:5 topCapHeight:5];
-
     // Round avatar image view
     self.ivUser.layer.opaque = YES;
     self.ivUser.layer.masksToBounds = YES;

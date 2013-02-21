@@ -22,14 +22,10 @@
 @property (strong, nonatomic) IBOutlet UIView *commentsView;
 @property (strong, nonatomic) IBOutlet UIButton *btnLikes;
 @property (strong, nonatomic) IBOutlet UIButton *btnComments;
-@property (strong, nonatomic) IBOutlet UIButton *btnMail;
-@property (strong, nonatomic) IBOutlet UIButton *btnTweet;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 - (IBAction)touchClose:(id)sender;
 - (IBAction)touchLikes:(id)sender;
 - (IBAction)touchComments:(id)sender;
-- (IBAction)touchMail:(id)sender;
-- (IBAction)touchTweet:(id)sender;
 
 @end

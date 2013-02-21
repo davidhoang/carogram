@@ -8,7 +8,6 @@
 
 #import "CRGPopularMediaViewController.h"
 #import "CRGAppDelegate.h"
-#import "CRGDetailsViewController.h"
 
 @interface CRGPopularMediaViewController ()
 @end

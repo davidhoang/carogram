@@ -8,7 +8,6 @@
 
 #import "CRGUserFeedViewController.h"
 #import "CRGSlideViewController.h"
-#import "CRGDetailsViewController.h"
 
 @interface CRGUserFeedViewController ()
 @property (nonatomic, strong) NSMutableArray *mediaControllers;
