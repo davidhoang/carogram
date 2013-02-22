@@ -10,11 +10,13 @@
 #import <QuartzCore/QuartzCore.h>
 #import "CRGCommentCell.h"
 #import "WFIGImageCache.h"
+#import "CRGNewCommentViewController.h"
 
 @interface CRGDetailsViewController ()
 @property (nonatomic) CGRect mediaFrame;
 @property (strong, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (strong, nonatomic) IBOutlet UIButton *btnShare;
+@property (strong, nonatomic) CRGNewCommentViewController *aNewCommentViewController;
 - (void)configureViews;
 - (void)loadProfilePicture;
 - (void)loadComments;
@@ -134,7 +136,14 @@
 - (IBAction)touchLikes:(id)sender {
 }
 
-- (IBAction)touchComments:(id)sender {
+- (IBAction)newComment:(UIButton *)sender {
+    self.aNewCommentViewController = (CRGNewCommentViewController *)[self.storyboard instantiateViewControllerWithIdentifier: @"NewComment"];
+    self.aNewCommentViewController.delegate = self;
+    self.aNewCommentViewController.media = self.media;
+    
+    [self addChildViewController:self.aNewCommentViewController];
+    [self.view addSubview:self.aNewCommentViewController.view];
+    [self.aNewCommentViewController didMoveToParentViewController:self];
 }
 
 - (IBAction)touchShare:(id)sender {
@@ -203,6 +212,15 @@
             }
         }];
     }
+}
+
+#pragma mark - CRGNewCommentViewControllerDelegate methods
+
+- (void)newCommentViewControllerDidFinish:(CRGNewCommentViewController *)newCommentViewController
+{
+    [self.aNewCommentViewController willMoveToParentViewController:nil];
+    [self.aNewCommentViewController.view removeFromSuperview];
+    [self.aNewCommentViewController removeFromParentViewController];
 }
 
 #pragma mark - UITableViewDataSource methods

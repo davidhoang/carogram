@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "WFInstagramAPI.h"
+#import "CRGNewCommentViewController.h"
 
-@interface CRGDetailsViewController : UIViewController
+@interface CRGDetailsViewController : UIViewController <CRGNewCommentViewControllerDelegate>
 
 @property (strong, nonatomic) WFIGMedia *media;
 @property (strong, nonatomic) IBOutlet UIImageView *ivPhoto;
@@ -26,6 +27,5 @@
 
 - (IBAction)touchClose:(id)sender;
 - (IBAction)touchLikes:(id)sender;
-- (IBAction)touchComments:(id)sender;
 
 @end
