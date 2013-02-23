@@ -294,7 +294,7 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" id="YdM-Sd-b4r">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" id="YdM-Sd-b4r">
                                 <rect key="frame" x="726" y="0.0" width="298" height="768"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -366,7 +366,7 @@
                                             <action selector="touchShare:" destination="xj4-L6-Tpp" eventType="touchUpInside" id="ENW-9e-wg3"/>
                                         </connections>
                                     </button>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="LNv-SL-4cU">
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="LNv-SL-4cU" userLabel="Table View - Comments">
                                         <rect key="frame" x="0.0" y="59" width="298" height="709"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -375,6 +375,17 @@
                                         <connections>
                                             <outlet property="dataSource" destination="xj4-L6-Tpp" id="WXp-wb-Mq1"/>
                                             <outlet property="delegate" destination="xj4-L6-Tpp" id="bw5-aV-S4n"/>
+                                        </connections>
+                                    </tableView>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="zaD-Vm-YBy" userLabel="Table View - Likes">
+                                        <rect key="frame" x="0.0" y="59" width="298" height="709"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <color key="backgroundColor" red="0.48001254562043794" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
+                                        <inset key="contentInset" minX="0.0" minY="8" maxX="0.0" maxY="4"/>
+                                        <color key="separatorColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="xj4-L6-Tpp" id="TQo-Dh-Fkh"/>
+                                            <outlet property="delegate" destination="xj4-L6-Tpp" id="QFm-pY-tYh"/>
                                         </connections>
                                     </tableView>
                                 </subviews>
@@ -390,14 +401,15 @@
                         <outlet property="btnComments" destination="qGk-R5-Due" id="d1t-D5-Nbq"/>
                         <outlet property="btnLikes" destination="EKS-2E-GME" id="yOS-cf-Y1d"/>
                         <outlet property="btnShare" destination="4nq-wC-lPK" id="phH-kP-aiq"/>
+                        <outlet property="commentsTableView" destination="LNv-SL-4cU" id="AO0-WE-qdo"/>
                         <outlet property="commentsView" destination="YdM-Sd-b4r" id="knu-Pa-RJH"/>
                         <outlet property="ivPhoto" destination="wWl-Mn-FNE" id="zqj-ap-b40"/>
                         <outlet property="ivUser" destination="NCI-b1-2kq" id="pdb-He-VQA"/>
                         <outlet property="lblCaption" destination="Bln-bF-D2C" id="X7J-G7-TBi"/>
                         <outlet property="lblComments" destination="xaX-AH-YPj" id="jL9-xy-qz9"/>
                         <outlet property="lblLikes" destination="WGd-tm-0Mw" id="y4U-4y-tZe"/>
+                        <outlet property="likesTableView" destination="zaD-Vm-YBy" id="xEe-a4-AWN"/>
                         <outlet property="mediaView" destination="heh-P4-jHm" id="lJT-5y-tJV"/>
-                        <outlet property="tableView" destination="LNv-SL-4cU" id="fej-rF-nbE"/>
                         <outlet property="usernameLabel" destination="fZ7-XF-kPo" id="WqQ-i8-DaB"/>
                     </connections>
                 </viewController>
@@ -423,7 +435,7 @@
                                         <color key="backgroundColor" red="0.98039215686274506" green="0.96078431372549022" blue="0.96078431372549022" alpha="0.5" colorSpace="calibratedRGB"/>
                                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardType=""/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="EGN-CM-RlI">
                                         <rect key="frame" x="14.5" y="142" width="382" height="52"/>
@@ -578,14 +590,15 @@
                 <relationship kind="outlet" name="btnComments" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="btnLikes" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="btnShare" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="commentsTableView" candidateClass="UITableView"/>
                 <relationship kind="outlet" name="commentsView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="ivPhoto" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="ivUser" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="lblCaption" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="lblComments" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="lblLikes" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="likesTableView" candidateClass="UITableView"/>
                 <relationship kind="outlet" name="mediaView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
                 <relationship kind="outlet" name="usernameLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
@@ -608,7 +621,6 @@
         <class className="CRGNewCommentViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGNewCommentViewController.h"/>
             <relationships>
-                <relationship kind="action" name="submit:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
                 <relationship kind="outlet" name="commentTextView" candidateClass="UITextView"/>
                 <relationship kind="outlet" name="dialogView" candidateClass="UIView"/>

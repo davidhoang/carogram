@@ -101,6 +101,10 @@
 		23E83C4716D53E8200D32B3D /* details-header-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 23E83C4516D53E8200D32B3D /* details-header-bg@2x.png */; };
 		23E83C4C16D5470800D32B3D /* details-bg-tile.png in Resources */ = {isa = PBXBuildFile; fileRef = 23E83C4A16D5470800D32B3D /* details-bg-tile.png */; };
 		23E83C4D16D5470800D32B3D /* details-bg-tile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 23E83C4B16D5470800D32B3D /* details-bg-tile@2x.png */; };
+		23EDD5C616D89FD2002F2408 /* CRGLikeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 23EDD5C516D89FD2002F2408 /* CRGLikeCell.m */; };
+		23EDD5CA16D89FF8002F2408 /* CRGLikeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23EDD5C916D89FF8002F2408 /* CRGLikeCell.xib */; };
+		23F5BFF816D94D170040FF06 /* UIFont+Carogram.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5BFF716D94D170040FF06 /* UIFont+Carogram.m */; };
+		23F5BFFA16D951F60040FF06 /* Gotham-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 23F5BFF916D9510B0040FF06 /* Gotham-Book.otf */; };
 		23F9DDA415F04930002A62F7 /* connect-background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 23F9DDA215F04930002A62F7 /* connect-background.jpg */; };
 		23F9DDA515F04930002A62F7 /* connect-background@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 23F9DDA315F04930002A62F7 /* connect-background@2x.jpg */; };
 		23FC575515F0195E002304D9 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 23FC575415F0195E002304D9 /* libz.dylib */; };
@@ -252,6 +256,12 @@
 		23E83C4516D53E8200D32B3D /* details-header-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "details-header-bg@2x.png"; sourceTree = "<group>"; };
 		23E83C4A16D5470800D32B3D /* details-bg-tile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "details-bg-tile.png"; sourceTree = "<group>"; };
 		23E83C4B16D5470800D32B3D /* details-bg-tile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "details-bg-tile@2x.png"; sourceTree = "<group>"; };
+		23EDD5C416D89FD2002F2408 /* CRGLikeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRGLikeCell.h; sourceTree = "<group>"; };
+		23EDD5C516D89FD2002F2408 /* CRGLikeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRGLikeCell.m; sourceTree = "<group>"; };
+		23EDD5C916D89FF8002F2408 /* CRGLikeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CRGLikeCell.xib; sourceTree = "<group>"; };
+		23F5BFF616D94D170040FF06 /* UIFont+Carogram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+Carogram.h"; sourceTree = "<group>"; };
+		23F5BFF716D94D170040FF06 /* UIFont+Carogram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+Carogram.m"; sourceTree = "<group>"; };
+		23F5BFF916D9510B0040FF06 /* Gotham-Book.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-Book.otf"; sourceTree = "<group>"; };
 		23F9DDA215F04930002A62F7 /* connect-background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "connect-background.jpg"; sourceTree = "<group>"; };
 		23F9DDA315F04930002A62F7 /* connect-background@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "connect-background@2x.jpg"; sourceTree = "<group>"; };
 		23FC575415F0195E002304D9 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -301,17 +311,22 @@
 				2314F7E615F7FD3E00445BDE /* CRGCommentCell.xib */,
 				230355EA15EC854B00C80D31 /* CRGImageGridViewCell.h */,
 				230355EB15EC854B00C80D31 /* CRGImageGridViewCell.m */,
+				23EDD5C416D89FD2002F2408 /* CRGLikeCell.h */,
+				23EDD5C516D89FD2002F2408 /* CRGLikeCell.m */,
+				23EDD5C916D89FF8002F2408 /* CRGLikeCell.xib */,
 			);
 			name = TableCells;
 			sourceTree = "<group>";
 		};
-		230BF2D115E8286E005DB8A0 /* Extensions */ = {
+		230BF2D115E8286E005DB8A0 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
 				230BF2D215E828B8005DB8A0 /* NSURL+WillFleming.h */,
 				230BF2D315E828B8005DB8A0 /* NSURL+WillFleming.m */,
+				23F5BFF616D94D170040FF06 /* UIFont+Carogram.h */,
+				23F5BFF716D94D170040FF06 /* UIFont+Carogram.m */,
 			);
-			name = Extensions;
+			name = Categories;
 			sourceTree = "<group>";
 		};
 		231082B915E5FB49008D3F70 /* Views */ = {
@@ -380,6 +395,7 @@
 			isa = PBXGroup;
 			children = (
 				23230BD216AFB49400396670 /* Gotham-Medium.otf */,
+				23F5BFF916D9510B0040FF06 /* Gotham-Book.otf */,
 			);
 			path = Fonts;
 			sourceTree = SOURCE_ROOT;
@@ -464,7 +480,7 @@
 				666EFF9A15CB369500CA30B7 /* CRGAppDelegate.m */,
 				23A49E4415E4449C00038FCA /* Controllers */,
 				2314F81315FF130A00445BDE /* Delegates */,
-				230BF2D115E8286E005DB8A0 /* Extensions */,
+				230BF2D115E8286E005DB8A0 /* Categories */,
 				66DCDAE115DC5F9900E4B966 /* Images */,
 				666EFF9C15CB369500CA30B7 /* MainStoryboard.storyboard */,
 				666EFF9115CB369500CA30B7 /* Supporting Files */,
@@ -631,6 +647,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23F5BFFA16D951F60040FF06 /* Gotham-Book.otf in Resources */,
 				666EFF9515CB369500CA30B7 /* InfoPlist.strings in Resources */,
 				666EFF9E15CB369500CA30B7 /* MainStoryboard.storyboard in Resources */,
 				66DCDADE15DC5C0B00E4B966 /* Default-Landscape@2x~ipad.png in Resources */,
@@ -714,6 +731,7 @@
 				2354EAB416D68F4C008369D0 /* btn-share@2x.png in Resources */,
 				231CDA1316D7F02D00ADD0A7 /* btn-submit.png in Resources */,
 				231CDA1416D7F02D00ADD0A7 /* btn-submit@2x.png in Resources */,
+				23EDD5CA16D89FF8002F2408 /* CRGLikeCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -744,6 +762,8 @@
 				238A5D6516ADF3E200CAA6C1 /* CRGTagSearchViewController.m in Sources */,
 				238A5D6816AE16EF00CAA6C1 /* CRGMainViewController.m in Sources */,
 				2354EABA16D6BE98008369D0 /* CRGNewCommentViewController.m in Sources */,
+				23EDD5C616D89FD2002F2408 /* CRGLikeCell.m in Sources */,
+				23F5BFF816D94D170040FF06 /* UIFont+Carogram.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -23,7 +23,6 @@
 @property (strong, nonatomic) IBOutlet UIView *commentsView;
 @property (strong, nonatomic) IBOutlet UIButton *btnLikes;
 @property (strong, nonatomic) IBOutlet UIButton *btnComments;
-@property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 - (IBAction)touchClose:(id)sender;
 - (IBAction)touchLikes:(id)sender;

@@ -49,6 +49,7 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>Gotham-Medium.otf</string>
+		<string>Gotham-Book.otf</string>
 	</array>
 	<key>UIMainStoryboardFile</key>
 	<string>MainStoryboard</string>

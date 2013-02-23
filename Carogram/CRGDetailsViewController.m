@@ -9,6 +9,7 @@
 #import "CRGDetailsViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "CRGCommentCell.h"
+#import "CRGLikeCell.h"
 #import "WFIGImageCache.h"
 #import "CRGNewCommentViewController.h"
 
@@ -17,6 +18,8 @@
 @property (strong, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (strong, nonatomic) IBOutlet UIButton *btnShare;
 @property (strong, nonatomic) CRGNewCommentViewController *aNewCommentViewController;
+@property (strong, nonatomic) IBOutlet UITableView *commentsTableView;
+@property (strong, nonatomic) IBOutlet UITableView *likesTableView;
 - (void)configureViews;
 - (void)loadProfilePicture;
 - (void)loadComments;
@@ -37,7 +40,6 @@
 @synthesize commentsView = _commentsView;
 @synthesize btnLikes = _btnLikes;
 @synthesize btnComments = _btnComments;
-@synthesize tableView = _tableView;
 
 - (void)viewDidLoad
 {
@@ -66,6 +68,20 @@
     [self.ivUser.layer addSublayer:roundedLayer];
     
     [self configureViews];
+
+    NSLog(@"likesData: %@", self.media.likesData);
+    
+    UISwipeGestureRecognizer *swipeLeftRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeLeftGesture:)];
+    swipeLeftRecognizer.numberOfTouchesRequired = 1;
+    swipeLeftRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
+    [self.commentsTableView addGestureRecognizer:swipeLeftRecognizer];
+
+    UISwipeGestureRecognizer *swipeRightRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeRightGesture:)];
+    swipeRightRecognizer.numberOfTouchesRequired = 1;
+    swipeRightRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
+    [self.likesTableView addGestureRecognizer:swipeRightRecognizer];
+
+    self.likesTableView.frame = CGRectOffset(self.likesTableView.frame, self.commentsView.frame.size.width - self.likesTableView.frame.origin.x, 0);
 }
 
 - (void)viewDidUnload
@@ -79,9 +95,10 @@
     [self setCommentsView:nil];
     [self setBtnLikes:nil];
     [self setBtnComments:nil];
-    [self setTableView:nil];
     [self setUsernameLabel:nil];
     [self setBtnShare:nil];
+    [self setCommentsTableView:nil];
+    [self setLikesTableView:nil];
     [super viewDidUnload];
 }
 
@@ -102,9 +119,10 @@
                      }
                      completion:^(BOOL finished){
                          animationComplete = YES;
-                         [self.tableView setHidden:NO];
-                         [self.tableView reloadData];
+                         [self.commentsTableView setHidden:NO];
+                         [self.commentsTableView reloadData];
                          [self loadComments];
+                         [self.likesTableView reloadData];
                      }];
 }
 
@@ -112,7 +130,7 @@
 {
     [super viewWillDisappear:animated];
     
-    [self.tableView setHidden:YES];
+    [self.commentsTableView setHidden:YES];
     
     CGRect commentsFrame = self.commentsView.frame;
     commentsFrame.origin.x = self.view.frame.size.width;
@@ -192,7 +210,10 @@
 
 - (void)loadComments
 {
-    if ([self.media commentsCount] == 0) return;
+    if ([self.media commentsCount] == 0) {
+        [self loadLikes];
+        return;
+    }
     
     if (![self.media hasAllComments]) {
         int oldCommentsCount = [self.media.comments count];
@@ -206,11 +227,75 @@
                     [indexPaths addObject:indexPath];
                 }
                 
-                [self.tableView beginUpdates];
-                [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationBottom];
-                [self.tableView endUpdates];
+                [self.commentsTableView beginUpdates];
+                [self.commentsTableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationBottom];
+                [self.commentsTableView endUpdates];
+
+                [self loadLikes];
             }
         }];
+    } else {
+        [self loadLikes];
+    }
+}
+
+- (void)loadLikes
+{
+    if ([self.media likesCount] == 0) return;
+    
+    if (! [self.media hasAllLikes]) {
+        int oldLikesCount = [self.media.likes count];
+        [self.media allLikesWithCompletionBlock:^(WFIGMedia *likesMedia, NSArray *likes, NSError *error) {
+            if (self.media == likesMedia && error == nil) {
+                int rowsAdded = [self.media likesCount] - oldLikesCount;
+                
+                NSMutableArray *indexPaths = [[NSMutableArray alloc] initWithCapacity:rowsAdded];
+                for (int i = 0; i < rowsAdded; i++) {
+                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:(i+1) inSection:0]; // +1 for Likes header
+                    [indexPaths addObject:indexPath];
+                }
+                
+                [self.likesTableView beginUpdates];
+                [self.likesTableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationBottom];
+                [self.likesTableView endUpdates];
+            }
+        }];
+    }
+}
+
+- (IBAction)handleSwipeLeftGesture:(UIGestureRecognizer *)recognizer
+{
+    switch (recognizer.state) {
+        case UIGestureRecognizerStateRecognized: {
+            NSLog(@"SWIPE LEFT");
+
+            [UIView animateWithDuration:0.2 animations:^{
+                self.commentsTableView.frame = CGRectOffset(self.commentsTableView.frame, 0 - self.commentsTableView.frame.origin.x - self.commentsTableView.frame.size.width, 0);
+                self.likesTableView.frame = CGRectOffset(self.likesTableView.frame, 0 - self.likesTableView.frame.origin.x, 0);
+            }];
+
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+- (IBAction)handleSwipeRightGesture:(UIGestureRecognizer *)recognizer
+{
+    switch (recognizer.state) {
+        case UIGestureRecognizerStateRecognized: {
+            NSLog(@"SWIPE RIGHT");
+
+            [UIView animateWithDuration:0.2 animations:^{
+                self.commentsTableView.frame = CGRectOffset(self.commentsTableView.frame, self.commentsTableView.frame.size.width, 0);
+                self.likesTableView.frame = CGRectOffset(self.likesTableView.frame, self.commentsView.frame.size.width, 0);
+            }];
+
+            break;
+        }
+        default:
+            break;
     }
 }
 
@@ -225,12 +310,21 @@
 
 #pragma mark - UITableViewDataSource methods
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (tableView == self.commentsTableView)
+        return [self commentsCellForRowAtIndexPath:indexPath];
+    else
+        return [self likesCellForRowAtIndexPath:indexPath];
+}
+
+- (UITableViewCell *)commentsCellForRowAtIndexPath:(NSIndexPath *)indexPath 
+{
     static NSString *CommentsLabelCellIdentifier = @"CommentsLabelCell";
     static NSString *CellIdentifier = @"CommentCell";
     
     if (0 == indexPath.row) {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CommentsLabelCellIdentifier];
+        UITableViewCell *cell = [self.commentsTableView dequeueReusableCellWithIdentifier:CommentsLabelCellIdentifier];
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CommentsLabelCellIdentifier];
             cell.textLabel.text = @"Comments";
@@ -239,7 +333,7 @@
         }
         return cell;
     } else {
-        CRGCommentCell *cell = (CRGCommentCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        CRGCommentCell *cell = (CRGCommentCell *)[self.commentsTableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
             NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"CRGCommentCell" owner:self options:nil];
             cell = (CRGCommentCell *)[nib objectAtIndex:0];
@@ -252,9 +346,41 @@
     }
 }
 
+- (UITableViewCell *)likesCellForRowAtIndexPath:(NSIndexPath *)indexPath 
+{
+    static NSString *LikesLabelCellIdentifier = @"LikesLabelCell";
+    static NSString *CellIdentifier = @"LikeCell";
+    
+    if (0 == indexPath.row) {
+        UITableViewCell *cell = [self.likesTableView dequeueReusableCellWithIdentifier:LikesLabelCellIdentifier];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:LikesLabelCellIdentifier];
+            cell.textLabel.text = @"Likes";
+            cell.textLabel.textColor = [UIColor colorWithRed:(247./255.) green:(247./255.) blue:(247./255.) alpha:1];
+            cell.textLabel.font = [UIFont fontWithName:@"Gotham-Medium" size:16.];
+        }
+        return cell;
+    } else {
+        CRGLikeCell *cell = (CRGLikeCell *)[self.likesTableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"CRGLikeCell" owner:self options:nil];
+            cell = (CRGLikeCell *)[nib objectAtIndex:0];
+        }
+
+        WFIGUser *user = self.media.likes[(indexPath.row-1)];
+        [cell configureWithUser:user];
+        
+        return cell;
+    }
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (!animationComplete) return 0;
-    return [[self.media comments] count] + 1;
+
+    if (tableView == self.commentsTableView)
+        return [[self.media comments] count] + 1;
+    else 
+        return [[self.media likes] count] + 1;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -267,8 +393,12 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (0 == indexPath.row) return 26.;
     
-    WFIGComment *comment = [self.media.comments objectAtIndex:(indexPath.row - 1)];
-    return [CRGCommentCell cellHeightWithCommentText:[comment text]];
+    if (tableView == self.commentsTableView) {
+        WFIGComment *comment = [self.media.comments objectAtIndex:(indexPath.row - 1)];
+        return [CRGCommentCell cellHeightWithCommentText:[comment text]];
+    } else {
+        return 54.;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
