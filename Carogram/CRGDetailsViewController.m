@@ -20,6 +20,7 @@
 @property (strong, nonatomic) CRGNewCommentViewController *aNewCommentViewController;
 @property (strong, nonatomic) IBOutlet UITableView *commentsTableView;
 @property (strong, nonatomic) IBOutlet UITableView *likesTableView;
+@property (strong, nonatomic) IBOutlet UIButton *btnLike;
 - (void)configureViews;
 - (void)loadProfilePicture;
 - (void)loadComments;
@@ -38,12 +39,14 @@
 @synthesize lblComments = _lblComments;
 @synthesize lblLikes = _lblLikes;
 @synthesize commentsView = _commentsView;
-@synthesize btnLikes = _btnLikes;
 @synthesize btnComments = _btnComments;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    // Disable liking until we know if this user has liked this media
+    self.btnLike.enabled = NO;
 
     self.mediaFrame = self.mediaView.frame;
     self.mediaView.frame = self.startRect;
@@ -93,12 +96,12 @@
     [self setLblComments:nil];
     [self setLblLikes:nil];
     [self setCommentsView:nil];
-    [self setBtnLikes:nil];
     [self setBtnComments:nil];
     [self setUsernameLabel:nil];
     [self setBtnShare:nil];
     [self setCommentsTableView:nil];
     [self setLikesTableView:nil];
+    [self setBtnLike:nil];
     [super viewDidUnload];
 }
 
@@ -151,9 +154,6 @@
     [self dismissModalViewControllerAnimated:YES];
 }
 
-- (IBAction)touchLikes:(id)sender {
-}
-
 - (IBAction)newComment:(UIButton *)sender {
     self.aNewCommentViewController = (CRGNewCommentViewController *)[self.storyboard instantiateViewControllerWithIdentifier: @"NewComment"];
     self.aNewCommentViewController.delegate = self;
@@ -162,6 +162,30 @@
     [self addChildViewController:self.aNewCommentViewController];
     [self.view addSubview:self.aNewCommentViewController.view];
     [self.aNewCommentViewController didMoveToParentViewController:self];
+}
+
+- (IBAction)toggleLike:(UIButton *)sender {
+    
+    self.btnLike.enabled = NO;
+    self.btnLike.selected = !self.btnLike.selected;
+    
+    if (self.btnLike.selected) [self setLike];
+//    else [self removeLike];
+}
+
+- (void)setLike
+{
+    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSError *error;
+        BOOL success = [self.media setLikeWithError:&error];
+        
+        dispatch_async( dispatch_get_main_queue(), ^{
+            if (success) {
+                [self refreshLikes];
+            }
+            if (error) NSLog(@"Error: %@", [error description]);
+        });
+    });
 }
 
 - (IBAction)touchShare:(id)sender {
@@ -258,22 +282,47 @@
                 [self.likesTableView beginUpdates];
                 [self.likesTableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationBottom];
                 [self.likesTableView endUpdates];
+
+                [self checkLikeStatus];
             }
         }];
+    } else {
+        [self checkLikeStatus];
     }
+}
+
+- (void)refreshLikes
+{
+    [self.media allLikesWithCompletionBlock:^(WFIGMedia *likesMedia, NSArray *likes, NSError *error) {
+        if (self.media == likesMedia && error == nil) {
+            [self.likesTableView reloadData];
+            [self checkLikeStatus];
+        }
+    }];
+}
+
+- (void)checkLikeStatus
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"instagramId == %@", [WFInstagramAPI currentUser].instagramId];
+    NSArray *currentUserMatches = [self.media.likes filteredArrayUsingPredicate:predicate];
+
+    if ([currentUserMatches count]) {
+        self.btnLike.selected = YES;
+    } else {
+        self.btnLike.selected = NO;
+    }
+
+    self.btnLike.enabled = YES;
 }
 
 - (IBAction)handleSwipeLeftGesture:(UIGestureRecognizer *)recognizer
 {
     switch (recognizer.state) {
         case UIGestureRecognizerStateRecognized: {
-            NSLog(@"SWIPE LEFT");
-
             [UIView animateWithDuration:0.2 animations:^{
                 self.commentsTableView.frame = CGRectOffset(self.commentsTableView.frame, 0 - self.commentsTableView.frame.origin.x - self.commentsTableView.frame.size.width, 0);
                 self.likesTableView.frame = CGRectOffset(self.likesTableView.frame, 0 - self.likesTableView.frame.origin.x, 0);
             }];
-
             break;
         }
         default:
@@ -285,13 +334,10 @@
 {
     switch (recognizer.state) {
         case UIGestureRecognizerStateRecognized: {
-            NSLog(@"SWIPE RIGHT");
-
             [UIView animateWithDuration:0.2 animations:^{
                 self.commentsTableView.frame = CGRectOffset(self.commentsTableView.frame, self.commentsTableView.frame.size.width, 0);
                 self.likesTableView.frame = CGRectOffset(self.likesTableView.frame, self.commentsView.frame.size.width, 0);
             }];
-
             break;
         }
         default:
