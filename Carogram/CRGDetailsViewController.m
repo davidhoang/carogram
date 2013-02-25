@@ -288,7 +288,10 @@
 
 - (void)loadLikes
 {
-    if ([self.media likesCount] == 0) return;
+    if ([self.media likesCount] == 0) {
+        [self checkLikeStatus];
+        return;
+    }
     
     if (! [self.media hasAllLikes]) {
         int oldLikesCount = [self.media.likes count];

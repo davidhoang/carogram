@@ -103,6 +103,7 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
     
     self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * pageCount, self.scrollView.frame.size.height);
     self.scrollView.contentOffset = CGPointMake(0, 0);
+    self.scrollView.alwaysBounceHorizontal = YES;
     
     [self loadScrollViewWithPage:0];
     [self loadScrollViewWithPage:1];
