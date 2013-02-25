@@ -275,14 +275,45 @@
                                         <color key="textColor" red="0.57647058823529407" green="0.57647058823529407" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="icon-likes.png" id="3dg-Bd-M6w">
+                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" image="icon-likes.png" id="3dg-Bd-M6w">
                                         <rect key="frame" x="595" y="632" width="25" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="icon-comments.png" id="0vn-ob-d78">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="lrX-A8-PM0" userLabel="Button - Likes">
+                                        <rect key="frame" x="595" y="632" width="25" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" image="icon-likes.png">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="selected" image="icon-likes-selected.png"/>
+                                        <state key="highlighted" image="icon-likes-selected.png">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="toggleLike:" destination="xj4-L6-Tpp" eventType="touchUpInside" id="lya-Cb-fet"/>
+                                        </connections>
+                                    </button>
+                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" image="icon-comments.png" id="0vn-ob-d78">
                                         <rect key="frame" x="596" y="669" width="24" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                     </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="WDq-VE-1PN" userLabel="Button - Comments">
+                                        <rect key="frame" x="596" y="669" width="24" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" image="icon-comments.png">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="newComment:" destination="xj4-L6-Tpp" eventType="touchUpInside" id="0jY-Cf-9JC"/>
+                                        </connections>
+                                    </button>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fZ7-XF-kPo" userLabel="Label - Username">
                                         <rect key="frame" x="86" y="631" width="439" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -401,6 +432,7 @@
                     <connections>
                         <outlet property="btnComments" destination="qGk-R5-Due" id="d1t-D5-Nbq"/>
                         <outlet property="btnLike" destination="EKS-2E-GME" id="vEd-mH-TdT"/>
+                        <outlet property="btnLikeMedia" destination="lrX-A8-PM0" id="4A4-72-igL"/>
                         <outlet property="btnShare" destination="4nq-wC-lPK" id="phH-kP-aiq"/>
                         <outlet property="commentsTableView" destination="LNv-SL-4cU" id="AO0-WE-qdo"/>
                         <outlet property="commentsView" destination="YdM-Sd-b4r" id="knu-Pa-RJH"/>
@@ -573,9 +605,90 @@
         <image name="details-comments-bg.png" width="16" height="16"/>
         <image name="details-header-bg.png" width="298" height="59"/>
         <image name="icon-comments.png" width="24" height="22"/>
+        <image name="icon-likes-selected.png" width="25" height="22"/>
         <image name="icon-likes.png" width="25" height="22"/>
         <image name="search-icon.png" width="23" height="23"/>
     </resources>
+    <classes>
+        <class className="CRGClipView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGClipView.h"/>
+            <relationships>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+            </relationships>
+        </class>
+        <class className="CRGDetailsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGDetailsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="handleSwipeLeftGesture:" candidateClass="UIGestureRecognizer"/>
+                <relationship kind="action" name="touchClose:"/>
+                <relationship kind="outlet" name="btnComments" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="btnLike" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="btnLikeMedia" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="btnShare" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="commentsTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="commentsView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="ivPhoto" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="ivUser" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="lblCaption" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="lblComments" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="lblLikes" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="likesTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="mediaView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="usernameLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="CRGMainViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGMainViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="search:"/>
+                <relationship kind="action" name="showAccountPopup:"/>
+                <relationship kind="action" name="showPopularMedia:"/>
+                <relationship kind="action" name="showUserFeed:"/>
+                <relationship kind="outlet" name="accountButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="accountImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="popularMediaButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="searchBackgroundView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="searchTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="titleBarView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="userFeedButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="CRGNewCommentViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGNewCommentViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="submit:" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="commentTextView" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="dialogView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="submitButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="CRGPagingGridViewController" superclassName="CRGPagingMediaViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGPagingGridViewController.h"/>
+        </class>
+        <class className="CRGPagingMediaViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGPagingMediaViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+            </relationships>
+        </class>
+        <class className="CRGPagingSlideViewController" superclassName="CRGPagingMediaViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGPagingSlideViewController.h"/>
+        </class>
+        <class className="CRGSlideViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGSlideViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="touchMedia:"/>
+                <relationship kind="outlet" name="ivPhoto" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="ivUser" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="lblCaption" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="lblComments" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="lblLikes" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="mediaView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>

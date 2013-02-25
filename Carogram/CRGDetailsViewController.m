@@ -21,6 +21,7 @@
 @property (strong, nonatomic) IBOutlet UITableView *commentsTableView;
 @property (strong, nonatomic) IBOutlet UITableView *likesTableView;
 @property (strong, nonatomic) IBOutlet UIButton *btnLike;
+@property (strong, nonatomic) IBOutlet UIButton *btnLikeMedia;
 - (void)configureViews;
 - (void)loadProfilePicture;
 - (void)loadComments;
@@ -47,6 +48,7 @@
     
     // Disable liking until we know if this user has liked this media
     self.btnLike.enabled = NO;
+    self.btnLikeMedia.enabled = NO;
 
     self.mediaFrame = self.mediaView.frame;
     self.mediaView.frame = self.startRect;
@@ -71,8 +73,6 @@
     [self.ivUser.layer addSublayer:roundedLayer];
     
     [self configureViews];
-
-    NSLog(@"likesData: %@", self.media.likesData);
     
     UISwipeGestureRecognizer *swipeLeftRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeLeftGesture:)];
     swipeLeftRecognizer.numberOfTouchesRequired = 1;
@@ -102,6 +102,7 @@
     [self setCommentsTableView:nil];
     [self setLikesTableView:nil];
     [self setBtnLike:nil];
+    [self setBtnLikeMedia:nil];
     [super viewDidUnload];
 }
 
@@ -165,12 +166,13 @@
 }
 
 - (IBAction)toggleLike:(UIButton *)sender {
-    
     self.btnLike.enabled = NO;
     self.btnLike.selected = !self.btnLike.selected;
+    self.btnLikeMedia.enabled = NO;
+    self.btnLikeMedia.selected = !self.btnLikeMedia.selected;
     
     if (self.btnLike.selected) [self setLike];
-//    else [self removeLike];
+    else [self removeLike];
 }
 
 - (void)setLike
@@ -178,6 +180,27 @@
     dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSError *error;
         BOOL success = [self.media setLikeWithError:&error];
+        
+        // Wait 200 milliseconds before refreshing likes
+        [NSThread sleepForTimeInterval:0.2];
+        
+        dispatch_async( dispatch_get_main_queue(), ^{
+            if (success) {
+                [self refreshLikes];
+            }
+            if (error) NSLog(@"Error: %@", [error description]);
+        });
+    });
+}
+
+- (void)removeLike
+{
+    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSError *error;
+        BOOL success = [self.media removeLikeWithError:&error];
+        
+        // Wait 200 milliseconds before refreshing likes
+        [NSThread sleepForTimeInterval:0.2];
         
         dispatch_async( dispatch_get_main_queue(), ^{
             if (success) {
@@ -296,6 +319,7 @@
     [self.media allLikesWithCompletionBlock:^(WFIGMedia *likesMedia, NSArray *likes, NSError *error) {
         if (self.media == likesMedia && error == nil) {
             [self.likesTableView reloadData];
+            [self.lblLikes setText:[NSString stringWithFormat:@"%d", [self.media likesCount]]];
             [self checkLikeStatus];
         }
     }];
@@ -308,11 +332,14 @@
 
     if ([currentUserMatches count]) {
         self.btnLike.selected = YES;
+        self.btnLikeMedia.selected = YES;
     } else {
         self.btnLike.selected = NO;
+        self.btnLikeMedia.selected = NO;
     }
 
     self.btnLike.enabled = YES;
+    self.btnLikeMedia.enabled = YES;
 }
 
 - (IBAction)handleSwipeLeftGesture:(UIGestureRecognizer *)recognizer

@@ -105,6 +105,8 @@
 		23EDD5CA16D89FF8002F2408 /* CRGLikeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23EDD5C916D89FF8002F2408 /* CRGLikeCell.xib */; };
 		23F5BFF816D94D170040FF06 /* UIFont+Carogram.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5BFF716D94D170040FF06 /* UIFont+Carogram.m */; };
 		23F5BFFA16D951F60040FF06 /* Gotham-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 23F5BFF916D9510B0040FF06 /* Gotham-Book.otf */; };
+		23F5C00016DB3E2E0040FF06 /* icon-likes-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 23F5BFFE16DB3E2E0040FF06 /* icon-likes-selected.png */; };
+		23F5C00116DB3E2E0040FF06 /* icon-likes-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 23F5BFFF16DB3E2E0040FF06 /* icon-likes-selected@2x.png */; };
 		23F9DDA415F04930002A62F7 /* connect-background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 23F9DDA215F04930002A62F7 /* connect-background.jpg */; };
 		23F9DDA515F04930002A62F7 /* connect-background@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 23F9DDA315F04930002A62F7 /* connect-background@2x.jpg */; };
 		23FC575515F0195E002304D9 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 23FC575415F0195E002304D9 /* libz.dylib */; };
@@ -262,6 +264,8 @@
 		23F5BFF616D94D170040FF06 /* UIFont+Carogram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+Carogram.h"; sourceTree = "<group>"; };
 		23F5BFF716D94D170040FF06 /* UIFont+Carogram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+Carogram.m"; sourceTree = "<group>"; };
 		23F5BFF916D9510B0040FF06 /* Gotham-Book.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-Book.otf"; sourceTree = "<group>"; };
+		23F5BFFE16DB3E2E0040FF06 /* icon-likes-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-likes-selected.png"; sourceTree = "<group>"; };
+		23F5BFFF16DB3E2E0040FF06 /* icon-likes-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-likes-selected@2x.png"; sourceTree = "<group>"; };
 		23F9DDA215F04930002A62F7 /* connect-background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "connect-background.jpg"; sourceTree = "<group>"; };
 		23F9DDA315F04930002A62F7 /* connect-background@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "connect-background@2x.jpg"; sourceTree = "<group>"; };
 		23FC575415F0195E002304D9 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -550,6 +554,8 @@
 				23E83C4516D53E8200D32B3D /* details-header-bg@2x.png */,
 				2337EAF115F480DA002A057A /* icon-comments.png */,
 				2337EAF215F480DA002A057A /* icon-comments@2x.png */,
+				23F5BFFE16DB3E2E0040FF06 /* icon-likes-selected.png */,
+				23F5BFFF16DB3E2E0040FF06 /* icon-likes-selected@2x.png */,
 				2337EAF315F480DA002A057A /* icon-likes.png */,
 				2337EAF415F480DA002A057A /* icon-likes@2x.png */,
 				2337EAED15F480B2002A057A /* icon-refresh.png */,
@@ -732,6 +738,8 @@
 				231CDA1316D7F02D00ADD0A7 /* btn-submit.png in Resources */,
 				231CDA1416D7F02D00ADD0A7 /* btn-submit@2x.png in Resources */,
 				23EDD5CA16D89FF8002F2408 /* CRGLikeCell.xib in Resources */,
+				23F5C00016DB3E2E0040FF06 /* icon-likes-selected.png in Resources */,
+				23F5C00116DB3E2E0040FF06 /* icon-likes-selected@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
