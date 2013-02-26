@@ -107,6 +107,9 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
     
     [self loadScrollViewWithPage:0];
     [self loadScrollViewWithPage:1];
+    
+    // Load more media if we don't have 2 full pages
+    if (2*kImageCount > [self.mediaCollection count]) [self loadMoreMedia];
 }
 
 #pragma mark -
@@ -169,21 +172,35 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
         [self.gridViewControllers replaceObjectAtIndex:page withObject:controller];
     } else {
         if (((page+1)*kImageCount) <= [self.mediaCollection count] && ![controller isGridFull]) {
-            if (controller.view.superview != nil) [controller.view removeFromSuperview];
+            if (controller.view.superview != nil) {
+                [controller willMoveToParentViewController:nil];
+                [controller.view removeFromSuperview];
+                [controller removeFromParentViewController];
+            }
             controller = [[CRGGridViewController alloc] initWithMediaCollection:self.mediaCollection atPage:page];
             [controller setDelegate:self.mediaSelectorDelegate];
             [self.gridViewControllers replaceObjectAtIndex:page withObject:controller];
         }
     }
     
+    if (page <= [self currentPage]) {
+        controller.view.frame = CGRectOffset(self.scrollView.frame,
+                                             -self.scrollView.frame.origin.x + (self.scrollView.bounds.size.width * page),
+                                             -self.scrollView.frame.origin.y);
+        controller.view.alpha = 1;
+    } else {
+        
+        controller.view.frame = CGRectOffset(self.scrollView.frame,
+                                             -self.scrollView.frame.origin.x + self.scrollView.bounds.size.width * (page-1),
+                                             -self.scrollView.frame.origin.y);
+        controller.view.alpha = 0;
+    }
+    
     // add the controller's view to the scroll view
     if (controller.view.superview == nil) {
-        CGRect frame = self.scrollView.frame;
-        frame.origin.x = frame.size.width * page;
-        frame.origin.y = 0;
-        
-        controller.view.frame = frame;
+        [self addChildViewController:controller];
         [self.scrollView addSubview:controller.view];
+        [controller didMoveToParentViewController:self];
     }
 }
 
@@ -220,14 +237,51 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
 
 - (void)scrollViewDidScroll:(UIScrollView *)sender
 {
-    // Switch the indicator when more than 50% of the previous/next page is visible
+    float xOffset = self.scrollView.contentOffset.x;
     CGFloat pageWidth = self.scrollView.frame.size.width;
-    int page = floor((self.scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+    int page = floor((xOffset - pageWidth / 2) / pageWidth) + 1;
     
     // load the visible page and the page on either side of it (to avoid flashes when the user starts scrolling)
     [self loadScrollViewWithPage:page - 1];
     [self loadScrollViewWithPage:page];
     [self loadScrollViewWithPage:page + 1];
+
+    int previousPage;
+    int nextPage;
+    float adjustedXOffset;
+    if (xOffset < (page * pageWidth)) {
+        previousPage = page - 1;
+        nextPage = page;
+        adjustedXOffset = xOffset - (previousPage * pageWidth);
+    } else {
+        previousPage = page;
+        nextPage = page + 1;
+        adjustedXOffset = xOffset - (previousPage * pageWidth);
+    }
+
+    if (previousPage >= 0) {
+        CRGGridViewController *previousGridVC = self.gridViewControllers[previousPage];
+        previousGridVC.view.frame = CGRectOffset(self.scrollView.frame,
+                                                 -self.scrollView.frame.origin.x + (pageWidth * previousPage),
+                                                 -self.scrollView.frame.origin.y);
+        previousGridVC.view.alpha = 1;
+        [self.scrollView bringSubviewToFront:previousGridVC.view];
+    }
+
+    if (nextPage == 0) {
+        CRGGridViewController *nextGridVC = self.gridViewControllers[nextPage];
+        nextGridVC.view.alpha = 1;
+        nextGridVC.view.frame = CGRectOffset(self.scrollView.frame,
+                                             -self.scrollView.frame.origin.x + (pageWidth * nextPage),
+                                             -self.scrollView.frame.origin.y);
+    } else if (nextPage < pageCount) {
+        CRGGridViewController *nextGridVC = self.gridViewControllers[nextPage];
+        nextGridVC.view.alpha = (adjustedXOffset / pageWidth);
+        nextGridVC.view.alpha = pow((adjustedXOffset / pageWidth), 3.);
+        nextGridVC.view.frame = CGRectOffset(self.scrollView.frame,
+                                             -self.scrollView.frame.origin.x + (pageWidth * previousPage) + adjustedXOffset,
+                                             -self.scrollView.frame.origin.y);
+    }
     
     if (self.delegate != nil && [self.delegate respondsToSelector:@selector(scrollViewDidScroll:)]) {
         [self.delegate scrollViewDidScroll:sender];
@@ -243,8 +297,7 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    BOOL isLastPage = [self currentPage] == ([self.gridViewControllers count] - 1);
-    if (isLastPage) [self loadMoreMedia];
+    if ([self currentPage] >= ([self.gridViewControllers count] - 2)) [self loadMoreMedia];
 }
 
 @end

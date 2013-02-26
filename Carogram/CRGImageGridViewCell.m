@@ -37,9 +37,9 @@
 {
     _media = media;
     
-    [self.media imageCompletionBlock:^(WFIGMedia* imgMedia, UIImage *img) {
-        if (imgMedia == self.media) {
-            [self.imageView setImage:img];
+    [self.media lowResolutionImageWithCompletionBlock:^(WFIGMedia *media, UIImage *image) {
+        if (media == self.media) {
+            [self.imageView setImage:image];
         }
     }];
 }
