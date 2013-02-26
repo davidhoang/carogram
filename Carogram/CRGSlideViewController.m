@@ -9,12 +9,14 @@
 #import "CRGSlideViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "WFIGImageCache.h"
+#import "UIFont+Carogram.h"
 
 static NSSet * ObservableKeys = nil;
 
 static NSString * const MediaKeyPath = @"media";
 
 @interface CRGSlideViewController ()
+@property (strong, nonatomic) IBOutlet UILabel *usernameLabel;
 - (void)configureViews;
 - (void)loadProfilePicture;
 @end
@@ -78,6 +80,7 @@ static NSString * const MediaKeyPath = @"media";
     [self setLblComments:nil];
     [self setLblLikes:nil];
     [self setMediaView:nil];
+    [self setUsernameLabel:nil];
     [super viewDidUnload];
 }
 
@@ -99,6 +102,11 @@ static NSString * const MediaKeyPath = @"media";
 
 - (void)configureViews
 {
+    self.usernameLabel.font = [UIFont defaultFontOfSize:15];
+    self.lblCaption.font = [UIFont defaultFontOfSize:12];
+    self.lblComments.font = [UIFont defaultFontOfSize:15];
+    self.lblLikes.font = [UIFont defaultFontOfSize:15];
+    
     if (nil != self.media) {
         [self.media imageCompletionBlock:^(WFIGMedia* imgMedia, UIImage *img) {
             if (imgMedia == self.media) {

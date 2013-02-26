@@ -131,48 +131,56 @@
             <objects>
                 <viewController storyboardIdentifier="Slide" autoresizesArchivedViewToFullSize="NO" id="Vr6-14-6os" customClass="CRGSlideViewController" sceneMemberID="viewController">
                     <view key="view" autoresizesSubviews="NO" contentMode="center" id="Ygf-Fa-a0W">
-                        <rect key="frame" x="0.0" y="0.0" width="684" height="699"/>
+                        <rect key="frame" x="0.0" y="0.0" width="684" height="703"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="H3E-6I-W3b">
-                                <rect key="frame" x="34" y="8" width="616" height="683"/>
+                                <rect key="frame" x="25" y="0.0" width="634" height="703"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" id="GuI-6L-hgx">
-                                        <rect key="frame" x="12" y="12" width="592" height="592"/>
+                                        <rect key="frame" x="11" y="11" width="612" height="612"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="pB4-id-spn">
-                                        <rect key="frame" x="12" y="616" width="55" height="55"/>
+                                        <rect key="frame" x="11" y="629" width="64" height="64"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" id="dlZ-h6-0Tp">
-                                        <rect key="frame" x="81" y="616" width="414" height="55"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="20"/>
-                                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="grq-WC-1zd" userLabel="Label - Username">
+                                        <rect key="frame" x="86" y="631" width="439" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <color key="backgroundColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="0.0" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="g7G-33-Tc8">
-                                        <rect key="frame" x="503" y="651" width="74" height="21"/>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" id="dlZ-h6-0Tp">
+                                        <rect key="frame" x="86" y="655" width="439" height="38"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="20"/>
+                                        <color key="textColor" red="0.57647058823529407" green="0.57647058823529407" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="gEU-m7-K92">
-                                        <rect key="frame" x="503" y="617" width="74" height="21"/>
+                                        <rect key="frame" x="518" y="633" width="74" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.57647058819999997" green="0.57647058819999997" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="icon-comments.png" id="WWY-bK-Hlq">
-                                        <rect key="frame" x="580" y="649" width="24" height="22"/>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="g7G-33-Tc8">
+                                        <rect key="frame" x="518" y="671" width="74" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="17"/>
+                                        <color key="textColor" red="0.57647058819999997" green="0.57647058819999997" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="icon-likes.png" id="Lrg-Uv-jUG">
+                                        <rect key="frame" x="595" y="632" width="25" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="icon-likes.png" id="Lrg-Uv-jUG">
-                                        <rect key="frame" x="579" y="616" width="25" height="22"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="icon-comments.png" id="WWY-bK-Hlq">
+                                        <rect key="frame" x="596" y="669" width="24" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                 </subviews>
@@ -206,6 +214,7 @@
                         <outlet property="lblComments" destination="g7G-33-Tc8" id="Ude-Av-6v0"/>
                         <outlet property="lblLikes" destination="gEU-m7-K92" id="h66-zE-vM0"/>
                         <outlet property="mediaView" destination="H3E-6I-W3b" id="vjX-eY-ewJ"/>
+                        <outlet property="usernameLabel" destination="grq-WC-1zd" id="VA4-Pa-Eoy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5jz-LC-TGf" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -229,7 +238,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="bqQ-vc-8gg">
-                                        <rect key="frame" x="0.0" y="0.0" width="644" height="708"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="634" height="703"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal">
@@ -256,7 +265,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="backgroundColor" red="0.58039215686274503" green="0.58039215686274503" blue="0.58039215686274503" alpha="0.0" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="20"/>
-                                        <color key="textColor" red="0.58039215686274503" green="0.58039215686274503" blue="0.58039215686274503" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.57647058823529407" green="0.57647058823529407" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="WGd-tm-0Mw">
@@ -348,10 +357,6 @@
                                             <action selector="touchClose:" destination="xj4-L6-Tpp" eventType="touchUpInside" id="RJk-iy-f3D"/>
                                         </connections>
                                     </button>
-                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" image="details-comments-bg.png" id="LKx-5w-qre">
-                                        <rect key="frame" x="0.0" y="59" width="298" height="709"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="EKS-2E-GME">
                                         <rect key="frame" x="241" y="4" width="53" height="53"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -602,7 +607,6 @@
         <image name="btn-submit.png" width="382" height="51"/>
         <image name="btn-user-feed-depressed.png" width="35" height="37"/>
         <image name="caragram-logo.png" width="203" height="25"/>
-        <image name="details-comments-bg.png" width="16" height="16"/>
         <image name="details-header-bg.png" width="298" height="59"/>
         <image name="icon-comments.png" width="24" height="22"/>
         <image name="icon-likes-selected.png" width="25" height="22"/>
@@ -619,12 +623,7 @@
         <class className="CRGDetailsViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGDetailsViewController.h"/>
             <relationships>
-                <relationship kind="action" name="handleSwipeLeftGesture:" candidateClass="UIGestureRecognizer"/>
-                <relationship kind="action" name="handleSwipeRightGesture:" candidateClass="UIGestureRecognizer"/>
-                <relationship kind="action" name="newComment:" candidateClass="UIButton"/>
-                <relationship kind="action" name="toggleLike:" candidateClass="UIButton"/>
                 <relationship kind="action" name="touchClose:"/>
-                <relationship kind="action" name="touchShare:"/>
                 <relationship kind="outlet" name="btnComments" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="btnLike" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="btnLikeMedia" candidateClass="UIButton"/>
@@ -645,9 +644,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGMainViewController.h"/>
             <relationships>
                 <relationship kind="action" name="search:"/>
-                <relationship kind="action" name="showAccountPopup:"/>
                 <relationship kind="action" name="showPopularMedia:"/>
-                <relationship kind="action" name="showUserFeed:"/>
                 <relationship kind="outlet" name="accountButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="accountImageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="popularMediaButton" candidateClass="UIButton"/>
@@ -690,6 +687,7 @@
                 <relationship kind="outlet" name="lblComments" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="lblLikes" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="mediaView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="usernameLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
     </classes>
