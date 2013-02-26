@@ -55,6 +55,7 @@ void onUncaughtException(NSException* exception)
     [WFInstagramAPI setClientSecret:[plist objectForKey:@"secret"]];
     [WFInstagramAPI setClientScope:@"likes+relationships+comments"];
     [WFInstagramAPI setOAuthRedirectURL:kOAuthCallbackURL];
+    
     /*
     [WFIGConnection setGlobalErrorHandler:^(WFIGResponse* response) {
         void (^logicBlock)(WFIGResponse*) = ^(WFIGResponse *response){
@@ -84,8 +85,22 @@ void onUncaughtException(NSException* exception)
     */
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *token = [defaults objectForKey:kDefaultsUserToken];
-    NSLog(@"token: {%@}", token);
     [WFInstagramAPI setAccessToken:[defaults objectForKey:kDefaultsUserToken]];
+    
+    if (token) {
+        // Load current user info
+        dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            WFIGUser *currentUser = nil;
+            
+            if ([WFInstagramAPI accessToken] && [WFInstagramAPI currentUser]) {
+                currentUser = [WFInstagramAPI currentUser];
+            }
+            
+            dispatch_async( dispatch_get_main_queue(), ^{
+                if (currentUser) self.currentUser = currentUser;
+            });
+        });
+    }
     
     return YES;
 }
@@ -110,11 +125,25 @@ void onUncaughtException(NSException* exception)
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    if (!([WFInstagramAPI accessToken] && [WFInstagramAPI currentUser])) {
-        [self enterAuthFlowAnimated:NO];
-    } else {
-        self.currentUser = [WFInstagramAPI currentUser];
-    }
+    
+    UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
+    UIViewController *rootViewController = keyWindow.rootViewController;
+    
+    UIImageView *splashView = [[UIImageView alloc] initWithFrame:rootViewController.view.bounds];
+    splashView.image = [UIImage imageNamed:@"Default-Landscape"];
+    [keyWindow.rootViewController.view addSubview:splashView];
+    
+    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        // Leave splash image visible for an additional 2 secs
+        [NSThread sleepForTimeInterval:2];
+        
+        dispatch_async( dispatch_get_main_queue(), ^{
+            if (! [WFInstagramAPI accessToken]) {
+                [self enterAuthFlowAnimated:NO];
+            }
+            [splashView removeFromSuperview];
+        });
+    });
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

@@ -620,7 +620,11 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGDetailsViewController.h"/>
             <relationships>
                 <relationship kind="action" name="handleSwipeLeftGesture:" candidateClass="UIGestureRecognizer"/>
+                <relationship kind="action" name="handleSwipeRightGesture:" candidateClass="UIGestureRecognizer"/>
+                <relationship kind="action" name="newComment:" candidateClass="UIButton"/>
+                <relationship kind="action" name="toggleLike:" candidateClass="UIButton"/>
                 <relationship kind="action" name="touchClose:"/>
+                <relationship kind="action" name="touchShare:"/>
                 <relationship kind="outlet" name="btnComments" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="btnLike" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="btnLikeMedia" candidateClass="UIButton"/>
