@@ -12,6 +12,7 @@
 #import "CRGAuthController.h"
 #import "CRGLoginView.h"
 #import "TestFlight.h"
+#import "CRGMainViewController.h"
 
 #define APP_ID @"f4d2dcb4d1b3422a99344b1b10fad732"
 
@@ -83,18 +84,17 @@ void onUncaughtException(NSException* exception)
         }
     }];
     */
+    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *token = [defaults objectForKey:kDefaultsUserToken];
     [WFInstagramAPI setAccessToken:[defaults objectForKey:kDefaultsUserToken]];
     
     if (token) {
+        [((CRGMainViewController *)self.window.rootViewController) showSplashViewOnViewLoad];
+
         // Load current user info
         dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            WFIGUser *currentUser = nil;
-            
-            if ([WFInstagramAPI accessToken] && [WFInstagramAPI currentUser]) {
-                currentUser = [WFInstagramAPI currentUser];
-            }
+            WFIGUser *currentUser = [WFInstagramAPI currentUser];
             
             dispatch_async( dispatch_get_main_queue(), ^{
                 if (currentUser) self.currentUser = currentUser;
@@ -126,24 +126,9 @@ void onUncaughtException(NSException* exception)
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     
-    UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
-    UIViewController *rootViewController = keyWindow.rootViewController;
-    
-    UIImageView *splashView = [[UIImageView alloc] initWithFrame:rootViewController.view.bounds];
-    splashView.image = [UIImage imageNamed:@"Default-Landscape"];
-    [keyWindow.rootViewController.view addSubview:splashView];
-    
-    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        // Leave splash image visible for an additional 2 secs
-        [NSThread sleepForTimeInterval:2];
-        
-        dispatch_async( dispatch_get_main_queue(), ^{
-            if (! [WFInstagramAPI accessToken]) {
-                [self enterAuthFlowAnimated:NO];
-            }
-            [splashView removeFromSuperview];
-        });
-    });
+    if (! [WFInstagramAPI accessToken]) {
+        [self enterAuthFlowAnimated:NO];
+    }    
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

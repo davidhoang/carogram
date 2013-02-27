@@ -17,6 +17,7 @@
 		230E8F7016DBFDB4009607D9 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 230E8F6E16DBFDB4009607D9 /* Default-Landscape~ipad.png */; };
 		230E8F7716DC831A009607D9 /* carogram-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 230E8F7516DC831A009607D9 /* carogram-72.png */; };
 		230E8F7816DC831A009607D9 /* carogram-144.png in Resources */ = {isa = PBXBuildFile; fileRef = 230E8F7616DC831A009607D9 /* carogram-144.png */; };
+		230E8F7D16DD8394009607D9 /* CRGSplashProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 230E8F7C16DD8394009607D9 /* CRGSplashProgressView.m */; };
 		231082BC15E5FB9B008D3F70 /* title-bar-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 231082BA15E5FB9B008D3F70 /* title-bar-bg.png */; };
 		231082BD15E5FB9B008D3F70 /* title-bar-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 231082BB15E5FB9B008D3F70 /* title-bar-bg@2x.png */; };
 		231082C415E5FEC8008D3F70 /* CRGMediaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 231082C315E5FEC8008D3F70 /* CRGMediaViewController.m */; };
@@ -160,6 +161,8 @@
 		230E8F6E16DBFDB4009607D9 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape~ipad.png"; sourceTree = "<group>"; };
 		230E8F7516DC831A009607D9 /* carogram-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "carogram-72.png"; sourceTree = "<group>"; };
 		230E8F7616DC831A009607D9 /* carogram-144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "carogram-144.png"; sourceTree = "<group>"; };
+		230E8F7B16DD8394009607D9 /* CRGSplashProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRGSplashProgressView.h; sourceTree = "<group>"; };
+		230E8F7C16DD8394009607D9 /* CRGSplashProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRGSplashProgressView.m; sourceTree = "<group>"; };
 		231082BA15E5FB9B008D3F70 /* title-bar-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "title-bar-bg.png"; sourceTree = "<group>"; };
 		231082BB15E5FB9B008D3F70 /* title-bar-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "title-bar-bg@2x.png"; sourceTree = "<group>"; };
 		231082C215E5FEC8008D3F70 /* CRGMediaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRGMediaViewController.h; sourceTree = "<group>"; };
@@ -344,6 +347,8 @@
 				230355E915EC84AF00C80D31 /* TableCells */,
 				230BF2D515E83BB9005DB8A0 /* CRGLoginView.h */,
 				230BF2D615E83BB9005DB8A0 /* CRGLoginView.m */,
+				230E8F7B16DD8394009607D9 /* CRGSplashProgressView.h */,
+				230E8F7C16DD8394009607D9 /* CRGSplashProgressView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -778,6 +783,7 @@
 				2354EABA16D6BE98008369D0 /* CRGNewCommentViewController.m in Sources */,
 				23EDD5C616D89FD2002F2408 /* CRGLikeCell.m in Sources */,
 				23F5BFF816D94D170040FF06 /* UIFont+Carogram.m in Sources */,
+				230E8F7D16DD8394009607D9 /* CRGSplashProgressView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

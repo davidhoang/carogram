@@ -14,6 +14,7 @@
 #import "CRGUserFeedViewController.h"
 #import "CRGPopularMediaViewController.h"
 #import "CRGTagSearchViewController.h"
+#import "CRGSplashProgressView.h"
 
 #define USER_FEED_INDEX     0
 #define POPULAR_MEDIA_INDEX 1
@@ -33,15 +34,19 @@ static int currentUserObserverContext;
 @property (strong, nonatomic) IBOutlet UIButton *popularMediaButton;
 @property (strong, nonatomic) IBOutlet UIButton *userFeedButton;
 @property (strong, nonatomic) IBOutlet UITextField *searchTextField;
+@property (nonatomic, strong) CRGSplashProgressView *splashView;
 @end
 
-@implementation CRGMainViewController
+@implementation CRGMainViewController {
+    BOOL _showSplashViewOnViewLoad;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         _currentViewControllerIndex = -1;
+        _showSplashViewOnViewLoad = NO;
     }
     return self;
 }
@@ -66,6 +71,11 @@ static int currentUserObserverContext;
     
     self.currentViewControllerIndex = -1;
     [self showUserFeed:nil];
+    
+    if (_showSplashViewOnViewLoad) {
+        self.splashView = [[CRGSplashProgressView alloc] initWithFrame:self.view.frame];
+        [self.view addSubview:self.splashView];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -120,6 +130,11 @@ static int currentUserObserverContext;
     [self.accountImageView.layer addSublayer:roundedLayer];
 }
 
+- (void)showSplashViewOnViewLoad
+{
+    _showSplashViewOnViewLoad = YES;
+}
+
 #pragma mark - Actions
 
 - (IBAction)showUserFeed:(id)sender
@@ -134,6 +149,7 @@ static int currentUserObserverContext;
     if ((NSNull *)userFeedController == [NSNull null]) {
         userFeedController = [[CRGUserFeedViewController alloc] initWithNibName:nil bundle:nil];
         userFeedController.view.frame = self.contentFrame;
+        userFeedController.delegate = self;
         self.viewControllers[USER_FEED_INDEX] = userFeedController;
     }
     
@@ -277,6 +293,20 @@ static int currentUserObserverContext;
     [self setUserFeedButton:nil];
     [self setSearchTextField:nil];
     [super viewDidUnload];
+}
+
+#pragma mark - CRGMediaViewControllerDelegate methods
+
+- (void)mediaViewControllerDidLoadMediaCollection:(CRGMediaViewController *)mediaViewController
+{
+    if ([self.splashView superview] != nil) {
+        [UIView animateWithDuration:.3 animations:^{
+            self.splashView.alpha = 0;
+        } completion:^(BOOL finished) {
+            [self.splashView removeFromSuperview];
+            self.splashView = nil;
+        }];
+    }
 }
 
 @end

@@ -12,8 +12,11 @@
 #import "CRGMediaSelectorDelegate.h"
 #import "CRGPagingMediaViewController.h"
 
+@protocol CRGMediaViewControllerDelegate;
+
 @interface CRGMediaViewController : UIViewController <UIActionSheetDelegate, UIScrollViewDelegate, CRGMediaSelectorDelegate, PagingMediaViewControllerDelegate>
 
+@property (weak, nonatomic) id<CRGMediaViewControllerDelegate> delegate;
 @property (strong, nonatomic) WFIGUser *currentUser;
 @property (strong, nonatomic) IBOutlet UIView *titleBarView;
 @property (strong, nonatomic) IBOutlet UIImageView *ivSearchBg;
@@ -29,5 +32,11 @@
 - (void)refresh;
 - (void)setProgressViewShown:(BOOL)shown;
 - (void)loadMediaCollection;
+
+@end
+
+@protocol CRGMediaViewControllerDelegate <NSObject>
+
+- (void)mediaViewControllerDidLoadMediaCollection:(CRGMediaViewController *)mediaViewController;
 
 @end

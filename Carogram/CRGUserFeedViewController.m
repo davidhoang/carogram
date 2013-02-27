@@ -49,6 +49,10 @@
             
             [self setProgressViewShown:NO];
             self.currentMediaController.view.hidden = NO;
+            
+            if ([self.delegate respondsToSelector:@selector(mediaViewControllerDidLoadMediaCollection:)]) {
+                [self.delegate mediaViewControllerDidLoadMediaCollection:self];
+            }
         });
     });
 }
