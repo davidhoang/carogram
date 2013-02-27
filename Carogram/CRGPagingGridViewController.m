@@ -117,12 +117,14 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
 - (void)handlePinch:(UIPinchGestureRecognizer *)recognizer
 {
     switch (recognizer.state) {
-        case UIGestureRecognizerStateBegan: {
+        case UIGestureRecognizerStateBegan:
             zoomRecognized_ = NO;
-            break;
-        }
         case UIGestureRecognizerStateChanged: {
-            if ([recognizer scale] >= 1.5 && !zoomRecognized_) {
+            CGFloat scale = [recognizer scale];
+            if (scale < 1) scale = powf(scale, .2);
+            self.view.transform = CGAffineTransformMakeScale(scale, scale);
+            
+            if (scale >= 1.5 && !zoomRecognized_) {
                 zoomRecognized_ = YES;
                 CGPoint firstPt = [recognizer locationOfTouch:0 inView:self.view];
                 CGPoint secondPt = [recognizer locationOfTouch:1 inView:self.view];
@@ -130,7 +132,16 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
                                             (firstPt.y + secondPt.y) / 2.);
                 [self zoomInFromPoint:midPt];
             }
+            
             break;
+        }
+        case UIGestureRecognizerStateCancelled:
+        case UIGestureRecognizerStateEnded:
+        case UIGestureRecognizerStateFailed: {
+            [UIView animateWithDuration:.2 animations:^{
+                self.view.transform = CGAffineTransformIdentity;
+            } completion:^(BOOL finished) {
+            }];
         }
         default: break;
     }
