@@ -8,6 +8,7 @@
 
 #import "CRGPagingGridViewController.h"
 #import "CRGGridViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 static NSSet * ObservableKeys = nil;
 
@@ -23,14 +24,12 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
 @implementation CRGPagingGridViewController {
 @private
     int pageCount;
-    BOOL zoomRecognized_;
 }
 
 - (id)initWithCoder:(NSCoder *)decoder
 {
     self = [super initWithCoder:decoder];
     if (self) {
-        zoomRecognized_ = NO;
         if (nil == ObservableKeys) {
             ObservableKeys = [[NSSet alloc] initWithObjects:MediaCollectionKeyPath, nil];
         }
@@ -65,11 +64,6 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
     if ([self.mediaCollection count] > 0) {
         [self configureView];
     }
-    
-    UIPinchGestureRecognizer *pinchRecognizer =
-        [[UIPinchGestureRecognizer alloc] initWithTarget:self
-                                                  action:@selector(handlePinch:)];
-    [self.view addGestureRecognizer:pinchRecognizer];
 }
 
 - (void)viewDidUnload
@@ -91,6 +85,15 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
 
 - (void) configureView
 {
+    // Remove old gridViewControllers if necessary
+    for (CRGGridViewController *gridController in self.gridViewControllers) {
+        if ((NSNull*)gridController != [NSNull null] && [gridController.view superview]) {
+            [gridController willMoveToParentViewController:nil];
+            [gridController.view removeFromSuperview];
+            [gridController removeFromParentViewController];
+        }
+    }
+    
     pageCount = pageCount = ceil((double)[self.mediaCollection count] / (double)kImageCount);
     
     // view controllers are created lazily
@@ -110,53 +113,6 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
     
     // Load more media if we don't have 2 full pages
     if (2*kImageCount > [self.mediaCollection count]) [self loadMoreMedia];
-}
-
-#pragma mark -
-
-- (void)handlePinch:(UIPinchGestureRecognizer *)recognizer
-{
-    switch (recognizer.state) {
-        case UIGestureRecognizerStateBegan:
-            zoomRecognized_ = NO;
-        case UIGestureRecognizerStateChanged: {
-            CGFloat scale = [recognizer scale];
-            if (scale < 1) scale = powf(scale, .2);
-            self.view.transform = CGAffineTransformMakeScale(scale, scale);
-            
-            if (scale >= 1.5 && !zoomRecognized_) {
-                zoomRecognized_ = YES;
-                CGPoint firstPt = [recognizer locationOfTouch:0 inView:self.view];
-                CGPoint secondPt = [recognizer locationOfTouch:1 inView:self.view];
-                CGPoint midPt = CGPointMake((firstPt.x + secondPt.x) / 2.,
-                                            (firstPt.y + secondPt.y) / 2.);
-                [self zoomInFromPoint:midPt];
-            }
-            
-            break;
-        }
-        case UIGestureRecognizerStateCancelled:
-        case UIGestureRecognizerStateEnded:
-        case UIGestureRecognizerStateFailed: {
-            [UIView animateWithDuration:.2 animations:^{
-                self.view.transform = CGAffineTransformIdentity;
-            } completion:^(BOOL finished) {
-            }];
-        }
-        default: break;
-    }
-}
-
-- (void)zoomInFromPoint:(CGPoint)point
-{
-    CRGGridViewController *currentGridViewController = self.gridViewControllers[self.currentPage];
-    int pageIndex = [currentGridViewController indexOfMediaAtPoint:point];
-    int mediaIndex = self.currentPage * kImageCount + pageIndex;
-    
-    if ([self.delegate respondsToSelector:@selector(pagingMediaViewController:didZoomInAtIndex:)])
-    {
-        [self.delegate pagingMediaViewController:self didZoomInAtIndex:mediaIndex];
-    }
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -242,6 +198,21 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
         [self loadScrollViewWithPage:currentPage];
         [self loadScrollViewWithPage:currentPage + 1];
     }
+}
+
+- (CGRect)mediaFrameAtPoint:(CGPoint)point
+{
+    if (! [self isViewLoaded]) return CGRectZero;
+    
+    CRGGridViewController *currentGridController = self.gridViewControllers[[self currentPage]];
+    return [currentGridController mediaFrameAtPoint:point];
+}
+
+- (int)indexOfMediaAtPoint:(CGPoint)point
+{
+    CRGGridViewController *currentGridViewController = self.gridViewControllers[self.currentPage];
+    int pageIndex = [currentGridViewController indexOfMediaAtPoint:point];
+    return [self currentPage] * kImageCount + pageIndex;
 }
 
 #pragma mark - UIScrollViewDelegate

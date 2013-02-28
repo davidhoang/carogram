@@ -9,13 +9,11 @@
 #import "CRGImageGridViewCell.h"
 
 @interface CRGImageGridViewCell ()
-@property (strong, nonatomic) WFIGMedia *media;
 @property (strong, nonatomic) UIImageView *imageView;
+@property (strong, nonatomic) WFIGMedia *media;
 @end
 
 @implementation CRGImageGridViewCell
-@synthesize imageView = _imageView;
-@synthesize media = _media;
 
 - (id)initWithMedia:(WFIGMedia *)media frame:(CGRect)frame
 {

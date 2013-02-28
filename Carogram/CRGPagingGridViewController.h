@@ -11,4 +11,7 @@
 
 @interface CRGPagingGridViewController : CRGPagingMediaViewController
 
+- (int)indexOfMediaAtPoint:(CGPoint)point;
+- (CGRect)mediaFrameAtPoint:(CGPoint)point;
+
 @end

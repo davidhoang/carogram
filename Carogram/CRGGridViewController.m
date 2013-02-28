@@ -110,7 +110,25 @@
     int row = (int)(point.y / rowDivisor);
 
     int index = row * kNumberOfColumns + column;
+    if (index >= [self.gridCells count]) index = [self.gridCells count] - 1;
+    
     return index;
+}
+
+- (CGRect)mediaFrameAtPoint:(CGPoint)point
+{
+    float columnDivisor = self.view.bounds.size.width / kNumberOfColumns;
+    int column = (int)(point.x / columnDivisor);
+    
+    float rowDivisor = self.view.bounds.size.height / (kImageCount/kNumberOfColumns);
+    int row = (int)(point.y / rowDivisor);
+    
+    int index = row * kNumberOfColumns + column;
+    if (index >= [self.gridCells count]) index = [self.gridCells count] - 1;
+        
+    CRGImageGridViewCell *cell = self.gridCells[index];
+
+    return cell.frame;
 }
 
 @end

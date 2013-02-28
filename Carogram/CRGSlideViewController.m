@@ -114,10 +114,12 @@ static NSString * const MediaKeyPath = @"media";
             }
         }];
         [self loadProfilePicture];
+        self.usernameLabel.text = self.media.user.username;
         [self.lblCaption setText:[self.media caption]];
         [self.lblComments setText:[NSString stringWithFormat:@"%d", [self.media commentsCount]]];
         [self.lblLikes setText:[NSString stringWithFormat:@"%d", [self.media likesCount]]];
     } else {
+        self.usernameLabel.text = @"";
         [self.ivPhoto setImage:nil];
         [self.ivUser setImage:nil];
         [self.lblCaption setText:@""];

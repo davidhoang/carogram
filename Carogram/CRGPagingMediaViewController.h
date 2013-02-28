@@ -33,6 +33,6 @@ extern NSString *  const MediaCollectionDidLoadNextPageNotification;
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView;
 - (void)didSelectMedia:(WFIGMedia *)media fromRect:(CGRect)rect;
 - (void)loadMoreMedia;
-- (void)pagingMediaViewController:(CRGPagingMediaViewController *)pagingMediaViewController didZoomInAtIndex:(int)index;
+- (void)pagingMediaViewController:(CRGPagingMediaViewController *)pagingMediaViewController didZoomInAtIndex:(int)index fromRect:(CGRect)rect;
 - (void)pagingMediaViewController:(CRGPagingMediaViewController *)pagingMediaViewController didZoomOutAtIndex:(int)index;
 @end
