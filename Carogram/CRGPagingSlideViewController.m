@@ -61,11 +61,6 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
     if ([self.mediaCollection count] > 0) {
         [self configureView];
     }
-
-    UIPinchGestureRecognizer *pinchRecognizer =
-        [[UIPinchGestureRecognizer alloc] initWithTarget:self
-                                                  action:@selector(handlePinch:)];
-    [self.view addGestureRecognizer:pinchRecognizer];
 }
 
 - (void)viewDidUnload
@@ -87,6 +82,15 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
 
 - (void) configureView
 {
+    // Remove old slideViewControllers if necessary
+    for (CRGSlideViewController *slideController in self.slideViewControllers) {
+        if ((NSNull*)slideController != [NSNull null] && [slideController.view superview]) {
+            [slideController willMoveToParentViewController:nil];
+            [slideController.view removeFromSuperview];
+            [slideController removeFromParentViewController];
+        }
+    }
+
     pageCount = [self.mediaCollection count];
     
     // view controllers are created lazily
@@ -106,25 +110,20 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
 
 #pragma mark -
 
-- (void)handlePinch:(UIPinchGestureRecognizer *)recognizer
+- (void)setPeripheryAlpha:(CGFloat)peripheryAlpha
 {
-    switch (recognizer.state) {
-        case UIGestureRecognizerStateBegan: {
-            zoomRecognized_ = NO;
-            break;
+    _peripheryAlpha = MAX(0., MIN(1., peripheryAlpha));
+    
+    int currentPage = [self currentPage];
+    for (int i = 0; i < [self.slideViewControllers count]; i++) {
+        CRGSlideViewController *slideController = self.slideViewControllers[i];
+        if ((NSNull*)slideController == [NSNull null]) continue;
+        
+        if (i == currentPage - 1 || i == currentPage + 1) {
+            slideController.view.alpha = _peripheryAlpha;
+        } else if (i != currentPage) {
+            slideController.view.hidden = YES;
         }
-        case UIGestureRecognizerStateChanged: {
-            if ([recognizer scale] <= 0.7 && !zoomRecognized_) {
-                zoomRecognized_ = YES;
-
-                if ([self.delegate respondsToSelector:@selector(pagingMediaViewController:didZoomOutAtIndex:)])
-                {
-                    [self.delegate pagingMediaViewController:self didZoomOutAtIndex:[self currentPage]];
-                }
-            }
-            break;
-        }
-        default: break;
     }
 }
 
@@ -167,7 +166,9 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
         frame.origin.y = self.view.bounds.size.height/2. - controller.view.bounds.size.height/2.;
         
         controller.view.frame = frame;
+        [self addChildViewController:controller];
         [self.scrollView addSubview:controller.view];
+        [controller didMoveToParentViewController:self];
     }
 }
 
@@ -216,6 +217,18 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
 {
     if (self.delegate != nil && [self.delegate respondsToSelector:@selector(scrollViewDidEndDragging:)]) {
         [self.delegate scrollViewDidEndDragging:scrollView];
+    }
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    int currentPage = [self currentPage];
+    for (int i = currentPage - 2; i <= currentPage + 2; i++) {
+        if (i >= 0 && i < [self.mediaCollection count]) {
+            CRGSlideViewController *slideController = self.slideViewControllers[i];
+            if ([NSNull null] == (NSNull*)slideController) continue;
+            slideController.view.hidden = NO;
+        }
     }
 }
 

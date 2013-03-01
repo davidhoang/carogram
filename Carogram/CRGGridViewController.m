@@ -115,7 +115,7 @@
     return index;
 }
 
-- (CGRect)mediaFrameAtPoint:(CGPoint)point
+- (UIView *)gridCellAtPoint:(CGPoint)point
 {
     float columnDivisor = self.view.bounds.size.width / kNumberOfColumns;
     int column = (int)(point.x / columnDivisor);
@@ -124,11 +124,14 @@
     int row = (int)(point.y / rowDivisor);
     
     int index = row * kNumberOfColumns + column;
-    if (index >= [self.gridCells count]) index = [self.gridCells count] - 1;
-        
-    CRGImageGridViewCell *cell = self.gridCells[index];
+    if (index >= [self.gridCells count]) return nil;
+    return self.gridCells[index];
+}
 
-    return cell.frame;
+- (UIView *)gridCellAtIndex:(int)index
+{
+    if (index < 0 || index >= [self.gridCells count]) return nil;
+    return self.gridCells[index];
 }
 
 @end

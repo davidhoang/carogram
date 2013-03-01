@@ -12,4 +12,6 @@
 
 @interface CRGPagingSlideViewController : CRGPagingMediaViewController <CRGMediaSelectorDelegate>
 
+@property (nonatomic) CGFloat peripheryAlpha;
+
 @end

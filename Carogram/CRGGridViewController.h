@@ -20,6 +20,7 @@
 - (id)initWithMediaCollection:(WFIGMediaCollection *)mediaCollection atPage:(int)page;
 - (BOOL)isGridFull;
 - (int)indexOfMediaAtPoint:(CGPoint)point;
-- (CGRect)mediaFrameAtPoint:(CGPoint)point; // includes border
+- (UIView *)gridCellAtPoint:(CGPoint)point;
+- (UIView *)gridCellAtIndex:(int)index;
 
 @end

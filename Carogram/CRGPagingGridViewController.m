@@ -200,19 +200,27 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
     }
 }
 
-- (CGRect)mediaFrameAtPoint:(CGPoint)point
-{
-    if (! [self isViewLoaded]) return CGRectZero;
-    
-    CRGGridViewController *currentGridController = self.gridViewControllers[[self currentPage]];
-    return [currentGridController mediaFrameAtPoint:point];
-}
-
 - (int)indexOfMediaAtPoint:(CGPoint)point
 {
     CRGGridViewController *currentGridViewController = self.gridViewControllers[self.currentPage];
     int pageIndex = [currentGridViewController indexOfMediaAtPoint:point];
     return [self currentPage] * kImageCount + pageIndex;
+}
+
+- (UIView *)gridCellAtPoint:(CGPoint)point
+{
+    CRGGridViewController *currentGridController = self.gridViewControllers[[self currentPage]];
+    if ((NSNull*)currentGridController == [NSNull null]) return nil;
+    
+    return [currentGridController gridCellAtPoint:point];
+}
+
+- (UIView *)gridCellAtIndex:(int)index
+{
+    CRGGridViewController *currentGridController = self.gridViewControllers[[self currentPage]];
+    if ((NSNull*)currentGridController == [NSNull null]) return nil;
+    
+    return [currentGridController gridCellAtIndex:index];
 }
 
 #pragma mark - UIScrollViewDelegate

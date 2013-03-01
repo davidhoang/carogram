@@ -34,10 +34,11 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
     CGFloat _pinchScale;
     BOOL _zoomRecognized;
     BOOL _resetView;
-    CGRect _gridViewMediaFrame;
-    CGPoint _gridViewMediaCenter;
-    CGFloat _slideViewMediaScale;
-    CGPoint _slideViewMediaCenter;
+    CGPoint _gridCellCenter;
+    CGFloat _gridCellScale;
+    CGFloat _slideCellScale;
+    CGPoint _slideCellCenter;
+    UIView *_selectedGridCell;
 }
 @synthesize currentUser = _currentUser;
 @synthesize titleBarView = _titleBarView;
@@ -72,7 +73,7 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
 
 - (void)commonInit
 {
-    _slideViewMediaCenter = CGPointMake(CGRectGetMidX(kSlideViewMediaRect), CGRectGetMidY(kSlideViewMediaRect));
+    _slideCellCenter = CGPointMake(CGRectGetMidX(kSlideViewMediaRect), CGRectGetMidY(kSlideViewMediaRect));
 }
 
 #pragma mark - View Management
@@ -191,33 +192,47 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
 
 #pragma mark -
 
-- (void)showSlideViewAtIndex:(int)index fromRect:(CGRect)rect
+- (void)addPagingGridControllerToViewHidden:(BOOL)hidden
 {
-    if (self.pagingSlideViewController == nil) {
+    if (! self.pagingGridViewController) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:[NSBundle mainBundle]];
-        self.pagingSlideViewController =
-            (CRGPagingSlideViewController *)[storyboard instantiateViewControllerWithIdentifier: @"PagingSlide"];
-        self.pagingSlideViewController.delegate = self;
-        self.pagingSlideViewController.mediaSelectorDelegate = self;
-        self.pagingSlideViewController.view.frame = self.view.bounds;
+        self.pagingGridViewController =
+            (CRGPagingGridViewController *)[storyboard instantiateViewControllerWithIdentifier: @"PagingGrid"];
+        self.pagingGridViewController.delegate = self;
+        self.pagingGridViewController.mediaSelectorDelegate = self;
+        self.pagingGridViewController.view.frame = self.view.bounds;
     }
-    self.pagingSlideViewController.mediaCollection = self.mediaCollection;
-    [self.pagingSlideViewController setCurrentPage:index animated:NO];
+    self.pagingGridViewController.mediaCollection = self.mediaCollection;
+    self.pagingGridViewController.view.hidden = hidden;
     
-    [self.pagingGridViewController willMoveToParentViewController:nil];
-    [self addChildViewController:self.pagingSlideViewController];
+    [self addChildViewController:self.pagingGridViewController];
+    [self.view addSubview:self.pagingGridViewController.view];
+    [self.pagingGridViewController didMoveToParentViewController:self];
+}
 
-    self.pagingSlideViewController.view.alpha = 0;
-    [self.view addSubview:self.pagingSlideViewController.view];
-    [self.pagingSlideViewController zoomInFromRect:rect];
+- (void)showGridViewAtIndex:(int)index
+{
+    if (self.pagingGridViewController == nil) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:[NSBundle mainBundle]];
+        self.pagingGridViewController =
+            (CRGPagingGridViewController *)[storyboard instantiateViewControllerWithIdentifier: @"PagingGrid"];
+        self.pagingGridViewController.delegate = self;
+        self.pagingGridViewController.mediaSelectorDelegate = self;
+        self.pagingGridViewController.view.frame = self.view.bounds;
+    }
+    self.pagingGridViewController.mediaCollection = self.mediaCollection;
+    [self.pagingGridViewController setCurrentPage:index animated:NO];
     
-    
-    [self.pagingGridViewController.view removeFromSuperview];
-    
-    [self.pagingGridViewController removeFromParentViewController];
-    [self.pagingSlideViewController didMoveToParentViewController:self];
+    [self.pagingSlideViewController willMoveToParentViewController:nil];
+    [self addChildViewController:self.pagingGridViewController];
 
-    self.currentMediaController = self.pagingSlideViewController;
+    [self.pagingSlideViewController.view removeFromSuperview];
+    [self.view addSubview:self.pagingGridViewController.view];
+
+    [self.pagingSlideViewController removeFromParentViewController];
+    [self.pagingGridViewController didMoveToParentViewController:self];
+
+    self.currentMediaController = self.pagingGridViewController;
 }
 
 - (void)animateToSlideViewAtIndex:(int)index
@@ -243,13 +258,13 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
     [self.view addSubview:pagingSlideView];
     
     pagingSlideView.center = pagingGridView.center;
-    CGFloat slideScale = _pinchScale / _slideViewMediaScale;
+    CGFloat slideScale = _pinchScale / _slideCellScale;
     pagingSlideView.transform = CGAffineTransformMakeScale(slideScale, slideScale);
     
-    [UIView animateWithDuration:0.4 animations:^{
-        pagingGridView.transform = CGAffineTransformMakeScale(_slideViewMediaScale, _slideViewMediaScale);
-        pagingGridView.center = _slideViewMediaCenter;
-        pagingSlideView.center = _slideViewMediaCenter;
+    [UIView animateWithDuration:0.2 animations:^{
+        pagingGridView.transform = CGAffineTransformMakeScale(_slideCellScale, _slideCellScale);
+        pagingGridView.center = _slideCellCenter;
+        pagingSlideView.center = _slideCellCenter;
         pagingSlideView.alpha = 1;
         pagingSlideView.transform = CGAffineTransformIdentity;
         pagingGridView.alpha = 0;
@@ -265,32 +280,6 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
     }];
 }
 
-- (void)showGridViewAtIndex:(int)index
-{
-    if (self.pagingGridViewController == nil) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:[NSBundle mainBundle]];
-        self.pagingGridViewController =
-            (CRGPagingGridViewController *)[storyboard instantiateViewControllerWithIdentifier: @"PagingGrid"];
-        self.pagingGridViewController.delegate = self;
-        self.pagingGridViewController.mediaSelectorDelegate = self;
-        self.pagingGridViewController.view.frame = self.view.bounds;
-    }
-    self.pagingGridViewController.mediaCollection = self.mediaCollection;
-    [self.pagingGridViewController setCurrentPage:index animated:NO];
-    
-    self.pagingGridViewController.view.alpha = 1;
-    
-    [self.pagingSlideViewController willMoveToParentViewController:nil];
-    [self addChildViewController:self.pagingGridViewController];
-
-    [self.pagingSlideViewController.view removeFromSuperview];
-    [self.view addSubview:self.pagingGridViewController.view];
-
-    [self.pagingSlideViewController removeFromParentViewController];
-    [self.pagingGridViewController didMoveToParentViewController:self];
-
-    self.currentMediaController = self.pagingGridViewController;
-}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -327,9 +316,11 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
             CGPoint midPt = CGPointMake((firstPt.x + secondPt.x) / 2.,
                                         (firstPt.y + secondPt.y) / 2.);
             
-            _gridViewMediaFrame = [self.pagingGridViewController mediaFrameAtPoint:midPt];
-            _gridViewMediaCenter = CGPointMake(CGRectGetMidX(_gridViewMediaFrame), CGRectGetMidY(_gridViewMediaFrame));
-            _slideViewMediaScale = kSlideViewMediaRect.size.width / _gridViewMediaFrame.size.width;
+            _selectedGridCell = [self.pagingGridViewController gridCellAtPoint:midPt];
+
+            _gridCellCenter = CGPointMake(CGRectGetMidX(_selectedGridCell.frame),
+                                          CGRectGetMidY(_selectedGridCell.frame));
+            _slideCellScale = kSlideViewMediaRect.size.width / _selectedGridCell.frame.size.width;
         }
         case UIGestureRecognizerStateChanged: {
             UIView *pagingGridView = self.pagingGridViewController.view;
@@ -337,23 +328,23 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
             if (_pinchScale < 1) _pinchScale = powf(_pinchScale, .2);
             pagingGridView.transform = CGAffineTransformMakeScale(_pinchScale, _pinchScale);
             
-            CGFloat translatePct = (_pinchScale - 1.) / (_slideViewMediaScale - 1);
-            CGFloat centerX = _gridViewMediaCenter.x + ( (_slideViewMediaCenter.x - _gridViewMediaCenter.x) * translatePct);
-            CGFloat centerY = _gridViewMediaCenter.y + ( (_slideViewMediaCenter.y - _gridViewMediaCenter.y) * translatePct);
+            CGFloat translatePct = (_pinchScale - 1.) / (_slideCellScale - 1);
+            CGFloat centerX = _gridCellCenter.x + ( (_slideCellCenter.x - _gridCellCenter.x) * translatePct);
+            CGFloat centerY = _gridCellCenter.y + ( (_slideCellCenter.y - _gridCellCenter.y) * translatePct);
             CGPoint center = CGPointMake(centerX, centerY);
             pagingGridView.center = center;
             
-            CGPoint unitMidPt = CGPointMake(_gridViewMediaCenter.x / self.view.frame.size.width,
-                                            _gridViewMediaCenter.y / self.view.frame.size.height);
+            CGPoint unitMidPt = CGPointMake(_gridCellCenter.x / self.view.frame.size.width,
+                                            _gridCellCenter.y / self.view.frame.size.height);
             pagingGridView.layer.anchorPoint = unitMidPt;
             
             break;
         }
         case UIGestureRecognizerStateEnded: {
-            CGFloat halfwayScale = ((_slideViewMediaScale - 1.) / 2.) + 1.;
+            CGFloat halfwayScale = ((_slideCellScale - 1.) / 2.) + 1.;
             if (_pinchScale >= halfwayScale && ! _zoomRecognized) {
                 _zoomRecognized = YES;
-                int index = [self.pagingGridViewController indexOfMediaAtPoint:_gridViewMediaCenter];
+                int index = [self.pagingGridViewController indexOfMediaAtPoint:_gridCellCenter];
                 [self animateToSlideViewAtIndex:index];
             }
         }
@@ -370,7 +361,99 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
     }
 }
 
-- (void)handlePinchInSlideView:(UIPinchGestureRecognizer *)recognizer { }
+- (void)handlePinchInSlideView:(UIPinchGestureRecognizer *)recognizer
+{
+    switch (recognizer.state) {
+        case UIGestureRecognizerStateBegan: {
+            _zoomRecognized = NO;
+            _resetView = YES;
+
+            int gridPage = [self.pagingSlideViewController currentPage] / kImageCount;
+            
+            [self addPagingGridControllerToViewHidden:YES];
+            [self.pagingGridViewController setCurrentPage:gridPage animated:NO];
+            self.pagingGridViewController.view.alpha = 0;
+            self.pagingGridViewController.view.hidden = NO;
+            [self.view bringSubviewToFront:self.pagingSlideViewController.view];
+            
+            int mediaIndex = [self.pagingSlideViewController currentPage] % kImageCount;
+            _selectedGridCell = [self.pagingGridViewController gridCellAtIndex:mediaIndex];
+            _selectedGridCell.alpha = 0;
+            
+            _gridCellCenter = CGPointMake(CGRectGetMidX(_selectedGridCell.frame), CGRectGetMidY(_selectedGridCell.frame));
+            _gridCellScale = _selectedGridCell.frame.size.width / kSlideViewMediaRect.size.width;
+        }
+        case UIGestureRecognizerStateChanged: {
+            UIView *pagingSlideView = self.pagingSlideViewController.view;
+            _pinchScale = [recognizer scale];
+            if (_pinchScale > 1) _pinchScale = powf(_pinchScale, .2);
+            pagingSlideView.transform = CGAffineTransformMakeScale(_pinchScale, _pinchScale);
+            
+            CGFloat scalePct = ((1. - _gridCellScale) - (_pinchScale - _gridCellScale)) / (1. - _gridCellScale);
+            CGFloat centerX = _slideCellCenter.x + ( (_gridCellCenter.x - _slideCellCenter.x) * scalePct);
+            CGFloat centerY = _slideCellCenter.y + ( (_gridCellCenter.y - _slideCellCenter.y) * scalePct);
+            CGPoint center = CGPointMake(centerX, centerY);
+            pagingSlideView.center = center;
+            
+            self.pagingGridViewController.view.alpha = MAX(0, MIN(1, scalePct));
+
+            CGFloat slidePeripheryAlpha = 1. - (scalePct/.75);
+            self.pagingSlideViewController.peripheryAlpha = MAX(0, MIN(1, slidePeripheryAlpha));
+            
+            break;
+        }
+        case UIGestureRecognizerStateEnded: {
+            CGFloat halfwayScale = ((1. - _gridCellScale) / 2.) + _gridCellScale;
+            if (_pinchScale <= halfwayScale && ! _zoomRecognized) {
+                _zoomRecognized = YES;
+                int mediaIndex = [self.pagingSlideViewController currentPage] % kImageCount;
+                [self animateToGridViewAtIndex:mediaIndex];
+            }
+        }
+        case UIGestureRecognizerStateCancelled:
+        case UIGestureRecognizerStateFailed: {
+            if (_zoomRecognized) break;
+            UIView *pagingSlideView = self.pagingSlideViewController.view;
+            [UIView animateWithDuration:0.2 animations:^{
+                self.pagingGridViewController.view.alpha = 0;
+                pagingSlideView.transform = CGAffineTransformIdentity;
+                pagingSlideView.frame = self.view.bounds;
+                self.pagingSlideViewController.peripheryAlpha = 1.;
+            }];
+        }
+        default: break;
+    }
+}
+
+- (void)animateToGridViewAtIndex:(int)index
+{
+    UIView *pagingGridView = self.pagingGridViewController.view;
+    UIView *pagingSlideView = self.pagingSlideViewController.view;
+    
+    _selectedGridCell.center = pagingSlideView.center;
+    CGFloat gridScale = _pinchScale / _gridCellScale;
+    _selectedGridCell.transform = CGAffineTransformMakeScale(gridScale, gridScale);
+    _selectedGridCell.alpha = 1;
+
+    [UIView animateWithDuration:0.2 animations:^{
+        _selectedGridCell.transform = CGAffineTransformIdentity;
+        _selectedGridCell.center = _gridCellCenter;
+
+        pagingSlideView.transform = CGAffineTransformMakeScale(_gridCellScale, _gridCellScale);
+        pagingSlideView.center = _gridCellCenter;
+        pagingSlideView.alpha = 0;
+
+        pagingGridView.alpha = 1;
+    } completion:^(BOOL finished) {
+        pagingSlideView.transform = CGAffineTransformIdentity;
+        pagingSlideView.frame = self.view.bounds;
+        [pagingSlideView removeFromSuperview];
+
+        [self.pagingSlideViewController removeFromParentViewController];
+
+        self.currentMediaController = self.pagingGridViewController;
+    }];
+}
 
 #pragma mark - Key Value Observing
 
@@ -451,21 +534,6 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
 {
     if (scrollView.contentOffset.x <= kRefreshDrag) {
         [self refresh];
-    }
-}
-
-- (void)pagingMediaViewController:(CRGPagingMediaViewController *)pagingMediaViewController didZoomInAtIndex:(int)index fromRect:(CGRect)rect
-{
-    if (self.currentMediaController == self.pagingGridViewController) {
-        [self showSlideViewAtIndex:index fromRect:rect];
-    }
-}
-
-- (void)pagingMediaViewController:(CRGPagingMediaViewController *)pagingMediaViewController didZoomOutAtIndex:(int)index
-{
-    if (self.currentMediaController == self.pagingSlideViewController) {
-        int pageIndex = index / kImageCount;
-        [self showGridViewAtIndex:pageIndex];
     }
 }
 
