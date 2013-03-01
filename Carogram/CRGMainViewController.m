@@ -135,6 +135,11 @@ static int currentUserObserverContext;
     _showSplashViewOnViewLoad = YES;
 }
 
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+	return UIInterfaceOrientationIsLandscape(interfaceOrientation);
+}
+
 #pragma mark - Actions
 
 - (IBAction)showUserFeed:(id)sender

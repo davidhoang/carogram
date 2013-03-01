@@ -10,7 +10,7 @@
 #import "WFInstagramAPI.h"
 #import "CRGNewCommentViewController.h"
 
-@interface CRGDetailsViewController : UIViewController <CRGNewCommentViewControllerDelegate>
+@interface CRGDetailsViewController : UIViewController <CRGNewCommentViewControllerDelegate, UIAlertViewDelegate>
 
 @property (strong, nonatomic) WFIGMedia *media;
 @property (strong, nonatomic) IBOutlet UIImageView *ivPhoto;

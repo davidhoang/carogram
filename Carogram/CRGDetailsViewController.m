@@ -13,6 +13,11 @@
 #import "WFIGImageCache.h"
 #import "CRGNewCommentViewController.h"
 
+typedef enum {
+    AlertViewTagSetLike,
+    AlertViewTagRemoveLike,
+} AlertViewTag;
+
 @interface CRGDetailsViewController ()
 @property (nonatomic) CGRect mediaFrame;
 @property (strong, nonatomic) IBOutlet UILabel *usernameLabel;
@@ -41,6 +46,8 @@
 @synthesize lblLikes = _lblLikes;
 @synthesize commentsView = _commentsView;
 @synthesize btnComments = _btnComments;
+
+#pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
@@ -73,6 +80,9 @@
     [self.ivUser.layer addSublayer:roundedLayer];
     
     [self configureViews];
+    
+    self.commentsTableView.directionalLockEnabled = YES;
+    self.likesTableView.directionalLockEnabled = YES;
     
     UISwipeGestureRecognizer *swipeLeftRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeLeftGesture:)];
     swipeLeftRecognizer.numberOfTouchesRequired = 1;
@@ -146,74 +156,6 @@
                      }];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return UIInterfaceOrientationIsLandscape(interfaceOrientation);
-}
-
-- (IBAction)touchClose:(id)sender {
-    [self dismissModalViewControllerAnimated:YES];
-}
-
-- (IBAction)newComment:(UIButton *)sender {
-    self.aNewCommentViewController = (CRGNewCommentViewController *)[self.storyboard instantiateViewControllerWithIdentifier: @"NewComment"];
-    self.aNewCommentViewController.delegate = self;
-    self.aNewCommentViewController.media = self.media;
-    
-    [self addChildViewController:self.aNewCommentViewController];
-    [self.view addSubview:self.aNewCommentViewController.view];
-    [self.aNewCommentViewController didMoveToParentViewController:self];
-}
-
-- (IBAction)toggleLike:(UIButton *)sender {
-    self.btnLike.enabled = NO;
-    self.btnLike.selected = !self.btnLike.selected;
-    self.btnLikeMedia.enabled = NO;
-    self.btnLikeMedia.selected = !self.btnLikeMedia.selected;
-    
-    if (self.btnLike.selected) [self setLike];
-    else [self removeLike];
-}
-
-- (void)setLike
-{
-    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSError *error;
-        BOOL success = [self.media setLikeWithError:&error];
-        
-        // Wait 200 milliseconds before refreshing likes
-        [NSThread sleepForTimeInterval:0.2];
-        
-        dispatch_async( dispatch_get_main_queue(), ^{
-            if (success) {
-                [self refreshLikes];
-            }
-            if (error) NSLog(@"Error: %@", [error description]);
-        });
-    });
-}
-
-- (void)removeLike
-{
-    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSError *error;
-        BOOL success = [self.media removeLikeWithError:&error];
-        
-        // Wait 200 milliseconds before refreshing likes
-        [NSThread sleepForTimeInterval:0.2];
-        
-        dispatch_async( dispatch_get_main_queue(), ^{
-            if (success) {
-                [self refreshLikes];
-            }
-            if (error) NSLog(@"Error: %@", [error description]);
-        });
-    });
-}
-
-- (IBAction)touchShare:(id)sender {
-}
-
 - (void)configureViews
 {
     self.commentsView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"details-bg-tile"]];
@@ -241,6 +183,53 @@
         [self.lblComments setText:@""];
         [self.lblLikes setText:@""];
     }
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return UIInterfaceOrientationIsLandscape(interfaceOrientation);
+}
+
+#pragma mark -
+
+- (void)setLike
+{
+    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSError *error;
+        BOOL success = [self.media setLikeWithError:&error];
+        
+        dispatch_async( dispatch_get_main_queue(), ^{
+            if (!success || error) {
+                UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Whoops!"
+                                                             message:@"An error occurred while trying to like this media."
+                                                            delegate:self
+                                                   cancelButtonTitle:@"Cancel"
+                                                   otherButtonTitles:@"Try Again", nil];
+                av.tag = AlertViewTagSetLike;
+                [av show];
+            }
+        });
+    });
+}
+
+- (void)removeLike
+{
+    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSError *error;
+        BOOL success = [self.media removeLikeWithError:&error];
+        
+        dispatch_async( dispatch_get_main_queue(), ^{
+            if (!success || error) {
+                UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Whoops!"
+                                                             message:@"An error occurred while trying to remove the like for this media."
+                                                            delegate:self
+                                                   cancelButtonTitle:@"Cancel"
+                                                   otherButtonTitles:@"Try Again", nil];
+                av.tag = AlertViewTagRemoveLike;
+                [av show];
+            }
+        });
+    });
 }
 
 - (void)loadProfilePicture
@@ -317,17 +306,6 @@
     }
 }
 
-- (void)refreshLikes
-{
-    [self.media allLikesWithCompletionBlock:^(WFIGMedia *likesMedia, NSArray *likes, NSError *error) {
-        if (self.media == likesMedia && error == nil) {
-            [self.likesTableView reloadData];
-            [self.lblLikes setText:[NSString stringWithFormat:@"%d", [self.media likesCount]]];
-            [self checkLikeStatus];
-        }
-    }];
-}
-
 - (void)checkLikeStatus
 {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"instagramId == %@", [WFInstagramAPI currentUser].instagramId];
@@ -344,6 +322,49 @@
     self.btnLike.enabled = YES;
     self.btnLikeMedia.enabled = YES;
 }
+
+#pragma mark - Actions
+
+- (IBAction)newComment:(UIButton *)sender {
+    self.aNewCommentViewController = (CRGNewCommentViewController *)[self.storyboard instantiateViewControllerWithIdentifier: @"NewComment"];
+    self.aNewCommentViewController.delegate = self;
+    self.aNewCommentViewController.media = self.media;
+    
+    [self addChildViewController:self.aNewCommentViewController];
+    [self.view addSubview:self.aNewCommentViewController.view];
+    [self.aNewCommentViewController didMoveToParentViewController:self];
+}
+
+- (IBAction)toggleLike:(UIButton *)sender {
+    self.btnLike.selected = !self.btnLike.selected;
+    self.btnLikeMedia.selected = !self.btnLikeMedia.selected;
+    
+    WFIGUser *currentUser = [WFInstagramAPI currentUser];
+    if (self.btnLike.selected) {
+        [self.media.likes addObject:currentUser];
+        self.lblLikes.text =[NSString stringWithFormat:@"%d", [self.media.likes count]];
+        [self setLike];
+    } else {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"instagramId == %@", [WFInstagramAPI currentUser].instagramId];
+        NSArray *currentUserMatches = [self.media.likes filteredArrayUsingPredicate:predicate];
+        
+        if ([currentUserMatches count]) {
+            [self.media.likes removeObject:currentUserMatches[0]];
+            self.lblLikes.text =[NSString stringWithFormat:@"%d", [self.media.likes count]];
+            [self removeLike];
+        }
+    }
+    [self.likesTableView reloadData];
+}
+
+- (IBAction)touchClose:(id)sender {
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+- (IBAction)touchShare:(id)sender {
+}
+
+#pragma mark - Gesture handling
 
 - (IBAction)handleSwipeLeftGesture:(UIGestureRecognizer *)recognizer
 {
@@ -372,6 +393,41 @@
         }
         default:
             break;
+    }
+}
+
+#pragma mark - UIAlertViewDelegate methods
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (1 == buttonIndex) { // Try again
+        if (AlertViewTagSetLike == alertView.tag) {
+            [self setLike];
+        } else if (AlertViewTagRemoveLike == alertView.tag) {
+            [self removeLike];
+        }
+    } else { // Cancel
+        if (AlertViewTagSetLike == alertView.tag) {
+            self.btnLike.selected = NO;
+            self.btnLikeMedia.selected = NO;
+            
+            WFIGUser *currentUser = [WFInstagramAPI currentUser];
+            if ([self.media.likes containsObject:currentUser]) {
+                [self.media.likes removeObject:currentUser];
+                [self.likesTableView reloadData];
+                self.lblLikes.text =[NSString stringWithFormat:@"%d", [self.media.likes count]];
+            }
+        } else if (AlertViewTagRemoveLike == alertView.tag) {
+            self.btnLike.selected = YES;
+            self.btnLikeMedia.selected = YES;
+            
+            WFIGUser *currentUser = [WFInstagramAPI currentUser];
+            if (! [self.media.likes containsObject:currentUser]) {
+                [self.media.likes addObject:currentUser];
+                [self.likesTableView reloadData];
+                self.lblLikes.text =[NSString stringWithFormat:@"%d", [self.media.likes count]];
+            }
+        }
     }
 }
 

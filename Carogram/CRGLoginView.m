@@ -21,12 +21,12 @@
         
         CGRect bgFrame = CGRectMake(0, 0, 1024, 748);
         UIImageView *ivBackground = [[UIImageView alloc] initWithFrame:bgFrame];
-        [ivBackground setImage:[UIImage imageNamed:@"connect-background.jpg"]];
+        [ivBackground setImage:[UIImage imageNamed:@"connect-bg.jpg"]];
         [self addSubview:ivBackground];
         
         UIButton *btnLogin = [UIButton buttonWithType:UIButtonTypeCustom];
         [btnLogin setImage:[UIImage imageNamed:@"btn-connect"] forState:UIControlStateNormal];
-        [btnLogin setFrame:CGRectMake(287, 336, 451, 76)];
+        [btnLogin setFrame:CGRectMake(287, 515, 451, 76)];
         [btnLogin addTarget:self.controller
                      action:@selector(gotoInstagramAuthURL:)
            forControlEvents:UIControlEventTouchUpInside];
@@ -34,16 +34,5 @@
     }
     return self;
 }
-
-/*
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-    }
-    return self;
-}
-*/
 
 @end

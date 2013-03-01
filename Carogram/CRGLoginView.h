@@ -11,10 +11,6 @@
 
 @class WFIGAuthController;
 
-//@protocol WFIGAuthInitialView;
-//- (id) initWithController:(WFIGAuthController*)controller;
-//@end
-
 @interface CRGLoginView : UIView <WFIGAuthInitialView>
 
 @property (strong, nonatomic) WFIGAuthController *controller;
