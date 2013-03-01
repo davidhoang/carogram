@@ -14,4 +14,6 @@
 
 @property (nonatomic) CGFloat peripheryAlpha;
 
+- (UIView *)currentSlideCell;
+
 @end

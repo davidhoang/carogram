@@ -223,6 +223,22 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
     return [currentGridController gridCellAtIndex:index];
 }
 
+- (void)setFocusIndex:(int)focusIndex
+{
+    _focusIndex = focusIndex;
+    
+    CRGGridViewController *currentGridController = self.gridViewControllers[[self currentPage]];
+    if ((NSNull*)currentGridController != [NSNull null]) currentGridController.focusIndex = _focusIndex;
+}
+
+- (void)setPeripheryAlpha:(CGFloat)peripheryAlpha
+{
+    _peripheryAlpha = peripheryAlpha;
+    
+    CRGGridViewController *currentGridController = self.gridViewControllers[[self currentPage]];
+    if ((NSNull*)currentGridController != [NSNull null]) currentGridController.peripheryAlpha = _peripheryAlpha;
+}
+
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)sender

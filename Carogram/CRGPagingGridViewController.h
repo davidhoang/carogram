@@ -11,6 +11,9 @@
 
 @interface CRGPagingGridViewController : CRGPagingMediaViewController
 
+@property (nonatomic) int focusIndex;
+@property (nonatomic) CGFloat peripheryAlpha;
+
 - (int)indexOfMediaAtPoint:(CGPoint)point;
 - (UIView *)gridCellAtPoint:(CGPoint)point;
 - (UIView *)gridCellAtIndex:(int)index;

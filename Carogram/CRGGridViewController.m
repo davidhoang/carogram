@@ -96,6 +96,25 @@
     }
 }
 
+- (void)setFocusIndex:(int)focusIndex
+{
+    _focusIndex = focusIndex;
+    
+    if (focusIndex >= 0 && focusIndex < [self.gridCells count])
+        [self.view bringSubviewToFront:self.gridCells[focusIndex]];
+}
+
+- (void)setPeripheryAlpha:(CGFloat)peripheryAlpha
+{
+    _peripheryAlpha = peripheryAlpha;
+    
+    for (int i = 0; i < [self.gridCells count]; i++) {
+        if (i == self.focusIndex) continue;
+        CRGImageGridViewCell *cell = self.gridCells[i];
+        cell.alpha = _peripheryAlpha;
+    }
+}
+
 - (BOOL)isGridFull
 {
     return gridFull;

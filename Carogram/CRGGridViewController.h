@@ -16,6 +16,8 @@
 
 @property (weak, nonatomic) id<CRGMediaSelectorDelegate>delegate;
 @property (strong, nonatomic) WFIGMediaCollection *mediaCollection;
+@property (nonatomic) int focusIndex;
+@property (nonatomic) CGFloat peripheryAlpha;
 
 - (id)initWithMediaCollection:(WFIGMediaCollection *)mediaCollection atPage:(int)page;
 - (BOOL)isGridFull;

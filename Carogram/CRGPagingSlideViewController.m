@@ -127,6 +127,14 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
     }
 }
 
+- (UIView *)currentSlideCell
+{
+    CRGSlideViewController *currentSlideController = self.slideViewControllers[[self currentPage]];
+    if ((NSNull*)currentSlideController == [NSNull null]) return nil;
+    
+    return currentSlideController.mediaView;
+}
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if (object == self && [ObservableKeys containsObject:keyPath]) {
