@@ -27,6 +27,7 @@ typedef enum {
 @property (strong, nonatomic) IBOutlet UITableView *likesTableView;
 @property (strong, nonatomic) IBOutlet UIButton *btnLike;
 @property (strong, nonatomic) IBOutlet UIButton *btnLikeMedia;
+@property (strong, nonatomic) IBOutlet UIImageView *likeImageView;
 - (void)configureViews;
 - (void)loadProfilePicture;
 - (void)loadComments;
@@ -95,6 +96,15 @@ typedef enum {
     [self.likesTableView addGestureRecognizer:swipeRightRecognizer];
 
     self.likesTableView.frame = CGRectOffset(self.likesTableView.frame, self.commentsView.frame.size.width - self.likesTableView.frame.origin.x, 0);
+    
+    UITapGestureRecognizer *doubleTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)];
+    doubleTapRecognizer.numberOfTapsRequired = 2;
+    [self.ivPhoto addGestureRecognizer:doubleTapRecognizer];
+    
+    UITapGestureRecognizer *singleTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
+    singleTapRecognizer.numberOfTapsRequired = 1;
+    [singleTapRecognizer requireGestureRecognizerToFail:doubleTapRecognizer];
+    [self.mediaView addGestureRecognizer:singleTapRecognizer];
 }
 
 - (void)viewDidUnload
@@ -113,6 +123,7 @@ typedef enum {
     [self setLikesTableView:nil];
     [self setBtnLike:nil];
     [self setBtnLikeMedia:nil];
+    [self setLikeImageView:nil];
     [super viewDidUnload];
 }
 
@@ -183,6 +194,8 @@ typedef enum {
         [self.lblComments setText:@""];
         [self.lblLikes setText:@""];
     }
+    
+    self.likeImageView.layer.cornerRadius = 8.;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -323,6 +336,25 @@ typedef enum {
     self.btnLikeMedia.enabled = YES;
 }
 
+- (void)flashLikeHeart
+{
+    self.likeImageView.alpha = 0;
+    self.likeImageView.hidden = NO;
+    self.likeImageView.transform = CGAffineTransformMakeScale(.1, .1);
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        self.likeImageView.alpha = 1;
+        self.likeImageView.transform = CGAffineTransformIdentity;
+    } completion:^(BOOL finished) {
+        dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [NSThread sleepForTimeInterval:1];
+            dispatch_async( dispatch_get_main_queue(), ^{
+                self.likeImageView.hidden = YES;
+            });
+        });
+    }];
+}
+
 #pragma mark - Actions
 
 - (IBAction)newComment:(UIButton *)sender {
@@ -389,6 +421,31 @@ typedef enum {
                 self.commentsTableView.frame = CGRectOffset(self.commentsTableView.frame, self.commentsTableView.frame.size.width, 0);
                 self.likesTableView.frame = CGRectOffset(self.likesTableView.frame, self.commentsView.frame.size.width, 0);
             }];
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+- (IBAction)handleSingleTap:(UIGestureRecognizer *)recognizer
+{
+    switch (recognizer.state) {
+        case UIGestureRecognizerStateRecognized: {
+            [self dismissModalViewControllerAnimated:YES];
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+- (IBAction)handleDoubleTap:(UIGestureRecognizer *)recognizer
+{
+    switch (recognizer.state) {
+        case UIGestureRecognizerStateRecognized: {
+            [self flashLikeHeart];
+            [self toggleLike:nil];
             break;
         }
         default:
