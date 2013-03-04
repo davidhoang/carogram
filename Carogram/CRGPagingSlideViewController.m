@@ -8,9 +8,11 @@
 
 #import "CRGPagingSlideViewController.h"
 #import "CRGSlideViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
-#define PERIPHERAL_SCALE .85
-#define PERIPHERAL_ALPHA .5
+#define PERIPHERAL_SCALE    .85
+#define PERIPHERAL_ALPHA    .5
+#define PERIPHERAL_Y_OFFSET -30.
 
 static NSSet * ObservableKeys = nil;
 
@@ -66,27 +68,6 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
     }
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    NSLog(@"<PagingSlideVC> viewWillAppear, currentPage: %d", [self currentPage]);
-    [super viewWillAppear:animated];
-
-    for (int i = 0; i < [self.slideViewControllers count]; i++) {
-        CRGSlideViewController *slideController = self.slideViewControllers[i];
-
-        if ((NSNull*)slideController != [NSNull null]) {
-            if (i == [self currentPage]) {
-                slideController.view.transform = CGAffineTransformIdentity;
-                slideController.view.alpha = 1;
-            } else {
-                slideController.view.transform = CGAffineTransformMakeScale(PERIPHERAL_SCALE,
-                                                                            PERIPHERAL_SCALE);
-                slideController.view.alpha = PERIPHERAL_ALPHA;
-            }
-        }
-    }
-}
-
 - (void)viewDidUnload
 {
     [self setScrollView:nil];
@@ -134,9 +115,32 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
 
 #pragma mark -
 
+- (void)setCurrentPage:(int)page animated:(BOOL)animated
+{
+    [super setCurrentPage:page animated:animated];
+
+    for (int i = 0; i < [self.slideViewControllers count]; i++) {
+        CRGSlideViewController *slideController = self.slideViewControllers[i];
+
+        if ((NSNull*)slideController != [NSNull null]) {
+            if (i == [self currentPage]) {
+                slideController.view.transform = CGAffineTransformIdentity;
+                slideController.view.alpha = 1;
+            } else {
+                CGAffineTransform transform = CGAffineTransformMakeScale(PERIPHERAL_SCALE,
+                                                                         PERIPHERAL_SCALE);
+                transform = CGAffineTransformTranslate(transform, 0, PERIPHERAL_Y_OFFSET);
+                slideController.view.transform = transform;
+
+                slideController.view.alpha = PERIPHERAL_ALPHA;
+            }
+        }
+    }
+}
+
 - (void)setPeripheryAlpha:(CGFloat)peripheryAlpha
 {
-    _peripheryAlpha = MAX(0., MIN(1., peripheryAlpha));
+    _peripheryAlpha = MAX(0., MIN(1., peripheryAlpha)) * PERIPHERAL_ALPHA;
     
     int currentPage = [self currentPage];
     for (int i = 0; i < [self.slideViewControllers count]; i++) {
@@ -200,8 +204,10 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
         controller.view.frame = frame;
 
         if (page != [self currentPage]) {
-            controller.view.transform = CGAffineTransformMakeScale(PERIPHERAL_SCALE,
-                                                                   PERIPHERAL_SCALE);
+            CGAffineTransform transform = CGAffineTransformMakeScale(PERIPHERAL_SCALE,
+                                                                     PERIPHERAL_SCALE);
+            transform = CGAffineTransformTranslate(transform, 0, PERIPHERAL_Y_OFFSET);
+            controller.view.transform = transform;
             controller.view.alpha = PERIPHERAL_ALPHA;
         }
 
@@ -262,7 +268,10 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
             float adjustedOffsetPct = adjustedXOffset / pageWidth;
 
             float scale = 1. - (adjustedOffsetPct * (1. - PERIPHERAL_SCALE));
-            previousPageController.view.transform = CGAffineTransformMakeScale(scale, scale);
+            CGAffineTransform transform = CGAffineTransformMakeScale(scale, scale);
+            float yOffset = adjustedOffsetPct * PERIPHERAL_Y_OFFSET;
+            transform = CGAffineTransformTranslate(transform, 0, yOffset);
+            previousPageController.view.transform = transform;
 
             float alpha = 1. - (adjustedOffsetPct * (1. - PERIPHERAL_ALPHA));
             previousPageController.view.alpha = alpha;
@@ -275,7 +284,10 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
             float adjustedOffsetPct = adjustedXOffset / pageWidth;
 
             float scale = adjustedOffsetPct * (1. - PERIPHERAL_SCALE) + PERIPHERAL_SCALE;
-            nextPageController.view.transform = CGAffineTransformMakeScale(scale, scale);
+            CGAffineTransform transform = CGAffineTransformMakeScale(scale, scale);
+            float yOffset = PERIPHERAL_Y_OFFSET - adjustedOffsetPct * PERIPHERAL_Y_OFFSET;
+            transform = CGAffineTransformTranslate(transform, 0, yOffset);
+            nextPageController.view.transform = transform;
 
             float alpha = adjustedOffsetPct * (1. - PERIPHERAL_ALPHA ) + PERIPHERAL_ALPHA;
             nextPageController.view.alpha = alpha;
