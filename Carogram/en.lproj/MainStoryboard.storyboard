@@ -317,7 +317,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" image="like-heart.png" id="ET8-EC-B7Z">
-                                        <rect key="frame" x="287" y="287" width="60" height="60"/>
+                                        <rect key="frame" x="287" y="287" width="59" height="59"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.29999999999999999" colorSpace="calibratedWhite"/>
                                     </imageView>
@@ -643,7 +643,9 @@
         <class className="CRGMainViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGMainViewController.h"/>
             <relationships>
+                <relationship kind="action" name="search:"/>
                 <relationship kind="action" name="showAccountPopup:"/>
+                <relationship kind="action" name="showPopularMedia:"/>
                 <relationship kind="action" name="showUserFeed:"/>
                 <relationship kind="outlet" name="accountButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="accountImageView" candidateClass="UIImageView"/>

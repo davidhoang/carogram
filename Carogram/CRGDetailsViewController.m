@@ -104,7 +104,7 @@ typedef enum {
     UITapGestureRecognizer *singleTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
     singleTapRecognizer.numberOfTapsRequired = 1;
     [singleTapRecognizer requireGestureRecognizerToFail:doubleTapRecognizer];
-    [self.mediaView addGestureRecognizer:singleTapRecognizer];
+    [self.ivPhoto addGestureRecognizer:singleTapRecognizer];
 }
 
 - (void)viewDidUnload
@@ -349,7 +349,11 @@ typedef enum {
         dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             [NSThread sleepForTimeInterval:1];
             dispatch_async( dispatch_get_main_queue(), ^{
-                self.likeImageView.hidden = YES;
+                [UIView animateWithDuration:0.3 animations:^{
+                    self.likeImageView.alpha = 0;
+                } completion:^(BOOL finished) {
+                    self.likeImageView.hidden = YES;
+                }];
             });
         });
     }];

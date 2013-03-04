@@ -9,6 +9,9 @@
 #import "CRGPagingSlideViewController.h"
 #import "CRGSlideViewController.h"
 
+#define PERIPHERAL_SCALE .85
+#define PERIPHERAL_ALPHA .5
+
 static NSSet * ObservableKeys = nil;
 
 static NSString * const MediaCollectionKeyPath = @"mediaCollection";
@@ -60,6 +63,27 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
     
     if ([self.mediaCollection count] > 0) {
         [self configureView];
+    }
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    NSLog(@"<PagingSlideVC> viewWillAppear, currentPage: %d", [self currentPage]);
+    [super viewWillAppear:animated];
+
+    for (int i = 0; i < [self.slideViewControllers count]; i++) {
+        CRGSlideViewController *slideController = self.slideViewControllers[i];
+
+        if ((NSNull*)slideController != [NSNull null]) {
+            if (i == [self currentPage]) {
+                slideController.view.transform = CGAffineTransformIdentity;
+                slideController.view.alpha = 1;
+            } else {
+                slideController.view.transform = CGAffineTransformMakeScale(PERIPHERAL_SCALE,
+                                                                            PERIPHERAL_SCALE);
+                slideController.view.alpha = PERIPHERAL_ALPHA;
+            }
+        }
     }
 }
 
@@ -174,6 +198,13 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
         frame.origin.y = self.view.bounds.size.height/2. - controller.view.bounds.size.height/2.;
         
         controller.view.frame = frame;
+
+        if (page != [self currentPage]) {
+            controller.view.transform = CGAffineTransformMakeScale(PERIPHERAL_SCALE,
+                                                                   PERIPHERAL_SCALE);
+            controller.view.alpha = PERIPHERAL_ALPHA;
+        }
+
         [self addChildViewController:controller];
         [self.scrollView addSubview:controller.view];
         [controller didMoveToParentViewController:self];
@@ -208,8 +239,48 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
 
 - (void)scrollViewDidScroll:(UIScrollView *)sender
 {
+    float xOffset = self.scrollView.contentOffset.x;
     CGFloat pageWidth = self.scrollView.frame.size.width;
     int page = floor((self.scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+
+    int previousPage;
+    int nextPage;
+    float adjustedXOffset;
+    if (xOffset < (page * pageWidth)) {
+        previousPage = page - 1;
+        nextPage = page;
+        adjustedXOffset = xOffset - (previousPage * pageWidth);
+    } else {
+        previousPage = page;
+        nextPage = page + 1;
+        adjustedXOffset = xOffset - (previousPage * pageWidth);
+    }
+
+    if (previousPage >= 0) {
+        CRGSlideViewController *previousPageController = self.slideViewControllers[previousPage];
+        if ((NSNull*)previousPageController != [NSNull null]) {
+            float adjustedOffsetPct = adjustedXOffset / pageWidth;
+
+            float scale = 1. - (adjustedOffsetPct * (1. - PERIPHERAL_SCALE));
+            previousPageController.view.transform = CGAffineTransformMakeScale(scale, scale);
+
+            float alpha = 1. - (adjustedOffsetPct * (1. - PERIPHERAL_ALPHA));
+            previousPageController.view.alpha = alpha;
+        }
+    }
+
+    if (nextPage > 0 && nextPage < pageCount) {
+        CRGSlideViewController *nextPageController = self.slideViewControllers[nextPage];
+        if ((NSNull*)nextPageController != [NSNull null]) {
+            float adjustedOffsetPct = adjustedXOffset / pageWidth;
+
+            float scale = adjustedOffsetPct * (1. - PERIPHERAL_SCALE) + PERIPHERAL_SCALE;
+            nextPageController.view.transform = CGAffineTransformMakeScale(scale, scale);
+
+            float alpha = adjustedOffsetPct * (1. - PERIPHERAL_ALPHA ) + PERIPHERAL_ALPHA;
+            nextPageController.view.alpha = alpha;
+        }
+    }
     
     // load the visible page and the page on either side of it (to avoid flashes when the user starts scrolling)
     [self loadScrollViewWithPage:page - 1];
