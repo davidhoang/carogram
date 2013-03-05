@@ -124,7 +124,40 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YbW-h6-K4k" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3360" y="-4534"/>
+            <point key="canvasLocation" x="-3336" y="-4830"/>
+        </scene>
+        <!--Onboard View Controller-->
+        <scene sceneID="Gzd-jW-2ak">
+            <objects>
+                <viewController storyboardIdentifier="Onboard" id="GwK-Df-iDU" customClass="CRGOnboardViewController" sceneMemberID="viewController">
+                    <view key="view" autoresizesSubviews="NO" contentMode="scaleToFill" id="GJf-6k-Sft">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView hidden="YES" autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleToFill" image="onboard-0.jpg" id="zwO-4j-EIN">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <scrollView autoresizesSubviews="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="o1P-2U-geB">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="scrollView" destination="o1P-2U-geB" id="Yts-Nk-o1O"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="500-cC-RWH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3336" y="-3720"/>
         </scene>
         <!--Slide View Controller-->
         <scene sceneID="PbB-dF-Q5W">
@@ -603,6 +636,7 @@
         <image name="icon-likes-selected.png" width="25" height="22"/>
         <image name="icon-likes.png" width="25" height="22"/>
         <image name="like-heart.png" width="39" height="35"/>
+        <image name="onboard-0.jpg" width="1024" height="768"/>
         <image name="search-icon.png" width="23" height="23"/>
     </resources>
     <classes>
@@ -616,13 +650,11 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGDetailsViewController.h"/>
             <relationships>
                 <relationship kind="action" name="handleDoubleTap:" candidateClass="UIGestureRecognizer"/>
-                <relationship kind="action" name="handleSingleTap:" candidateClass="UIGestureRecognizer"/>
                 <relationship kind="action" name="handleSwipeLeftGesture:" candidateClass="UIGestureRecognizer"/>
                 <relationship kind="action" name="handleSwipeRightGesture:" candidateClass="UIGestureRecognizer"/>
                 <relationship kind="action" name="newComment:" candidateClass="UIButton"/>
                 <relationship kind="action" name="toggleLike:" candidateClass="UIButton"/>
                 <relationship kind="action" name="touchClose:"/>
-                <relationship kind="action" name="touchShare:"/>
                 <relationship kind="outlet" name="btnComments" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="btnLike" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="btnLikeMedia" candidateClass="UIButton"/>
@@ -643,10 +675,6 @@
         <class className="CRGMainViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGMainViewController.h"/>
             <relationships>
-                <relationship kind="action" name="search:"/>
-                <relationship kind="action" name="showAccountPopup:"/>
-                <relationship kind="action" name="showPopularMedia:"/>
-                <relationship kind="action" name="showUserFeed:"/>
                 <relationship kind="outlet" name="accountButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="accountImageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="popularMediaButton" candidateClass="UIButton"/>
@@ -659,11 +687,18 @@
         <class className="CRGNewCommentViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGNewCommentViewController.h"/>
             <relationships>
+                <relationship kind="action" name="submit:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
                 <relationship kind="outlet" name="commentTextView" candidateClass="UITextView"/>
                 <relationship kind="outlet" name="dialogView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="submitButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="CRGOnboardViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGOnboardViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
             </relationships>
         </class>
         <class className="CRGPagingGridViewController" superclassName="CRGPagingMediaViewController">

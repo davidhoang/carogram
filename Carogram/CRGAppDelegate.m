@@ -13,6 +13,7 @@
 #import "CRGLoginView.h"
 #import "TestFlight.h"
 #import "CRGMainViewController.h"
+#import "CRGOnboardViewController.h"
 
 #define APP_ID @"f4d2dcb4d1b3422a99344b1b10fad732"
 
@@ -136,7 +137,10 @@ void onUncaughtException(NSException* exception)
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    if (! [[url absoluteString] hasPrefix:kOAuthCallbackURL]) return YES;
+    
     NSDictionary *params = [url queryDictionary];
     
     // make the request to get the user's token, then store it in defaults/synchronize & set it on API

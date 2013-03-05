@@ -35,6 +35,7 @@ static int currentUserObserverContext;
 @property (strong, nonatomic) IBOutlet UIButton *userFeedButton;
 @property (strong, nonatomic) IBOutlet UITextField *searchTextField;
 @property (nonatomic, strong) CRGSplashProgressView *splashView;
+@property (strong, nonatomic) CRGOnboardViewController *onboardController;
 @end
 
 @implementation CRGMainViewController {
@@ -83,6 +84,25 @@ static int currentUserObserverContext;
     [super viewWillAppear:animated];
     
     [self addKeyValueObservers];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSNumber *showOnboarding = [defaults objectForKey:kShowOnboarding];
+    if (! showOnboarding || [showOnboarding boolValue]) {
+        [defaults setBool:NO forKey:kShowOnboarding];
+        [defaults synchronize];
+        
+        self.onboardController = (CRGOnboardViewController *)[self.storyboard instantiateViewControllerWithIdentifier: @"Onboard"];
+        self.onboardController.delegate = self;
+        self.onboardController.view.frame = self.view.bounds;
+        [self addChildViewController:self.onboardController];
+        [self.view addSubview:self.onboardController.view];
+        [self.onboardController didMoveToParentViewController:self];
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -305,13 +325,27 @@ static int currentUserObserverContext;
 - (void)mediaViewControllerDidLoadMediaCollection:(CRGMediaViewController *)mediaViewController
 {
     if ([self.splashView superview] != nil) {
-        [UIView animateWithDuration:.3 animations:^{
+        [UIView animateWithDuration:0.3 animations:^{
             self.splashView.alpha = 0;
         } completion:^(BOOL finished) {
             [self.splashView removeFromSuperview];
             self.splashView = nil;
         }];
     }
+}
+
+#pragma mark - CRGOnboardViewControllerDelegate methods
+
+- (void)onboardViewControllerDidFinish:(CRGOnboardViewController *)onboardViewController
+{
+    [self.onboardController willMoveToParentViewController:nil];
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        self.onboardController.view.alpha = 0;
+    } completion:^(BOOL finished) {
+        [self.onboardController.view removeFromSuperview];
+        [self.onboardController removeFromParentViewController];
+    }];
 }
 
 @end

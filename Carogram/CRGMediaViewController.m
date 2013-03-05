@@ -190,6 +190,11 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
     [super didReceiveMemoryWarning];
 }
 
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+	return UIInterfaceOrientationIsLandscape(interfaceOrientation);
+}
+
 #pragma mark -
 
 - (void)showGridViewAtIndex:(int)index
@@ -252,11 +257,6 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
     [self addChildViewController:self.pagingSlideViewController];
     [self.view addSubview:self.pagingSlideViewController.view];
     [self.pagingSlideViewController didMoveToParentViewController:self];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-	return UIInterfaceOrientationIsLandscape(interfaceOrientation);
 }
 
 - (void)refresh

@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "CRGMediaViewController.h"
+#import "CRGOnboardViewController.h"
 
-@interface CRGMainViewController : UIViewController <UIActionSheetDelegate, CRGMediaViewControllerDelegate>
+@interface CRGMainViewController : UIViewController <UIActionSheetDelegate, CRGMediaViewControllerDelegate, CRGOnboardViewControllerDelegate>
 
 @property (strong, nonatomic) WFIGUser *currentUser;
 
