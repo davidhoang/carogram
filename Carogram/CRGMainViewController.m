@@ -15,6 +15,7 @@
 #import "CRGPopularMediaViewController.h"
 #import "CRGTagSearchViewController.h"
 #import "CRGSplashProgressView.h"
+#import "CRGPopoverView.h"
 
 #define USER_FEED_INDEX     0
 #define POPULAR_MEDIA_INDEX 1
@@ -262,6 +263,12 @@ static int currentUserObserverContext;
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:@"Logout" otherButtonTitles:nil];
     actionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
     [actionSheet showFromRect:self.accountImageView.frame inView:self.view animated:YES];
+}
+
+- (IBAction)showSettingsPopover:(UIButton *)sender {
+    NSArray *items = @[@"One", @"Two", @"Three"];
+    CRGPopoverView *popoverView = [[CRGPopoverView alloc] initWithItems:items];
+    [popoverView show];
 }
 
 #pragma mark - UIActionSheetDelegate
