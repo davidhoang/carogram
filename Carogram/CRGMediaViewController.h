@@ -28,10 +28,13 @@
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorView;
 @property (strong, atomic) WFIGMediaCollection *mediaCollection;
 @property (strong, nonatomic) CRGPagingMediaViewController *currentMediaController;
+@property (strong, nonatomic) NSString *noResultsText;
 
 - (void)refresh;
 - (void)setProgressViewShown:(BOOL)shown;
 - (void)loadMediaCollection;
+- (void)showNoResultsLabel;
+- (void)hideNoResultsLabel;
 
 @end
 

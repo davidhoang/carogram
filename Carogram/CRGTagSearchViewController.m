@@ -46,6 +46,7 @@
 - (void) loadMediaCollection {
     if (! self.searchTag) return;
     
+    [self hideNoResultsLabel];
     [self setProgressViewShown:YES];
     self.scrollView.hidden = YES;
     self.currentMediaController.view.hidden = YES;
@@ -58,6 +59,12 @@
             
             [self setProgressViewShown:NO];
             self.currentMediaController.view.hidden = NO;
+            
+            if (! [self.mediaCollection count]) {
+                NSString *noResultsText = [NSString stringWithFormat:@"Sorry, there were no results for %@. Try something else?", self.searchTag];
+                self.noResultsText = noResultsText;
+                [self showNoResultsLabel];
+            }
         });
     });
 }

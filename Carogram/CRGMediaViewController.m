@@ -13,6 +13,7 @@
 #import "CRGGridViewController.h"
 #import "CRGPagingGridViewController.h"
 #import "CRGPagingSlideViewController.h"
+#import "UIFont+Carogram.h"
 
 #define kRefreshDrag -67.
 
@@ -25,6 +26,7 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
 @property (strong, nonatomic) UIImageView *ivRefreshIcon;
 @property (strong, nonatomic) CRGPagingGridViewController *pagingGridViewController;
 @property (strong, nonatomic) CRGPagingSlideViewController *pagingSlideViewController;
+@property (strong, nonatomic) UILabel *noResultsLabel;
 - (void)setupRefreshViews;
 - (void)setupBackgroundView;
 - (void)setupProgressView;
@@ -74,6 +76,7 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
 
 - (void)commonInit
 {
+    _noResultsText = @"No Results";
 }
 
 #pragma mark - View Management
@@ -265,6 +268,25 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
 }
 
 - (void) loadMediaCollection { } // subclasses should override this method
+
+- (void)showNoResultsLabel
+{
+    if (! self.noResultsLabel) {
+        self.noResultsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 30, 1024, 32)];
+        self.noResultsLabel.textColor = [UIColor colorWithRed:(247./255.) green:(247./255.) blue:(247./255.) alpha:1];
+        self.noResultsLabel.textAlignment = UITextAlignmentCenter;
+        self.noResultsLabel.font = [UIFont gothamBookFontOfSize:20];
+        self.noResultsLabel.backgroundColor = [UIColor clearColor];
+        [self.view addSubview:self.noResultsLabel];
+    }
+    self.noResultsLabel.text = self.noResultsText;
+    self.noResultsLabel.hidden = NO;
+}
+
+- (void)hideNoResultsLabel
+{
+    if (self.noResultsLabel) self.noResultsLabel.hidden = YES;
+}
 
 #pragma mark - Pinch Gesture handling
 
