@@ -8,17 +8,18 @@
         <scene sceneID="ziP-6J-fqq">
             <objects>
                 <viewController autoresizesArchivedViewToFullSize="NO" id="c4l-kM-jaV" customClass="CRGMainViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="z6s-Jf-7uv">
+                    <view key="view" autoresizesSubviews="NO" contentMode="TopLeft" id="z6s-Jf-7uv">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" id="czp-eb-9S8" userLabel="Title Bar View">
+                            <view autoresizesSubviews="NO" contentMode="TopLeft" id="czp-eb-9S8" userLabel="Title Bar View">
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="49"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="caragram-logo.png" id="RG7-da-nsG">
-                                        <rect key="frame" x="411" y="12" width="202" height="24"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="TopLeft" image="caragram-logo.png" id="RG7-da-nsG">
+                                        <rect key="frame" x="409.5" y="11.5" width="205" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="0.0"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="wtg-kQ-cTe">
                                         <rect key="frame" x="22" y="5" width="154" height="43"/>
@@ -112,9 +113,11 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="accountButton" destination="CEc-XH-QjZ" id="CCr-Tg-Nns"/>
                         <outlet property="accountImageView" destination="Cfa-3C-fxB" id="JLf-rg-1vP"/>
+                        <outlet property="logoImageView" destination="RG7-da-nsG" id="u46-vW-ijB"/>
                         <outlet property="popularMediaButton" destination="KDC-RM-9zp" id="tdV-ba-lYz"/>
                         <outlet property="searchBackgroundView" destination="wtg-kQ-cTe" id="Mqp-aM-c9t"/>
                         <outlet property="searchTextField" destination="CYF-ew-Fck" id="onE-xs-oI5"/>
@@ -630,7 +633,7 @@
         <image name="btn-share.png" width="53" height="53"/>
         <image name="btn-submit.png" width="382" height="51"/>
         <image name="btn-user-feed-depressed.png" width="35" height="37"/>
-        <image name="caragram-logo.png" width="203" height="25"/>
+        <image name="caragram-logo.png" width="205" height="25"/>
         <image name="details-header-bg.png" width="298" height="59"/>
         <image name="icon-comments.png" width="24" height="22"/>
         <image name="icon-likes-selected.png" width="25" height="22"/>
@@ -639,6 +642,93 @@
         <image name="onboard-0.jpg" width="1024" height="768"/>
         <image name="search-icon.png" width="23" height="23"/>
     </resources>
+    <classes>
+        <class className="CRGClipView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGClipView.h"/>
+            <relationships>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+            </relationships>
+        </class>
+        <class className="CRGDetailsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGDetailsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="touchClose:"/>
+                <relationship kind="outlet" name="btnComments" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="btnLike" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="btnLikeMedia" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="btnShare" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="commentsTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="commentsView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="ivPhoto" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="ivUser" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="lblCaption" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="lblComments" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="lblLikes" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="likeImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="likesTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="mediaView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="usernameLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="CRGMainViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGMainViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="search:"/>
+                <relationship kind="action" name="showAccountPopup:"/>
+                <relationship kind="action" name="showPopularMedia:"/>
+                <relationship kind="action" name="showUserFeed:"/>
+                <relationship kind="outlet" name="accountButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="accountImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="logoImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="popularMediaButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="searchBackgroundView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="searchTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="titleBarView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="userFeedButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="CRGNewCommentViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGNewCommentViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="commentTextView" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="dialogView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="submitButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="CRGOnboardViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGOnboardViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+            </relationships>
+        </class>
+        <class className="CRGPagingGridViewController" superclassName="CRGPagingMediaViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGPagingGridViewController.h"/>
+        </class>
+        <class className="CRGPagingMediaViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGPagingMediaViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+            </relationships>
+        </class>
+        <class className="CRGPagingSlideViewController" superclassName="CRGPagingMediaViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGPagingSlideViewController.h"/>
+        </class>
+        <class className="CRGSlideViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGSlideViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="touchMedia:"/>
+                <relationship kind="outlet" name="ivPhoto" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="ivUser" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="lblCaption" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="lblComments" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="lblLikes" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="mediaView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="usernameLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>

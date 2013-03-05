@@ -36,6 +36,7 @@ static int currentUserObserverContext;
 @property (strong, nonatomic) IBOutlet UITextField *searchTextField;
 @property (nonatomic, strong) CRGSplashProgressView *splashView;
 @property (strong, nonatomic) CRGOnboardViewController *onboardController;
+@property (strong, nonatomic) IBOutlet UIImageView *logoImageView;
 @end
 
 @implementation CRGMainViewController {
@@ -77,6 +78,8 @@ static int currentUserObserverContext;
         self.splashView = [[CRGSplashProgressView alloc] initWithFrame:self.view.frame];
         [self.view addSubview:self.splashView];
     }
+    
+    self.logoImageView.frame = CGRectIntegral(self.logoImageView.frame);
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -317,6 +320,7 @@ static int currentUserObserverContext;
     [self setPopularMediaButton:nil];
     [self setUserFeedButton:nil];
     [self setSearchTextField:nil];
+    [self setLogoImageView:nil];
     [super viewDidUnload];
 }
 

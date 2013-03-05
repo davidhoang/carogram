@@ -11,7 +11,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 #define PERIPHERAL_SCALE    .85
-#define PERIPHERAL_ALPHA    .5
+#define PERIPHERAL_ALPHA    .3
 #define PERIPHERAL_Y_OFFSET -30.
 
 static NSSet * ObservableKeys = nil;
