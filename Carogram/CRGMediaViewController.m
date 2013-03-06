@@ -334,30 +334,10 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
             _pinchScale = [recognizer scale];
             if (_pinchScale < 1) _pinchScale = powf(_pinchScale, .2);
             if (_pinchScale > _slideCellScale) _pinchScale = _slideCellScale;
-            _selectedGridCell.transform = CGAffineTransformMakeScale(_pinchScale, _pinchScale);
-            
-            CGFloat scalePct = (_pinchScale - 1.) / (_slideCellScale - 1);
 
-            CGRect commonSlideCellFrame
-                = [self.pagingSlideViewController.view convertRect:_selectedSlideCell.bounds
-                                                          fromView:_selectedSlideCell];
-            CGPoint commonSlideCellCtr = CGPointMake(CGRectGetMidX(commonSlideCellFrame),
-                                                     CGRectGetMidY(commonSlideCellFrame));
-            CGFloat centerX = _gridCellCenter.x + ( (commonSlideCellCtr.x - _gridCellCenter.x) * scalePct);
-            CGFloat centerY = _gridCellCenter.y + ( (commonSlideCellCtr.y - _gridCellCenter.y) * scalePct);
-            CGPoint center = CGPointMake(centerX, centerY);
+            if (_pinchScale < 1) [self performGridZoom];
+            else [self performCellZoom];
 
-            _selectedGridCell.center = center;
-            self.pagingSlideViewController.view.center = center;
-            CGFloat slideViewScale = _pinchScale / _slideCellScale;
-            self.pagingSlideViewController.view.transform = CGAffineTransformMakeScale(slideViewScale, slideViewScale);
-            
-            CGFloat slideAlpha = (scalePct/.75) - (1./3.);
-            self.pagingSlideViewController.view.alpha = MAX(0, MIN(1, slideAlpha));
-            
-            CGFloat gridPeripheryAlpha = 1. - (scalePct/.75);
-            self.pagingGridViewController.peripheryAlpha = MAX(0., MIN(1., gridPeripheryAlpha));
-            
             break;
         }
         case UIGestureRecognizerStateEnded: {
@@ -380,6 +360,8 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
                 self.pagingSlideViewController.view.transform = CGAffineTransformMakeScale(1./_slideCellScale, 1./_slideCellScale);
                 
                 self.pagingGridViewController.peripheryAlpha = 1;
+
+                self.pagingGridViewController.view.transform = CGAffineTransformIdentity;
             }];
         }
         default: break;
@@ -417,6 +399,7 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
             UIView *pagingSlideView = self.pagingSlideViewController.view;
             _pinchScale = [recognizer scale];
             if (_pinchScale > 1) _pinchScale = powf(_pinchScale, .2);
+            if (_pinchScale < _gridCellScale) _pinchScale = _gridCellScale;
             pagingSlideView.transform = CGAffineTransformMakeScale(_pinchScale, _pinchScale);
             
             CGFloat scalePct = ((1. - _gridCellScale) - (_pinchScale - _gridCellScale)) / (1. - _gridCellScale);
@@ -459,6 +442,49 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
         }
         default: break;
     }
+}
+
+- (void)performGridZoom
+{
+    _selectedGridCell.transform = CGAffineTransformIdentity;
+    _selectedGridCell.center = _gridCellCenter;
+    
+    self.pagingSlideViewController.view.alpha = 0;
+    self.pagingSlideViewController.view.center = _gridCellCenter;
+    self.pagingSlideViewController.view.transform = CGAffineTransformMakeScale(1./_slideCellScale, 1./_slideCellScale);
+    
+    self.pagingGridViewController.peripheryAlpha = 1;
+
+    self.pagingGridViewController.view.transform = CGAffineTransformMakeScale(_pinchScale, _pinchScale);
+}
+
+- (void)performCellZoom
+{
+    self.pagingGridViewController.view.transform = CGAffineTransformIdentity;
+
+    _selectedGridCell.transform = CGAffineTransformMakeScale(_pinchScale, _pinchScale);
+    
+    CGFloat scalePct = (_pinchScale - 1.) / (_slideCellScale - 1);
+
+    CGRect commonSlideCellFrame
+        = [self.pagingSlideViewController.view convertRect:_selectedSlideCell.bounds
+                                                  fromView:_selectedSlideCell];
+    CGPoint commonSlideCellCtr = CGPointMake(CGRectGetMidX(commonSlideCellFrame),
+                                             CGRectGetMidY(commonSlideCellFrame));
+    CGFloat centerX = _gridCellCenter.x + ( (commonSlideCellCtr.x - _gridCellCenter.x) * scalePct);
+    CGFloat centerY = _gridCellCenter.y + ( (commonSlideCellCtr.y - _gridCellCenter.y) * scalePct);
+    CGPoint center = CGPointMake(centerX, centerY);
+
+    _selectedGridCell.center = center;
+    self.pagingSlideViewController.view.center = center;
+    CGFloat slideViewScale = _pinchScale / _slideCellScale;
+    self.pagingSlideViewController.view.transform = CGAffineTransformMakeScale(slideViewScale, slideViewScale);
+    
+    CGFloat slideAlpha = (scalePct/.75) - (1./3.);
+    self.pagingSlideViewController.view.alpha = MAX(0, MIN(1, slideAlpha));
+    
+    CGFloat gridPeripheryAlpha = 1. - (scalePct/.75);
+    self.pagingGridViewController.peripheryAlpha = MAX(0., MIN(1., gridPeripheryAlpha));
 }
 
 - (void)animateToGridViewAtIndex:(int)index
