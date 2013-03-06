@@ -58,20 +58,22 @@ void onUncaughtException(NSException* exception)
     [WFInstagramAPI setClientScope:@"likes+relationships+comments"];
     [WFInstagramAPI setOAuthRedirectURL:kOAuthCallbackURL];
     
-    /*
     [WFIGConnection setGlobalErrorHandler:^(WFIGResponse* response) {
+        NSLog(@"caught global error: %@", [[response error] localizedDescription]);
         void (^logicBlock)(WFIGResponse*) = ^(WFIGResponse *response){
             switch ([response error].code) {
                 case WFIGErrorOAuthException:
                     [WFInstagramAPI enterAuthFlow];
                     break;
                 default: {
+                    /*
                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
                                                                     message:[[response error] localizedDescription]
                                                                    delegate:nil
                                                           cancelButtonTitle:@"OK"
                                                           otherButtonTitles:nil];
                     [alert show];
+                    */
                 } break;
             }
         };
@@ -84,7 +86,6 @@ void onUncaughtException(NSException* exception)
             });
         }
     }];
-    */
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *token = [defaults objectForKey:kDefaultsUserToken];

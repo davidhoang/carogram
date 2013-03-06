@@ -40,6 +40,8 @@ static int currentUserObserverContext;
 @property (strong, nonatomic) IBOutlet UIImageView *logoImageView;
 @property (strong, nonatomic) CRGPopoverView *settingsPopoverView;
 @property (strong, nonatomic) IBOutlet UIButton *settingsButton;
+@property (strong, nonatomic) IBOutlet UIButton *searchButton;
+@property (strong, nonatomic) IBOutlet UIButton *clearSearchButton;
 @end
 
 @implementation CRGMainViewController {
@@ -230,6 +232,9 @@ static int currentUserObserverContext;
     NSString *searchTag = self.searchTextField.text;
     if (! [searchTag length]) return;
     
+    self.clearSearchButton.hidden = NO;
+    self.searchButton.hidden = YES;
+    
     if ('#' == [searchTag characterAtIndex:0]) searchTag = [searchTag substringFromIndex:1];
 
     [self.popularMediaButton setImage:[UIImage imageNamed:@"btn-popular-media"] forState:UIControlStateNormal];
@@ -268,6 +273,13 @@ static int currentUserObserverContext;
         self.settingsPopoverView.delegate = self;
     }
     [self.settingsPopoverView show];
+}
+
+- (IBAction)clearSearch:(UIButton *)sender {
+    [self.searchTextField becomeFirstResponder];
+    self.searchTextField.text = @"";
+    self.searchButton.hidden = NO;
+    self.clearSearchButton.hidden = YES;
 }
 
 - (IBAction)touchSettings:(UIButton *)sender {
@@ -322,6 +334,8 @@ static int currentUserObserverContext;
     [self setSearchTextField:nil];
     [self setLogoImageView:nil];
     [self setSettingsButton:nil];
+    [self setSearchButton:nil];
+    [self setClearSearchButton:nil];
     [super viewDidUnload];
 }
 
