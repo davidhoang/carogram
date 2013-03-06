@@ -333,6 +333,7 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
         case UIGestureRecognizerStateChanged: {
             _pinchScale = [recognizer scale];
             if (_pinchScale < 1) _pinchScale = powf(_pinchScale, .2);
+            if (_pinchScale > _slideCellScale) _pinchScale = _slideCellScale;
             _selectedGridCell.transform = CGAffineTransformMakeScale(_pinchScale, _pinchScale);
             
             CGFloat scalePct = (_pinchScale - 1.) / (_slideCellScale - 1);
