@@ -9,7 +9,8 @@
 #import "CRGOnboardViewController.h"
 #import "SMPageControl.h"
 
-static NSUInteger kNumberOfPages = 6;
+//static NSUInteger kNumberOfPages = 6;
+static NSUInteger kNumberOfPages = 5;
 
 @interface CRGOnboardViewController ()
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -96,7 +97,8 @@ static NSUInteger kNumberOfPages = 6;
     UIView *lastPageView = [[UIView alloc] initWithFrame:pageFrame];
     
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:pageFrame];
-    NSString *imageName = [NSString stringWithFormat:@"onboard-%d.jpg", (kNumberOfPages-1)];
+//    NSString *imageName = [NSString stringWithFormat:@"onboard-%d.jpg", (kNumberOfPages-1)];
+    NSString *imageName = [NSString stringWithFormat:@"onboard-%d.jpg", 5];
     imageView.image = [UIImage imageNamed:imageName];
     [lastPageView addSubview:imageView];
     
