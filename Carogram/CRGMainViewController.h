@@ -12,7 +12,7 @@
 #import "CRGPopoverView.h"
 #import <MessageUI/MessageUI.h>
 
-@interface CRGMainViewController : UIViewController <UIActionSheetDelegate, CRGMediaViewControllerDelegate, CRGOnboardViewControllerDelegate, CRGPopoverViewDelegate, MFMailComposeViewControllerDelegate>
+@interface CRGMainViewController : UIViewController <CRGMediaViewControllerDelegate, CRGOnboardViewControllerDelegate, CRGPopoverViewDelegate, MFMailComposeViewControllerDelegate>
 
 @property (strong, nonatomic) WFIGUser *currentUser;
 

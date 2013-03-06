@@ -94,6 +94,7 @@ static NSString * const PopoverCellID = @"PopoverCellID";
         _contentView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"popover-bg"]];
         
         // Add border
+        _contentView.layer.masksToBounds = YES;
         _contentView.layer.borderColor = [UIColor colorWithRed:(158./255.) green:(150./255.) blue:(123./255.) alpha:1].CGColor;
         _contentView.layer.borderWidth = BORDER_WIDTH;
         _contentView.layer.cornerRadius = CORNER_RADIUS;
@@ -131,7 +132,6 @@ static NSString * const PopoverCellID = @"PopoverCellID";
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        [_tableView registerClass:[CRGPopoverCell class] forCellReuseIdentifier:PopoverCellID];
         [self.contentView addSubview:_tableView];
         
         [self setNeedsLayout];
@@ -229,6 +229,11 @@ static NSString * const PopoverCellID = @"PopoverCellID";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {	
 	CRGPopoverCell *cell = [tableView dequeueReusableCellWithIdentifier:PopoverCellID];
+    if (! cell) {
+        cell = [[CRGPopoverCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                     reuseIdentifier:PopoverCellID];
+    }
+    
     cell.titleLabel.text = self.items[indexPath.row];
     
     if (indexPath.row == 0) cell.cellType = CellTypeTop;

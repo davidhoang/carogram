@@ -28,7 +28,6 @@ static int currentUserObserverContext;
 @property (strong, nonatomic) IBOutlet UIView *titleBarView;
 @property (strong, nonatomic) IBOutlet UIImageView *searchBackgroundView;
 @property (strong, nonatomic) IBOutlet UIImageView *accountImageView;
-@property (strong, nonatomic) IBOutlet UIButton *accountButton;
 @property (nonatomic) CGRect contentFrame;
 @property (strong, nonatomic) NSMutableArray *viewControllers;
 @property (nonatomic) int currentViewControllerIndex;
@@ -262,12 +261,6 @@ static int currentUserObserverContext;
     [tagSearchController loadMediaCollection];
 }
 
-- (IBAction)showAccountPopup:(id)sender {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:@"Logout" otherButtonTitles:nil];
-    actionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
-    [actionSheet showFromRect:self.accountImageView.frame inView:self.view animated:YES];
-}
-
 - (IBAction)showSettingsPopover:(UIButton *)sender {
     if (! self.settingsPopoverView) {
         NSArray *items = @[@"Contact Us", @"Gift Carogram", @"Sign Out"];
@@ -279,16 +272,6 @@ static int currentUserObserverContext;
 
 - (IBAction)touchSettings:(UIButton *)sender {
     self.settingsButton.selected = YES;
-}
-
-#pragma mark - UIActionSheetDelegate
-
-- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-    if (0 == buttonIndex) {
-        CRGAppDelegate *appDelegate = (CRGAppDelegate *)[[UIApplication sharedApplication] delegate];
-        [appDelegate logout];
-    }
 }
 
 #pragma mark - Key Value Observing
