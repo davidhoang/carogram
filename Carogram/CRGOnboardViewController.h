@@ -8,16 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol CRGOnboardViewControllerDelegate;
-
 @interface CRGOnboardViewController : UIViewController <UIScrollViewDelegate>
-
-@property (strong, nonatomic) id<CRGOnboardViewControllerDelegate> delegate;
-
-@end
-
-@protocol CRGOnboardViewControllerDelegate <NSObject>
-
-- (void)onboardViewControllerDidFinish:(CRGOnboardViewController *)onboardViewController;
 
 @end

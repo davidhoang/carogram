@@ -157,10 +157,24 @@ void onUncaughtException(NSException* exception)
     UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
     [keyWindow resignKeyWindow];
     keyWindow.hidden = YES;
-    [WFInstagramAPI setAuthWindow:nil];
+    [WFInstagramAPI setAuthWindow:nil];    
     [self.window makeKeyAndVisible];
     
-    self.currentUser = [WFInstagramAPI currentUser];
+    NSNumber *showOnboarding = [defaults objectForKey:kShowOnboarding];
+    if (! showOnboarding || [showOnboarding boolValue]) {
+        [defaults setBool:NO forKey:kShowOnboarding];
+        [defaults synchronize];
+        CRGMainViewController *mainVC = (CRGMainViewController *)self.window.rootViewController;
+        [mainVC showOnboardingViewAnimated:NO];
+    }
+    
+    // Load current user info
+    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        WFIGUser *currentUser = [WFInstagramAPI currentUser];
+        dispatch_async( dispatch_get_main_queue(), ^{
+            if (currentUser) self.currentUser = currentUser;
+        });
+    });
     
     return YES;
 }

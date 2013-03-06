@@ -85,10 +85,7 @@ static NSUInteger kNumberOfPages = 5;
 
 - (void)getStarted:(id)sender
 {
-    if ([self.delegate respondsToSelector:@selector(onboardViewControllerDidFinish:)])
-    {
-        [self.delegate onboardViewControllerDidFinish:self];
-    }
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 - (UIView *)lastPageView

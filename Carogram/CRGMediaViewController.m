@@ -60,7 +60,7 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
 {
     self = [super initWithCoder:decoder];
     if (self) {
-        [self commonInit];
+        [self CRGMediaViewController_commonInit];
     }
     return self;
 }
@@ -69,20 +69,27 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        [self commonInit];
+        [self CRGMediaViewController_commonInit];
     }
     return self;
 }
 
-- (void)commonInit
+- (void)CRGMediaViewController_commonInit
 {
     _noResultsText = @"No Results";
+    
+    [self addKeyValueObservers];
+}
+
+- (void)dealloc
+{
+    [self removeKeyValueObservers];
 }
 
 #pragma mark - View Management
 
 - (void)viewDidLoad
-{
+{   
     [super viewDidLoad];
     self.scrollView.delegate = self;
     
@@ -100,20 +107,6 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
     [[UIPinchGestureRecognizer alloc] initWithTarget:self
                                               action:@selector(handlePinch:)];
     [self.view addGestureRecognizer:pinchRecognizer];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    [self addKeyValueObservers];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-    
-    [self removeKeyValueObservers];
 }
 
 - (void)setupRefreshViews
@@ -265,6 +258,12 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
 - (void)refresh
 {
     [self loadMediaCollection];
+}
+
+- (void)didLogout
+{
+    [self setProgressViewShown:YES];
+    self.currentMediaController.view.hidden = YES;
 }
 
 - (void) loadMediaCollection { } // subclasses should override this method
@@ -541,7 +540,7 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
 {
     if (&currentUserObserverContext == context) {
         self.currentUser = (WFIGUser *)[change objectForKey:NSKeyValueChangeNewKey];
-        [self loadMediaCollection];
+        if ([self isViewLoaded]) [self loadMediaCollection];
     }  else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }

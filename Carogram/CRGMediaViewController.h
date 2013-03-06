@@ -35,6 +35,7 @@
 - (void)loadMediaCollection;
 - (void)showNoResultsLabel;
 - (void)hideNoResultsLabel;
+- (void)didLogout;
 
 @end
 

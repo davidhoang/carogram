@@ -15,6 +15,7 @@
 #import "CRGPopularMediaViewController.h"
 #import "CRGTagSearchViewController.h"
 #import "CRGSplashProgressView.h"
+#import "CRGOnboardViewController.h"
 
 #define USER_FEED_INDEX     0
 #define POPULAR_MEDIA_INDEX 1
@@ -31,7 +32,7 @@ static int currentUserObserverContext;
 @property (nonatomic) CGRect contentFrame;
 @property (strong, nonatomic) NSMutableArray *viewControllers;
 @property (nonatomic) int currentViewControllerIndex;
-@property (strong, nonatomic) UIViewController *currentViewController;
+@property (strong, nonatomic) CRGMediaViewController *currentViewController;
 @property (strong, nonatomic) IBOutlet UIButton *popularMediaButton;
 @property (strong, nonatomic) IBOutlet UIButton *userFeedButton;
 @property (strong, nonatomic) IBOutlet UITextField *searchTextField;
@@ -48,14 +49,31 @@ static int currentUserObserverContext;
     BOOL _showSplashViewOnViewLoad;
 }
 
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self) [self CRGMainViewController_commonInit];
+    return self;
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        _currentViewControllerIndex = -1;
-        _showSplashViewOnViewLoad = NO;
-    }
+    if (self) [self CRGMainViewController_commonInit];
     return self;
+}
+
+- (void)CRGMainViewController_commonInit
+{
+    _currentViewControllerIndex = -1;
+    _showSplashViewOnViewLoad = NO;
+    
+    [self addKeyValueObservers];
+}
+
+- (void)dealloc
+{
+    [self removeKeyValueObservers];
 }
 
 #pragma mark - View Management
@@ -87,37 +105,16 @@ static int currentUserObserverContext;
     self.logoImageView.frame = CGRectIntegral(self.logoImageView.frame);
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    [self addKeyValueObservers];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSNumber *showOnboarding = [defaults objectForKey:kShowOnboarding];
-    if (! showOnboarding || [showOnboarding boolValue]) {
-        [defaults setBool:NO forKey:kShowOnboarding];
-        [defaults synchronize];
-        
-        self.onboardController = (CRGOnboardViewController *)[self.storyboard instantiateViewControllerWithIdentifier: @"Onboard"];
-        self.onboardController.delegate = self;
-        self.onboardController.view.frame = self.view.bounds;
-        [self addChildViewController:self.onboardController];
-        [self.view addSubview:self.onboardController.view];
-        [self.onboardController didMoveToParentViewController:self];
-    }
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-    
-    [self removeKeyValueObservers];
+- (void)viewDidUnload {
+    [self setTitleBarView:nil];
+    [self setPopularMediaButton:nil];
+    [self setUserFeedButton:nil];
+    [self setSearchTextField:nil];
+    [self setLogoImageView:nil];
+    [self setSettingsButton:nil];
+    [self setSearchButton:nil];
+    [self setClearSearchButton:nil];
+    [super viewDidUnload];
 }
 
 - (void)didReceiveMemoryWarning
@@ -174,7 +171,7 @@ static int currentUserObserverContext;
 {
     if (USER_FEED_INDEX == self.currentViewControllerIndex) return;
     self.currentViewControllerIndex = USER_FEED_INDEX;
-    
+
     [self.userFeedButton setImage:[UIImage imageNamed:@"btn-user-feed-depressed"] forState:UIControlStateNormal];
     [self.popularMediaButton setImage:[UIImage imageNamed:@"btn-popular-media"] forState:UIControlStateNormal];
     
@@ -268,7 +265,7 @@ static int currentUserObserverContext;
 
 - (IBAction)showSettingsPopover:(UIButton *)sender {
     if (! self.settingsPopoverView) {
-        NSArray *items = @[@"Contact Us", @"Gift Carogram", @"Sign Out"];
+        NSArray *items = @[@"Contact Us", @"Gift Carogram", @"View Tutorial", @"Sign Out"];
         self.settingsPopoverView = [[CRGPopoverView alloc] initWithItems:items];
         self.settingsPopoverView.delegate = self;
     }
@@ -307,13 +304,19 @@ static int currentUserObserverContext;
 {
     if (&currentUserObserverContext == context) {
         self.currentUser = (WFIGUser *)[change objectForKey:NSKeyValueChangeNewKey];
-        [self loadProfilePicture];
+        if ([self isViewLoaded]) [self loadProfilePicture];
     }  else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
 
 #pragma mark -
+
+- (void)showOnboardingViewAnimated:(BOOL)animated
+{
+    CRGOnboardViewController *vc = (CRGOnboardViewController *)[self.storyboard instantiateViewControllerWithIdentifier: @"Onboard"];
+    [self presentModalViewController:vc animated:animated];
+}
 
 - (void)loadProfilePicture
 {
@@ -325,18 +328,6 @@ static int currentUserObserverContext;
             }
         });
     });
-}
-        
-- (void)viewDidUnload {
-    [self setTitleBarView:nil];
-    [self setPopularMediaButton:nil];
-    [self setUserFeedButton:nil];
-    [self setSearchTextField:nil];
-    [self setLogoImageView:nil];
-    [self setSettingsButton:nil];
-    [self setSearchButton:nil];
-    [self setClearSearchButton:nil];
-    [super viewDidUnload];
 }
 
 #pragma mark - CRGMediaViewControllerDelegate methods
@@ -364,6 +355,7 @@ static int currentUserObserverContext;
     } completion:^(BOOL finished) {
         [self.onboardController.view removeFromSuperview];
         [self.onboardController removeFromParentViewController];
+        self.onboardController = nil;
     }];
 }
 
@@ -376,19 +368,16 @@ static int currentUserObserverContext;
     if (0 == index) { // "Contact Us"
         MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
         picker.mailComposeDelegate = self;
-        
-        NSString *email = @"carogram@xhatch.com";
-        if (email != nil) {
-            [picker setToRecipients:[NSArray arrayWithObjects:email, nil]];
-        }
-        
+        [picker setToRecipients:[NSArray arrayWithObjects:@"carogram@xhatch.com", nil]];
         [self presentModalViewController:picker animated:YES];
     } else if (1 == index) { // "Gift Carogram"
-        NSString *GiftAppURL = [NSString stringWithFormat:@"itms-appss://buy.itunes.apple.com/WebObjects/MZFinance.woa/wa/giftSongsWizard?gift=1&salableAdamId=%d&productType=C&pricingParameter=STDQ&mt=8&ign-mscache=1",
-                                APP_ID];
-        
+        NSString *GiftAppURL = [NSString stringWithFormat:@"itms-appss://buy.itunes.apple.com/WebObjects/MZFinance.woa/wa/giftSongsWizard?gift=1&salableAdamId=%d&productType=C&pricingParameter=STDQ&mt=8&ign-mscache=1", APP_ID];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:GiftAppURL]];
-    } else if (2 == index) { // "Sign Out"
+    } else if (2 == index) { // "View Tutorial"
+        [self showOnboardingViewAnimated:YES];
+    } else if (3 == index) { // "Sign Out"
+        self.accountImageView.image = nil;
+        [self.currentViewController didLogout];
         CRGAppDelegate *appDelegate = (CRGAppDelegate *)[[UIApplication sharedApplication] delegate];
         [appDelegate logout];
     }

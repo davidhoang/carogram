@@ -147,12 +147,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YbW-h6-K4k" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3389" y="-4830"/>
+            <point key="canvasLocation" x="-3325" y="-4790"/>
         </scene>
         <!--Onboard View Controller-->
         <scene sceneID="Gzd-jW-2ak">
             <objects>
-                <viewController storyboardIdentifier="Onboard" id="GwK-Df-iDU" customClass="CRGOnboardViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Onboard" autoresizesArchivedViewToFullSize="NO" id="GwK-Df-iDU" customClass="CRGOnboardViewController" sceneMemberID="viewController">
                     <view key="view" autoresizesSubviews="NO" contentMode="scaleToFill" id="GJf-6k-Sft">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -704,12 +704,7 @@
         <class className="CRGMainViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGMainViewController.h"/>
             <relationships>
-                <relationship kind="action" name="clearSearch:" candidateClass="UIButton"/>
                 <relationship kind="action" name="search:"/>
-                <relationship kind="action" name="showPopularMedia:"/>
-                <relationship kind="action" name="showSettingsPopover:" candidateClass="UIButton"/>
-                <relationship kind="action" name="showUserFeed:"/>
-                <relationship kind="action" name="touchSettings:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="accountImageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="clearSearchButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="logoImageView" candidateClass="UIImageView"/>

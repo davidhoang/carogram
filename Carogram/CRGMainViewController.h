@@ -8,14 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "CRGMediaViewController.h"
-#import "CRGOnboardViewController.h"
 #import "CRGPopoverView.h"
 #import <MessageUI/MessageUI.h>
 
-@interface CRGMainViewController : UIViewController <CRGMediaViewControllerDelegate, CRGOnboardViewControllerDelegate, CRGPopoverViewDelegate, MFMailComposeViewControllerDelegate>
+@interface CRGMainViewController : UIViewController <CRGMediaViewControllerDelegate, CRGPopoverViewDelegate, MFMailComposeViewControllerDelegate>
 
 @property (strong, nonatomic) WFIGUser *currentUser;
 
 - (void)showSplashViewOnViewLoad;
+- (void)showOnboardingViewAnimated:(BOOL)animated;
 
 @end
