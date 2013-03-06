@@ -15,11 +15,12 @@
 #import "CRGPopularMediaViewController.h"
 #import "CRGTagSearchViewController.h"
 #import "CRGSplashProgressView.h"
-#import "CRGPopoverView.h"
 
 #define USER_FEED_INDEX     0
 #define POPULAR_MEDIA_INDEX 1
 #define TAG_SEARCH_INDEX    2
+
+#define APP_ID 608609685
 
 static int currentUserObserverContext;
 
@@ -38,6 +39,8 @@ static int currentUserObserverContext;
 @property (nonatomic, strong) CRGSplashProgressView *splashView;
 @property (strong, nonatomic) CRGOnboardViewController *onboardController;
 @property (strong, nonatomic) IBOutlet UIImageView *logoImageView;
+@property (strong, nonatomic) CRGPopoverView *settingsPopoverView;
+@property (strong, nonatomic) IBOutlet UIButton *settingsButton;
 @end
 
 @implementation CRGMainViewController {
@@ -266,9 +269,16 @@ static int currentUserObserverContext;
 }
 
 - (IBAction)showSettingsPopover:(UIButton *)sender {
-    NSArray *items = @[@"One", @"Two", @"Three"];
-    CRGPopoverView *popoverView = [[CRGPopoverView alloc] initWithItems:items];
-    [popoverView show];
+    if (! self.settingsPopoverView) {
+        NSArray *items = @[@"Contact Us", @"Gift Carogram", @"Sign Out"];
+        self.settingsPopoverView = [[CRGPopoverView alloc] initWithItems:items];
+        self.settingsPopoverView.delegate = self;
+    }
+    [self.settingsPopoverView show];
+}
+
+- (IBAction)touchSettings:(UIButton *)sender {
+    self.settingsButton.selected = YES;
 }
 
 #pragma mark - UIActionSheetDelegate
@@ -328,6 +338,7 @@ static int currentUserObserverContext;
     [self setUserFeedButton:nil];
     [self setSearchTextField:nil];
     [self setLogoImageView:nil];
+    [self setSettingsButton:nil];
     [super viewDidUnload];
 }
 
@@ -357,6 +368,45 @@ static int currentUserObserverContext;
         [self.onboardController.view removeFromSuperview];
         [self.onboardController removeFromParentViewController];
     }];
+}
+
+#pragma mark - CRGPopoverViewDelegate methods
+
+- (void)popoverView:(CRGPopoverView *)popoverView didDismissWithItemIndex:(int)index
+{
+    self.settingsButton.selected = NO;
+    
+    if (0 == index) { // "Contact Us"
+        MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
+        picker.mailComposeDelegate = self;
+        
+        NSString *email = @"carogram@xhatch.com";
+        if (email != nil) {
+            [picker setToRecipients:[NSArray arrayWithObjects:email, nil]];
+        }
+        
+        [self presentModalViewController:picker animated:YES];
+    } else if (1 == index) { // "Gift Carogram"
+        NSString *GiftAppURL = [NSString stringWithFormat:@"itms-appss://buy.itunes.apple.com/WebObjects/MZFinance.woa/wa/giftSongsWizard?gift=1&salableAdamId=%d&productType=C&pricingParameter=STDQ&mt=8&ign-mscache=1",
+                                APP_ID];
+        
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:GiftAppURL]];
+    } else if (2 == index) { // "Sign Out"
+        CRGAppDelegate *appDelegate = (CRGAppDelegate *)[[UIApplication sharedApplication] delegate];
+        [appDelegate logout];
+    }
+}
+
+- (void)popoverViewDidCancel:(CRGPopoverView *)popoverView
+{
+    self.settingsButton.selected = NO;
+}
+
+#pragma mark - MailComposer Delegate
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
+{
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 @end

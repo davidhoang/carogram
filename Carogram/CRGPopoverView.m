@@ -8,12 +8,17 @@
 
 #import "CRGPopoverView.h"
 #import <QuartzCore/QuartzCore.h>
+#import "CRGPopoverCell.h"
 
 #define WIDTH           340.
 #define HEIGHT          235.
 #define BORDER_WIDTH    10.
 #define CORNER_RADIUS   13.
 #define PADDING         11.
+#define CELL_HEIGHT     44.
+#define ARROW_HEIGHT    15.
+
+static NSString * const PopoverCellID = @"PopoverCellID";
 
 @interface PopoverViewOverlayWindow : UIWindow
 @property (nonatomic,retain) UIWindow* oldKeyWindow;
@@ -81,7 +86,7 @@
     if (self = [super init]) {
         _items = items;
         
-        self.frame = CGRectMake(677., 47., WIDTH, HEIGHT);
+        self.frame = CGRectMake(677., 47., WIDTH, [items count] * CELL_HEIGHT);
         self.backgroundColor = [UIColor clearColor];
         
         // Add content view
@@ -105,8 +110,8 @@
         arrowLayer.fillColor = [UIColor colorWithRed:(158./255.) green:(150./255.) blue:(123./255.) alpha:1].CGColor;
         
         CGMutablePathRef path = CGPathCreateMutable();
-        CGPathMoveToPoint(path, NULL, 310., 15.);
-        CGPathAddLineToPoint(path, NULL, 328., 15.);
+        CGPathMoveToPoint(path, NULL, 310., ARROW_HEIGHT);
+        CGPathAddLineToPoint(path, NULL, 328., ARROW_HEIGHT);
         CGPathAddLineToPoint(path, NULL, 319., 0.);
         CGPathCloseSubpath(path);
         arrowLayer.path = path;
@@ -119,9 +124,14 @@
                                             inset,
                                             _contentView.frame.size.width - (inset*2),
                                             _contentView.frame.size.height - (inset*2));
-        _tableView = [[UITableView alloc] initWithFrame:tableViewFrame style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc] initWithFrame:tableViewFrame style:UITableViewStylePlain];
+        _tableView.rowHeight = CELL_HEIGHT;
+        _tableView.scrollEnabled = NO;
+        _tableView.layer.cornerRadius = 3.;
         _tableView.dataSource = self;
         _tableView.delegate = self;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        [_tableView registerClass:[CRGPopoverCell class] forCellReuseIdentifier:PopoverCellID];
         [self.contentView addSubview:_tableView];
         
         [self setNeedsLayout];
@@ -129,47 +139,37 @@
     return self;
 }
 
-//#pragma mark - Drawing
-//
-//- (void)drawRect:(CGRect)rect
-//{
-//    CGContextRef context = UIGraphicsGetCurrentContext();
-//    
-////    [self drawArrow:context];
-//}
-//
-//- (void)drawArrow:(CGContextRef)context
-//{
-//    CGContextBeginPath(context);
-//    CGContextMoveToPoint(context, 310., 15.);
-////    CGContextAddLineToPoint(context, 10., 15.);
-//    CGContextAddLineToPoint(context, 328., 15.);
-//    CGContextAddLineToPoint(context, 319., 0.);
-//    CGContextClosePath(context);
-//    CGContextSetFillColorWithColor(context,
-//                                   [UIColor colorWithRed:(158./255.) green:(150./255.) blue:(123./255.) alpha:1].CGColor);
-//    CGContextFillPath(context);
-//}
-
 #pragma mark -
 
-- (CGSize) sizeThatFits: (CGSize) unused
+- (CGSize)sizeThatFits:(CGSize)unused
 {
-    return CGSizeMake(WIDTH, HEIGHT);
-//	CGSize s = [self recalcSizeAndLayout: NO];
-//	return s;
+	CGSize s = [self recalcSizeAndLayout: NO];
+	return s;
 }
 
-- (void) layoutSubviews
+- (void)layoutSubviews
 {
-    NSLog(@"%s", __PRETTY_FUNCTION__);
-//	[self recalcSizeAndLayout: YES];
+	[self recalcSizeAndLayout: YES];
+}
+
+- (CGSize)recalcSizeAndLayout:(BOOL)layout
+{
+    float tableHeight = [self.items count] * CELL_HEIGHT;
+    
+    if (layout) {
+        _contentView.frame = CGRectMake(0, ARROW_HEIGHT, WIDTH, tableHeight + (BORDER_WIDTH*2.) + (PADDING*2.));
+
+        _tableView.frame = CGRectMake(BORDER_WIDTH + PADDING,
+                                      BORDER_WIDTH + PADDING,
+                                      WIDTH - (BORDER_WIDTH*2.) - (PADDING*2.),
+                                      tableHeight);
+    }
+    float totalHeight = ARROW_HEIGHT + tableHeight + (BORDER_WIDTH*2.) + (PADDING*2.);
+    return CGSizeMake( WIDTH, totalHeight );
 }
 
 - (void) show
 {
-//    [self registerBackgroundNotification];
-    
 	[[NSRunLoop currentRunLoop] runMode: NSDefaultRunLoopMode beforeDate:[NSDate date]];
     
     self.controller = [[PopoverViewController alloc] init];
@@ -188,14 +188,8 @@
 		self.window.alpha = 1;
 	}];
 	
-	// add and pulse the alertview
-	// add the alertview
 	[self.controller.view addSubview: self];
 	[self sizeToFit];
-//	self.center = CGPointMake( CGRectGetMidX( self.controller.view.bounds ), CGRectGetMidY( self.controller.view.bounds ) );
-//	self.frame = CGRectIntegral( self.frame );
-//	[self pulse];
-	
 }
 
 #pragma mark - PopoverViewControllerDelegate
@@ -203,8 +197,11 @@
 - (void)popoverViewController:(PopoverViewController *)popoverViewController didReceiveTouchesEnded:(NSSet *)touches
 {
     [self.window resignKeyWindow];
-    
     self.window = nil;
+    
+    if ([self.delegate respondsToSelector:@selector(popoverViewDidCancel:)]) {
+        [self.delegate popoverViewDidCancel:self];
+    }
 
 }
 
@@ -217,43 +214,28 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//	UITableViewCell *targetCell = [tableView cellForRowAtIndexPath:indexPath];
-//	self.pickerView.date = [self.dateFormatter dateFromString:targetCell.detailTextLabel.text];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    [self.window resignKeyWindow];
+    self.window = nil;
+    
+    if ([self.delegate respondsToSelector:@selector(popoverView:didDismissWithItemIndex:)]) {
+        [self.delegate popoverView:self didDismissWithItemIndex:indexPath.row];
+    }
 }
 
 #pragma mark - UITableViewDataSource methods
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-	static NSString *CellID = @"CellID";
-	
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellID];
-	if (cell == nil)
-	{
-		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellID];
-	}
-	
-    cell.selectionStyle = UITableViewCellSelectionStyleGray;
+{	
+	CRGPopoverCell *cell = [tableView dequeueReusableCellWithIdentifier:PopoverCellID];
+    cell.titleLabel.text = self.items[indexPath.row];
     
-    cell.textLabel.text = self.items[indexPath.row];
-    
-//	cell.textLabel.text = [self.dataArray objectAtIndex:indexPath.row];
-//    if (indexPath.row == 0) {
-//        cell.detailTextLabel.text = [self.dateFormatter stringFromDate:startDate];
-//        if (selectedDate == 0) {
-//            [self.tableView selectRowAtIndexPath: indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
-//            self.pickerView.date = [self.dateFormatter dateFromString:cell.detailTextLabel.text];
-//        }
-//    } else {
-//        cell.detailTextLabel.text = [self.dateFormatter stringFromDate:endDate];
-//        if (selectedDate == 1) {
-//            [self.tableView selectRowAtIndexPath: indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
-//            self.pickerView.date = [self.dateFormatter dateFromString:cell.detailTextLabel.text];
-//        }
-//    }
+    if (indexPath.row == 0) cell.cellType = CellTypeTop;
+    else if (indexPath.row == ([self.items count] - 1)) cell.cellType = CellTypeBottom;
+    else cell.cellType = CellTypeMiddle;
 	
 	return cell;
 }
-
 
 @end
