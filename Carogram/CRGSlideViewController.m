@@ -10,6 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "WFIGImageCache.h"
 #import "UIFont+Carogram.h"
+#import "SDWebImageManager.h"
 
 static NSSet * ObservableKeys = nil;
 
@@ -108,11 +109,17 @@ static NSString * const MediaKeyPath = @"media";
     self.lblLikes.font = [UIFont defaultFontOfSize:15];
     
     if (nil != self.media) {
-        [self.media imageCompletionBlock:^(WFIGMedia* imgMedia, UIImage *img) {
-            if (imgMedia == self.media) {
-                [self.ivPhoto setImage:img];
-            }
-        }];
+        SDWebImageManager *manager = [SDWebImageManager sharedManager];
+        [manager downloadWithURL:[NSURL URLWithString:self.media.imageURL]
+                         options:0
+                        progress:^(NSUInteger receivedSize, long long expectedSize) { }
+                       completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished)
+         {
+             if (image)
+             {
+                 [self.ivPhoto setImage:image];
+             }
+         }];
         [self loadProfilePicture];
         self.usernameLabel.text = self.media.user.username;
         [self.lblCaption setText:[self.media caption]];

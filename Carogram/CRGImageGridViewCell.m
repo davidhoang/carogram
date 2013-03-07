@@ -7,6 +7,7 @@
 //
 
 #import "CRGImageGridViewCell.h"
+#import "SDWebImageManager.h"
 
 @interface CRGImageGridViewCell ()
 @property (strong, nonatomic) UIImageView *imageView;
@@ -35,11 +36,20 @@
 {
     _media = media;
     
-    [self.media lowResolutionImageWithCompletionBlock:^(WFIGMedia *media, UIImage *image) {
-        if (media == self.media) {
-            [self.imageView setImage:image];
-        }
-    }];
+    SDWebImageManager *manager = [SDWebImageManager sharedManager];
+    [manager downloadWithURL:[NSURL URLWithString:media.lowResolutionURL]
+                     options:0
+                    progress:^(NSUInteger receivedSize, long long expectedSize)
+     {
+         // progression tracking code
+     }
+                   completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished)
+     {
+         if (image)
+         {
+             [self.imageView setImage:image];
+         }
+     }];
 }
 
 @end
