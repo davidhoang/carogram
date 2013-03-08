@@ -119,6 +119,7 @@
 		2354EAB416D68F4C008369D0 /* btn-share@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2354EAB016D68F4C008369D0 /* btn-share@2x.png */; };
 		2354EABA16D6BE98008369D0 /* CRGNewCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2354EAB916D6BE98008369D0 /* CRGNewCommentViewController.m */; };
 		23648C1116E814D900AF64D3 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23648C1016E814D900AF64D3 /* MapKit.framework */; };
+		23648C1A16EAA0DB00AF64D3 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23648C1916EAA0DB00AF64D3 /* Twitter.framework */; };
 		236BDBA415E7517B00020CE8 /* APIClient.plist in Resources */ = {isa = PBXBuildFile; fileRef = 236BDBA315E7517B00020CE8 /* APIClient.plist */; };
 		237EF16216AF641E00AC5615 /* title-bar-bg-tile.png in Resources */ = {isa = PBXBuildFile; fileRef = 237EF16016AF641E00AC5615 /* title-bar-bg-tile.png */; };
 		237EF16316AF641E00AC5615 /* title-bar-bg-tile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 237EF16116AF641E00AC5615 /* title-bar-bg-tile@2x.png */; };
@@ -345,6 +346,7 @@
 		2354EAB816D6BE98008369D0 /* CRGNewCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRGNewCommentViewController.h; sourceTree = "<group>"; };
 		2354EAB916D6BE98008369D0 /* CRGNewCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRGNewCommentViewController.m; sourceTree = "<group>"; };
 		23648C1016E814D900AF64D3 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		23648C1916EAA0DB00AF64D3 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		236BDBA315E7517B00020CE8 /* APIClient.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = APIClient.plist; sourceTree = "<group>"; };
 		237EF16016AF641E00AC5615 /* title-bar-bg-tile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "title-bar-bg-tile.png"; sourceTree = "<group>"; };
 		237EF16116AF641E00AC5615 /* title-bar-bg-tile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "title-bar-bg-tile@2x.png"; sourceTree = "<group>"; };
@@ -433,6 +435,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23648C1A16EAA0DB00AF64D3 /* Twitter.framework in Frameworks */,
 				23648C1116E814D900AF64D3 /* MapKit.framework in Frameworks */,
 				234E220916E813CA00A48569 /* ImageIO.framework in Frameworks */,
 				2340EC5216E715C300D35514 /* MessageUI.framework in Frameworks */,
@@ -658,6 +661,7 @@
 		666EFF8915CB369500CA30B7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				23648C1916EAA0DB00AF64D3 /* Twitter.framework */,
 				23648C1016E814D900AF64D3 /* MapKit.framework */,
 				234E220816E813CA00A48569 /* ImageIO.framework */,
 				666EFF8E15CB369500CA30B7 /* CoreGraphics.framework */,

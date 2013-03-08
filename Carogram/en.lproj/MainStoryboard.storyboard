@@ -435,8 +435,8 @@
                                             <action selector="newComment:" destination="xj4-L6-Tpp" eventType="touchUpInside" id="3if-Sm-gf4"/>
                                         </connections>
                                     </button>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="4nq-wC-lPK">
-                                        <rect key="frame" x="123" y="4" width="53" height="53"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="4nq-wC-lPK">
+                                        <rect key="frame" x="182" y="4" width="53" height="53"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" image="btn-share.png">
@@ -676,14 +676,7 @@
         <class className="CRGDetailsViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGDetailsViewController.h"/>
             <relationships>
-                <relationship kind="action" name="handleDoubleTap:" candidateClass="UIGestureRecognizer"/>
-                <relationship kind="action" name="handleSingleTap:" candidateClass="UIGestureRecognizer"/>
-                <relationship kind="action" name="handleSwipeLeftGesture:" candidateClass="UIGestureRecognizer"/>
-                <relationship kind="action" name="handleSwipeRightGesture:" candidateClass="UIGestureRecognizer"/>
-                <relationship kind="action" name="newComment:" candidateClass="UIButton"/>
-                <relationship kind="action" name="toggleLike:" candidateClass="UIButton"/>
                 <relationship kind="action" name="touchClose:"/>
-                <relationship kind="action" name="touchShare:"/>
                 <relationship kind="outlet" name="btnComments" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="btnLike" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="btnLikeMedia" candidateClass="UIButton"/>

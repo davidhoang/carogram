@@ -17,6 +17,8 @@
 #define PADDING         11.
 #define CELL_HEIGHT     44.
 #define ARROW_HEIGHT    15.
+#define ARROW_WIDTH     18.
+#define WINDOW_PADDING  8.
 
 static NSString * const PopoverCellID = @"PopoverCellID";
 
@@ -24,8 +26,7 @@ static NSString * const PopoverCellID = @"PopoverCellID";
 @property (nonatomic,retain) UIWindow* oldKeyWindow;
 @end
 
-@implementation  PopoverViewOverlayWindow
-
+@implementation PopoverViewOverlayWindow
 @synthesize oldKeyWindow;
 
 - (void) makeKeyAndVisible
@@ -75,71 +76,103 @@ static NSString * const PopoverCellID = @"PopoverCellID";
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) PopoverViewController *controller;
 @property (strong, nonatomic) UIView *contentView;
+@property (strong, nonatomic) CALayer *borderLayer;
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) NSArray *items;
 @end
 
-@implementation CRGPopoverView
+@implementation CRGPopoverView {
+    CGRect _rect;
+    CGFloat _width;
+}
 
-- (id)initWithItems:(NSArray *)items
+- (id)initWithItems:(NSArray *)items fromRect:(CGRect)rect width:(CGFloat)width
 {
     if (self = [super init]) {
+        _rect = rect;
+        _width = width;
         _items = items;
-        
-        self.frame = CGRectMake(677., 47., WIDTH, [items count] * CELL_HEIGHT);
-        self.backgroundColor = [UIColor clearColor];
-        
-        // Add content view
-        _contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 15, WIDTH, HEIGHT - 15)];
-        _contentView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"popover-bg"]];
-        
-        // Add border
-        _contentView.layer.masksToBounds = YES;
-        _contentView.layer.borderColor = [UIColor colorWithRed:(158./255.) green:(150./255.) blue:(123./255.) alpha:1].CGColor;
-        _contentView.layer.borderWidth = BORDER_WIDTH;
-        _contentView.layer.cornerRadius = CORNER_RADIUS;
-        
-        _contentView.layer.shadowOffset = CGSizeMake(0.,0.5);
-        _contentView.layer.shadowOpacity = .82;
-        _contentView.layer.shadowRadius = 10;
-        _contentView.layer.shadowColor = [UIColor blackColor].CGColor;
-
-        [self addSubview:_contentView];
-        
-        // Add arrow layer 
-        CAShapeLayer *arrowLayer = [CAShapeLayer layer];
-        arrowLayer.fillColor = [UIColor colorWithRed:(158./255.) green:(150./255.) blue:(123./255.) alpha:1].CGColor;
-        
-        CGMutablePathRef path = CGPathCreateMutable();
-        CGPathMoveToPoint(path, NULL, 310., ARROW_HEIGHT);
-        CGPathAddLineToPoint(path, NULL, 328., ARROW_HEIGHT);
-        CGPathAddLineToPoint(path, NULL, 319., 0.);
-        CGPathCloseSubpath(path);
-        arrowLayer.path = path;
-        
-        [self.layer addSublayer:arrowLayer];
-        
-        // Add table view
-        float inset = BORDER_WIDTH + PADDING;
-        CGRect tableViewFrame =  CGRectMake(inset,
-                                            inset,
-                                            _contentView.frame.size.width - (inset*2),
-                                            _contentView.frame.size.height - (inset*2));
-        _tableView = [[UITableView alloc] initWithFrame:tableViewFrame style:UITableViewStylePlain];
-        _tableView.rowHeight = CELL_HEIGHT;
-        _tableView.scrollEnabled = NO;
-        _tableView.layer.cornerRadius = 3.;
-        _tableView.dataSource = self;
-        _tableView.delegate = self;
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        [self.contentView addSubview:_tableView];
-        
-        [self setNeedsLayout];
+        [self CRGPopoverView_commonInit];
     }
     return self;
 }
 
+- (void)CRGPopoverView_commonInit
+{
+    float totalHeight = ARROW_HEIGHT + ([self.items count] * CELL_HEIGHT) + (BORDER_WIDTH*2.) + (PADDING*2.);
+    CGFloat originX = MIN( ([[self class] windowFrame].size.width - WINDOW_PADDING - _width),
+                           (CGRectGetMidX(_rect) - (_width/2.)) );
+    self.frame = CGRectMake(originX, CGRectGetMaxY(_rect) + 4., _width, totalHeight);
+    self.backgroundColor = [UIColor clearColor];
+
+    float tableHeight = [self.items count] * CELL_HEIGHT;
+    
+    // Add content view
+    _contentView = [[UIView alloc] initWithFrame:CGRectMake(BORDER_WIDTH,
+                                                            ARROW_HEIGHT + BORDER_WIDTH,
+                                                            _width - (BORDER_WIDTH*2.),
+                                                            tableHeight + (PADDING*2.))];
+    _contentView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"popover-bg"]];
+    
+    // Add border
+    _borderLayer = [CALayer layer];
+    _borderLayer.frame = CGRectMake(-BORDER_WIDTH, -BORDER_WIDTH, _width, tableHeight + (BORDER_WIDTH*2.) + (PADDING*2.));
+    _borderLayer.borderColor = [UIColor colorWithRed:(158./255.) green:(150./255.) blue:(123./255.) alpha:1].CGColor;
+    _borderLayer.borderWidth = BORDER_WIDTH;
+    _borderLayer.cornerRadius = CORNER_RADIUS;
+
+    [_contentView.layer addSublayer:_borderLayer];
+
+    _contentView.layer.shadowOffset = CGSizeMake(0.,0.5);
+    _contentView.layer.shadowOpacity = 1;
+    _contentView.layer.shadowRadius = 10;
+    _contentView.layer.shadowColor = [UIColor blackColor].CGColor;
+
+    [self addSubview:_contentView];
+    
+    // Add arrow layer 
+    CAShapeLayer *arrowLayer = [CAShapeLayer layer];
+    arrowLayer.fillColor = [UIColor colorWithRed:(158./255.) green:(150./255.) blue:(123./255.) alpha:1].CGColor;
+    
+    CGMutablePathRef path = CGPathCreateMutable();
+    float arrowMidX = CGRectGetMidX(_rect) - originX;
+    CGPathMoveToPoint(path, NULL, arrowMidX - (ARROW_WIDTH/2.), ARROW_HEIGHT);
+    CGPathAddLineToPoint(path, NULL, arrowMidX + (ARROW_WIDTH/2.), ARROW_HEIGHT);
+    CGPathAddLineToPoint(path, NULL, arrowMidX, 0.);
+    CGPathCloseSubpath(path);
+    arrowLayer.path = path;
+    
+    [self.layer addSublayer:arrowLayer];
+    
+    // Add table view
+    CGRect tableViewFrame = CGRectMake(PADDING,
+                                       PADDING,
+                                       _width - (BORDER_WIDTH*2.) - (PADDING*2.),
+                                       tableHeight);
+    _tableView = [[UITableView alloc] initWithFrame:tableViewFrame style:UITableViewStylePlain];
+    _tableView.rowHeight = CELL_HEIGHT;
+    _tableView.scrollEnabled = NO;
+    _tableView.layer.cornerRadius = 3.;
+    _tableView.dataSource = self;
+    _tableView.delegate = self;
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.contentView addSubview:_tableView];
+    
+    [self setNeedsLayout];
+}
+
 #pragma mark -
+
++ (CGRect)windowFrame
+{
+    CGRect windowFrame = [UIScreen mainScreen].bounds;
+    if (windowFrame.size.height > windowFrame.size.width) { // portrait orientation
+        CGFloat tempWidth = windowFrame.size.height;
+        windowFrame.size.height = windowFrame.size.width;
+        windowFrame.size.width = tempWidth;
+    }
+    return windowFrame;
+}
 
 - (CGSize)sizeThatFits:(CGSize)unused
 {
@@ -157,15 +190,20 @@ static NSString * const PopoverCellID = @"PopoverCellID";
     float tableHeight = [self.items count] * CELL_HEIGHT;
     
     if (layout) {
-        _contentView.frame = CGRectMake(0, ARROW_HEIGHT, WIDTH, tableHeight + (BORDER_WIDTH*2.) + (PADDING*2.));
+        _contentView.frame = CGRectMake(BORDER_WIDTH,
+                                        ARROW_HEIGHT + BORDER_WIDTH,
+                                        _width - (BORDER_WIDTH*2.),
+                                        tableHeight + (PADDING*2.));
 
-        _tableView.frame = CGRectMake(BORDER_WIDTH + PADDING,
-                                      BORDER_WIDTH + PADDING,
-                                      WIDTH - (BORDER_WIDTH*2.) - (PADDING*2.),
+        _borderLayer.frame = CGRectMake(-BORDER_WIDTH, -BORDER_WIDTH, _width, tableHeight + (BORDER_WIDTH*2.) + (PADDING*2.));
+
+        _tableView.frame = CGRectMake(PADDING,
+                                      PADDING,
+                                      _width - (BORDER_WIDTH*2.) - (PADDING*2.),
                                       tableHeight);
     }
     float totalHeight = ARROW_HEIGHT + tableHeight + (BORDER_WIDTH*2.) + (PADDING*2.);
-    return CGSizeMake( WIDTH, totalHeight );
+    return CGSizeMake( _width, totalHeight );
 }
 
 - (void) show

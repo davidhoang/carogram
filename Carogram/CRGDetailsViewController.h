@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "WFInstagramAPI.h"
 #import "CRGNewCommentViewController.h"
+#import "CRGPopoverView.h"
+#import <MessageUI/MessageUI.h>
 
-@interface CRGDetailsViewController : UIViewController <CRGNewCommentViewControllerDelegate, UIAlertViewDelegate>
+@interface CRGDetailsViewController : UIViewController <CRGNewCommentViewControllerDelegate, UIAlertViewDelegate, CRGPopoverViewDelegate, MFMailComposeViewControllerDelegate>
 
 @property (strong, nonatomic) WFIGMedia *media;
 @property (strong, nonatomic) IBOutlet UIImageView *ivPhoto;

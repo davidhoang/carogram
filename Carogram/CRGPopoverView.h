@@ -14,7 +14,7 @@
 
 @property (weak, nonatomic) id<CRGPopoverViewDelegate> delegate;
 
-- (id)initWithItems:(NSArray *)items;
+- (id)initWithItems:(NSArray *)items fromRect:(CGRect)rect width:(CGFloat)width;
 - (void)show;
 
 @end

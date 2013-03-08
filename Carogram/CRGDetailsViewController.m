@@ -13,6 +13,7 @@
 #import "WFIGImageCache.h"
 #import "CRGNewCommentViewController.h"
 #import "SDWebImageManager.h"
+#import <Twitter/Twitter.h>
 
 typedef enum {
     AlertViewTagSetLike,
@@ -29,6 +30,7 @@ typedef enum {
 @property (strong, nonatomic) IBOutlet UIButton *btnLike;
 @property (strong, nonatomic) IBOutlet UIButton *btnLikeMedia;
 @property (strong, nonatomic) IBOutlet UIImageView *likeImageView;
+@property (strong, nonatomic) CRGPopoverView *sharePopoverView;
 - (void)configureViews;
 - (void)loadProfilePicture;
 - (void)loadComments;
@@ -367,6 +369,34 @@ typedef enum {
     }];
 }
 
+- (void)sendMail
+{
+    MFMailComposeViewController *mcvc = [[MFMailComposeViewController alloc] init];
+    mcvc.mailComposeDelegate = self;
+    
+    // the image should be available at this point, but just in case the user tries to send
+    // mail before the image is downloaded, go ahead and download it first
+    SDWebImageManager *manager = [SDWebImageManager sharedManager];
+    [manager downloadWithURL:[NSURL URLWithString:self.media.imageURL]
+                     options:0
+                    progress:^(NSUInteger receivedSize, long long expectedSize) { }
+                   completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished) {
+                       if (! image) return;
+                        NSString *fileName = [self.media.imageURL lastPathComponent];
+                       [mcvc addAttachmentData:UIImageJPEGRepresentation(image,1.0) mimeType:@"image/jpeg" fileName:fileName];
+                       [mcvc setSubject:@"Check out this Instagram photo I saw on Carogram"];
+                       [self presentModalViewController:mcvc animated:YES];
+                   }];
+}
+
+- (void)sendTweet
+{
+    TWTweetComposeViewController *tweetSheet = [[TWTweetComposeViewController alloc] init];
+    NSString *initialText = [NSString stringWithFormat:@"Check out this Instagram photo I saw on @carogramapp: %@", self.media.instagramURL];
+    [tweetSheet setInitialText:initialText];
+    [self presentModalViewController:tweetSheet animated:YES];
+}
+
 #pragma mark - Actions
 
 - (IBAction)newComment:(UIButton *)sender {
@@ -406,6 +436,13 @@ typedef enum {
 }
 
 - (IBAction)touchShare:(id)sender {
+    if (! self.sharePopoverView) {
+        CGRect fromRect = [self.btnShare convertRect:self.btnShare.bounds toView:self.view];
+        NSArray *items = @[@"Twitter", @"Email"];
+        self.sharePopoverView = [[CRGPopoverView alloc] initWithItems:items fromRect:fromRect width:235.];
+        self.sharePopoverView.delegate = self;
+    }
+    [self.sharePopoverView show];
 }
 
 #pragma mark - Gesture handling
@@ -507,6 +544,48 @@ typedef enum {
     [self.aNewCommentViewController willMoveToParentViewController:nil];
     [self.aNewCommentViewController.view removeFromSuperview];
     [self.aNewCommentViewController removeFromParentViewController];
+}
+
+#pragma mark - CRGPopoverViewDelegate methods
+
+- (void)popoverView:(CRGPopoverView *)popoverView didDismissWithItemIndex:(int)index
+{   
+    if (0 == index) { // "Twitter"
+        if ([TWTweetComposeViewController canSendTweet]) {
+            [self sendTweet];
+        } else {
+            static NSString *message = @"You need to setup a Twitter account before tweeting.";
+            UIAlertView *av = [[UIAlertView alloc]
+                               initWithTitle:@"Cannot Send Tweet"
+                               message:message
+                               delegate:nil
+                               cancelButtonTitle:@"Okay"
+                               otherButtonTitles:nil];
+            [av show];
+        }
+    } else if (1 == index) { // "Email"
+        if ([MFMailComposeViewController canSendMail]) {
+            [self sendMail];
+        } else {
+            static NSString *message = @"This device cannot send mail. If your device supports sending mail, you may need to setup an account first.";
+            UIAlertView *av = [[UIAlertView alloc]
+                               initWithTitle:@"Cannot Send Mail"
+                               message:message
+                               delegate:nil
+                               cancelButtonTitle:@"Okay"
+                               otherButtonTitles:nil];
+            [av show];
+        }
+    }
+}
+
+- (void)popoverViewDidCancel:(CRGPopoverView *)popoverView { }
+
+#pragma mark - MailComposer Delegate
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
+{
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 #pragma mark - UITableViewDataSource methods

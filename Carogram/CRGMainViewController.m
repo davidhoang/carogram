@@ -266,7 +266,9 @@ static int currentUserObserverContext;
 - (IBAction)showSettingsPopover:(UIButton *)sender {
     if (! self.settingsPopoverView) {
         NSArray *items = @[@"Contact Us", @"Gift Carogram", @"View Tutorial", @"Sign Out"];
-        self.settingsPopoverView = [[CRGPopoverView alloc] initWithItems:items];
+        self.settingsPopoverView = [[CRGPopoverView alloc] initWithItems:items
+                                                                fromRect:self.settingsButton.frame
+                                                                   width:340.];
         self.settingsPopoverView.delegate = self;
     }
     [self.settingsPopoverView show];
