@@ -600,19 +600,21 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    CGRect bgFrame = self.ivBackground.frame;
+    CGRect progressBgFrame = self.ivProgressBackground.frame;
+    CGRect activityFrame = self.activityIndicatorView.frame;
     if (scrollView.contentOffset.x < 1) {
-        CGRect bgFrame = self.ivBackground.frame;
         bgFrame.origin.x = -scrollView.contentOffset.x;
-        self.ivBackground.frame = bgFrame;
-        
-        CGRect progressBgFrame = self.ivProgressBackground.frame;
         progressBgFrame.origin.x = (int)((self.view.frame.size.width/2.) - (progressBgFrame.size.width/2.)) - scrollView.contentOffset.x;
-        self.ivProgressBackground.frame = progressBgFrame;
-
-        CGRect activityFrame = self.activityIndicatorView.frame;
         activityFrame.origin.x = (int)((self.view.frame.size.width/2.) - (activityFrame.size.width/2.)) - scrollView.contentOffset.x;
-        self.activityIndicatorView.frame = activityFrame;
+    } else {
+        bgFrame.origin.x = 0;
+        progressBgFrame.origin.x = (int)((self.view.frame.size.width/2.) - (progressBgFrame.size.width/2.));
+        activityFrame.origin.x = (int)((self.view.frame.size.width/2.) - (activityFrame.size.width/2.));
     }
+    self.ivBackground.frame = bgFrame;
+    self.ivProgressBackground.frame = progressBgFrame;
+    self.activityIndicatorView.frame = activityFrame;
     
     if (scrollView.contentOffset.x <= kRefreshDrag) {
         self.ivRefreshIcon.layer.opacity = 1.0;

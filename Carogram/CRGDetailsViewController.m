@@ -373,20 +373,10 @@ typedef enum {
 {
     MFMailComposeViewController *mcvc = [[MFMailComposeViewController alloc] init];
     mcvc.mailComposeDelegate = self;
-    
-    // the image should be available at this point, but just in case the user tries to send
-    // mail before the image is downloaded, go ahead and download it first
-    SDWebImageManager *manager = [SDWebImageManager sharedManager];
-    [manager downloadWithURL:[NSURL URLWithString:self.media.imageURL]
-                     options:0
-                    progress:^(NSUInteger receivedSize, long long expectedSize) { }
-                   completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished) {
-                       if (! image) return;
-                        NSString *fileName = [self.media.imageURL lastPathComponent];
-                       [mcvc addAttachmentData:UIImageJPEGRepresentation(image,1.0) mimeType:@"image/jpeg" fileName:fileName];
-                       [mcvc setSubject:@"Check out this Instagram photo I saw on Carogram"];
-                       [self presentModalViewController:mcvc animated:YES];
-                   }];
+    [mcvc setSubject:@"Check out this Instagram photo I saw on Carogram"];
+    NSString *messageBody = [NSString stringWithFormat:@"<a href=\"%@\">%@</a>", self.media.instagramURL, self.media.instagramURL];
+    [mcvc setMessageBody:messageBody isHTML:YES];
+    [self presentModalViewController:mcvc animated:YES];
 }
 
 - (void)sendTweet
