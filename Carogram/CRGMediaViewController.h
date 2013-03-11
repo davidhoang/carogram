@@ -23,7 +23,6 @@
 @property (strong, nonatomic) IBOutlet UIButton *btnPopular;
 @property (strong, nonatomic) IBOutlet UIButton *btnHome;
 @property (strong, nonatomic) IBOutlet UIImageView *ivPhoto;
-@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIImageView *ivProgressBackground;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorView;
 @property (strong, atomic) WFIGMediaCollection *mediaCollection;
@@ -31,6 +30,7 @@
 @property (strong, nonatomic) NSString *noResultsText;
 
 - (void)refresh;
+- (void)scrollToFirstPage;
 - (void)setProgressViewShown:(BOOL)shown;
 - (void)loadMediaCollection;
 - (void)showNoResultsLabel;

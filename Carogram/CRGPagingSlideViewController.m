@@ -199,8 +199,7 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
     if (controller.view.superview == nil) {
         CGRect frame = self.scrollView.frame;
         frame.origin.x = frame.size.width * page;
-        frame.origin.y = self.view.bounds.size.height/2. - controller.view.bounds.size.height/2.;
-        
+        frame.origin.y = self.view.bounds.size.height/2. - controller.view.bounds.size.height/2.;        
         controller.view.frame = frame;
 
         if (page != [self currentPage]) {
@@ -320,6 +319,23 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
             if ([NSNull null] == (NSNull*)slideController) continue;
             slideController.view.hidden = NO;
         }
+    }
+}
+
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+{
+    int currentPage = [self currentPage];
+    for (int i = 0; i < [self.slideViewControllers count]; i++) {
+        if (i == currentPage) continue;
+        
+        CRGSlideViewController *slideController = self.slideViewControllers[i];
+        if ([NSNull null] == (NSNull*)slideController) continue;
+        
+        CGAffineTransform transform = CGAffineTransformMakeScale(PERIPHERAL_SCALE,
+                                                                 PERIPHERAL_SCALE);
+        transform = CGAffineTransformTranslate(transform, 0, PERIPHERAL_Y_OFFSET);
+        slideController.view.transform = transform;
+        slideController.view.alpha = PERIPHERAL_ALPHA;
     }
 }
 

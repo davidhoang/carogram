@@ -168,14 +168,18 @@ static int currentUserObserverContext;
 #pragma mark - Actions
 
 - (IBAction)showUserFeed:(id)sender
-{
-    if (USER_FEED_INDEX == self.currentViewControllerIndex) return;
+{   
+    CRGUserFeedViewController *userFeedController = self.viewControllers[USER_FEED_INDEX];
+    if (USER_FEED_INDEX == self.currentViewControllerIndex && (NSNull*)userFeedController != [NSNull null]) {
+        [userFeedController scrollToFirstPage];
+        return;
+    }
+    
     self.currentViewControllerIndex = USER_FEED_INDEX;
 
     [self.userFeedButton setImage:[UIImage imageNamed:@"btn-user-feed-depressed"] forState:UIControlStateNormal];
     [self.popularMediaButton setImage:[UIImage imageNamed:@"btn-popular-media"] forState:UIControlStateNormal];
     
-    CRGUserFeedViewController *userFeedController = self.viewControllers[USER_FEED_INDEX];
     if ((NSNull *)userFeedController == [NSNull null]) {
         userFeedController = [[CRGUserFeedViewController alloc] initWithNibName:nil bundle:nil];
         userFeedController.view.frame = self.contentFrame;
@@ -196,14 +200,18 @@ static int currentUserObserverContext;
 }
 
 - (IBAction)showPopularMedia:(id)sender
-{
-    if (POPULAR_MEDIA_INDEX == self.currentViewControllerIndex) return;
+{   
+    CRGPopularMediaViewController *popularMediaController = self.viewControllers[POPULAR_MEDIA_INDEX];
+    if (POPULAR_MEDIA_INDEX == self.currentViewControllerIndex && (NSNull*)popularMediaController != [NSNull null]) {
+        [popularMediaController scrollToFirstPage];
+        return;
+    }
+    
     self.currentViewControllerIndex = POPULAR_MEDIA_INDEX;
     
     [self.popularMediaButton setImage:[UIImage imageNamed:@"btn-popular-media-depressed"] forState:UIControlStateNormal];
     [self.userFeedButton setImage:[UIImage imageNamed:@"btn-user-feed"] forState:UIControlStateNormal];
     
-    CRGPopularMediaViewController *popularMediaController = self.viewControllers[POPULAR_MEDIA_INDEX];
     if ((NSNull *)popularMediaController == [NSNull null]) {
         popularMediaController = [[CRGPopularMediaViewController alloc] initWithNibName:nil bundle:nil];
         popularMediaController.view.frame = self.contentFrame;

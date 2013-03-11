@@ -50,7 +50,6 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
 @synthesize btnHome = _btnHome;
 @synthesize ivPhoto = _ivPhoto;
 @synthesize ivBackground = _ivBackground;
-@synthesize scrollView = _scrollView;
 @synthesize ivRefreshIcon = _ivRefreshIcon;
 @synthesize ivProgressBackground = _ivProgressBackground;
 @synthesize activityIndicatorView = _activityIndicatorView;
@@ -91,7 +90,6 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
 - (void)viewDidLoad
 {   
     [super viewDidLoad];
-    self.scrollView.delegate = self;
     
     [self setupRefreshViews];
     [self setupBackgroundView];
@@ -258,6 +256,11 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
 - (void)refresh
 {
     [self loadMediaCollection];
+}
+
+- (void)scrollToFirstPage
+{
+    [self.currentMediaController scrollToFirstPage];
 }
 
 - (void)didLogout
