@@ -23,6 +23,7 @@ NSString * const kOAuthCallbackURL = @"egwfapi://auth";
 NSString * const kCurrentUserKeyPath = @"currentUser";
 
 @interface CRGAppDelegate ()
+@property (strong, nonatomic) CRGMainViewController *mainViewController;
 @property (strong, nonatomic) UIWindow *authWindow;
 - (void)deleteCookies;
 @end
@@ -45,6 +46,9 @@ void onUncaughtException(NSException* exception)
     NSSetUncaughtExceptionHandler(&onUncaughtException);
     
     [self deleteCookies];
+    
+    UINavigationController *navController = (UINavigationController*)self.window.rootViewController;
+    self.mainViewController = (CRGMainViewController*)navController.topViewController;
     
     NSString *config = [[NSBundle mainBundle] pathForResource:@"APIClient" ofType:@"plist"];
     if (nil == config) {
@@ -92,7 +96,7 @@ void onUncaughtException(NSException* exception)
     [WFInstagramAPI setAccessToken:[defaults objectForKey:kDefaultsUserToken]];
     
     if (token) {
-        [((CRGMainViewController *)self.window.rootViewController) showSplashViewOnViewLoad];
+        [self.mainViewController showSplashViewOnViewLoad];
 
         // Load current user info
         dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -170,8 +174,7 @@ void onUncaughtException(NSException* exception)
             if (! showOnboarding || [showOnboarding boolValue]) {
                 [defaults setBool:NO forKey:kShowOnboarding];
                 [defaults synchronize];
-                CRGMainViewController *mainVC = (CRGMainViewController *)self.window.rootViewController;
-                [mainVC showOnboardingViewAnimated:NO];
+                [self.mainViewController showOnboardingViewAnimated:NO];
             }
         });
     });

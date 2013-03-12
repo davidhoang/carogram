@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CRGMediaViewController.h"
+#import "CRGMediaCollectionViewController.h"
 #import "CRGPopoverView.h"
 #import <MessageUI/MessageUI.h>
 
-@interface CRGMainViewController : UIViewController <CRGMediaViewControllerDelegate, CRGPopoverViewDelegate, MFMailComposeViewControllerDelegate>
+@interface CRGMainViewController : UIViewController <CRGMediaCollectionViewControllerDelegate, CRGPopoverViewDelegate, MFMailComposeViewControllerDelegate>
 
 @property (strong, nonatomic) WFIGUser *currentUser;
 

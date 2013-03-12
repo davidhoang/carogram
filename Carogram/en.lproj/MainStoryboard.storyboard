@@ -1,9 +1,76 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12C3012" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="c4l-kM-jaV">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12C3012" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="cMS-3M-SkS">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
     <scenes>
+        <!--Profile View Controller-->
+        <scene sceneID="G8U-mV-v16">
+            <objects>
+                <viewController id="ELP-TE-s9y" customClass="CRGProfileViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0jx-tG-tWf">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view autoresizesSubviews="NO" contentMode="TopLeft" id="b4Z-Ty-2KF" userLabel="Title Bar View">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="49"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" id="Rhb-ME-3yh">
+                                        <rect key="frame" x="-10" y="0.0" width="1044" height="49"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                    </view>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VQQ-tN-b4n" customClass="PVInnerShadowLabel">
+                                        <rect key="frame" x="152" y="4" width="720" height="41"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="39"/>
+                                        <color key="textColor" red="0.90196078431372551" green="0.9137254901960784" blue="0.78431372549019607" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <color key="shadowColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <size key="shadowOffset" width="0.0" height="0.0"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="lDt-0r-hO3">
+                                        <rect key="frame" x="10" y="5" width="64" height="39"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <inset key="contentEdgeInsets" minX="8" minY="3" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="Back">
+                                            <color key="titleColor" red="0.8784313725490196" green="0.8901960784313725" blue="0.76470588235294112" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="back:" destination="ELP-TE-s9y" eventType="touchUpInside" id="BWT-Ml-Mc1"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="NIo-za-7ep"/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="backButton" destination="lDt-0r-hO3" id="M99-RT-lZ6"/>
+                        <outlet property="titleBarBackground" destination="Rhb-ME-3yh" id="LA4-tD-nPM"/>
+                        <outlet property="titleBarView" destination="b4Z-Ty-2KF" id="fBX-AV-nKf"/>
+                        <outlet property="titleLabel" destination="VQQ-tN-b4n" id="jaN-ZI-yLs"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ecz-3C-4dM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-864" y="-4910"/>
+        </scene>
         <!--Main View Controller-->
         <scene sceneID="ziP-6J-fqq">
             <objects>
@@ -14,13 +81,22 @@
                         <subviews>
                             <view autoresizesSubviews="NO" contentMode="TopLeft" id="czp-eb-9S8" userLabel="Title Bar View">
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="49"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="TopLeft" image="caragram-logo.png" id="RG7-da-nsG">
-                                        <rect key="frame" x="409.5" y="11.5" width="205" height="25"/>
+                                    <view contentMode="scaleToFill" id="WZw-s7-F0c">
+                                        <rect key="frame" x="-10" y="0.0" width="1044" height="49"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                    </view>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="CAROGRAM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="W0C-GV-byd" customClass="PVInnerShadowLabel">
+                                        <rect key="frame" x="152" y="4" width="720" height="41"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="0.0"/>
-                                    </imageView>
+                                        <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="39"/>
+                                        <color key="textColor" red="0.90196078430000004" green="0.91372549020000005" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <color key="shadowColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <size key="shadowOffset" width="0.0" height="0.0"/>
+                                    </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="wtg-kQ-cTe">
                                         <rect key="frame" x="14" y="5" width="154" height="43"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -127,6 +203,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
+                    <navigationItem key="navigationItem" id="Emg-wn-2IK"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
@@ -135,19 +212,21 @@
                     <connections>
                         <outlet property="accountImageView" destination="Cfa-3C-fxB" id="JLf-rg-1vP"/>
                         <outlet property="clearSearchButton" destination="wFM-yD-Yvz" id="dJ9-EM-hrx"/>
-                        <outlet property="logoImageView" destination="RG7-da-nsG" id="u46-vW-ijB"/>
                         <outlet property="popularMediaButton" destination="KDC-RM-9zp" id="tdV-ba-lYz"/>
                         <outlet property="searchBackgroundView" destination="wtg-kQ-cTe" id="Mqp-aM-c9t"/>
                         <outlet property="searchButton" destination="twJ-eF-9X1" id="fvh-dy-TlE"/>
                         <outlet property="searchTextField" destination="CYF-ew-Fck" id="onE-xs-oI5"/>
                         <outlet property="settingsButton" destination="PMt-eY-rmX" id="PYJ-MF-UZE"/>
+                        <outlet property="titleBarBackground" destination="WZw-s7-F0c" id="bMw-wh-4Kd"/>
                         <outlet property="titleBarView" destination="czp-eb-9S8" id="Bpg-Pd-IS7"/>
+                        <outlet property="titleLabel" destination="W0C-GV-byd" id="rfP-9x-Ivt"/>
                         <outlet property="userFeedButton" destination="dNn-dc-hi9" id="1JF-LF-JuC"/>
+                        <segue destination="ELP-TE-s9y" kind="push" identifier="ViewProfile" id="C61-q7-kgI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YbW-h6-K4k" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3325" y="-4790"/>
+            <point key="canvasLocation" x="-2362" y="-4910"/>
         </scene>
         <!--Onboard View Controller-->
         <scene sceneID="Gzd-jW-2ak">
@@ -275,7 +354,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5jz-LC-TGf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-326" y="-4018"/>
+            <point key="canvasLocation" x="-1462" y="-6154"/>
         </scene>
         <!--Details View Controller-->
         <scene sceneID="RFI-nM-sBf">
@@ -501,7 +580,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sds-pJ-61D" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="798" y="-4553"/>
+            <point key="canvasLocation" x="844" y="-5857"/>
         </scene>
         <!--New Comment View Controller-->
         <scene sceneID="s2x-ee-Wdo">
@@ -571,7 +650,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jk7-mA-6BI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2187" y="-4546"/>
+            <point key="canvasLocation" x="929" y="-4514"/>
         </scene>
         <!--Paging Grid View Controller-->
         <scene sceneID="RSN-SO-tMX">
@@ -601,7 +680,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wgC-75-iOP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1776" y="-5244"/>
+            <point key="canvasLocation" x="-506" y="-3720"/>
         </scene>
         <!--Paging Slide View Controller-->
         <scene sceneID="xpy-yB-qA0">
@@ -639,7 +718,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5pV-PT-3Jl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1808" y="-4028"/>
+            <point key="canvasLocation" x="-1856" y="-3740"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="nGN-sa-FdS">
+            <objects>
+                <navigationController navigationBarHidden="YES" id="cMS-3M-SkS" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="GQU-p2-g4x">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="c4l-kM-jaV" kind="relationship" relationship="rootViewController" id="Wxp-l9-A9o"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uTl-S1-8SD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3448" y="-5038"/>
         </scene>
     </scenes>
     <resources>
@@ -657,7 +754,6 @@
         <image name="btn-share.png" width="53" height="53"/>
         <image name="btn-submit.png" width="382" height="51"/>
         <image name="btn-user-feed-depressed.png" width="35" height="37"/>
-        <image name="caragram-logo.png" width="205" height="25"/>
         <image name="details-header-bg.png" width="298" height="59"/>
         <image name="icon-comments.png" width="24" height="22"/>
         <image name="icon-likes-selected.png" width="25" height="22"/>
@@ -666,6 +762,106 @@
         <image name="onboard-0.jpg" width="1024" height="768"/>
         <image name="search-icon.png" width="23" height="23"/>
     </resources>
+    <classes>
+        <class className="CRGClipView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGClipView.h"/>
+            <relationships>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+            </relationships>
+        </class>
+        <class className="CRGDetailsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGDetailsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="touchClose:"/>
+                <relationship kind="outlet" name="btnComments" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="btnLike" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="btnLikeMedia" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="btnShare" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="commentsTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="commentsView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="ivPhoto" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="ivUser" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="lblCaption" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="lblComments" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="lblLikes" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="likeImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="likesTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="mediaView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="usernameLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="CRGMainViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGMainViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="accountImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="clearSearchButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="logoImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="popularMediaButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="searchBackgroundView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="searchButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="searchTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="settingsButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="titleBarBackground" candidateClass="UIView"/>
+                <relationship kind="outlet" name="titleBarView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="titleLabel" candidateClass="PVInnerShadowLabel"/>
+                <relationship kind="outlet" name="userFeedButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="CRGNewCommentViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGNewCommentViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="commentTextView" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="dialogView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="submitButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="CRGOnboardViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGOnboardViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+            </relationships>
+        </class>
+        <class className="CRGPagingGridViewController" superclassName="CRGPagingMediaViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGPagingGridViewController.h"/>
+        </class>
+        <class className="CRGPagingMediaViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGPagingMediaViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+            </relationships>
+        </class>
+        <class className="CRGPagingSlideViewController" superclassName="CRGPagingMediaViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGPagingSlideViewController.h"/>
+        </class>
+        <class className="CRGProfileViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGProfileViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="back:"/>
+                <relationship kind="outlet" name="backButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="titleBarBackground" candidateClass="UIView"/>
+                <relationship kind="outlet" name="titleBarView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="titleLabel" candidateClass="PVInnerShadowLabel"/>
+            </relationships>
+        </class>
+        <class className="CRGSlideViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGSlideViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="touchMedia:"/>
+                <relationship kind="outlet" name="ivPhoto" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="ivUser" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="lblCaption" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="lblComments" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="lblLikes" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="mediaView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="usernameLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="PVInnerShadowLabel" superclassName="UILabel">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PVInnerShadowLabel.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>

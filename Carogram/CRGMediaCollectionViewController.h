@@ -1,5 +1,5 @@
 //
-//  CGViewController.h
+//  CGMediaCollectionViewController.h
 //  Carogram
 //
 //  Created by Jacob Moore on 8/22/12.
@@ -12,11 +12,11 @@
 #import "CRGMediaSelectorDelegate.h"
 #import "CRGPagingMediaViewController.h"
 
-@protocol CRGMediaViewControllerDelegate;
+@protocol CRGMediaCollectionViewControllerDelegate;
 
-@interface CRGMediaViewController : UIViewController <UIActionSheetDelegate, UIScrollViewDelegate, CRGMediaSelectorDelegate, PagingMediaViewControllerDelegate>
+@interface CRGMediaCollectionViewController : UIViewController <UIActionSheetDelegate, UIScrollViewDelegate, CRGMediaSelectorDelegate, PagingMediaViewControllerDelegate>
 
-@property (weak, nonatomic) id<CRGMediaViewControllerDelegate> delegate;
+@property (weak, nonatomic) id<CRGMediaCollectionViewControllerDelegate> delegate;
 @property (strong, nonatomic) WFIGUser *currentUser;
 @property (strong, nonatomic) IBOutlet UIView *titleBarView;
 @property (strong, nonatomic) IBOutlet UIImageView *ivSearchBg;
@@ -39,8 +39,8 @@
 
 @end
 
-@protocol CRGMediaViewControllerDelegate <NSObject>
+@protocol CRGMediaCollectionViewControllerDelegate <NSObject>
 
-- (void)mediaViewControllerDidLoadMediaCollection:(CRGMediaViewController *)mediaViewController;
+- (void)mediaCollectionViewControllerDidLoadMediaCollection:(CRGMediaCollectionViewController *)mediaCollectionViewController;
 
 @end

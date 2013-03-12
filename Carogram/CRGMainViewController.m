@@ -16,6 +16,8 @@
 #import "CRGTagSearchViewController.h"
 #import "CRGSplashProgressView.h"
 #import "CRGOnboardViewController.h"
+#import "CRGProfileViewController.h"
+#import "PVInnerShadowLabel.h"
 
 #define USER_FEED_INDEX     0
 #define POPULAR_MEDIA_INDEX 1
@@ -32,7 +34,7 @@ static int currentUserObserverContext;
 @property (nonatomic) CGRect contentFrame;
 @property (strong, nonatomic) NSMutableArray *viewControllers;
 @property (nonatomic) int currentViewControllerIndex;
-@property (strong, nonatomic) CRGMediaViewController *currentViewController;
+@property (strong, nonatomic) CRGMediaCollectionViewController *currentViewController;
 @property (strong, nonatomic) IBOutlet UIButton *popularMediaButton;
 @property (strong, nonatomic) IBOutlet UIButton *userFeedButton;
 @property (strong, nonatomic) IBOutlet UITextField *searchTextField;
@@ -43,6 +45,8 @@ static int currentUserObserverContext;
 @property (strong, nonatomic) IBOutlet UIButton *settingsButton;
 @property (strong, nonatomic) IBOutlet UIButton *searchButton;
 @property (strong, nonatomic) IBOutlet UIButton *clearSearchButton;
+@property (strong, nonatomic) IBOutlet UIView *titleBarBackground;
+@property (strong, nonatomic) IBOutlet PVInnerShadowLabel *titleLabel;
 @end
 
 @implementation CRGMainViewController {
@@ -114,6 +118,8 @@ static int currentUserObserverContext;
     [self setSettingsButton:nil];
     [self setSearchButton:nil];
     [self setClearSearchButton:nil];
+    [self setTitleBarBackground:nil];
+    [self setTitleLabel:nil];
     [super viewDidUnload];
 }
 
@@ -129,8 +135,19 @@ static int currentUserObserverContext;
     self.currentUser = appDelegate.currentUser;
     if (nil != self.currentUser) [self loadProfilePicture];
     
+    self.titleLabel.innerShadowColor = [UIColor colorWithWhite:0 alpha:.75];
+    self.titleLabel.innerShadowOffset = CGSizeMake(0, .8);
+    self.titleLabel.innerShadowSize = 1.2;
+    
     UIImage *patternImage = [UIImage imageNamed:@"title-bar-bg-tile"];
-    self.titleBarView.backgroundColor = [UIColor colorWithPatternImage:patternImage];
+    self.titleBarBackground.backgroundColor = [UIColor colorWithPatternImage:patternImage];
+    
+    // Add shadow to title bar
+    self.titleBarBackground.layer.shadowOffset = CGSizeMake(0, 3);
+    self.titleBarBackground.layer.shadowRadius = 4;
+    self.titleBarBackground.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.titleBarBackground.layer.shadowOpacity = .5;
+    self.titleBarBackground.layer.masksToBounds = NO;
     
     self.searchBackgroundView.image =
     [[UIImage imageNamed:@"search-bg"] stretchableImageWithLeftCapWidth:4 topCapHeight:4];
@@ -340,9 +357,17 @@ static int currentUserObserverContext;
     });
 }
 
-#pragma mark - CRGMediaViewControllerDelegate methods
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"ViewProfile"]) {
+        CRGProfileViewController *profileController = [segue destinationViewController];
+        profileController.user = [WFInstagramAPI currentUser];
+    }
+}
 
-- (void)mediaViewControllerDidLoadMediaCollection:(CRGMediaViewController *)mediaViewController
+#pragma mark - CRGMediaCollectionViewControllerDelegate methods
+
+- (void)mediaCollectionViewControllerDidLoadMediaCollection:(CRGMediaCollectionViewController *)mediaCollectionViewController
 {
     if ([self.splashView superview] != nil) {
         [UIView animateWithDuration:0.3 animations:^{

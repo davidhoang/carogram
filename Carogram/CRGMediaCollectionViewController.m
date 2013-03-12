@@ -1,12 +1,12 @@
 //
-//  CRGMediaViewController.m
+//  CRGMediaCollectionViewController.m
 //  Carogram
 //
 //  Created by Jacob Moore on 8/22/12.
 //  Copyright (c) 2012 Xhatch Interactive, LLC. All rights reserved.
 //
 
-#import "CRGMediaViewController.h"
+#import "CRGMediaCollectionViewController.h"
 #import "CRGAppDelegate.h"
 #import "CRGDetailsViewController.h"
 #import "WFIGImageCache.h"
@@ -21,7 +21,7 @@ static int currentUserObserverContext;
 
 CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
 
-@interface CRGMediaViewController ()
+@interface CRGMediaCollectionViewController ()
 @property (strong, nonatomic) UIImageView *ivBackground;
 @property (strong, nonatomic) UIImageView *ivRefreshIcon;
 @property (strong, nonatomic) CRGPagingGridViewController *pagingGridViewController;
@@ -32,7 +32,7 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
 - (void)setupProgressView;
 @end
 
-@implementation CRGMediaViewController {
+@implementation CRGMediaCollectionViewController {
     CGFloat _pinchScale;
     BOOL _zoomRecognized;
     BOOL _resetView;
