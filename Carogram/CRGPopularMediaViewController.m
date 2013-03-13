@@ -25,16 +25,16 @@
     if (self.currentUser == nil) return;
     
     [self setProgressViewShown:YES];
-    self.currentMediaController.view.hidden = YES;
+    self.currentPagingMediaController.view.hidden = YES;
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         self.mediaCollection = [WFIGMedia popularMediaWithLimit:kImageCount error:NULL];
         
         dispatch_async( dispatch_get_main_queue(), ^{
-            self.currentMediaController.mediaCollection = self.mediaCollection;
+            self.currentPagingMediaController.mediaCollection = self.mediaCollection;
             
             [self setProgressViewShown:NO];
-            self.currentMediaController.view.hidden = NO;
+            self.currentPagingMediaController.view.hidden = NO;
         });
     });
 }

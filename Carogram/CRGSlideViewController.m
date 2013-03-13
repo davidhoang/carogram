@@ -149,7 +149,7 @@ static NSString * const MediaKeyPath = @"media";
 
 - (IBAction)touchMedia:(id)sender {
     if (self.delegate && [self.delegate respondsToSelector:@selector(didSelectMedia:fromRect:)]) {
-        [self.delegate didSelectMedia:self.media fromRect:self.ivPhoto.frame];
+        [self.delegate didSelectMedia:self.media fromRect:self.mediaView.frame];
     }
 }
 

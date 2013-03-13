@@ -48,16 +48,16 @@
     
     [self hideNoResultsLabel];
     [self setProgressViewShown:YES];
-    self.currentMediaController.view.hidden = YES;
+    self.currentPagingMediaController.view.hidden = YES;
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         self.mediaCollection = [WFIGMedia mediaWithTag:self.searchTag error:NULL];
         
         dispatch_async( dispatch_get_main_queue(), ^{
-            self.currentMediaController.mediaCollection = self.mediaCollection;
+            self.currentPagingMediaController.mediaCollection = self.mediaCollection;
             
             [self setProgressViewShown:NO];
-            self.currentMediaController.view.hidden = NO;
+            self.currentPagingMediaController.view.hidden = NO;
             
             if (! [self.mediaCollection count]) {
                 NSString *noResultsText = [NSString stringWithFormat:@"Sorry, there were no results for %@. Try something else?", self.searchTag];

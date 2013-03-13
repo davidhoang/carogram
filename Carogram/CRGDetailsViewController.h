@@ -12,8 +12,11 @@
 #import "CRGPopoverView.h"
 #import <MessageUI/MessageUI.h>
 
+@protocol CRGDetailsViewControllerDelegate;
+
 @interface CRGDetailsViewController : UIViewController <CRGNewCommentViewControllerDelegate, UIAlertViewDelegate, CRGPopoverViewDelegate, MFMailComposeViewControllerDelegate>
 
+@property (weak, nonatomic) id<CRGDetailsViewControllerDelegate> delegate;
 @property (strong, nonatomic) WFIGMedia *media;
 @property (strong, nonatomic) IBOutlet UIImageView *ivPhoto;
 @property (nonatomic) CGRect startRect;
@@ -25,6 +28,11 @@
 @property (strong, nonatomic) IBOutlet UIView *commentsView;
 @property (strong, nonatomic) IBOutlet UIButton *btnComments;
 
-- (IBAction)touchClose:(id)sender;
+- (void)showFromRect:(CGRect)rect;
 
 @end
+
+@protocol CRGDetailsViewControllerDelegate <NSObject>
+- (void)detailsViewControllerDidFinish:(CRGDetailsViewController*)detailsViewController;
+@end
+

@@ -8,7 +8,6 @@
 
 #import "CRGMediaCollectionViewController.h"
 #import "CRGAppDelegate.h"
-#import "CRGDetailsViewController.h"
 #import "WFIGImageCache.h"
 #import "CRGGridViewController.h"
 #import "CRGPagingGridViewController.h"
@@ -26,6 +25,7 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
 @property (strong, nonatomic) UIImageView *ivRefreshIcon;
 @property (strong, nonatomic) CRGPagingGridViewController *pagingGridViewController;
 @property (strong, nonatomic) CRGPagingSlideViewController *pagingSlideViewController;
+@property (strong, nonatomic) CRGDetailsViewController *detailsViewController;
 @property (strong, nonatomic) UILabel *noResultsLabel;
 - (void)setupRefreshViews;
 - (void)setupBackgroundView;
@@ -104,6 +104,7 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
     UIPinchGestureRecognizer *pinchRecognizer =
     [[UIPinchGestureRecognizer alloc] initWithTarget:self
                                               action:@selector(handlePinch:)];
+    pinchRecognizer.delegate = self;
     [self.view addGestureRecognizer:pinchRecognizer];
 }
 
@@ -213,7 +214,7 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
     [self.pagingSlideViewController removeFromParentViewController];
     [self.pagingGridViewController didMoveToParentViewController:self];
     
-    self.currentMediaController = self.pagingGridViewController;
+    self.currentPagingMediaController = self.pagingGridViewController;
 }
 
 - (void)addPagingGridControllerToViewHidden:(BOOL)hidden
@@ -260,13 +261,13 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
 
 - (void)scrollToFirstPage
 {
-    [self.currentMediaController scrollToFirstPage];
+    [self.currentPagingMediaController scrollToFirstPage];
 }
 
 - (void)didLogout
 {
     [self setProgressViewShown:YES];
-    self.currentMediaController.view.hidden = YES;
+    self.currentPagingMediaController.view.hidden = YES;
 }
 
 - (void) loadMediaCollection { } // subclasses should override this method
@@ -292,9 +293,15 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
 
 #pragma mark - Pinch Gesture handling
 
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    if (self.detailsViewController.view.superview) return NO;
+    return YES;
+}
+
 - (void)handlePinch:(UIPinchGestureRecognizer *)recognizer
 {
-    if (self.currentMediaController == self.pagingGridViewController) {
+    if (self.currentPagingMediaController == self.pagingGridViewController) {
         [self handlePinchInGridView:recognizer];
     } else {
         [self handlePinchInSlideView:recognizer];
@@ -516,7 +523,7 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
 
         [self.pagingSlideViewController removeFromParentViewController];
 
-        self.currentMediaController = self.pagingGridViewController;
+        self.currentPagingMediaController = self.pagingGridViewController;
     }];
 }
 
@@ -545,7 +552,7 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
         
         [self.pagingGridViewController removeFromParentViewController];
         
-        self.currentMediaController = self.pagingSlideViewController;
+        self.currentPagingMediaController = self.pagingSlideViewController;
     }];
 }
 
@@ -637,13 +644,31 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
 
 - (void)didSelectMedia:(WFIGMedia *)media fromRect:(CGRect)rect
 {
-    rect.origin.y += self.view.frame.origin.y;
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:[NSBundle mainBundle]];
-    CRGDetailsViewController *detailsVC = (CRGDetailsViewController *)[storyboard instantiateViewControllerWithIdentifier: @"Details"];
-    [detailsVC setMedia:media];
-    detailsVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    detailsVC.startRect = rect;
-    [self presentModalViewController:detailsVC animated:YES];
+    if (! self.detailsViewController) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard"
+                                                             bundle:[NSBundle mainBundle]];
+        self.detailsViewController =
+            (CRGDetailsViewController *)[storyboard instantiateViewControllerWithIdentifier: @"Details"];
+        self.detailsViewController.delegate = self;
+    }
+
+    self.detailsViewController.media = media;
+
+    [self addChildViewController:self.detailsViewController];
+    [self.view addSubview:self.detailsViewController.view];
+    [self.detailsViewController didMoveToParentViewController:self];
+    
+    [self.detailsViewController showFromRect:rect];
+}
+
+#pragma mark - CRGDetailsViewControllerDelegate
+
+- (void)detailsViewControllerDidFinish:(CRGDetailsViewController*)detailsViewController
+{
+    [self.detailsViewController willMoveToParentViewController:nil];
+    [self.detailsViewController.view removeFromSuperview];
+    [self.detailsViewController removeFromParentViewController];
+    self.detailsViewController = nil;
 }
 
 @end

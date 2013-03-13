@@ -7,7 +7,7 @@
         <!--Profile View Controller-->
         <scene sceneID="G8U-mV-v16">
             <objects>
-                <viewController id="ELP-TE-s9y" customClass="CRGProfileViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Profile" id="ELP-TE-s9y" customClass="CRGProfileViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0jx-tG-tWf">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -266,12 +266,12 @@
             <objects>
                 <viewController storyboardIdentifier="Slide" autoresizesArchivedViewToFullSize="NO" id="Vr6-14-6os" customClass="CRGSlideViewController" sceneMemberID="viewController">
                     <view key="view" autoresizesSubviews="NO" contentMode="center" id="Ygf-Fa-a0W">
-                        <rect key="frame" x="0.0" y="0.0" width="684" height="703"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <rect key="frame" x="0.0" y="0.0" width="684" height="719"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="H3E-6I-W3b">
-                                <rect key="frame" x="25" y="0.0" width="634" height="703"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="25" y="8" width="634" height="703"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" id="GuI-6L-hgx">
                                         <rect key="frame" x="11" y="11" width="612" height="612"/>
@@ -322,8 +322,8 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Qys-dx-fvh">
-                                <rect key="frame" x="34" y="8" width="616" height="683"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="34" y="16" width="616" height="683"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -361,16 +361,16 @@
             <objects>
                 <viewController storyboardIdentifier="Details" autoresizesArchivedViewToFullSize="NO" modalPresentationStyle="currentContext" id="xj4-L6-Tpp" customClass="CRGDetailsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bcD-w0-v7h">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="719"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="bg.png" id="LgV-Su-H2h">
+                            <imageView userInteractionEnabled="NO" contentMode="center" image="bg.png" id="LgV-Su-H2h">
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <view contentMode="scaleToFill" id="heh-P4-jHm">
-                                <rect key="frame" x="45" y="32" width="634" height="703"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="45" y="8" width="634" height="703"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <imageView contentMode="scaleToFill" id="wWl-Mn-FNE">
                                         <rect key="frame" x="11" y="11" width="612" height="612"/>
@@ -380,6 +380,22 @@
                                         <rect key="frame" x="11" y="629" width="64" height="64"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="yum-Nn-1bD">
+                                        <rect key="frame" x="11" y="629" width="64" height="64"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="viewProfile:" destination="xj4-L6-Tpp" eventType="touchUpInside" id="4wJ-Wf-mGx"/>
+                                        </connections>
+                                    </button>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Bln-bF-D2C">
                                         <rect key="frame" x="86" y="655" width="439" height="38"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -461,8 +477,8 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" id="YdM-Sd-b4r">
-                                <rect key="frame" x="726" y="0.0" width="298" height="768"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="726" y="8" width="298" height="711"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="details-header-bg.png" id="ZD4-tN-OGe">
                                         <rect key="frame" x="0.0" y="0.0" width="298" height="59"/>
@@ -480,7 +496,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="touchClose:" destination="xj4-L6-Tpp" eventType="touchUpInside" id="RJk-iy-f3D"/>
+                                            <action selector="close:" destination="xj4-L6-Tpp" eventType="touchUpInside" id="XJa-W8-zua"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="EKS-2E-GME">
@@ -530,7 +546,7 @@
                                         </connections>
                                     </button>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="LNv-SL-4cU" userLabel="Table View - Comments">
-                                        <rect key="frame" x="0.0" y="59" width="298" height="709"/>
+                                        <rect key="frame" x="0.0" y="59" width="298" height="652"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <inset key="contentInset" minX="0.0" minY="8" maxX="0.0" maxY="4"/>
@@ -541,7 +557,7 @@
                                         </connections>
                                     </tableView>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="zaD-Vm-YBy" userLabel="Table View - Likes">
-                                        <rect key="frame" x="0.0" y="59" width="298" height="709"/>
+                                        <rect key="frame" x="0.0" y="59" width="298" height="652"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" red="0.48001254562043794" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
                                         <inset key="contentInset" minX="0.0" minY="8" maxX="0.0" maxY="4"/>
@@ -555,12 +571,14 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
+                        <outlet property="backgroundView" destination="LgV-Su-H2h" id="9Ee-cf-DLe"/>
                         <outlet property="btnComments" destination="qGk-R5-Due" id="d1t-D5-Nbq"/>
                         <outlet property="btnLike" destination="EKS-2E-GME" id="vEd-mH-TdT"/>
                         <outlet property="btnLikeMedia" destination="lrX-A8-PM0" id="4A4-72-igL"/>
@@ -668,7 +686,7 @@
                                 </connections>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
@@ -772,7 +790,16 @@
         <class className="CRGDetailsViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGDetailsViewController.h"/>
             <relationships>
-                <relationship kind="action" name="touchClose:"/>
+                <relationship kind="action" name="close:"/>
+                <relationship kind="action" name="handleDoubleTap:" candidateClass="UIGestureRecognizer"/>
+                <relationship kind="action" name="handleSingleTap:" candidateClass="UIGestureRecognizer"/>
+                <relationship kind="action" name="handleSwipeLeftGesture:" candidateClass="UIGestureRecognizer"/>
+                <relationship kind="action" name="handleSwipeRightGesture:" candidateClass="UIGestureRecognizer"/>
+                <relationship kind="action" name="newComment:" candidateClass="UIButton"/>
+                <relationship kind="action" name="toggleLike:" candidateClass="UIButton"/>
+                <relationship kind="action" name="touchShare:"/>
+                <relationship kind="action" name="viewProfile:"/>
+                <relationship kind="outlet" name="backgroundView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="btnComments" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="btnLike" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="btnLikeMedia" candidateClass="UIButton"/>
@@ -793,6 +820,12 @@
         <class className="CRGMainViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGMainViewController.h"/>
             <relationships>
+                <relationship kind="action" name="clearSearch:" candidateClass="UIButton"/>
+                <relationship kind="action" name="search:"/>
+                <relationship kind="action" name="showPopularMedia:"/>
+                <relationship kind="action" name="showSettingsPopover:" candidateClass="UIButton"/>
+                <relationship kind="action" name="showUserFeed:"/>
+                <relationship kind="action" name="touchSettings:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="accountImageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="clearSearchButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="logoImageView" candidateClass="UIImageView"/>
@@ -810,6 +843,7 @@
         <class className="CRGNewCommentViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGNewCommentViewController.h"/>
             <relationships>
+                <relationship kind="action" name="submit:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
                 <relationship kind="outlet" name="commentTextView" candidateClass="UITextView"/>
                 <relationship kind="outlet" name="dialogView" candidateClass="UIView"/>
@@ -820,6 +854,7 @@
         <class className="CRGOnboardViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGOnboardViewController.h"/>
             <relationships>
+                <relationship kind="action" name="changePage:"/>
                 <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
             </relationships>
         </class>

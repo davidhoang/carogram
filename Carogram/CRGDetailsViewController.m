@@ -14,6 +14,7 @@
 #import "CRGNewCommentViewController.h"
 #import "SDWebImageManager.h"
 #import <Twitter/Twitter.h>
+#import "CRGProfileViewController.h"
 
 typedef enum {
     AlertViewTagSetLike,
@@ -21,7 +22,6 @@ typedef enum {
 } AlertViewTag;
 
 @interface CRGDetailsViewController ()
-@property (nonatomic) CGRect mediaFrame;
 @property (strong, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (strong, nonatomic) IBOutlet UIButton *btnShare;
 @property (strong, nonatomic) CRGNewCommentViewController *aNewCommentViewController;
@@ -31,6 +31,7 @@ typedef enum {
 @property (strong, nonatomic) IBOutlet UIButton *btnLikeMedia;
 @property (strong, nonatomic) IBOutlet UIImageView *likeImageView;
 @property (strong, nonatomic) CRGPopoverView *sharePopoverView;
+@property (strong, nonatomic) IBOutlet UIImageView *backgroundView;
 - (void)configureViews;
 - (void)loadProfilePicture;
 - (void)loadComments;
@@ -38,7 +39,9 @@ typedef enum {
 
 @implementation CRGDetailsViewController {
 @private
-    BOOL animationComplete;
+    BOOL _animationComplete;
+    CGRect _mediaFrame;
+    CGRect _commentsFrame;
 }
 @synthesize media = _media;
 @synthesize ivPhoto = _ivPhoto;
@@ -57,36 +60,15 @@ typedef enum {
 {
     [super viewDidLoad];
     
-    // Disable liking until we know if this user has liked this media
-    self.btnLike.enabled = NO;
-    self.btnLikeMedia.enabled = NO;
-
-    self.mediaFrame = self.mediaView.frame;
-    self.mediaView.frame = self.startRect;
-    
-    // Round avatar image view
-    self.ivUser.layer.opaque = YES;
-    self.ivUser.layer.masksToBounds = YES;
-    self.ivUser.layer.cornerRadius = 0;
-    
-    // Add rounded border layer
-    CALayer *roundedLayer = [CALayer layer];
-    roundedLayer.frame = self.ivUser.bounds;
-    roundedLayer.opaque = YES;
-    roundedLayer.masksToBounds = YES;
-    roundedLayer.cornerRadius = 0;
-    roundedLayer.borderWidth = 1.0;
-    roundedLayer.borderColor = [[UIColor colorWithRed:(220./255.)
-                                                green:(201./255.)
-                                                 blue:(201./255.)
-                                                alpha:1.] CGColor];
-    
-    [self.ivUser.layer addSublayer:roundedLayer];
-    
     [self configureViews];
     
-    self.commentsTableView.directionalLockEnabled = YES;
-    self.likesTableView.directionalLockEnabled = YES;
+    _animationComplete = NO;
+
+    _mediaFrame = self.mediaView.frame;
+    _commentsFrame = self.commentsView.frame;
+    
+    // Start with view hidden
+    self.view.hidden = YES;
     
     UISwipeGestureRecognizer *swipeLeftRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeLeftGesture:)];
     swipeLeftRecognizer.numberOfTouchesRequired = 1;
@@ -127,57 +109,13 @@ typedef enum {
     [self setBtnLike:nil];
     [self setBtnLikeMedia:nil];
     [self setLikeImageView:nil];
+    [self setBackgroundView:nil];
     [super viewDidUnload];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    CGRect commentsFrame = self.commentsView.frame;
-    CGRect startCommentsFrame = self.commentsView.frame;
-    startCommentsFrame.origin.x = self.view.frame.size.width;
-    self.commentsView.frame = startCommentsFrame;
-    
-    animationComplete = NO;
-    [UIView animateWithDuration:0.3
-                     animations:^{
-                         self.mediaView.frame = self.mediaFrame;
-                         self.commentsView.frame = commentsFrame;
-                     }
-                     completion:^(BOOL finished){
-                         animationComplete = YES;
-                         [self.commentsTableView setHidden:NO];
-                         [self.commentsTableView reloadData];
-                         [self loadComments];
-                         [self.likesTableView reloadData];
-                     }];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    
-    [self.commentsTableView setHidden:YES];
-    
-    CGRect commentsFrame = self.commentsView.frame;
-    commentsFrame.origin.x = self.view.frame.size.width;
-    
-    [UIView animateWithDuration:0.3
-                     animations:^{
-                         self.mediaView.frame = self.startRect;
-                         self.commentsView.frame = commentsFrame;
-                     }];
-}
-
-- (void)configureViews
-{
-    self.commentsView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"details-bg-tile"]];
-    
-    self.usernameLabel.font = [UIFont fontWithName:@"Gotham-Medium" size:15.];
-    self.lblCaption.font = [UIFont fontWithName:@"Gotham-Medium" size:12.];
-    self.lblLikes.font = [UIFont fontWithName:@"Gotham-Medium" size:15.];
-    self.lblComments.font = [UIFont fontWithName:@"Gotham-Medium" size:15.];
     
     if (nil != self.media) {
         SDWebImageManager *manager = [SDWebImageManager sharedManager];
@@ -204,8 +142,46 @@ typedef enum {
         [self.lblComments setText:@""];
         [self.lblLikes setText:@""];
     }
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+}
+
+- (void)configureViews
+{
+    
+    self.commentsView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"details-bg-tile"]];
+    
+    self.usernameLabel.font = [UIFont fontWithName:@"Gotham-Medium" size:15.];
+    self.lblCaption.font = [UIFont fontWithName:@"Gotham-Medium" size:12.];
+    self.lblLikes.font = [UIFont fontWithName:@"Gotham-Medium" size:15.];
+    self.lblComments.font = [UIFont fontWithName:@"Gotham-Medium" size:15.];
     
     self.likeImageView.layer.cornerRadius = 8.;
+    
+    // Round avatar image view
+    self.ivUser.layer.opaque = YES;
+    self.ivUser.layer.masksToBounds = YES;
+    self.ivUser.layer.cornerRadius = 0;
+    
+    // Add rounded border layer
+    CALayer *roundedLayer = [CALayer layer];
+    roundedLayer.frame = self.ivUser.bounds;
+    roundedLayer.opaque = YES;
+    roundedLayer.masksToBounds = YES;
+    roundedLayer.cornerRadius = 0;
+    roundedLayer.borderWidth = 1.0;
+    roundedLayer.borderColor = [[UIColor colorWithRed:(220./255.)
+                                                green:(201./255.)
+                                                 blue:(201./255.)
+                                                alpha:1.] CGColor];
+    
+    [self.ivUser.layer addSublayer:roundedLayer];
+    
+    self.commentsTableView.directionalLockEnabled = YES;
+    self.likesTableView.directionalLockEnabled = YES;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -274,9 +250,10 @@ typedef enum {
         return;
     }
     
-    if (![self.media hasAllComments]) {
+    if (! [self.media hasAllComments]) {
         int oldCommentsCount = [self.media.comments count];
         [self.media allCommentsWithCompletionBlock:^(WFIGMedia *commentsMedia, NSArray *comments, NSError *error) {
+            if (! self.view.superview) return;
             if (self.media == commentsMedia && error == nil) {
                 int rowsAdded = [self.media commentsCount] - oldCommentsCount;
                 
@@ -308,6 +285,7 @@ typedef enum {
     if (! [self.media hasAllLikes]) {
         int oldLikesCount = [self.media.likes count];
         [self.media allLikesWithCompletionBlock:^(WFIGMedia *likesMedia, NSArray *likes, NSError *error) {
+            if (! self.view.superview) return;
             if (self.media == likesMedia && error == nil) {
                 int rowsAdded = [self.media likesCount] - oldLikesCount;
                 
@@ -387,6 +365,54 @@ typedef enum {
     [self presentModalViewController:tweetSheet animated:YES];
 }
 
+- (void)showFromRect:(CGRect)rect
+{
+    // Disable liking until we know if this user has liked this media
+    self.btnLike.enabled = NO;
+    self.btnLikeMedia.enabled = NO;
+    
+    self.startRect = rect;
+    
+    CGPoint mediaCenter = self.mediaView.center;
+    CGPoint startCenter = CGPointMake(CGRectGetMidX(rect), CGRectGetMidY(rect));
+    CGFloat scale = rect.size.width / self.mediaView.frame.size.width;
+    CGAffineTransform transform = CGAffineTransformMakeScale(scale, scale);
+    
+    self.mediaView.transform = transform;
+    self.mediaView.center = startCenter;
+    self.mediaView.alpha = 0;
+    
+    CGRect startCommentsFrame = self.commentsView.frame;
+    startCommentsFrame.origin.x = self.view.frame.size.width;
+    self.commentsView.frame = startCommentsFrame;
+    
+    self.backgroundView.alpha = 0;
+    self.view.hidden = NO;
+    
+    _animationComplete = NO;
+    [UIView animateWithDuration:0.3
+                     animations:^{
+                         self.mediaView.center = mediaCenter;
+                         self.mediaView.transform = CGAffineTransformIdentity;
+                         self.mediaView.alpha = 1;
+                         self.commentsView.frame = _commentsFrame;
+                         self.backgroundView.alpha = 1;
+                     }
+                     completion:^(BOOL finished){
+                         self.mediaView.transform = CGAffineTransformIdentity;
+                         self.mediaView.frame = _mediaFrame;
+                         self.mediaView.alpha = 1;
+                         self.commentsView.frame = _commentsFrame;
+                         self.backgroundView.alpha = 1;
+                         _animationComplete = YES;
+                         [self.commentsTableView setHidden:NO];
+                         [self.commentsTableView reloadData];
+                         
+                         [self loadComments];
+                         [self.likesTableView reloadData];
+                     }];
+}
+
 #pragma mark - Actions
 
 - (IBAction)newComment:(UIButton *)sender {
@@ -421,8 +447,38 @@ typedef enum {
     [self.likesTableView reloadData];
 }
 
-- (IBAction)touchClose:(id)sender {
-    [self dismissModalViewControllerAnimated:YES];
+- (IBAction)close:(id)sender {
+    [self.commentsTableView setHidden:YES];
+    
+    CGRect commentsFrame = self.commentsView.frame;
+    commentsFrame.origin.x = self.view.frame.size.width;
+    
+    CGPoint startCenter = CGPointMake(CGRectGetMidX(self.startRect), CGRectGetMidY(self.startRect));
+    CGFloat scale = self.startRect.size.width / self.mediaView.frame.size.width;
+    CGAffineTransform transform = CGAffineTransformMakeScale(scale, scale);
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        self.mediaView.center = startCenter;
+        self.mediaView.transform = transform;
+        self.mediaView.alpha = 0;
+        self.commentsView.frame = commentsFrame;
+        self.backgroundView.alpha = 0;
+    } completion:^(BOOL finished) {
+        self.view.hidden = YES;
+        
+        self.mediaView.transform = CGAffineTransformIdentity;
+        self.mediaView.frame = _mediaFrame;
+        self.mediaView.alpha = 1;
+        self.commentsView.frame = _commentsFrame;
+        self.backgroundView.alpha = 1;
+        
+        self.commentsTableView.frame = CGRectOffset(self.commentsTableView.frame, -self.commentsTableView.frame.origin.x, 0);
+        self.likesTableView.frame = CGRectOffset(self.likesTableView.frame, self.likesTableView.frame.size.width - self.likesTableView.frame.origin.x, 0);
+        
+        if ([self.delegate respondsToSelector:@selector(detailsViewControllerDidFinish:)]) {
+            [self.delegate detailsViewControllerDidFinish:self];
+        }
+    }];
 }
 
 - (IBAction)touchShare:(id)sender {
@@ -433,6 +489,13 @@ typedef enum {
         self.sharePopoverView.delegate = self;
     }
     [self.sharePopoverView show];
+}
+
+- (IBAction)viewProfile:(id)sender {
+    CRGProfileViewController *profileVC = (CRGProfileViewController *)[self.storyboard instantiateViewControllerWithIdentifier: @"Profile"];
+    profileVC.user = self.media.user;
+    
+    [self.navigationController pushViewController:profileVC animated:YES];
 }
 
 #pragma mark - Gesture handling
@@ -471,7 +534,7 @@ typedef enum {
 {
     switch (recognizer.state) {
         case UIGestureRecognizerStateRecognized: {
-            [self dismissModalViewControllerAnimated:YES];
+            [self close:nil];
             break;
         }
         default:
@@ -645,7 +708,7 @@ typedef enum {
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (!animationComplete) return 0;
+    if (!_animationComplete) return 0;
 
     if (tableView == self.commentsTableView)
         return [[self.media comments] count] + 1;

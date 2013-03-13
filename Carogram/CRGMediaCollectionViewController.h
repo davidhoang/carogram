@@ -11,10 +11,11 @@
 #import "WFInstagramAPI.h"
 #import "CRGMediaSelectorDelegate.h"
 #import "CRGPagingMediaViewController.h"
+#import "CRGDetailsViewController.h"
 
 @protocol CRGMediaCollectionViewControllerDelegate;
 
-@interface CRGMediaCollectionViewController : UIViewController <UIActionSheetDelegate, UIScrollViewDelegate, CRGMediaSelectorDelegate, PagingMediaViewControllerDelegate>
+@interface CRGMediaCollectionViewController : UIViewController <UIActionSheetDelegate, UIScrollViewDelegate, CRGMediaSelectorDelegate, PagingMediaViewControllerDelegate, CRGDetailsViewControllerDelegate, UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) id<CRGMediaCollectionViewControllerDelegate> delegate;
 @property (strong, nonatomic) WFIGUser *currentUser;
@@ -26,7 +27,7 @@
 @property (strong, nonatomic) IBOutlet UIImageView *ivProgressBackground;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorView;
 @property (strong, atomic) WFIGMediaCollection *mediaCollection;
-@property (strong, nonatomic) CRGPagingMediaViewController *currentMediaController;
+@property (strong, nonatomic) CRGPagingMediaViewController *currentPagingMediaController;
 @property (strong, nonatomic) NSString *noResultsText;
 
 - (void)refresh;
