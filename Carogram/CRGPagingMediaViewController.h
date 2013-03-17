@@ -9,6 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "CRGMediaSelectorDelegate.h"
 
+typedef enum {
+    CRGCollectionTypeDefault,
+    CRGCollectionTypeProfile
+} CRGCollectionType;
+
 extern NSString *  const MediaCollectionDidLoadNextPageNotification;
 
 @protocol PagingMediaViewControllerDelegate;
@@ -17,6 +22,7 @@ extern NSString *  const MediaCollectionDidLoadNextPageNotification;
 
 @property (weak, nonatomic) id<PagingMediaViewControllerDelegate> delegate;
 @property (weak, nonatomic) id<CRGMediaSelectorDelegate> mediaSelectorDelegate;
+@property (nonatomic) int collectionType;
 @property (strong, nonatomic) WFIGMediaCollection *mediaCollection;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 

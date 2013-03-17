@@ -2,34 +2,31 @@
 //  CRGGridViewController.m
 //  Carogram
 //
-//  Created by Jacob Moore on 8/27/12.
-//  Copyright (c) 2012 Xhatch Interactive, LLC. All rights reserved.
+//  Created by Jacob Moore on 3/15/13.
+//  Copyright (c) 2013 Xhatch Interactive, LLC. All rights reserved.
 //
 
 #import "CRGGridViewController.h"
-#import "CRGImageGridViewCell.h"
-
-#define kNumberOfColumns 4
 
 @interface CRGGridViewController ()
-@property (strong, nonatomic) NSArray *gridCells;
-- (void)initGrid;
+
 @end
 
-@implementation CRGGridViewController {
-@private
-    int page;
-    BOOL gridFull;
-}
-@synthesize gridCells = _gridCells;
+@implementation CRGGridViewController
 
 - (id)initWithMediaCollection:(WFIGMediaCollection *)mediaCollection atPage:(int)aPage
 {
+    if ([self class] == [CRGGridViewController class]) {
+        @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                       reason:@"Error, attempting to instantiate AbstractClass directly."
+                                     userInfo:nil];
+    }
+    
     self = [super init];
     if (self) {
         self.mediaCollection = mediaCollection;
-        page = aPage;
-        gridFull = NO;
+        _page = aPage;
+        _gridFull = NO;
     }
     return self;
 }
@@ -37,120 +34,43 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    [self initGrid];
+	// Do any additional setup after loading the view.
 }
 
-- (void)initGrid
+- (void)didReceiveMemoryWarning
 {
-    NSMutableArray *cells = [[NSMutableArray alloc] initWithCapacity:kImageCount];
-    for (int i = 0; i < kImageCount; i++) {
-        int index = i + (page * kImageCount);
-        if (index >= [self.mediaCollection count]) {
-            gridFull = NO;
-            break;
-        } else if (i == (kImageCount - 1)) {
-            gridFull = YES;
-        }
-        
-        WFIGMedia *media = [self.mediaCollection objectAtIndex:index];
-        
-        int x = 46 + ((i % kNumberOfColumns) * 244);
-        int y = 29 + ((i / kNumberOfColumns) * 230);
-        
-        CGRect frame = CGRectMake(x, y, 200, 200);
-        CRGImageGridViewCell *cell = [[CRGImageGridViewCell alloc] initWithMedia:media frame:frame];
-        [cells addObject:cell];
-        [self.view addSubview:cell];
-        
-        // Add invisible button
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        btn.frame = frame;
-        btn.tag = i;
-        [btn addTarget:self action:@selector(touchCell:) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:btn];
-    }
-    self.gridCells = cells;
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+#pragma mark - Abstract methods
+
+- (int)indexOfMediaAtPoint:(CGPoint)point {
+    @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                   reason:[NSString stringWithFormat:@"You must override %@ in a subclass",
+                                           NSStringFromSelector(_cmd)]
+                                 userInfo:nil];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-	return NO;
+- (UIView *)gridCellAtPoint:(CGPoint)point {
+    @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                   reason:[NSString stringWithFormat:@"You must override %@ in a subclass",
+                                           NSStringFromSelector(_cmd)]
+                                 userInfo:nil];
 }
 
-- (void)touchCell:(id)sender
-{
-    if (self.delegate && [self.delegate respondsToSelector:@selector(didSelectMedia:fromRect:)]) {
-        UIButton *btn = (UIButton *)sender;
-        int tag = btn.tag;
-        int index = tag + (page * kImageCount);
-    
-        [self.delegate didSelectMedia:[self.mediaCollection objectAtIndex:index] fromRect:btn.frame];
-    }
+- (UIView *)gridCellAtIndex:(int)index {
+    @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                   reason:[NSString stringWithFormat:@"You must override %@ in a subclass",
+                                           NSStringFromSelector(_cmd)]
+                                 userInfo:nil];
 }
 
-- (void)setFocusIndex:(int)focusIndex
-{
-    _focusIndex = focusIndex;
-    
-    if (focusIndex >= 0 && focusIndex < [self.gridCells count])
-        [self.view bringSubviewToFront:self.gridCells[focusIndex]];
-}
-
-- (void)setPeripheryAlpha:(CGFloat)peripheryAlpha
-{
-    _peripheryAlpha = peripheryAlpha;
-    
-    for (int i = 0; i < [self.gridCells count]; i++) {
-        if (i == self.focusIndex) continue;
-        CRGImageGridViewCell *cell = self.gridCells[i];
-        cell.alpha = _peripheryAlpha;
-    }
-}
-
-- (BOOL)isGridFull
-{
-    return gridFull;
-}
-
-- (int)indexOfMediaAtPoint:(CGPoint)point
-{
-    float columnDivisor = self.view.bounds.size.width / kNumberOfColumns;
-    int column = (int)(point.x / columnDivisor);
-
-    float rowDivisor = self.view.bounds.size.height / (kImageCount/kNumberOfColumns);
-    int row = (int)(point.y / rowDivisor);
-
-    int index = row * kNumberOfColumns + column;
-    if (index >= [self.gridCells count]) index = [self.gridCells count] - 1;
-    
-    return index;
-}
-
-- (UIView *)gridCellAtPoint:(CGPoint)point
-{
-    float columnDivisor = self.view.bounds.size.width / kNumberOfColumns;
-    int column = (int)(point.x / columnDivisor);
-    
-    float rowDivisor = self.view.bounds.size.height / (kImageCount/kNumberOfColumns);
-    int row = (int)(point.y / rowDivisor);
-    
-    int index = row * kNumberOfColumns + column;
-    if (index >= [self.gridCells count]) return nil;
-    return self.gridCells[index];
-}
-
-- (UIView *)gridCellAtIndex:(int)index
-{
-    if (index < 0 || index >= [self.gridCells count]) return nil;
-    return self.gridCells[index];
++ (int)pageCountWithMediaCount:(int)mediaCount {
+    @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                   reason:[NSString stringWithFormat:@"You must override %@ in a subclass",
+                                           NSStringFromSelector(_cmd)]
+                                 userInfo:nil];
 }
 
 @end

@@ -8,6 +8,8 @@
 
 #import "CRGPagingGridViewController.h"
 #import "CRGGridViewController.h"
+#import "CRGFullGridViewController.h"
+#import "CRGProfileGridViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
 static NSSet * ObservableKeys = nil;
@@ -24,6 +26,7 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
 @implementation CRGPagingGridViewController {
 @private
     int pageCount;
+    int _gridOffset;
 }
 
 - (id)initWithCoder:(NSCoder *)decoder
@@ -94,7 +97,7 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
         }
     }
     
-    pageCount = pageCount = ceil((double)[self.mediaCollection count] / (double)kImageCount);
+    [self updatePageCount];
     
     // view controllers are created lazily
     // in the meantime, load the array with placeholders which will be replaced on demand
@@ -112,7 +115,15 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
     [self loadScrollViewWithPage:1];
     
     // Load more media if we don't have 2 full pages
-    if (2*kImageCount > [self.mediaCollection count]) [self loadMoreMedia];
+    if (2*kGridCount > [self.mediaCollection count]) [self loadMoreMedia];
+}
+
+- (void)updatePageCount
+{
+    if (self.collectionType == CRGCollectionTypeProfile)
+        pageCount = [CRGProfileGridViewController pageCountWithMediaCount:[self.mediaCollection count]];
+    else
+        pageCount = [CRGFullGridViewController pageCountWithMediaCount:[self.mediaCollection count]];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -133,23 +144,24 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
     
     // replace the placeholder if necessary
     CRGGridViewController * controller = [self.gridViewControllers objectAtIndex:page];
+    if ((NSNull *)controller != [NSNull null] && ((page+1)*kGridCount) <= [self.mediaCollection count] && ![controller isGridFull]) {
+        if (controller.view.superview != nil) {
+            [controller willMoveToParentViewController:nil];
+            [controller.view removeFromSuperview];
+            [controller removeFromParentViewController];
+        }
+        controller = (CRGGridViewController*)[NSNull null];
+    }
     if ((NSNull *)controller == [NSNull null]) {
-        controller = [[CRGGridViewController alloc] initWithMediaCollection:self.mediaCollection atPage:page];
+        if (page == 0 && self.collectionType == CRGCollectionTypeProfile)
+            controller = [[CRGProfileGridViewController alloc] initWithMediaCollection:self.mediaCollection atPage:page];
+        else
+            controller = [[CRGFullGridViewController alloc] initWithMediaCollection:self.mediaCollection atPage:page];
+
         [controller setDelegate:self.mediaSelectorDelegate];
         [self.gridViewControllers replaceObjectAtIndex:page withObject:controller];
-    } else {
-        if (((page+1)*kImageCount) <= [self.mediaCollection count] && ![controller isGridFull]) {
-            if (controller.view.superview != nil) {
-                [controller willMoveToParentViewController:nil];
-                [controller.view removeFromSuperview];
-                [controller removeFromParentViewController];
-            }
-            controller = [[CRGGridViewController alloc] initWithMediaCollection:self.mediaCollection atPage:page];
-            [controller setDelegate:self.mediaSelectorDelegate];
-            [self.gridViewControllers replaceObjectAtIndex:page withObject:controller];
-        }
-    }
-    
+    }    
+
     if (page <= [self currentPage]) {
         controller.view.frame = CGRectOffset(self.scrollView.frame,
                                              -self.scrollView.frame.origin.x + (self.scrollView.bounds.size.width * page),
@@ -182,7 +194,7 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
 {
     if (self.mediaCollection == [notification object]) {
         int oldPageCount = pageCount;
-        pageCount = pageCount = ceil((double)[self.mediaCollection count] / (double)kImageCount);
+        [self updatePageCount];
 
         NSMutableArray *controllers = [[NSMutableArray alloc] init];
         [controllers addObjectsFromArray:self.gridViewControllers];
@@ -202,14 +214,14 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
 
 - (int)indexOfMediaAtPoint:(CGPoint)point
 {
-    CRGGridViewController *currentGridViewController = self.gridViewControllers[self.currentPage];
+    CRGFullGridViewController *currentGridViewController = self.gridViewControllers[self.currentPage];
     int pageIndex = [currentGridViewController indexOfMediaAtPoint:point];
-    return [self currentPage] * kImageCount + pageIndex;
+    return [self currentPage] * kGridCount + pageIndex;
 }
 
 - (UIView *)gridCellAtPoint:(CGPoint)point
 {
-    CRGGridViewController *currentGridController = self.gridViewControllers[[self currentPage]];
+    CRGFullGridViewController *currentGridController = self.gridViewControllers[[self currentPage]];
     if ((NSNull*)currentGridController == [NSNull null]) return nil;
     
     return [currentGridController gridCellAtPoint:point];
@@ -217,7 +229,7 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
 
 - (UIView *)gridCellAtIndex:(int)index
 {
-    CRGGridViewController *currentGridController = self.gridViewControllers[[self currentPage]];
+    CRGFullGridViewController *currentGridController = self.gridViewControllers[[self currentPage]];
     if ((NSNull*)currentGridController == [NSNull null]) return nil;
     
     return [currentGridController gridCellAtIndex:index];
@@ -227,7 +239,7 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
 {
     _focusIndex = focusIndex;
     
-    CRGGridViewController *currentGridController = self.gridViewControllers[[self currentPage]];
+    CRGFullGridViewController *currentGridController = self.gridViewControllers[[self currentPage]];
     if ((NSNull*)currentGridController != [NSNull null]) currentGridController.focusIndex = _focusIndex;
 }
 
@@ -235,7 +247,7 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
 {
     _peripheryAlpha = peripheryAlpha;
     
-    CRGGridViewController *currentGridController = self.gridViewControllers[[self currentPage]];
+    CRGFullGridViewController *currentGridController = self.gridViewControllers[[self currentPage]];
     if ((NSNull*)currentGridController != [NSNull null]) currentGridController.peripheryAlpha = _peripheryAlpha;
 }
 
@@ -266,7 +278,7 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
     }
 
     if (previousPage >= 0) {
-        CRGGridViewController *previousGridVC = self.gridViewControllers[previousPage];
+        CRGFullGridViewController *previousGridVC = self.gridViewControllers[previousPage];
         previousGridVC.view.frame = CGRectOffset(self.scrollView.frame,
                                                  -self.scrollView.frame.origin.x + (pageWidth * previousPage),
                                                  -self.scrollView.frame.origin.y);
@@ -275,13 +287,13 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
     }
 
     if (nextPage == 0) {
-        CRGGridViewController *nextGridVC = self.gridViewControllers[nextPage];
+        CRGFullGridViewController *nextGridVC = self.gridViewControllers[nextPage];
         nextGridVC.view.alpha = 1;
         nextGridVC.view.frame = CGRectOffset(self.scrollView.frame,
                                              -self.scrollView.frame.origin.x + (pageWidth * nextPage),
                                              -self.scrollView.frame.origin.y);
     } else if (nextPage < pageCount) {
-        CRGGridViewController *nextGridVC = self.gridViewControllers[nextPage];
+        CRGFullGridViewController *nextGridVC = self.gridViewControllers[nextPage];
         nextGridVC.view.alpha = (adjustedXOffset / pageWidth);
         nextGridVC.view.alpha = pow((adjustedXOffset / pageWidth), 3.);
         nextGridVC.view.frame = CGRectOffset(self.scrollView.frame,

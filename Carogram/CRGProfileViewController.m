@@ -10,12 +10,15 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIFont+Carogram.h"
 #import "PVInnerShadowLabel.h"
+#import "CRGRecentMediaViewController.h"
 
 @interface CRGProfileViewController ()
 @property (strong, nonatomic) IBOutlet UIView *titleBarView;
 @property (strong, nonatomic) IBOutlet UIButton *backButton;
 @property (strong, nonatomic) IBOutlet PVInnerShadowLabel *titleLabel;
 @property (strong, nonatomic) IBOutlet UIView *titleBarBackground;
+@property (nonatomic) CGRect contentFrame;
+@property (strong, nonatomic) CRGRecentMediaViewController *recentMediaViewController;
 
 @end
 
@@ -53,6 +56,19 @@
     self.titleLabel.innerShadowColor = [UIColor colorWithWhite:0 alpha:.75];
     self.titleLabel.innerShadowOffset = CGSizeMake(0, .8);
     self.titleLabel.innerShadowSize = 1.2;
+    
+    self.contentFrame = CGRectMake(0,
+                                   self.titleBarView.bounds.size.height,
+                                   self.view.bounds.size.width,
+                                   self.view.bounds.size.height - self.titleBarView.bounds.size.height);
+    
+    self.recentMediaViewController = [[CRGRecentMediaViewController alloc] initWithNibName:nil bundle:nil];
+    self.recentMediaViewController.user = self.user;
+    self.recentMediaViewController.view.frame = self.contentFrame;
+    
+    [self addChildViewController:self.recentMediaViewController];
+    [self.view insertSubview:self.recentMediaViewController.view belowSubview:self.titleBarView];
+    [self.recentMediaViewController didMoveToParentViewController:self];
 }
 
 - (void)didReceiveMemoryWarning
@@ -71,6 +87,11 @@
 
 - (IBAction)back:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return UIInterfaceOrientationIsLandscape(interfaceOrientation);
 }
 
 @end

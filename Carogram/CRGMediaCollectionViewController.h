@@ -18,6 +18,7 @@
 @interface CRGMediaCollectionViewController : UIViewController <UIActionSheetDelegate, UIScrollViewDelegate, CRGMediaSelectorDelegate, PagingMediaViewControllerDelegate, CRGDetailsViewControllerDelegate, UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) id<CRGMediaCollectionViewControllerDelegate> delegate;
+@property (nonatomic) int collectionType;
 @property (strong, nonatomic) WFIGUser *currentUser;
 @property (strong, nonatomic) IBOutlet UIView *titleBarView;
 @property (strong, nonatomic) IBOutlet UIImageView *ivSearchBg;

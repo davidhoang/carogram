@@ -8,7 +8,7 @@
 
 #import "CRGPopularMediaViewController.h"
 #import "CRGAppDelegate.h"
-#import "CRGGridViewController.h"
+#import "CRGFullGridViewController.h"
 
 @interface CRGPopularMediaViewController ()
 @end
@@ -28,7 +28,7 @@
     self.currentPagingMediaController.view.hidden = YES;
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        self.mediaCollection = [WFIGMedia popularMediaWithLimit:kImageCount error:NULL];
+        self.mediaCollection = [WFIGMedia popularMediaWithLimit:kGridCount error:NULL];
         
         dispatch_async( dispatch_get_main_queue(), ^{
             self.currentPagingMediaController.mediaCollection = self.mediaCollection;

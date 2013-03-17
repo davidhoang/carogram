@@ -9,7 +9,7 @@
 #import "CRGMediaCollectionViewController.h"
 #import "CRGAppDelegate.h"
 #import "WFIGImageCache.h"
-#import "CRGGridViewController.h"
+#import "CRGFullGridViewController.h"
 #import "CRGPagingGridViewController.h"
 #import "CRGPagingSlideViewController.h"
 #import "UIFont+Carogram.h"
@@ -35,7 +35,6 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
 @implementation CRGMediaCollectionViewController {
     CGFloat _pinchScale;
     BOOL _zoomRecognized;
-    BOOL _resetView;
     CGPoint _gridCellCenter;
     CGFloat _gridCellScale;
     CGFloat _slideCellScale;
@@ -75,6 +74,7 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
 
 - (void)CRGMediaViewController_commonInit
 {
+    _collectionType = CRGCollectionTypeDefault;
     _noResultsText = @"No Results";
     
     [self addKeyValueObservers];
@@ -94,7 +94,10 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
     [self setupRefreshViews];
     [self setupBackgroundView];
     [self setupProgressView];
-    [self showGridViewAtIndex:0];
+
+    [self addPagingGridControllerAtPage:0];
+    self.pagingGridViewController.view.alpha = 1;
+    self.currentPagingMediaController = self.pagingGridViewController;
     
     CRGAppDelegate *appDelegate = (CRGAppDelegate *)[[UIApplication sharedApplication] delegate];
     self.currentUser = appDelegate.currentUser;
@@ -192,43 +195,20 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
 
 #pragma mark -
 
-- (void)showGridViewAtIndex:(int)index
-{
-    if (self.pagingGridViewController == nil) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:[NSBundle mainBundle]];
-        self.pagingGridViewController =
-        (CRGPagingGridViewController *)[storyboard instantiateViewControllerWithIdentifier: @"PagingGrid"];
-        self.pagingGridViewController.delegate = self;
-        self.pagingGridViewController.mediaSelectorDelegate = self;
-        self.pagingGridViewController.view.frame = self.view.bounds;
-    }
-    self.pagingGridViewController.mediaCollection = self.mediaCollection;
-    [self.pagingGridViewController setCurrentPage:index animated:NO];
-    
-    [self.pagingSlideViewController willMoveToParentViewController:nil];
-    [self addChildViewController:self.pagingGridViewController];
-    
-    [self.pagingSlideViewController.view removeFromSuperview];
-    [self.view addSubview:self.pagingGridViewController.view];
-    
-    [self.pagingSlideViewController removeFromParentViewController];
-    [self.pagingGridViewController didMoveToParentViewController:self];
-    
-    self.currentPagingMediaController = self.pagingGridViewController;
-}
-
-- (void)addPagingGridControllerToViewHidden:(BOOL)hidden
+- (void)addPagingGridControllerAtPage:(int)page
 {
     if (! self.pagingGridViewController) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:[NSBundle mainBundle]];
         self.pagingGridViewController =
             (CRGPagingGridViewController *)[storyboard instantiateViewControllerWithIdentifier: @"PagingGrid"];
         self.pagingGridViewController.delegate = self;
+        self.pagingGridViewController.collectionType = self.collectionType;
         self.pagingGridViewController.mediaSelectorDelegate = self;
         self.pagingGridViewController.view.frame = self.view.bounds;
     }
     self.pagingGridViewController.mediaCollection = self.mediaCollection;
-    self.pagingGridViewController.view.hidden = hidden;
+    [self.pagingGridViewController setCurrentPage:page animated:NO];
+    self.pagingGridViewController.view.alpha = 0;
     
     [self addChildViewController:self.pagingGridViewController];
     [self.view addSubview:self.pagingGridViewController.view];
@@ -313,7 +293,6 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
     switch (recognizer.state) {
         case UIGestureRecognizerStateBegan: {
             _zoomRecognized = NO;
-            _resetView = YES;
 
             CGPoint firstPt = [recognizer locationOfTouch:0 inView:self.view];
             CGPoint secondPt = [recognizer locationOfTouch:1 inView:self.view];
@@ -321,7 +300,8 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
                                         (firstPt.y + secondPt.y) / 2.);
             
             int mediaIndex = [self.pagingGridViewController indexOfMediaAtPoint:midPt];
-            self.pagingGridViewController.focusIndex = (mediaIndex % kImageCount);
+            
+            self.pagingGridViewController.focusIndex = (mediaIndex % kGridCount);
             
             [self addPagingSlideControllerToViewHidden:YES];
             [self.pagingSlideViewController setCurrentPage:mediaIndex animated:NO];
@@ -383,17 +363,12 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
     switch (recognizer.state) {
         case UIGestureRecognizerStateBegan: {
             _zoomRecognized = NO;
-            _resetView = YES;
 
-            int gridPage = [self.pagingSlideViewController currentPage] / kImageCount;
-            
-            [self addPagingGridControllerToViewHidden:YES];
-            [self.pagingGridViewController setCurrentPage:gridPage animated:NO];
-            self.pagingGridViewController.view.alpha = 0;
-            self.pagingGridViewController.view.hidden = NO;
+            int gridPage = [self.pagingSlideViewController currentPage] / kGridCount;
+            [self addPagingGridControllerAtPage:gridPage];
             [self.view bringSubviewToFront:self.pagingSlideViewController.view];
             
-            int mediaIndex = [self.pagingSlideViewController currentPage] % kImageCount;
+            int mediaIndex = [self.pagingSlideViewController currentPage] % kGridCount;
             _selectedGridCell = [self.pagingGridViewController gridCellAtIndex:mediaIndex];
             _selectedGridCell.alpha = 0;
 
@@ -435,7 +410,7 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
             CGFloat halfwayScale = ((1. - _gridCellScale) / 2.) + _gridCellScale;
             if (_pinchScale <= halfwayScale && ! _zoomRecognized) {
                 _zoomRecognized = YES;
-                int mediaIndex = [self.pagingSlideViewController currentPage] % kImageCount;
+                int mediaIndex = [self.pagingSlideViewController currentPage] % kGridCount;
                 [self animateToGridViewAtIndex:mediaIndex];
             }
         }

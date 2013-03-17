@@ -11,6 +11,7 @@
 #import "WFIGImageCache.h"
 #import "UIFont+Carogram.h"
 #import "SDWebImageManager.h"
+#import "CRGProfileViewController.h"
 
 static NSSet * ObservableKeys = nil;
 
@@ -151,6 +152,13 @@ static NSString * const MediaKeyPath = @"media";
     if (self.delegate && [self.delegate respondsToSelector:@selector(didSelectMedia:fromRect:)]) {
         [self.delegate didSelectMedia:self.media fromRect:self.mediaView.frame];
     }
+}
+
+- (IBAction)viewProfile:(id)sender {
+    CRGProfileViewController *profileVC = (CRGProfileViewController *)[self.storyboard instantiateViewControllerWithIdentifier: @"Profile"];
+    profileVC.user = self.media.user;
+    
+    [self.navigationController pushViewController:profileVC animated:YES];
 }
 
 @end

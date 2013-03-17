@@ -2,15 +2,14 @@
 //  CRGGridViewController.h
 //  Carogram
 //
-//  Created by Jacob Moore on 8/27/12.
-//  Copyright (c) 2012 Xhatch Interactive, LLC. All rights reserved.
+//  Created by Jacob Moore on 3/15/13.
+//  Copyright (c) 2013 Xhatch Interactive, LLC. All rights reserved.
 //
+//  This is an abstract class. Do not attempt to instantiate this class.
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 #import "WFInstagramAPI.h"
 #import "CRGMediaSelectorDelegate.h"
-
-#define kImageCount 12
 
 @interface CRGGridViewController : UIViewController
 
@@ -18,11 +17,13 @@
 @property (strong, nonatomic) WFIGMediaCollection *mediaCollection;
 @property (nonatomic) int focusIndex;
 @property (nonatomic) CGFloat peripheryAlpha;
+@property (nonatomic, getter=isGridFull) BOOL gridFull;
+@property (nonatomic) int page;
 
 - (id)initWithMediaCollection:(WFIGMediaCollection *)mediaCollection atPage:(int)page;
-- (BOOL)isGridFull;
 - (int)indexOfMediaAtPoint:(CGPoint)point;
 - (UIView *)gridCellAtPoint:(CGPoint)point;
 - (UIView *)gridCellAtIndex:(int)index;
++ (int)pageCountWithMediaCount:(int)mediaCount;
 
 @end
