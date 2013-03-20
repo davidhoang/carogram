@@ -16,7 +16,28 @@
 @property (nonatomic) int page;
 @end
 
-@implementation CRGFullGridViewController
+@implementation CRGFullGridViewController {
+    int _offset;
+}
+
+- (id)initWithMediaCollection:(WFIGMediaCollection *)mediaCollection atPage:(int)aPage offset:(int)offset
+{
+    self = [super initWithMediaCollection:mediaCollection atPage:aPage];
+    if (self) {
+        _offset = offset;
+    }
+    return self;
+}
+
+- (id)initWithMediaCollection:(WFIGMediaCollection *)mediaCollection atPage:(int)aPage
+{
+    self = [super initWithMediaCollection:mediaCollection atPage:aPage];
+    if (self) {
+        _offset = 0;
+    }
+    return self;
+}
+
 
 - (void)viewDidLoad
 {
@@ -37,7 +58,7 @@
             self.gridFull = YES;
         }
         
-        WFIGMedia *media = [self.mediaCollection objectAtIndex:index];
+        WFIGMedia *media = [self.mediaCollection objectAtIndex:(index + _offset)];
         
         int x = 46 + ((i % kNumberOfColumns) * 244);
         int y = 29 + ((i / kNumberOfColumns) * 230);
@@ -74,7 +95,7 @@
     if (self.delegate && [self.delegate respondsToSelector:@selector(didSelectMedia:fromRect:)]) {
         UIButton *btn = (UIButton *)sender;
         int tag = btn.tag;
-        int index = tag + (self.page * kGridCount);
+        int index = tag + (self.page * kGridCount) + _offset;
     
         [self.delegate didSelectMedia:[self.mediaCollection objectAtIndex:index] fromRect:btn.frame];
     }

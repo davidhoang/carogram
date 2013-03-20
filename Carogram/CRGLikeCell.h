@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CRGUserTableViewCellDelegate.h"
 
 @interface CRGLikeCell : UITableViewCell
+@property (weak, nonatomic) id<CRGUserTableViewCellDelegate> delegate;
 - (void)configureWithUser:(WFIGUser *)user;
 @end

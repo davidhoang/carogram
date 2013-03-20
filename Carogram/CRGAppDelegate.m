@@ -67,7 +67,6 @@ void onUncaughtException(NSException* exception)
         void (^logicBlock)(WFIGResponse*) = ^(WFIGResponse *response){
             switch ([response error].code) {
                 case WFIGErrorOAuthException:
-                    [WFInstagramAPI enterAuthFlow];
                     break;
                 default: {
                     /*

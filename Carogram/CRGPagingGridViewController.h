@@ -13,6 +13,7 @@
 
 @property (nonatomic) int focusIndex;
 @property (nonatomic) CGFloat peripheryAlpha;
+@property (strong, nonatomic) WFIGUser *user;
 
 - (int)indexOfMediaAtPoint:(CGPoint)point;
 - (UIView *)gridCellAtPoint:(CGPoint)point;

@@ -11,10 +11,11 @@
 #import "CRGNewCommentViewController.h"
 #import "CRGPopoverView.h"
 #import <MessageUI/MessageUI.h>
+#import "CRGUserTableViewCellDelegate.h"
 
 @protocol CRGDetailsViewControllerDelegate;
 
-@interface CRGDetailsViewController : UIViewController <CRGNewCommentViewControllerDelegate, UIAlertViewDelegate, CRGPopoverViewDelegate, MFMailComposeViewControllerDelegate>
+@interface CRGDetailsViewController : UIViewController <CRGNewCommentViewControllerDelegate, UIAlertViewDelegate, CRGPopoverViewDelegate, MFMailComposeViewControllerDelegate, CRGUserTableViewCellDelegate>
 
 @property (weak, nonatomic) id<CRGDetailsViewControllerDelegate> delegate;
 @property (strong, nonatomic) WFIGMedia *media;

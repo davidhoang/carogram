@@ -30,6 +30,7 @@
 @property (strong, atomic) WFIGMediaCollection *mediaCollection;
 @property (strong, nonatomic) CRGPagingMediaViewController *currentPagingMediaController;
 @property (strong, nonatomic) NSString *noResultsText;
+@property (strong, nonatomic) WFIGUser *user;
 
 - (void)refresh;
 - (void)scrollToFirstPage;

@@ -9,11 +9,13 @@
 #import "CRGLikeCell.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UIFont+Carogram.h"
+#import "SDWebImageManager.h"
 
 @interface CRGLikeCell()
-@property (strong, nonatomic) IBOutlet UIImageView *userImageView;
+@property (strong, nonatomic) WFIGUser *user;
 @property (strong, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *fullNameLabel;
+@property (strong, nonatomic) IBOutlet UIButton *userButton;
 @end
 
 @implementation CRGLikeCell
@@ -29,11 +31,17 @@
 {
     [super awakeFromNib];
     
-    self.userImageView.layer.borderColor = [UIColor colorWithRed:(72./255.) green:(67./255.) blue:(67./255.) alpha:1].CGColor;
-    self.userImageView.layer.borderWidth = 1;
-    
     self.usernameLabel.font = [UIFont defaultFontOfSize:14];
     self.fullNameLabel.font = [UIFont gothamBookFontOfSize:11];
+    
+    // Add rounded border layer
+    CALayer *roundedLayer = [CALayer layer];
+    roundedLayer.frame = CGRectInset(self.userButton.bounds, -1, -1);
+    roundedLayer.opaque = YES;
+    roundedLayer.borderWidth = 1;
+    roundedLayer.borderColor = [[UIColor colorWithRed:(72./255.) green:(67./255.) blue:(67./255.) alpha:1] CGColor];
+    
+    [self.userButton.layer addSublayer:roundedLayer];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -43,17 +51,21 @@
 
 - (void)configureWithUser:(WFIGUser *)user
 {
-    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[user profilePicture]]]];
-        dispatch_async( dispatch_get_main_queue(), ^{
-            if (image != nil) {
-                self.userImageView.image = image;
-            }
-        });
-    });
+    self.user = user;
+    
+    SDWebImageManager *manager = [SDWebImageManager sharedManager];
+    [manager downloadWithURL:[NSURL URLWithString:self.user.profilePicture] options:0 progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished) {
+        if (image) {
+            [self.userButton setBackgroundImage:image forState:UIControlStateNormal];
+        }
+    }];
     
     self.usernameLabel.text = user.username;
     self.fullNameLabel.text = user.fullName;
+}
+
+- (IBAction)viewProfile:(id)sender {
+    [self.delegate tableViewCell:self didSelectUser:self.user];
 }
 
 @end

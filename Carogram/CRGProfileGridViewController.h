@@ -12,4 +12,8 @@
 
 @interface CRGProfileGridViewController : CRGGridViewController
 
+@property (strong, nonatomic) WFIGUser *user;
+
+- (id)initWithUser:(WFIGUser *)user mediaCollection:(WFIGMediaCollection *)mediaCollection atPage:(int)aPage;
+
 @end

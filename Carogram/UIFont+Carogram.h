@@ -11,4 +11,5 @@
 @interface UIFont (Carogram)
 + (UIFont *)defaultFontOfSize:(CGFloat)fontSize;
 + (UIFont *)gothamBookFontOfSize:(CGFloat)fontSize;
++ (UIFont *)gothamBoldFontOfSize:(CGFloat)fontSize;
 @end

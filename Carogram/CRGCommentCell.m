@@ -8,6 +8,7 @@
 
 #import "CRGCommentCell.h"
 #import <QuartzCore/QuartzCore.h>
+#import "SDWebImageManager.h"
 
 #define kMinCellHeight 64.
 
@@ -17,14 +18,13 @@
 #define kOneWeek   604800.
 
 @interface CRGCommentCell()
-- (void)loadProfilePicture;
+@property (strong, nonatomic) IBOutlet UIButton *userButton;
 - (NSString *)dateString;
 - (void)configureCommentLabelWithText:(NSString*)commentText;
 @end
 
 @implementation CRGCommentCell
 @synthesize comment = _comment;
-@synthesize ivUser = _ivUser;
 @synthesize lblUser = _lblUser;
 @synthesize lblDate = _lblDate;
 @synthesize lblComment = _lblComment;
@@ -33,28 +33,26 @@
 {
     [super awakeFromNib];
     
-    // Round avatar image view
-    self.ivUser.layer.opaque = YES;
-    self.ivUser.layer.masksToBounds = YES;
-    self.ivUser.layer.cornerRadius = 2;
-    
     // Add rounded border layer
     CALayer *roundedLayer = [CALayer layer];
-    roundedLayer.frame = CGRectMake(-1, -1, self.ivUser.frame.size.width + 2, self.ivUser.frame.size.height + 2);
+    roundedLayer.frame = CGRectInset(self.userButton.bounds, -1, -1);
     roundedLayer.opaque = YES;
-    roundedLayer.masksToBounds = YES;
-    roundedLayer.cornerRadius = 2;
-    roundedLayer.borderWidth = 2.0;
-    roundedLayer.borderColor = [[UIColor colorWithRed:(69./255.) green:(73./255.) blue:(76./255.) alpha:1] CGColor];
+    roundedLayer.borderWidth = 1;
+    roundedLayer.borderColor = [[UIColor colorWithRed:(72./255.) green:(67./255.) blue:(67./255.) alpha:1] CGColor];
     
-    [self.ivUser.layer addSublayer:roundedLayer];
+    [self.userButton.layer addSublayer:roundedLayer];
 }
 
 - (void)configureWithComment:(WFIGComment *)comment
 {
     self.comment = comment;
-
-    [self loadProfilePicture];
+    
+    SDWebImageManager *manager = [SDWebImageManager sharedManager];
+    [manager downloadWithURL:[NSURL URLWithString:self.comment.user.profilePicture] options:0 progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished) {
+        if (image) {
+            [self.userButton setBackgroundImage:image forState:UIControlStateNormal];
+        }
+    }];
     
     self.lblUser.text = [self.comment.user username];
     self.lblDate.text = [self dateString];
@@ -109,26 +107,8 @@
     return MAX((commentSize.height + 31), kMinCellHeight);
 }
 
-
-- (void)loadProfilePicture
-{
-    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[self.comment.user profilePicture]]]];
-        dispatch_async( dispatch_get_main_queue(), ^{
-            if (image != nil) {
-                self.ivUser.image = image;
-            }
-        });
-    });
+- (IBAction)viewProfile:(id)sender {
+    [self.delegate tableViewCell:self didSelectUser:self.comment.user];
 }
-
-/*
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
-*/
 
 @end

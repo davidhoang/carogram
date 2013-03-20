@@ -7,6 +7,9 @@
 //
 
 #import "CRGRecentMediaViewController.h"
+#import "WFIGRelationship.h"
+
+static int userRelationshipObserverContext;
 
 @interface CRGRecentMediaViewController ()
 
@@ -44,6 +47,23 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
+    if (! self.user.relationship) {
+        [self setProgressViewShown:YES];
+        self.currentPagingMediaController.view.hidden = YES;
+        
+        [self.user relationshipWithCompletion:^(WFIGUser *user, WFIGRelationship *relationship, NSError *error) {
+            if (relationship.isPrivate) {
+                [self setProgressViewShown:NO];
+                self.currentPagingMediaController.view.hidden = NO;
+            } else {
+                [self loadMediaCollection];
+            }
+        }];
+    } else {
+        [self setProgressViewShown:NO];
+        self.currentPagingMediaController.view.hidden = NO;
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -58,7 +78,9 @@
 }
 
 - (void)loadMediaCollection
-{   
+{
+    if (self.user.relationship == nil || self.user.relationship.isPrivate) return;
+    
     [self setProgressViewShown:YES];
     self.currentPagingMediaController.view.hidden = YES;
     
@@ -96,5 +118,9 @@
     });
 }
 
+- (void)dealloc
+{
+    self.user = nil;
+}
 
 @end

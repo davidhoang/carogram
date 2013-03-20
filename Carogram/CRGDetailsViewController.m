@@ -8,13 +8,13 @@
 
 #import "CRGDetailsViewController.h"
 #import <QuartzCore/QuartzCore.h>
-#import "CRGCommentCell.h"
-#import "CRGLikeCell.h"
 #import "WFIGImageCache.h"
 #import "CRGNewCommentViewController.h"
 #import "SDWebImageManager.h"
 #import <Twitter/Twitter.h>
 #import "CRGProfileViewController.h"
+#import "CRGCommentCell.h"
+#import "CRGLikeCell.h"
 
 typedef enum {
     AlertViewTagSetLike,
@@ -670,6 +670,7 @@ typedef enum {
         if (cell == nil) {
             NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"CRGCommentCell" owner:self options:nil];
             cell = (CRGCommentCell *)[nib objectAtIndex:0];
+            cell.delegate = self;
         }
 
         WFIGComment *comment = [self.media.comments objectAtIndex:(indexPath.row - 1)];
@@ -698,6 +699,7 @@ typedef enum {
         if (cell == nil) {
             NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"CRGLikeCell" owner:self options:nil];
             cell = (CRGLikeCell *)[nib objectAtIndex:0];
+            cell.delegate = self;
         }
 
         WFIGUser *user = self.media.likes[(indexPath.row-1)];
@@ -736,6 +738,16 @@ typedef enum {
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+}
+
+#pragma mark - CRGUserTableViewCellDelegate
+
+- (void)tableViewCell:(UITableViewCell *)tableViewCell didSelectUser:(WFIGUser *)user
+{
+    CRGProfileViewController *profileVC = (CRGProfileViewController *)[self.storyboard instantiateViewControllerWithIdentifier: @"Profile"];
+    profileVC.user = user;
+    
+    [self.navigationController pushViewController:profileVC animated:YES];
 }
 
 @end

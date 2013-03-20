@@ -203,6 +203,7 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
             (CRGPagingGridViewController *)[storyboard instantiateViewControllerWithIdentifier: @"PagingGrid"];
         self.pagingGridViewController.delegate = self;
         self.pagingGridViewController.collectionType = self.collectionType;
+        if (self.user) self.pagingGridViewController.user = self.user;
         self.pagingGridViewController.mediaSelectorDelegate = self;
         self.pagingGridViewController.view.frame = self.view.bounds;
     }
@@ -301,7 +302,7 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
             
             int mediaIndex = [self.pagingGridViewController indexOfMediaAtPoint:midPt];
             
-            self.pagingGridViewController.focusIndex = (mediaIndex % kGridCount);
+            self.pagingGridViewController.focusIndex = mediaIndex;
             
             [self addPagingSlideControllerToViewHidden:YES];
             [self.pagingSlideViewController setCurrentPage:mediaIndex animated:NO];
@@ -350,7 +351,7 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
                 self.pagingSlideViewController.view.transform = CGAffineTransformMakeScale(1./_slideCellScale, 1./_slideCellScale);
                 
                 self.pagingGridViewController.peripheryAlpha = 1;
-
+                
                 self.pagingGridViewController.view.transform = CGAffineTransformIdentity;
             }];
         }
@@ -368,7 +369,7 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
             [self addPagingGridControllerAtPage:gridPage];
             [self.view bringSubviewToFront:self.pagingSlideViewController.view];
             
-            int mediaIndex = [self.pagingSlideViewController currentPage] % kGridCount;
+            int mediaIndex = [self.pagingSlideViewController currentPage];
             _selectedGridCell = [self.pagingGridViewController gridCellAtIndex:mediaIndex];
             _selectedGridCell.alpha = 0;
 

@@ -12,5 +12,5 @@
 #define kGridCount 12
 
 @interface CRGFullGridViewController : CRGGridViewController
-
+- (id)initWithMediaCollection:(WFIGMediaCollection *)mediaCollection atPage:(int)aPage offset:(int)offset;
 @end

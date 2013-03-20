@@ -20,4 +20,9 @@
     return [UIFont fontWithName:@"Gotham-Book" size:fontSize];
 }
 
++ (UIFont *)gothamBoldFontOfSize:(CGFloat)fontSize
+{
+    return [UIFont fontWithName:@"Gotham-Bold" size:fontSize];
+}
+
 @end

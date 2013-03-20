@@ -9,5 +9,5 @@
 #import "CRGMediaCollectionViewController.h"
 
 @interface CRGRecentMediaViewController : CRGMediaCollectionViewController
-@property (strong, nonatomic) WFIGUser *user;
+
 @end

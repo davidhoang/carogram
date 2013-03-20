@@ -27,6 +27,7 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
 @private
     int pageCount;
     int _gridOffset;
+    BOOL _viewDidJustLoad;
 }
 
 - (id)initWithCoder:(NSCoder *)decoder
@@ -64,7 +65,15 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
 {
     [super viewDidLoad];
 
-    if ([self.mediaCollection count] > 0) {
+    _viewDidJustLoad = YES;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    if (_viewDidJustLoad) {
+        _viewDidJustLoad = NO;
         [self configureView];
     }
 }
@@ -118,6 +127,18 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
     if (2*kGridCount > [self.mediaCollection count]) [self loadMoreMedia];
 }
 
+- (void)setUser:(WFIGUser *)user
+{
+    _user = user;
+
+    if (self.collectionType == CRGCollectionTypeProfile) {
+        CRGGridViewController *firstGridController = self.gridViewControllers[0];
+        if ((NSNull*)firstGridController != [NSNull null] && [firstGridController isKindOfClass:[CRGProfileGridViewController class]]) {
+            ((CRGProfileGridViewController*)firstGridController).user = user;
+        }
+    }
+}
+
 - (void)updatePageCount
 {
     if (self.collectionType == CRGCollectionTypeProfile)
@@ -130,7 +151,7 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
 {
     if (object == self && [ObservableKeys containsObject:keyPath]) {
         if ([keyPath isEqualToString:MediaCollectionKeyPath]) {
-            if ([self isViewLoaded]) [self configureView];
+            if ([self isViewLoaded] && self.view.superview) [self configureView];
         }
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
@@ -153,14 +174,19 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
         controller = (CRGGridViewController*)[NSNull null];
     }
     if ((NSNull *)controller == [NSNull null]) {
-        if (page == 0 && self.collectionType == CRGCollectionTypeProfile)
-            controller = [[CRGProfileGridViewController alloc] initWithMediaCollection:self.mediaCollection atPage:page];
-        else
+        if (self.collectionType == CRGCollectionTypeProfile) {
+            if (page == 0) {
+                controller = [[CRGProfileGridViewController alloc] initWithUser:self.user mediaCollection:self.mediaCollection atPage:page];
+            } else {
+                int offset = kProfileGridCount - kGridCount;
+                controller = [[CRGFullGridViewController alloc] initWithMediaCollection:self.mediaCollection atPage:page offset:offset];
+            }
+        } else {
             controller = [[CRGFullGridViewController alloc] initWithMediaCollection:self.mediaCollection atPage:page];
-
+        }
         [controller setDelegate:self.mediaSelectorDelegate];
         [self.gridViewControllers replaceObjectAtIndex:page withObject:controller];
-    }    
+    }
 
     if (page <= [self currentPage]) {
         controller.view.frame = CGRectOffset(self.scrollView.frame,
@@ -214,14 +240,20 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
 
 - (int)indexOfMediaAtPoint:(CGPoint)point
 {
-    CRGFullGridViewController *currentGridViewController = self.gridViewControllers[self.currentPage];
-    int pageIndex = [currentGridViewController indexOfMediaAtPoint:point];
-    return [self currentPage] * kGridCount + pageIndex;
+    CRGGridViewController *currentGridViewController = self.gridViewControllers[self.currentPage];
+    int index = [currentGridViewController indexOfMediaAtPoint:point];
+
+    if ([self currentPage] > 0) {
+        index += [self currentPage] * kGridCount;
+        if (self.collectionType == CRGCollectionTypeProfile)
+            index += (kProfileGridCount - kGridCount);
+    }
+    return index;
 }
 
 - (UIView *)gridCellAtPoint:(CGPoint)point
 {
-    CRGFullGridViewController *currentGridController = self.gridViewControllers[[self currentPage]];
+    CRGGridViewController *currentGridController = self.gridViewControllers[[self currentPage]];
     if ((NSNull*)currentGridController == [NSNull null]) return nil;
     
     return [currentGridController gridCellAtPoint:point];
@@ -229,25 +261,41 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
 
 - (UIView *)gridCellAtIndex:(int)index
 {
-    CRGFullGridViewController *currentGridController = self.gridViewControllers[[self currentPage]];
+    CRGGridViewController *currentGridController = self.gridViewControllers[[self currentPage]];
     if ((NSNull*)currentGridController == [NSNull null]) return nil;
+
+    int currentIndex = index;
+    if ([self currentPage] > 0) {
+        if (self.collectionType == CRGCollectionTypeProfile) {
+            currentIndex -= kProfileGridCount;
+        }
+        currentIndex = (currentIndex % kGridCount);
+    }
     
-    return [currentGridController gridCellAtIndex:index];
+    return [currentGridController gridCellAtIndex:currentIndex];
 }
 
 - (void)setFocusIndex:(int)focusIndex
 {
     _focusIndex = focusIndex;
-    
-    CRGFullGridViewController *currentGridController = self.gridViewControllers[[self currentPage]];
-    if ((NSNull*)currentGridController != [NSNull null]) currentGridController.focusIndex = _focusIndex;
+
+    int currentFocusIndex = focusIndex;
+    if ([self currentPage] > 0) {
+        if (self.collectionType == CRGCollectionTypeProfile) {
+            currentFocusIndex -= kProfileGridCount;
+        }
+        currentFocusIndex = (currentFocusIndex % kGridCount);
+    }
+
+    CRGGridViewController *currentGridController = self.gridViewControllers[[self currentPage]];
+    if ((NSNull*)currentGridController != [NSNull null]) currentGridController.focusIndex = currentFocusIndex;
 }
 
 - (void)setPeripheryAlpha:(CGFloat)peripheryAlpha
 {
     _peripheryAlpha = peripheryAlpha;
     
-    CRGFullGridViewController *currentGridController = self.gridViewControllers[[self currentPage]];
+    CRGGridViewController *currentGridController = self.gridViewControllers[[self currentPage]];
     if ((NSNull*)currentGridController != [NSNull null]) currentGridController.peripheryAlpha = _peripheryAlpha;
 }
 

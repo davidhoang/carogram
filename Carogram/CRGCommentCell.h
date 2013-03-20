@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "WFInstagramAPI.h"
+#import "CRGUserTableViewCellDelegate.h"
 
 @interface CRGCommentCell : UITableViewCell
 
+@property (weak, nonatomic) id<CRGUserTableViewCellDelegate> delegate;
 @property (strong, nonatomic) WFIGComment *comment;
-@property (strong, nonatomic) IBOutlet UIImageView *ivUser;
 @property (strong, nonatomic) IBOutlet UILabel *lblUser;
 @property (strong, nonatomic) IBOutlet UILabel *lblDate;
 @property (strong, nonatomic) IBOutlet UILabel *lblComment;
