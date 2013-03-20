@@ -127,6 +127,13 @@ static int userRelationshipObserverContext;
     profileImageBackground.layer.shadowOffset = CGSizeMake(0,1);
     profileImageBackground.layer.shadowRadius = 1;
     [self.profileView addSubview:profileImageBackground];
+    
+    // Add invisible button over first media
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(0, 29, kInfoViewWidth, kInfoViewWidth);;
+    btn.tag = 0;
+    [btn addTarget:self action:@selector(touchCell:) forControlEvents:UIControlEventTouchUpInside];
+    [self.profileView addSubview:btn];
 
     UIImageView *profileImageView = [[UIImageView alloc] initWithFrame:CGRectMake(18, 234, 94, 94)];
     [profileImageView setImageWithURL:[NSURL URLWithString:self.user.profilePicture]];
@@ -259,13 +266,6 @@ static int userRelationshipObserverContext;
     [self.headerImageView.layer addSublayer:separatorLayer];
 
     [self.view addSubview:self.headerImageView];
-
-    // Add invisible button
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = firstMediaFrame;
-    btn.tag = 0;
-    [btn addTarget:self action:@selector(touchCell:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btn];
 }
 
 - (void)configureProfileView
@@ -432,7 +432,8 @@ static int userRelationshipObserverContext;
         int tag = btn.tag;
         int index = tag + (self.page * kGridCount);
         
-        [self.delegate didSelectMedia:[self.mediaCollection objectAtIndex:index] fromRect:btn.frame];
+        if ([self.mediaCollection objectAtIndex:index])
+            [self.delegate didSelectMedia:[self.mediaCollection objectAtIndex:index] fromRect:btn.frame];
     }
 }
 
@@ -486,6 +487,8 @@ static int userRelationshipObserverContext;
 
 - (int)indexOfMediaAtPoint:(CGPoint)point
 {
+    if (! [self.mediaCollection count]) return -1;
+    
     if (point.x < kInfoViewWidth) return 0;
 
     float columnDivisor = (self.view.bounds.size.width - kInfoViewWidth) / kNumberOfColumns;

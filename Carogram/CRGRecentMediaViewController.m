@@ -9,8 +9,6 @@
 #import "CRGRecentMediaViewController.h"
 #import "WFIGRelationship.h"
 
-static int userRelationshipObserverContext;
-
 @interface CRGRecentMediaViewController ()
 
 @end
@@ -61,8 +59,10 @@ static int userRelationshipObserverContext;
             }
         }];
     } else {
-        [self setProgressViewShown:NO];
-        self.currentPagingMediaController.view.hidden = NO;
+        if (self.user.relationship.isPrivate) {
+            [self setProgressViewShown:NO];
+            self.currentPagingMediaController.view.hidden = NO;
+        }
     }
 }
 

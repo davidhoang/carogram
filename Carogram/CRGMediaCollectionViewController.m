@@ -41,6 +41,7 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
     CGPoint _slideCellCenter;
     UIView *_selectedGridCell;
     UIView *_selectedSlideCell;
+    BOOL _ignorePinch;
 }
 @synthesize currentUser = _currentUser;
 @synthesize titleBarView = _titleBarView;
@@ -301,6 +302,10 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
                                         (firstPt.y + secondPt.y) / 2.);
             
             int mediaIndex = [self.pagingGridViewController indexOfMediaAtPoint:midPt];
+            if (mediaIndex < 0) {
+                _ignorePinch = YES;
+                return;
+            }
             
             self.pagingGridViewController.focusIndex = mediaIndex;
             
@@ -322,6 +327,7 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
             _slideCellScale = _selectedSlideCell.frame.size.width / _selectedGridCell.frame.size.width;
         }
         case UIGestureRecognizerStateChanged: {
+            if (_ignorePinch) return;
             _pinchScale = [recognizer scale];
             if (_pinchScale < 1) _pinchScale = powf(_pinchScale, .2);
             if (_pinchScale > _slideCellScale) _pinchScale = _slideCellScale;
@@ -341,6 +347,7 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
         }
         case UIGestureRecognizerStateCancelled:
         case UIGestureRecognizerStateFailed: {
+            _ignorePinch = NO;
             if (_zoomRecognized) break;
             [UIView animateWithDuration:.2 animations:^{
                 _selectedGridCell.transform = CGAffineTransformIdentity;
