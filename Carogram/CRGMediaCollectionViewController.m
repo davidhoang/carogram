@@ -21,12 +21,12 @@ static int currentUserObserverContext;
 CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
 
 @interface CRGMediaCollectionViewController ()
-@property (strong, nonatomic) UIImageView *ivBackground;
 @property (strong, nonatomic) UIImageView *ivRefreshIcon;
 @property (strong, nonatomic) CRGPagingGridViewController *pagingGridViewController;
 @property (strong, nonatomic) CRGPagingSlideViewController *pagingSlideViewController;
 @property (strong, nonatomic) CRGDetailsViewController *detailsViewController;
 @property (strong, nonatomic) UILabel *noResultsLabel;
+@property (strong, nonatomic) UIView *backgroundView;
 - (void)setupRefreshViews;
 - (void)setupBackgroundView;
 - (void)setupProgressView;
@@ -49,7 +49,6 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
 @synthesize btnPopular = _btnPopular;
 @synthesize btnHome = _btnHome;
 @synthesize ivPhoto = _ivPhoto;
-@synthesize ivBackground = _ivBackground;
 @synthesize ivRefreshIcon = _ivRefreshIcon;
 @synthesize ivProgressBackground = _ivProgressBackground;
 @synthesize activityIndicatorView = _activityIndicatorView;
@@ -112,6 +111,13 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
     [self.view addGestureRecognizer:pinchRecognizer];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    self.backgroundView.frame = self.view.bounds;
+}
+
 - (void)setupRefreshViews
 {
     UIImageView *refreshBackground = [[UIImageView alloc] initWithFrame:self.view.frame];
@@ -132,18 +138,17 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
 
 - (void)setupBackgroundView
 {
-    self.ivBackground = [[UIImageView alloc] initWithFrame:self.view.frame];
-    self.ivBackground.image = [UIImage imageNamed:@"bg"];
-    [self.ivBackground setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
+    self.backgroundView = [[UIView alloc] initWithFrame:self.view.frame];
+    self.backgroundView.backgroundColor = [UIColor colorWithRed:(48./255.) green:(47./255.) blue:(47./255.) alpha:1];
     
     // add shadow to background
-    self.ivBackground.layer.shadowColor = [[UIColor blackColor] CGColor];
-    self.ivBackground.layer.shadowOffset = CGSizeMake(0,0);
-    self.ivBackground.layer.shadowOpacity = 1.0;
-    self.ivBackground.layer.shouldRasterize = YES;
-    self.ivBackground.layer.shadowRadius = 8;
+    self.backgroundView.layer.shadowColor = [[UIColor blackColor] CGColor];
+    self.backgroundView.layer.shadowOffset = CGSizeMake(0,0);
+    self.backgroundView.layer.shadowOpacity = 1.0;
+    self.backgroundView.layer.shouldRasterize = YES;
+    self.backgroundView.layer.shadowRadius = 8;
     
-    [self.view insertSubview:self.ivBackground aboveSubview:self.ivRefreshIcon];
+    [self.view insertSubview:self.backgroundView aboveSubview:self.ivRefreshIcon];
 }
 
 - (void)setupProgressView
@@ -157,7 +162,7 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
      |UIViewAutoresizingFlexibleLeftMargin
      |UIViewAutoresizingFlexibleBottomMargin
      |UIViewAutoresizingFlexibleRightMargin];
-    [self.view insertSubview:self.ivProgressBackground aboveSubview:self.ivBackground];
+    [self.view insertSubview:self.ivProgressBackground aboveSubview:self.backgroundView];
     
     self.activityIndicatorView =
     [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
@@ -593,7 +598,7 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    CGRect bgFrame = self.ivBackground.frame;
+    CGRect bgFrame = self.backgroundView.frame;
     CGRect progressBgFrame = self.ivProgressBackground.frame;
     CGRect activityFrame = self.activityIndicatorView.frame;
     if (scrollView.contentOffset.x < 1) {
@@ -605,7 +610,7 @@ CGRect kSlideViewMediaRect = { {170., 8.}, {684., 703.} };
         progressBgFrame.origin.x = (int)((self.view.frame.size.width/2.) - (progressBgFrame.size.width/2.));
         activityFrame.origin.x = (int)((self.view.frame.size.width/2.) - (activityFrame.size.width/2.));
     }
-    self.ivBackground.frame = bgFrame;
+    self.backgroundView.frame = bgFrame;
     self.ivProgressBackground.frame = progressBgFrame;
     self.activityIndicatorView.frame = activityFrame;
     

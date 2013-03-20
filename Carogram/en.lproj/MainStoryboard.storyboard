@@ -391,10 +391,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="719"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="center" image="bg.png" id="LgV-Su-H2h">
+                            <view contentMode="scaleToFill" id="Nm8-jZ-DJU">
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
+                                <color key="backgroundColor" red="0.18823529411764706" green="0.18431372549019609" blue="0.18431372549019609" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
                             <view contentMode="scaleToFill" id="heh-P4-jHm">
                                 <rect key="frame" x="45" y="8" width="634" height="703"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
@@ -605,7 +606,7 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
-                        <outlet property="backgroundView" destination="LgV-Su-H2h" id="9Ee-cf-DLe"/>
+                        <outlet property="backgroundView" destination="Nm8-jZ-DJU" id="rtt-fU-nTi"/>
                         <outlet property="btnComments" destination="qGk-R5-Due" id="d1t-D5-Nbq"/>
                         <outlet property="btnLike" destination="EKS-2E-GME" id="vEd-mH-TdT"/>
                         <outlet property="btnLikeMedia" destination="lrX-A8-PM0" id="4A4-72-igL"/>
@@ -799,7 +800,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="bg.png" width="1024" height="768"/>
         <image name="btn-close-search.png" width="25" height="25"/>
         <image name="btn-close.png" width="34" height="34"/>
         <image name="btn-comment-selected.png" width="53" height="53"/>
@@ -831,7 +831,7 @@
         <class className="CRGDetailsViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGDetailsViewController.h"/>
             <relationships>
-                <relationship kind="outlet" name="backgroundView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="backgroundView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="btnComments" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="btnLike" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="btnLikeMedia" candidateClass="UIButton"/>
@@ -853,9 +853,10 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGMainViewController.h"/>
             <relationships>
                 <relationship kind="action" name="clearSearch:" candidateClass="UIButton"/>
+                <relationship kind="action" name="search:"/>
+                <relationship kind="action" name="showPopularMedia:"/>
                 <relationship kind="action" name="showUserFeed:"/>
                 <relationship kind="outlet" name="accountButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="accountImageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="clearSearchButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="popularMediaButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="searchBackgroundView" candidateClass="UIImageView"/>
@@ -913,7 +914,6 @@
         <class className="CRGProfileViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGProfileViewController.h"/>
             <relationships>
-                <relationship kind="action" name="back:"/>
                 <relationship kind="outlet" name="backButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="titleBarBackground" candidateClass="UIView"/>
                 <relationship kind="outlet" name="titleBarView" candidateClass="UIView"/>

@@ -301,7 +301,7 @@ static int currentUserObserverContext;
 
 - (IBAction)showSettingsPopover:(UIButton *)sender {
     if (! self.settingsPopoverView) {
-        NSArray *items = @[@"Contact Us", @"Gift Carogram", @"View Tutorial", @"Sign Out"];
+        NSArray *items = @[@"Contact Us", @"Gift Carogram", @"Rate Carogram", @"View Tutorial", @"Sign Out"];
         self.settingsPopoverView = [[CRGPopoverView alloc] initWithItems:items
                                                                 fromRect:self.settingsButton.frame
                                                                    width:340.];
@@ -427,11 +427,14 @@ static int currentUserObserverContext;
         [picker setToRecipients:[NSArray arrayWithObjects:@"carogram@xhatch.com", nil]];
         [self presentModalViewController:picker animated:YES];
     } else if (1 == index) { // "Gift Carogram"
-        NSString *GiftAppURL = [NSString stringWithFormat:@"itms-appss://buy.itunes.apple.com/WebObjects/MZFinance.woa/wa/giftSongsWizard?gift=1&salableAdamId=%d&productType=C&pricingParameter=STDQ&mt=8&ign-mscache=1", APP_ID];
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:GiftAppURL]];
-    } else if (2 == index) { // "View Tutorial"
+        NSString *giftAppURL = [NSString stringWithFormat:@"itms-appss://buy.itunes.apple.com/WebObjects/MZFinance.woa/wa/giftSongsWizard?gift=1&salableAdamId=%d&productType=C&pricingParameter=STDQ&mt=8&ign-mscache=1", APP_ID];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:giftAppURL]];
+    } else if (2 == index) { // "Rate Carogram"
+        NSString *rateAppURL = [NSString stringWithFormat:@"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%d", APP_ID];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:rateAppURL]];
+    } else if (3 == index) { // "View Tutorial"
         [self showOnboardingViewAnimated:YES];
-    } else if (3 == index) { // "Sign Out"
+    } else if (4 == index) { // "Sign Out"
         [self.accountButton setBackgroundImage:nil forState:UIControlStateNormal];
         [self.currentViewController didLogout];
         CRGAppDelegate *appDelegate = (CRGAppDelegate *)[[UIApplication sharedApplication] delegate];

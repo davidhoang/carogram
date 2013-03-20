@@ -31,7 +31,7 @@ typedef enum {
 @property (strong, nonatomic) IBOutlet UIButton *btnLikeMedia;
 @property (strong, nonatomic) IBOutlet UIImageView *likeImageView;
 @property (strong, nonatomic) CRGPopoverView *sharePopoverView;
-@property (strong, nonatomic) IBOutlet UIImageView *backgroundView;
+@property (strong, nonatomic) IBOutlet UIView *backgroundView;
 - (void)configureViews;
 - (void)loadProfilePicture;
 - (void)loadComments;
