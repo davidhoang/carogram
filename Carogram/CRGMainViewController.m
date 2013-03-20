@@ -47,6 +47,8 @@ static int currentUserObserverContext;
 @property (strong, nonatomic) IBOutlet UIButton *clearSearchButton;
 @property (strong, nonatomic) IBOutlet UIView *titleBarBackground;
 @property (strong, nonatomic) IBOutlet PVInnerShadowLabel *titleLabel;
+@property (strong, nonatomic) UIButton *closeSearchTitleBarButton;
+@property (strong, nonatomic) UIButton *closeSearchContentButton;
 @end
 
 @implementation CRGMainViewController {
@@ -107,6 +109,21 @@ static int currentUserObserverContext;
     }
     
     self.logoImageView.frame = CGRectIntegral(self.logoImageView.frame);
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewDidUnload {
@@ -310,6 +327,11 @@ static int currentUserObserverContext;
     self.settingsButton.selected = YES;
 }
 
+- (void)closeSearch:(id)sender
+{
+    [self.searchTextField resignFirstResponder];
+}
+
 #pragma mark - Key Value Observing
 
 - (void)addKeyValueObservers
@@ -428,6 +450,52 @@ static int currentUserObserverContext;
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
 {
     [self dismissModalViewControllerAnimated:YES];
+}
+
+#pragma mark - Keyboard notifications
+
+- (void)keyboardWillShow:(NSNotification *)notification
+{
+    if (! self.closeSearchTitleBarButton) {
+        self.closeSearchTitleBarButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.closeSearchTitleBarButton.frame = self.titleBarView.bounds;
+        self.closeSearchTitleBarButton.backgroundColor = [UIColor colorWithWhite:0 alpha:.3];
+        [self.closeSearchTitleBarButton addTarget:self action:@selector(closeSearch:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    self.closeSearchTitleBarButton.alpha = 0;
+    [self.titleBarView insertSubview:self.closeSearchTitleBarButton belowSubview:self.searchBackgroundView];
+    
+    if (! self.closeSearchContentButton) {
+        self.closeSearchContentButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.closeSearchContentButton.frame = self.contentFrame;
+        self.closeSearchContentButton.backgroundColor = [UIColor colorWithWhite:0 alpha:.3];
+        [self.closeSearchContentButton addTarget:self action:@selector(closeSearch:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    self.closeSearchContentButton.alpha = 0;
+    [self.view addSubview:self.closeSearchContentButton];
+
+    CGFloat duration = [[[notification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    [UIView animateWithDuration:duration animations:^{
+        self.closeSearchTitleBarButton.alpha = 1;
+        self.closeSearchContentButton.alpha = 1;
+    }];
+}
+
+
+- (void)keyboardWillHide:(NSNotification *)notification {
+    
+    CGFloat duration = [[[notification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    [UIView animateWithDuration:duration animations:^{
+        self.closeSearchTitleBarButton.alpha = 0;
+        self.closeSearchContentButton.alpha = 0;
+    } completion:^(BOOL finished) {
+        if (self.closeSearchTitleBarButton.superview) {
+            [self.closeSearchTitleBarButton removeFromSuperview];
+        }
+        if (self.closeSearchContentButton.superview) {
+            [self.closeSearchContentButton removeFromSuperview];
+        }
+    }];
 }
 
 @end

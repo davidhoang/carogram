@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12C3012" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="cMS-3M-SkS">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12D78" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="cMS-3M-SkS">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
@@ -88,6 +88,59 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="KDC-RM-9zp">
+                                        <rect key="frame" x="885" y="6" width="35" height="37"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" image="btn-popular-media.png">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="showPopularMedia:" destination="c4l-kM-jaV" eventType="touchUpInside" id="sbw-7G-KdJ"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="dNn-dc-hi9">
+                                        <rect key="frame" x="851" y="6" width="35" height="37"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" image="btn-user-feed-depressed.png">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="showUserFeed:" destination="c4l-kM-jaV" eventType="touchUpInside" id="0jW-BX-a84"/>
+                                        </connections>
+                                    </button>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" id="Cfa-3C-fxB">
+                                        <rect key="frame" x="930" y="7" width="35" height="35"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.57324931570000004" green="0.63121578469999995" blue="0.49900205289999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" id="PMt-eY-rmX">
+                                        <rect key="frame" x="975" y="5" width="39" height="39"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" image="btn-settings.png">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="selected" image="btn-settings-selected.png"/>
+                                        <state key="highlighted" image="btn-settings-selected.png">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="showSettingsPopover:" destination="c4l-kM-jaV" eventType="touchUpInside" id="kgH-fq-xim"/>
+                                            <action selector="touchSettings:" destination="c4l-kM-jaV" eventType="touchDown" id="EqJ-J9-4rn"/>
+                                        </connections>
+                                    </button>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="CAROGRAM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="W0C-GV-byd" customClass="PVInnerShadowLabel">
                                         <rect key="frame" x="152" y="4" width="720" height="41"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -142,59 +195,6 @@
                                             <action selector="search:" destination="c4l-kM-jaV" eventType="editingDidEndOnExit" id="HV8-3B-nUi"/>
                                         </connections>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="KDC-RM-9zp">
-                                        <rect key="frame" x="885" y="6" width="35" height="37"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" image="btn-popular-media.png">
-                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="showPopularMedia:" destination="c4l-kM-jaV" eventType="touchUpInside" id="sbw-7G-KdJ"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="dNn-dc-hi9">
-                                        <rect key="frame" x="851" y="6" width="35" height="37"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" image="btn-user-feed-depressed.png">
-                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="showUserFeed:" destination="c4l-kM-jaV" eventType="touchUpInside" id="0jW-BX-a84"/>
-                                        </connections>
-                                    </button>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" id="Cfa-3C-fxB">
-                                        <rect key="frame" x="930" y="7" width="35" height="35"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="0.57324931570000004" green="0.63121578469999995" blue="0.49900205289999999" alpha="1" colorSpace="calibratedRGB"/>
-                                    </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" id="PMt-eY-rmX">
-                                        <rect key="frame" x="975" y="5" width="39" height="39"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        <state key="normal" image="btn-settings.png">
-                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="selected" image="btn-settings-selected.png"/>
-                                        <state key="highlighted" image="btn-settings-selected.png">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="showSettingsPopover:" destination="c4l-kM-jaV" eventType="touchUpInside" id="kgH-fq-xim"/>
-                                            <action selector="touchSettings:" destination="c4l-kM-jaV" eventType="touchDown" id="EqJ-J9-4rn"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -213,7 +213,7 @@
                         <outlet property="accountImageView" destination="Cfa-3C-fxB" id="JLf-rg-1vP"/>
                         <outlet property="clearSearchButton" destination="wFM-yD-Yvz" id="dJ9-EM-hrx"/>
                         <outlet property="popularMediaButton" destination="KDC-RM-9zp" id="tdV-ba-lYz"/>
-                        <outlet property="searchBackgroundView" destination="wtg-kQ-cTe" id="Mqp-aM-c9t"/>
+                        <outlet property="searchBackgroundView" destination="wtg-kQ-cTe" id="rVF-PM-yCR"/>
                         <outlet property="searchButton" destination="twJ-eF-9X1" id="fvh-dy-TlE"/>
                         <outlet property="searchTextField" destination="CYF-ew-Fck" id="onE-xs-oI5"/>
                         <outlet property="settingsButton" destination="PMt-eY-rmX" id="PYJ-MF-UZE"/>
@@ -821,6 +821,15 @@
         <class className="CRGDetailsViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGDetailsViewController.h"/>
             <relationships>
+                <relationship kind="action" name="close:"/>
+                <relationship kind="action" name="handleDoubleTap:" candidateClass="UIGestureRecognizer"/>
+                <relationship kind="action" name="handleSingleTap:" candidateClass="UIGestureRecognizer"/>
+                <relationship kind="action" name="handleSwipeLeftGesture:" candidateClass="UIGestureRecognizer"/>
+                <relationship kind="action" name="handleSwipeRightGesture:" candidateClass="UIGestureRecognizer"/>
+                <relationship kind="action" name="newComment:" candidateClass="UIButton"/>
+                <relationship kind="action" name="toggleLike:" candidateClass="UIButton"/>
+                <relationship kind="action" name="touchShare:"/>
+                <relationship kind="action" name="viewProfile:"/>
                 <relationship kind="outlet" name="backgroundView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="btnComments" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="btnLike" candidateClass="UIButton"/>
@@ -842,7 +851,12 @@
         <class className="CRGMainViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGMainViewController.h"/>
             <relationships>
+                <relationship kind="action" name="clearSearch:" candidateClass="UIButton"/>
                 <relationship kind="action" name="search:"/>
+                <relationship kind="action" name="showPopularMedia:"/>
+                <relationship kind="action" name="showSettingsPopover:" candidateClass="UIButton"/>
+                <relationship kind="action" name="showUserFeed:"/>
+                <relationship kind="action" name="touchSettings:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="accountImageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="clearSearchButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="logoImageView" candidateClass="UIImageView"/>
@@ -882,7 +896,6 @@
         <class className="CRGOnboardViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CRGOnboardViewController.h"/>
             <relationships>
-                <relationship kind="action" name="changePage:"/>
                 <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
             </relationships>
         </class>
