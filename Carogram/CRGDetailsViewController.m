@@ -360,7 +360,7 @@ typedef enum {
 - (void)sendTweet
 {
     TWTweetComposeViewController *tweetSheet = [[TWTweetComposeViewController alloc] init];
-    NSString *initialText = [NSString stringWithFormat:@"Check out this Instagram photo I saw on @carogramapp: %@", self.media.instagramURL];
+    NSString *initialText = [NSString stringWithFormat:@"Check out this Instagram photo I saw on @getcarogram: %@", self.media.instagramURL];
     [tweetSheet setInitialText:initialText];
     [self presentModalViewController:tweetSheet animated:YES];
 }
