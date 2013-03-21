@@ -359,7 +359,7 @@ static int userRelationshipObserverContext;
     
     [self configureFollowButtonWithOutgoingStatus:relationship.outgoingStatus];
     
-    if (relationship.isPrivate) {
+    if (relationship.isPrivate && relationship.outgoingStatus != WFIGOutgoingStatusFollows) {
         [self showPrivateUserLabel];
     } else {
         if (! [self.user hasBasicInfo]) {

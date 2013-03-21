@@ -51,7 +51,7 @@
         self.currentPagingMediaController.view.hidden = YES;
         
         [self.user relationshipWithCompletion:^(WFIGUser *user, WFIGRelationship *relationship, NSError *error) {
-            if (relationship.isPrivate) {
+            if (relationship.isPrivate && relationship.outgoingStatus != WFIGOutgoingStatusFollows) {
                 [self setProgressViewShown:NO];
                 self.currentPagingMediaController.view.hidden = NO;
             } else {
@@ -59,9 +59,11 @@
             }
         }];
     } else {
-        if (self.user.relationship.isPrivate) {
+        if (self.user.relationship.isPrivate && self.user.relationship.outgoingStatus != WFIGOutgoingStatusFollows) {
             [self setProgressViewShown:NO];
             self.currentPagingMediaController.view.hidden = NO;
+        } else {
+            [self loadMediaCollection];
         }
     }
 }
@@ -79,7 +81,8 @@
 
 - (void)loadMediaCollection
 {
-    if (self.user.relationship == nil || self.user.relationship.isPrivate) return;
+    if (! self.user.relationship) return;
+    if (self.user.relationship.isPrivate && self.user.relationship.outgoingStatus != WFIGOutgoingStatusFollows) return;
     
     [self setProgressViewShown:YES];
     self.currentPagingMediaController.view.hidden = YES;
