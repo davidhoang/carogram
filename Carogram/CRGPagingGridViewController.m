@@ -209,6 +209,15 @@ static NSString * const MediaCollectionKeyPath = @"mediaCollection";
     }
 }
 
+- (void)setCurrentPage:(int)page animated:(BOOL)animated
+{
+    [super setCurrentPage:page animated:animated];
+
+    if ([self currentPage] >= ([self.gridViewControllers count] - 2)) {
+        [self loadMoreMedia];
+    }
+}
+
 - (void)loadMoreMedia
 {
     if ([self.mediaCollection hasNextPage] && [self.delegate respondsToSelector:@selector(loadMoreMedia)]) {
