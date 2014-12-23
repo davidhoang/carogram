@@ -10,6 +10,10 @@
 	<string>Carogram</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+		<key>DB313A8E8F1188D23842211FB6D59504537D1532</key>
+		<string>git://github.com/Xhatch/WFInstagramAPI.git</string>
+		<key>E28E36D423EC87798E52E2BF482E9F7A1E6479D6</key>
+		<string>https://github.com/rs/SDWebImage.git</string>
 		<key>E9B355D5734676DF0E2295A921F91185B2B7C39D</key>
 		<string>https://github.com/Xhatch/CarogramMobile.git</string>
 	</dict>
@@ -17,6 +21,10 @@
 	<string>Carogram.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
+		<key>DB313A8E8F1188D23842211FB6D59504537D1532</key>
+		<string>../../WFInstagramAPI/</string>
+		<key>E28E36D423EC87798E52E2BF482E9F7A1E6479D6</key>
+		<string>../../SDWebImage/</string>
 		<key>E9B355D5734676DF0E2295A921F91185B2B7C39D</key>
 		<string>../..</string>
 	</dict>
@@ -35,6 +43,22 @@
 			<string>E9B355D5734676DF0E2295A921F91185B2B7C39D</string>
 			<key>IDESourceControlWCCName</key>
 			<string>CarogramMobile</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>E28E36D423EC87798E52E2BF482E9F7A1E6479D6</string>
+			<key>IDESourceControlWCCName</key>
+			<string>SDWebImage</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>DB313A8E8F1188D23842211FB6D59504537D1532</string>
+			<key>IDESourceControlWCCName</key>
+			<string>WFInstagramAPI</string>
 		</dict>
 	</array>
 </dict>
